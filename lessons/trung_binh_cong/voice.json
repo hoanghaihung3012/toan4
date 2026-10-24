@@ -1,0 +1,116 @@
+{
+  "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs trung_binh_cong. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+  "scene": "tbc",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "-8%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    { "id": "beat1", "lead": 0.9, "tail": 0.4,
+      "lines": [
+        { "id": "L1", "text": "Can thứ nhất có 6 lít dầu, can thứ hai có 4 lít dầu." },
+        { "id": "L2", "text": "Nếu rót đều vào hai can, thì mỗi can có mấy lít?" },
+        { "id": "L3", "gap": 0.6, "text": "Rót đều, mỗi can có 5 lít." },
+        { "id": "L4", "text": "Ta nói: trung bình cộng của 6 và 4 là 5." }
+      ],
+      "windows": {
+        "title":  ["beat^", 1.2, "out", 0.2],
+        "cans":   ["L1.Can", 1.0],
+        "fillA":  ["L1.6", 1.1, "raw"],
+        "fillB":  ["L1.4", 1.0, "raw"],
+        "labels": ["L1.dầu#2", 0.6],
+        "q":      ["L2.rót", 0.6, "spring"],
+        "qOut":   ["L3.Rót", 0.4, "raw", -0.5],
+        "move":   ["L3.Rót", 1.4, "raw", -0.2],
+        "level":  ["L3.mỗi", 0.5],
+        "fix":    ["L3.5", 0.7, "raw"],
+        "tbc":    ["L4.trung", "L4.4>"],
+        "loop":   ["L4.5", 0.5]
+      }
+    },
+    { "id": "beat2", "prev": "beat1", "lead": 1.0, "tail": 0.4,
+      "lines": [
+        { "id": "L5", "text": "Ba lớp có 25, 27 và 32 học sinh." },
+        { "id": "L6", "text": "Nếu chia đều số học sinh cho ba lớp thì sao?" },
+        { "id": "L7", "gap": 1.0, "text": "Tổng là 25 cộng 27 cộng 32, bằng 84." },
+        { "id": "L8", "text": "Chia 3, được 28. Trung bình mỗi lớp có 28 học sinh." }
+      ],
+      "windows": {
+        "wipe":   ["beat^", 1.2, "raw"],
+        "title":  ["beat^", 1.0, "out", 1.2],
+        "bars":   ["L5.Ba", 1.4, "raw"],
+        "labels": ["L5.25", 0.8],
+        "cut":    ["L6.chia", 0.5, "raw"],
+        "move1":  ["L6.cho", 1.1, "raw"],
+        "move3":  ["L6.thì", 1.3, "raw", -0.1],
+        "level":  ["L6$", 0.5, "out", 0.5],
+        "f1":     ["L7.Tổng", "L7.32>"],
+        "f2":     ["L7.bằng", "L8.28>"],
+        "loop":   ["L8.28", 0.5],
+        "tag":    ["L8.Trung", 0.7]
+      }
+    },
+    { "id": "beat3", "prev": "beat2", "lead": 1.0, "tail": 0.4,
+      "lines": [
+        { "id": "L9", "text": "Ghi nhớ: muốn tìm số trung bình cộng của nhiều số, ta tính tổng các số đó, rồi chia tổng cho số các số hạng." }
+      ],
+      "windows": {
+        "wipe":   ["beat^", 1.2, "raw"],
+        "title":  ["L9.Ghi", 0.8],
+        "frame":  ["L9.muốn", 0.8],
+        "l1":     ["L9.trung", 1.2],
+        "l2":     ["L9.tổng", "L9.hạng>"]
+      }
+    },
+    { "id": "beat4", "lead": 0.3, "tail": 0.4,
+      "lines": [
+        { "id": "L10", "text": "Lật ngược lại: muốn tìm tổng, ta lấy trung bình cộng nhân với số các số hạng." },
+        { "id": "L11", "text": "Ví dụ: trung bình cộng của bốn số là 54." },
+        { "id": "L12", "text": "Tổng là 54 nhân 4, bằng 216." }
+      ],
+      "windows": {
+        "arrow":  ["L10.Lật", 0.6],
+        "frame2": ["L10.muốn", 0.8],
+        "r1":     ["L10.tổng", "L10.hạng>"],
+        "r2":     ["L11.Ví", "L11.54>"],
+        "r3":     ["L12.Tổng", "L12.216>"],
+        "loop":   ["L12.216", 0.6, "out", 0.3]
+      }
+    },
+    { "id": "beat5", "prev": "beat4", "lead": 1.0, "tail": 2.4,
+      "lines": [
+        { "id": "L13", "text": "Thử sức nhé! Trung bình cộng số học sinh của ba lớp là 28." },
+        { "id": "L14", "text": "Lớp A có 25, lớp B có 27." },
+        { "id": "L15", "text": "Lớp C có bao nhiêu học sinh?" }
+      ],
+      "windows": {
+        "wipe":   ["beat^", 1.2, "raw"],
+        "title":  ["L13.Thử", 0.8],
+        "given":  ["L13.Trung", "L13.28>"],
+        "bars":   ["L14.Lớp", 1.2, "raw"],
+        "labels": ["L14.25", "L14.27>"],
+        "level":  ["L15.Lớp", 0.5],
+        "q":      ["L15.bao", 0.5, "spring"],
+        "dot1":   ["L15$", 0.4, "raw", 0.3],
+        "dot2":   ["L15$", 0.4, "raw", 1.0],
+        "dot3":   ["L15$", 0.4, "raw", 1.7]
+      }
+    },
+    { "id": "beat6", "lead": 0.5, "tail": 0.9,
+      "lines": [
+        { "id": "L16", "text": "Tổng ba lớp là 28 nhân 3, bằng 84." },
+        { "id": "L17", "text": "Bớt đi 25 và 27, còn 32." },
+        { "id": "L18", "text": "Lớp C có 32 học sinh, đúng bằng lớp ở ví dụ lúc nãy!" }
+      ],
+      "windows": {
+        "dotsOut": ["beat^", 0.4, "raw"],
+        "s1":      ["L16.Tổng", "L16.84>"],
+        "s2":      ["L17.Bớt", "L17.32>"],
+        "grow":    ["L17.còn", 1.1, "raw"],
+        "label":   ["L18.Lớp", 0.6],
+        "loop":    ["L18.32", 0.6],
+        "check":   ["L18.đúng", 0.7, "raw"]
+      }
+    }
+  ]
+}

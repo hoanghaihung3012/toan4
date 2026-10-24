@@ -1,0 +1,50 @@
+// Shared headless-Chrome setup: serves the project, opens the player in capture mode and
+// returns shot(t) -> PNG buffer. Used by capture.mjs and inspect.mjs.
+import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
+import { startServer } from './serve.mjs';
+import { THEME } from '../web/theme.js';
+
+export const CHROME_DEFAULT = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+export const { width: W, height: H } = THEME.canvas;
+
+// --key value / --flag -> { key: value | true }
+export function parseArgs(argv) {
+  const out = { _: [] };
+  for (let i = 0; i < argv.length; i++) {
+    const a = argv[i];
+    if (!a.startsWith('--')) { out._.push(a); continue; }
+    const next = argv[i + 1];
+    if (next !== undefined && !next.startsWith('--')) { out[a.slice(2)] = next; i++; } else out[a.slice(2)] = true;
+  }
+  return out;
+}
+
+export async function launch(chrome = CHROME_DEFAULT) {
+  return puppeteer.launch({
+    executablePath: chrome,
+    headless: true,
+    args: ['--force-color-profile=srgb', '--disable-lcd-text', '--font-render-hinting=none'],
+  });
+}
+
+export async function openPlayer({ timingPath = 'timing/timing.json', scene, chrome } = {}) {
+  const timing = JSON.parse(fs.readFileSync(timingPath, 'utf8'));
+  const server = await startServer(0);
+  const browser = await launch(chrome);
+  const page = await browser.newPage();
+  await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
+  page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'assert') console.error('[page]', m.text()); });
+  page.on('pageerror', (e) => console.error('[page error]', e.message));
+  const q = new URLSearchParams({ capture: '1', timing: `/${timingPath}` });
+  if (scene) q.set('scene', scene); // otherwise timing.json's "scene"
+  await page.goto(`http://127.0.0.1:${server.address().port}/web/index.html?${q}`, { waitUntil: 'networkidle0' });
+  await page.evaluate(() => window.ready);
+  // scale < 1 returns a downscaled frame (contact sheets)
+  const shot = async (t, scale = 1) => {
+    await page.evaluate((tt) => window.renderFrame(tt), t);
+    return page.screenshot({ type: 'png', clip: { x: 0, y: 0, width: W, height: H, scale }, optimizeForSpeed: true });
+  };
+  const close = async () => { await browser.close(); server.close(); };
+  return { timing, fps: timing.fps || THEME.canvas.fps, browser, page, shot, close };
+}

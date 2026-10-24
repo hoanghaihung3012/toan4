@@ -1,0 +1,16 @@
+{
+  "_note": "Voiceover script + where each animation window starts. Build: node render/voice.mjs example. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L1.word' (word start), 'L1.word>' (word end), 'L1.word#2' (2nd occurrence), 'L1^' / 'L1$' (line start / end), 'beat^' (beat start).",
+  "scene": "blank",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "-8%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    { "id": "board", "lead": 0.6, "tail": 0.6,
+      "lines": [
+        { "id": "L1", "text": "Xin chào các bạn." }
+      ],
+      "windows": {}
+    }
+  ]
+}

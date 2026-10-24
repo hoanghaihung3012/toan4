@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "chalkboard-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["render/serve.mjs", "8123"],
+      "port": 8123
+    },
+    {
+      "name": "chalkboard-preview-8124",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["render/serve.mjs", "8124"],
+      "port": 8124
+    }
+  ]
+}
