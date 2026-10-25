@@ -30,3 +30,10 @@ Length 50.93 s · 7 beats · voice vi-VN-HoaiMyNeural, rate +8 %. No question nu
 - The yellow circle around the ladder's 7 (beat 4) disappears at the cut to beat 5 without being erased.
 - The bottom ~320 px stay empty by design (TikTok caption area, `THEME.safeArea`).
 - No AI key-art images were generated (no image tool in this session). The key poses rendered from code are the style reference and were checked against the approved board style (`.claude/skills/chalkboard-html-lesson/references/board.png`).
+
+## Preview
+GitHub Pages: https://hoanghaihung3012.github.io/toan4/ban_3_mui_ten/ (shared player + this lesson, voice as MP3).
+Approved by the user on 2026-10-25.
+
+## Final MP4 (after preview approval)
+`lessons/ban_3_mui_ten/out/ban_3_mui_ten.mp4` (committed): 50.93 s, 1525 frames, 1080×1920 @ 30 fps H.264, AAC 48 kHz stereo, −15.9 LUFS, true peak −2.8 dBFS. silencedetect (> 1.2 s): 30.0–31.7, 36.1–38.2, 42.5–45.8, 49.7–50.9; these are the eraser, the full wipe, the countdown and the end tail. freezedetect (n = 0.001, d = 4 s): no freeze.
