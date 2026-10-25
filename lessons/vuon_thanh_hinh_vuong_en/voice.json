@@ -1,0 +1,114 @@
+{
+ "_note": "English voiceover for the vuon_thanh_hinh_vuong scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs vuon_thanh_hinh_vuong_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+ "scene": "vuon_thanh_hinh_vuong",
+ "lang": "en",
+ "final": "garden_becomes_a_square",
+ "voice": "en-US-AvaNeural",
+ "rate": "+10%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.4, "tail": 0.3,
+   "lines": [
+    { "id": "L1", "text": "A rectangular garden has a perimeter of 120 meters." },
+    { "id": "L2", "text": "Add 10 meters to the width, take 10 off the length, and it becomes a square." },
+    { "id": "L3", "text": "Find the area of the original garden!" }
+   ],
+   "windows": {
+    "title": ["beat^", 0.8],
+    "garden": ["beat^", 1.4, "raw", 0.1],
+    "trace": ["L1.perimeter", 1.1, "raw"],
+    "per": ["L1.120", 0.8],
+    "wid": ["L2.width", 1.0, "raw"],
+    "len": ["L2.length", 1.0, "raw"],
+    "sq": ["L2.square", 0.8, "raw"],
+    "area": ["L3.area", 1.2, "raw"],
+    "ask": ["L3.area", 0.9],
+    "dots": ["L3$", 2.2, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L4", "text": "Half the perimeter is the length plus the width." },
+    { "id": "L5", "text": "120 divided by 2 makes 60 meters." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "fig": ["beat^", 0.9, "raw", 1.15],
+    "half": ["L4.Half", 0.9, "raw"],
+    "fly": ["L4.length", "L4$", "raw"],
+    "eq": ["L5^", "L5$"],
+    "brace": ["L5.60", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 0.3, "tail": 0.3,
+   "lines": [
+    { "id": "L6", "text": "Take 10 meters off the length, add 10 to the width, and the sides are equal." },
+    { "id": "L7", "text": "So the length is longer by 10 plus 10, which makes 20 meters." }
+   ],
+   "windows": {
+    "rows": ["L6^", 0.9, "raw"],
+    "cut": ["L6.10", 1.0, "raw"],
+    "add": ["L6.add", 1.0, "raw"],
+    "same": ["L6.equal", 0.8, "raw"],
+    "gap": ["L7.longer", 1.0, "raw"],
+    "e1": ["L7.10", "L7$"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L8", "text": "The sum is 60, the difference is 20." },
+    { "id": "L9", "text": "Length: 60 plus 20, divided by 2, makes 40 meters." },
+    { "id": "L10", "text": "Width: 60 minus 40 makes 20 meters." }
+   ],
+   "windows": {
+    "hl": ["L8^", "L8$", "raw"],
+    "e2": ["L9^", "L9$"],
+    "e3": ["L10^", "L10$"]
+   }
+  },
+  {
+   "id": "beat5", "prev": "beat4", "lead": 1.05, "tail": 0.4,
+   "lines": [
+    { "id": "L11", "text": "Area: 40 times 20 makes 800 square meters." },
+    { "id": "L12", "text": "Check: 40 minus 10 makes 30, 20 plus 10 makes 30. It really is a square!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "fig": ["beat^", 0.9, "raw", 1.15],
+    "area": ["L11^", 1.2, "raw"],
+    "dims": ["L11.40", 0.8, "raw"],
+    "eq": ["L11.40", "L11.20>"],
+    "res": ["L11.800", 1.0, "raw"],
+    "c1": ["L12.40", "L12.30>"],
+    "c2": ["L12.20", "L12.30#2>"],
+    "ok": ["L12.really", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "prev": "beat5", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L13", "text": "Your turn: a perimeter of 100 meters, same rule: add 10 to the width, take 10 off the length, and it's a square." },
+    { "id": "L14", "text": "What is the area? Comment below!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L13^", 0.8],
+    "garden": ["L13^", 1.2, "raw"],
+    "trace": ["L13.perimeter", 1.1, "raw"],
+    "per": ["L13.100", 0.8],
+    "wid": ["L13.width", 1.0, "raw"],
+    "len": ["L13.length", 1.0, "raw"],
+    "sq": ["L13.square", 0.8, "raw"],
+    "ask": ["L14^", 0.9],
+    "area": ["L14^", 1.2, "raw"],
+    "cmt": ["L14.Comment", 0.9],
+    "count": ["L14$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}

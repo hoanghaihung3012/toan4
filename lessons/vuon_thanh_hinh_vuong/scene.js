@@ -26,6 +26,24 @@ const chLen = (CH / 2 + DIFF) / 2, chWid = CH / 2 - chLen;
 console.assert(chLen === 35 && chWid === 15 && chLen * chWid === 525, 'challenge: 35 × 15 = 525 (not shown)');
 const S = String;
 
+// --- board text (an English version overrides it, see lessons/vuon_thanh_hinh_vuong_en) ------
+export const TEXT = {
+  title: 'Mảnh vườn hình chữ nhật',
+  yourTurn: 'Đến lượt bạn!',
+  lenQ: 'dài ?',
+  widQ: 'rộng ?',
+  square: 'hình vuông',
+  per: 'Chu vi',
+  area: 'Diện tích',
+  comment: 'Bình luận đáp án nhé!',
+  len: 'dài',
+  wid: 'rộng',
+  sum: 'tổng',
+  div: ':',
+};
+// layout tweaks for longer words in another language (defaults = the Vietnamese layout)
+export const FIT = { cmpLenX: 70, cmpWidX: 56, cmpLenSize: 52, cmpWidSize: 50, eqSize: 64 };
+
 // --- helpers -------------------------------------------------------------------------------
 const T = THEME.layout.title;
 function heading(L, s, t, color = CHALK.white) {
@@ -72,8 +90,8 @@ function problemBoard(ctx, p, { title, per, challenge = false }) {
     dy: side === 'right' ? hopY(len, 22) : side === 'bottom' ? hopY(wid, 22) : 0,
   }), { glow: Math.sin(Math.PI * clamp01(g(p, 'area'))) });
   const lab = clamp01(g(p, 'garden') * 2 - 1);
-  popLabel(L, 'dài ?', (l + r) / 2 - 80, t - 66, lab, { size: 66, color: CHALK.white });
-  popLabel(L, 'rộng ?', r + 135, (t + b) / 2 + 20, lab, { size: 66, color: CHALK.mint });
+  popLabel(L, TEXT.lenQ, (l + r) / 2 - 80, t - 66, lab, { size: 66, color: CHALK.white });
+  popLabel(L, TEXT.widQ, r + 135, (t + b) / 2 + 20, lab, { size: 66, color: CHALK.mint });
   traceBox(L, l, t, r, b, g(p, 'trace'), { seed: 10 });
   // + 10 m on the width: the square's sides grow down past the bottom fence
   const [sl, st, sr, sb] = SQ;
@@ -85,19 +103,19 @@ function problemBoard(ctx, p, { title, per, challenge = false }) {
   L.line([sr + 8, b - 14], [r, b + 14], { color: CHALK.red, width: 8, t: clamp01(len * 2), seed: 13 });
   L.dashed([sr, t + 12], [sr, sb], { color: CHALK.yellow, width: 6, t: clamp01(len * 2 - 1) });
   popLabel(L, `−${D} m`, (sr + r) / 2 + 20, t - 66, clamp01(len * 1.5 - 0.3), { size: 70, color: CHALK.red });
-  popLabel(L, 'hình vuông', (sl + sr) / 2, sb - 30, sq, { size: 60, color: CHALK.yellow });
+  popLabel(L, TEXT.square, (sl + sr) / 2, sb - 30, sq, { size: 60, color: CHALK.yellow });
   const [y1, y2] = P1.y;
-  row(L, ['Chu vi', '=', { s: `${per} m`, color: CHALK.yellow }], 540, y1, { size: 80, t: g(p, 'per'), seed: 20, gap: 0.3 });
-  row(L, ['Diện tích', '=', { s: '?', color: CHALK.yellow, size: 110 }, 'm²'], 540, y2, { size: 80, t: g(p, 'ask'), seed: 40, gap: 0.3 });
+  row(L, [TEXT.per, '=', { s: `${per} m`, color: CHALK.yellow }], 540, y1, { size: 80, t: g(p, 'per'), seed: 20, gap: 0.3 });
+  row(L, [TEXT.area, '=', { s: '?', color: CHALK.yellow, size: 110 }, 'm²'], 540, y2, { size: 80, t: g(p, 'ask'), seed: 40, gap: 0.3 });
   if (!challenge) {
     thinkingDots(L, 540, 1220, g(p, 'dots'), { gap: 80, r: 16 });
   } else {
     countdown(L, 540, 1250, g(p, 'count'), { size: 220 });
-    row(L, ['Bình luận đáp án nhé!'], 540, 1500, { size: 72, t: g(p, 'cmt'), seed: 50 });
+    row(L, [TEXT.comment], 540, 1500, { size: 72, t: g(p, 'cmt'), seed: 50 });
   }
 }
-const beat1 = (ctx, p) => problemBoard(ctx, p, { title: 'Mảnh vườn hình chữ nhật', per: PER });
-const beat6 = (ctx, p) => problemBoard(ctx, p, { title: 'Đến lượt bạn!', per: CH, challenge: true });
+const beat1 = (ctx, p) => problemBoard(ctx, p, { title: TEXT.title, per: PER });
+const beat6 = (ctx, p) => problemBoard(ctx, p, { title: TEXT.yourTurn, per: CH, challenge: true });
 
 // --- beats 2–4: half the fence -> dài + rộng = 60; dài − rộng = 20 ---------------------------
 const G2 = { box: [380, 290, 380 + LEN * 8, 290 + WID * 8] }; // 8 px per m
@@ -114,7 +132,7 @@ function halfBoard(ctx, beat, p) {
   const L = ctx.chalk(60);
   const [l, t, r, b] = G2.box;
   const fig = St('beat2', 'fig');
-  heading(L, `Chu vi ${PER} m`, fig);
+  heading(L, `${TEXT.per} ${PER} m`, fig);
   const half = St('beat2', 'half');
   const fly = St('beat2', 'fly');
   buildGarden(svg, G2.box, fig, (side) => ({ kind: side === 'left' || side === 'right' ? 'dec' : 'int' }));
@@ -130,14 +148,14 @@ function halfBoard(ctx, beat, p) {
     plank(svg, f.x, f.y, lerp(q.len0, q.len1, f.v), { kind: q.kind, angle: lerp(q.a0, 0, f.v), squash: f.squash, thick: 26 });
   });
   const landed = clamp01(fly * 2 - 1);
-  popLabel(L, 'dài', barL.cx, BAR.y - 34, landed, { size: 60, color: CHALK.white });
-  popLabel(L, 'rộng', barW.cx, BAR.y - 34, landed, { size: 60, color: CHALK.mint });
-  row(L, [S(PER), ':', '2', '=', { s: S(HALF), color: CHALK.yellow }], 540, 545, { size: 72, t: St('beat2', 'eq'), seed: 70, gap: 0.3 });
+  popLabel(L, TEXT.len, barL.cx, BAR.y - 34, landed, { size: 60, color: CHALK.white });
+  popLabel(L, TEXT.wid, barW.cx, BAR.y - 34, landed, { size: 60, color: CHALK.mint });
+  row(L, [S(PER), TEXT.div, '2', '=', { s: S(HALF), color: CHALK.yellow }], 540, 545, { size: 72, t: St('beat2', 'eq'), seed: 70, gap: 0.3 });
   const br = St('beat2', 'brace');
   const x0 = BAR.x0, x1 = BAR.x0 + HALF * BAR.k, yb = BAR.y + 30;
   L.poly([[x0, yb], [x0, yb + 16], [(x0 + x1) / 2 - 14, yb + 16], [(x0 + x1) / 2, yb + 32], [(x0 + x1) / 2 + 14, yb + 16], [x1, yb + 16], [x1, yb]],
     { color: CHALK.yellow, width: 6, t: br, seed: 71, amp: 0.8 });
-  popLabel(L, `tổng ${HALF} m`, (x0 + x1) / 2, yb + 96, clamp01(br * 2 - 0.6), { size: 66, pulse: stagger(hl, 0, 2, 0.6) });
+  popLabel(L, `${TEXT.sum} ${HALF} m`, (x0 + x1) / 2, yb + 96, clamp01(br * 2 - 0.6), { size: 66, pulse: stagger(hl, 0, 2, 0.6) });
 
   // beat 3: dài − 10 and rộng + 10 are equal, so dài is 10 + 10 = 20 longer
   const rows = St('beat3', 'rows');
@@ -162,8 +180,8 @@ function halfBoard(ctx, beat, p) {
     const f = flight([widX + 60, CMP.yW - 160], [(widX + sideX) / 2, CMP.yW], add, 40);
     plank(svg, f.x, f.y, D * BAR.k, { kind: 'dec', squash: f.squash, thick: 26 });
   }
-  L.text('dài', 70, CMP.yL + 18, { size: 52, t: rows });
-  L.text('rộng', 56, CMP.yW + 18, { size: 50, color: CHALK.mint, t: rows });
+  L.text(TEXT.len, FIT.cmpLenX, CMP.yL + 18, { size: FIT.cmpLenSize, t: rows });
+  L.text(TEXT.wid, FIT.cmpWidX, CMP.yW + 18, { size: FIT.cmpWidSize, color: CHALK.mint, t: rows });
   popLabel(L, `−${D}`, (sideX + lenX) / 2 + 10, CMP.yL - 42, clamp01(cut * 2), { size: 64, color: CHALK.red, pulse: St('beat3', 'gap') });
   popLabel(L, `+${D}`, (widX + sideX) / 2, CMP.yW + 78, clamp01(add * 2 - 1), { size: 64, color: CHALK.mint, pulse: St('beat3', 'gap') });
   L.dashed([sideX, CMP.yL - 50], [sideX, CMP.yW + 40], { color: CHALK.yellow, width: 5, t: St('beat3', 'same') });
@@ -174,14 +192,14 @@ function halfBoard(ctx, beat, p) {
   L.arrow([widX + 10, (CMP.yL + CMP.yW) / 2], [lenX - 10, (CMP.yL + CMP.yW) / 2], { color: CHALK.yellow, width: 6, t: gap, seed: 85, head: 22 });
   L.arrow([lenX - 10, (CMP.yL + CMP.yW) / 2], [widX + 10, (CMP.yL + CMP.yW) / 2], { color: CHALK.yellow, width: 6, t: gap, seed: 86, head: 22 });
   popLabel(L, `${DIFF} m`, lenX + 100, (CMP.yL + CMP.yW) / 2 + 22, clamp01(gap * 2 - 1), { size: 76, pulse: stagger(hl, 1, 2, 0.6) });
-  row(L, ['dài', { sym: 'minus' }, { s: 'rộng', color: CHALK.mint }, '=', S(D), '+', S(D), '=', { s: `${DIFF} m`, color: CHALK.yellow }], 540, EQ[0],
-    { size: 64, t: St('beat3', 'e1'), seed: 90, gap: 0.3 });
+  row(L, [TEXT.len, { sym: 'minus' }, { s: TEXT.wid, color: CHALK.mint }, '=', S(D), '+', S(D), '=', { s: `${DIFF} m`, color: CHALK.yellow }], 540, EQ[0],
+    { size: FIT.eqSize, t: St('beat3', 'e1'), seed: 90, gap: 0.3 });
 
   // beat 4: sum 60, difference 20
-  const xl = row(L, ['dài', '=', `(${HALF} + ${DIFF})`, ':', '2', '=', { s: `${LEN} m`, color: CHALK.yellow }], 540, EQ[1],
-    { size: 64, t: St('beat4', 'e2'), seed: 100, gap: 0.3 });
-  const xw = row(L, [{ s: 'rộng', color: CHALK.mint }, '=', S(HALF), { sym: 'minus' }, S(LEN), '=', { s: `${WID} m`, color: CHALK.yellow }], 540, EQ[2],
-    { size: 64, t: St('beat4', 'e3'), seed: 110, gap: 0.3 });
+  const xl = row(L, [TEXT.len, '=', `(${HALF} + ${DIFF})`, TEXT.div, '2', '=', { s: `${LEN} m`, color: CHALK.yellow }], 540, EQ[1],
+    { size: FIT.eqSize, t: St('beat4', 'e2'), seed: 100, gap: 0.3 });
+  const xw = row(L, [{ s: TEXT.wid, color: CHALK.mint }, '=', S(HALF), { sym: 'minus' }, S(LEN), '=', { s: `${WID} m`, color: CHALK.yellow }], 540, EQ[2],
+    { size: FIT.eqSize, t: St('beat4', 'e3'), seed: 110, gap: 0.3 });
   burst(L, xl[6], EQ[1] - 22, 60, clamp01(St('beat4', 'e2') * 1.6 - 0.6), { seed: 120 });
   burst(L, xw[6], EQ[2] - 22, 60, clamp01(St('beat4', 'e3') * 1.6 - 0.6), { seed: 125 });
 }
@@ -198,7 +216,7 @@ function beat5(ctx, p) {
   const L = ctx.chalk(60);
   const [l, t, r, b] = G5.box;
   const fig = g(p, 'fig');
-  heading(L, 'Diện tích', fig);
+  heading(L, TEXT.area, fig);
   fence(svg, l, t, r, b, (side) => {
     const { scale, squash } = pop(stagger(fig, ['top', 'right', 'bottom', 'left'].indexOf(side), 4, 0.45));
     return { scale, squash, kind: side === 'left' || side === 'right' ? 'dec' : 'int' };
@@ -207,7 +225,7 @@ function beat5(ctx, p) {
   const dims = g(p, 'dims');
   popLabel(L, `${LEN} m`, (l + r) / 2, b + 90, dims, { size: 72, color: CHALK.white });
   popLabel(L, `${WID} m`, r + 95, (t + b) / 2 + 24, clamp01(dims * 1.4 - 0.2), { size: 72, color: CHALK.mint });
-  row(L, ['Diện tích', '=', S(LEN), { sym: 'times' }, S(WID)], 540, 830, { size: 76, t: g(p, 'eq'), seed: 130, gap: 0.3 });
+  row(L, [TEXT.area, '=', S(LEN), { sym: 'times' }, S(WID)], 540, 830, { size: 76, t: g(p, 'eq'), seed: 130, gap: 0.3 });
   const res = g(p, 'res');
   const xr = row(L, ['=', { s: `${AREA} m²`, color: CHALK.yellow, size: 104 }], 540, 960, { size: 76, t: clamp01(res * 2), seed: 140, gap: 0.9 });
   L.loop(xr[1] + 8, 960 - 34, 200, 80, { color: CHALK.yellow, width: 8, t: clamp01(res * 1.6 - 0.6), seed: 145 });
@@ -219,7 +237,7 @@ function beat5(ctx, p) {
   L.loop(a[4], 1170 - 24, 54, 48, { color: CHALK.yellow, width: 6, t: clamp01(c1 * 2 - 1), seed: 170 });
   L.loop(bb[4], 1280 - 24, 54, 48, { color: CHALK.yellow, width: 6, t: clamp01(c2 * 2 - 1), seed: 171 });
   mark(L, true, 760, 1215, g(p, 'ok'), { size: 90, seed: 180 });
-  popLabel(L, 'hình vuông', 540, 1420, g(p, 'ok'), { size: 64, color: CHALK.yellow });
+  popLabel(L, TEXT.square, 540, 1420, g(p, 'ok'), { size: 64, color: CHALK.yellow });
 }
 
 export const scenes = { beat1, beat2, beat3, beat4, beat5, beat6 };
