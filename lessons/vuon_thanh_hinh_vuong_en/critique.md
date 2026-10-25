@@ -13,3 +13,8 @@ Bản tiếng Anh dùng lại cảnh của `vuon_thanh_hinh_vuong`; chỉ chữ 
    - "length ?" with "−10 m" right beside it at the top of the garden can read as a value; the red cut strip and the dashed square explain it. Same as the Vietnamese layout.
    - Comparison-bar labels are small at phone size (44 px): the price of the longer English words without moving the bars. Kept.
    - Voice runs 65.0 s vs 59.8 s in Vietnamese (English at +10%, the skill's upper rate); lines were already shortened once from 71 s.
+
+## Final MP4 (`final/2026-10-26/garden_becomes_a_square.mp4`)
+- Duration 65.000 s (= timing.json), 1080×1920 @ 30 fps, AAC 48 kHz **stereo**, true peak **−1.5 dBFS** (< −1).
+- Silences > 1.5 s: 11.2–15.0 s (thinking dots after the question + eraser wipe), 39.5–41.2 s and 50.5–52.1 s (eraser wipes between beats), 62.0–65.0 s (3-2-1 countdown). All intended, no dead air.
+- `freezedetect` flags 35.4–39.9 s: the only change there is the small chalk line "width = 60 − 40 = 20 m" being written with its burst (checked on frames 35.5 / 37.5 / 39.5 s). Same small-cue case as the Vietnamese clip.
