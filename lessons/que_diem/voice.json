@@ -1,0 +1,131 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs que_diem. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "que_diem",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.5, "tail": 0.4,
+   "lines": [
+    { "id": "L1", "text": "Hình thứ 99 có bao nhiêu que diêm?" },
+    { "id": "L2", "text": "Đếm từng que thì mệt lắm. Xem mẹo nhé!" }
+   ],
+   "windows": {
+    "title": ["beat^", 0.7],
+    "houses": ["beat^", 2.4, "raw", 0.1],
+    "tag": ["L1.99", 0.8],
+    "q": ["L1.bao", 0.8, "raw"],
+    "count": ["L2.Đếm", 1.0],
+    "cross": ["L2.mệt", 0.6, "raw"],
+    "tip": ["L2.mẹo", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L3", "text": "Hình 1 là một ngôi nhà." },
+    { "id": "L4", "text": "Đếm nhé: 1, 2, 3, 4, 5, 6. Có 6 que." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "label": ["L3^", 0.7],
+    "house": ["L3.ngôi", 1.1, "raw"],
+    "s1": ["L4.1", 0.5, "raw"],
+    "s2": ["L4.2", 0.5, "raw"],
+    "s3": ["L4.3", 0.5, "raw"],
+    "s4": ["L4.4", 0.5, "raw"],
+    "s5": ["L4.5", 0.5, "raw"],
+    "s6": ["L4.6", 0.5, "raw"],
+    "total": ["L4.6#2", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 0.3, "tail": 0.3,
+   "lines": [
+    { "id": "L5", "text": "Hình 2 thêm một ngôi nhà." },
+    { "id": "L6", "text": "Bức tường ở giữa dùng chung, nên chỉ cần thêm 5 que." },
+    { "id": "L7", "text": "6 cộng 5 bằng 11." }
+   ],
+   "windows": {
+    "label": ["L5^", 0.7],
+    "old": ["L5.thêm", 0.9, "raw"],
+    "wall": ["L6.Bức", 0.9, "raw"],
+    "new": ["L6.5", 1.2, "raw"],
+    "plus": ["L7^", 0.9, "raw"],
+    "total": ["L7.11", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L8", "text": "Hình 3 thêm 5 que nữa. 11 cộng 5 bằng 16." },
+    { "id": "L9", "text": "Cứ thêm một nhà là thêm 5 que." }
+   ],
+   "windows": {
+    "label": ["L8^", 0.7],
+    "old": ["L8^", 0.9, "raw", 0.1],
+    "new": ["L8.5", 1.2, "raw"],
+    "plus": ["L8.11", 0.9, "raw"],
+    "total": ["L8.16", 0.8, "raw"],
+    "loops": ["L9.5", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "prev": "beat4", "lead": 1.05, "tail": 0.4,
+   "lines": [
+    { "id": "L10", "text": "Mỗi ngôi nhà cần 5 que, cộng thêm 1 que tường đầu tiên." },
+    { "id": "L11", "text": "Hình 3: 1 cộng 5 nhân 3 bằng 16. Đúng rồi!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "fig": ["beat^", 0.9, "raw", 1.15],
+    "groups": ["L10.5", 1.5, "raw"],
+    "wall": ["L10.1", 0.9, "raw"],
+    "eq": ["L11^", "L11.16>"],
+    "ok": ["L11.Đúng", 0.7, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "lead": 0.3, "tail": 0.5,
+   "lines": [
+    { "id": "L12", "text": "Vậy hình 99 có 1 cộng 5 nhân 99." },
+    { "id": "L13", "text": "5 nhân 99 bằng 495. Cộng 1, được 496 que." },
+    { "id": "L14", "text": "Chọn đáp án B!" }
+   ],
+   "windows": {
+    "eq": ["L12.hình", "L12$"],
+    "mul": ["L13^", "L13.495>"],
+    "plus1": ["L13.Cộng", 0.7, "raw"],
+    "res": ["L13.496", 0.8, "raw"],
+    "opts": ["L14^", 0.7],
+    "pick": ["L14.B", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat7", "prev": "beat6", "lead": 1.05, "tail": 0.2,
+   "lines": [
+    { "id": "L15", "text": "Đến lượt bạn: hình 10 có bao nhiêu que diêm?" },
+    { "id": "L16", "text": "Bình luận đáp án nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "label": ["L15^", 0.8],
+    "houses": ["L15.hình", 1.5, "raw"],
+    "q": ["L15.bao", 0.8, "raw"],
+    "count": ["L16$", 2.4, "raw", 0.15]
+   }
+  },
+  {
+   "id": "beat8", "lead": 0.3, "tail": 1.2,
+   "lines": [
+    { "id": "L17", "text": "Đáp án: 1 cộng 5 nhân 10, bằng 51 que!" }
+   ],
+   "windows": {
+    "ans": ["L17^", "L17.51>"],
+    "loop": ["L17.51", 0.9, "raw"]
+   }
+  }
+ ]
+}
