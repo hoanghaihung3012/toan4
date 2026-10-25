@@ -1,9 +1,9 @@
 // Voiceover -> audio + timing. Reads lessons/<lesson>/voice.json, synthesises every line
 // with Edge TTS (render/tts_words.py, cached per line), lays the lines out on one timeline,
 // resolves each animation window from its word anchor and writes:
-//   audio/<lesson>/voice.wav      48 kHz stereo mix, loudness-normalised, peaks < -1 dBFS
-//   audio/<lesson>/cues.json      every word with its absolute time (for the sync check)
-//   timing/<scene>.json           what the player reads
+//   lessons/<lesson>/audio/voice.wav   48 kHz stereo mix, loudness-normalised, peaks < -1 dBFS
+//   lessons/<lesson>/audio/cues.json   every word with its absolute time (for the sync check)
+//   lessons/<lesson>/timing.json       what the player reads
 //
 //   node render/voice.mjs trung_binh_cong [--force]
 import { execFileSync } from 'node:child_process';
@@ -16,7 +16,7 @@ const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
 if (!lesson) throw new Error('usage: node render/voice.mjs <lesson> [--force]');
 const spec = JSON.parse(fs.readFileSync(`lessons/${lesson}/voice.json`, 'utf8'));
-const outDir = `audio/${lesson}`;
+const outDir = `lessons/${lesson}/audio`;
 const lineDir = path.join(outDir, 'lines');
 fs.mkdirSync(lineDir, { recursive: true });
 const PY = '.venv/bin/python';
@@ -52,7 +52,7 @@ let cursor = 0;
 const lines = {};
 const timing = {
   _note: `Built from the voiceover by render/voice.mjs (lessons/${lesson}/voice.json). Do not edit by hand.`,
-  draft: false, scene: spec.scene, fps: spec.fps, duration: 0, audio: `/${outDir}/voice.wav`, beats: [],
+  draft: false, scene: './scene.js', fps: spec.fps, duration: 0, audio: './audio/voice.wav', beats: [],
 };
 
 for (const beat of spec.beats) {
@@ -98,7 +98,7 @@ for (const beat of spec.beats) {
   cursor = end;
 }
 timing.duration = Math.round(cursor * 1000) / 1000;
-fs.writeFileSync(`timing/${spec.scene}.json`, `${JSON.stringify(timing, null, 1)}\n`);
+fs.writeFileSync(`lessons/${lesson}/timing.json`, `${JSON.stringify(timing, null, 1)}\n`);
 fs.writeFileSync(path.join(outDir, 'cues.json'), `${JSON.stringify(Object.values(lines).map(
   ({ id, start, end, words }) => ({ id, start, end, words })), null, 1)}\n`);
 
@@ -111,4 +111,4 @@ const mix = `${delays};${order.map((_, i) => `[a${i}]`).join('')}amix=inputs=${o
   + 'loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000[out]';
 execFileSync('ffmpeg', ['-y', '-loglevel', 'error', ...inputs, '-filter_complex', mix, '-map', '[out]',
   '-c:a', 'pcm_s16le', path.join(outDir, 'voice.wav')], { stdio: 'inherit' });
-console.log(`wrote timing/${spec.scene}.json, ${outDir}/voice.wav (${timing.duration}s, ${order.length} lines)`);
+console.log(`wrote lessons/${lesson}/timing.json, ${outDir}/voice.wav (${timing.duration}s, ${order.length} lines)`);

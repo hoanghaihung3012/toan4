@@ -1,7 +1,7 @@
 // Player: reads timing.json, turns time into per-key progress, renders one frame.
 // window.renderFrame(t) is deterministic, so the capture script can step it frame by frame.
-// URL params: ?capture=1 (1:1 stage, no controls), ?timing=path, ?scene=module name.
-// The scene module defaults to timing.json's "scene" field (web/js/scenes/<scene>.js).
+// URL params: ?capture=1 (1:1 stage, no controls), ?lesson=name, ?timing=path, ?scene=module path.
+// Scene and audio paths are relative to the lesson's timing.json.
 import { ChalkLayer, resetIds, W } from './chalk.js';
 import { clamp01, easeOutCubic, easeInOut, spring } from './ease.js';
 import { buildBoard } from './board.js';
@@ -11,7 +11,8 @@ import { drawEraser, wipePose, sweptMask, sweepOff } from './eraser.js';
 
 const params = new URLSearchParams(location.search);
 const capture = params.has('capture');
-const timingUrl = params.get('timing') || '../timing/timing.json';
+const lesson = params.get('lesson') || 'decimal';
+const timingUrl = params.get('timing') || `/lessons/${encodeURIComponent(lesson)}/timing.json`;
 
 const stage = document.getElementById('stage');
 if (capture) document.body.classList.add('capture');
@@ -94,8 +95,9 @@ async function init() {
   await applyTheme();
   buildBoard(stage);
   timing = await (await fetch(timingUrl)).json();
-  const sceneName = params.get('scene') || timing.scene || 'blank';
-  ({ scenes } = await import(`./scenes/${sceneName}.js`));
+  const sceneName = params.get('scene') || timing.scene || './scene.js';
+  const sceneUrl = new URL(sceneName, new URL(timingUrl, location.href)).href;
+  ({ scenes } = await import(sceneUrl));
   await document.fonts.ready;
   window.timing = timing;
   window.renderFrame = renderFrame;
@@ -117,7 +119,7 @@ function setupPreview() {
   const btn = document.getElementById('play');
   let t = 0, playing = false, last = 0;
   // voiceover (timing.audio) plays along in the preview; the player clock follows it
-  const audio = timing.audio ? new Audio(timing.audio) : null;
+  const audio = timing.audio ? new Audio(new URL(timing.audio, new URL(timingUrl, location.href)).href) : null;
   const show = () => {
     beatLabel.textContent = renderFrame(t);
     label.textContent = `${t.toFixed(2)} s`;

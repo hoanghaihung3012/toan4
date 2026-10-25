@@ -6,7 +6,7 @@
 //   node render/inspect.mjs diff <dirA> <dirB>
 //       -> per PNG present in both: mean abs difference (0..255) and pixels changed > 12 levels
 //
-// Options for sheet: --timing timing/timing.json  --scene <module>  --chrome <path>
+// Options for sheet: --lesson <name>  --timing <path>  --scene <module path>  --chrome <path>
 import fs from 'node:fs';
 import path from 'node:path';
 import { launch, openPlayer, parseArgs, W, H } from './browser.mjs';
@@ -28,7 +28,7 @@ async function inCanvasPage(browser, fn, payload) {
 const dataUrl = (buf) => `data:image/png;base64,${Buffer.from(buf).toString('base64')}`;
 
 async function sheet() {
-  const player = await openPlayer({ timingPath: args.timing, scene: args.scene, chrome: args.chrome });
+  const player = await openPlayer({ lesson: args.lesson, timingPath: args.timing, scene: args.scene, chrome: args.chrome });
   const every = Number(args.every || 0.5);
   const from = Number(args.from || 0);
   const to = Number(args.to || player.timing.duration);
@@ -36,7 +36,7 @@ async function sheet() {
   const rows = Number(args.rows || 4);
   const tw = Number(args.width || 216);
   const th = Math.round((tw * H) / W);
-  const out = args.out || 'out/sheet';
+  const out = args.out || path.join(player.outDir, 'sheet');
   fs.mkdirSync(path.dirname(out), { recursive: true });
   try {
     const times = [];

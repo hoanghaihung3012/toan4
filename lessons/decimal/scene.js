@@ -2,15 +2,15 @@
 // Numbers come from the user's reference board and are re-checked below.
 // beatN(ctx, p): every key in p is a progress 0..1 from timing.json; a key that the
 // beat's timing does not list defaults to 1, so beatN(ctx, {}) is the key pose.
-import { CHALK, W } from '../chalk.js';
-import { THEME } from '../../theme.js';
+import { CHALK, W } from '../../shared/web/js/chalk.js';
+import { THEME } from '../../shared/web/theme.js';
 import {
   clamp01, lerp, easeInOut, easeInQuad, easeOutCubic, arcPoint, stagger, pop, landSquash,
-} from '../ease.js';
+} from '../../shared/web/js/ease.js';
 import {
   Grid, tile, numberCols, looseLayout, columnLines, chalkNumber, rtlProgress, badge, TILE_W,
-} from '../tiles.js';
-import { drawEraser, wipePose, sweptMask, applyMask } from '../eraser.js';
+} from '../../shared/web/js/tiles.js';
+import { drawEraser, wipePose, sweptMask, applyMask } from '../../shared/web/js/eraser.js';
 
 // --- facts (from the reference board), checked with integer arithmetic ------
 const ADD_A = '9413,788', ADD_B = '453,6', ADD_R = '9867,388';

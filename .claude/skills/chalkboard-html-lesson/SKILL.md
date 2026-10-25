@@ -1,6 +1,6 @@
 ---
 name: chalkboard-html-lesson
-description: Make a 9:16 (TikTok) primary-school math lesson video on the approved chalkboard - full-bleed green board, chalk drawn in SVG, wooden tiles and bars, felt eraser - from sourced facts to final MP4. Holds the engine + style (one config, web/theme.js), the Edge TTS voiceover pipeline that builds timing.json from word times, the verification loops and the 5 approval gates. Lesson scenes live in each project. Review runs live in the browser; MP4 export happens once at the end.
+description: Make a 9:16 (TikTok) primary-school math lesson video on the approved chalkboard - full-bleed green board, chalk drawn in SVG, wooden tiles and bars, felt eraser - from sourced facts to final MP4. Holds the engine + style (one config, web/theme.js), the Edge TTS voiceover pipeline that builds timing.json from word times, the verification loops and a single approval on the running HTML preview, then MP4 export. Lesson scenes live in each project. Review runs live in the browser; MP4 export happens once at the end.
 ---
 
 # Chalkboard style + engine (HTML/CSS/JS)
@@ -9,7 +9,7 @@ This skill holds the **style, the engine and the process**: the board background
 
 - **Engine:** `template/`. Copy it into the project; do not rebuild it.
 - **Look:** `references/board.png` is the empty board as it renders from the template.
-- **Process:** the five gates and six loops are under **Workflow** below. A finished example is the tuduy1 lesson "Tìm số trung bình cộng" (`lessons/trung_binh_cong/`: story.md, voice.json, critique.md; scene `web/js/scenes/tbc.js`).
+- **Process:** one approval (on the HTML preview with voice) and the verification loops are under **Workflow** below. A finished example is the tuduy1 lesson "Tìm số trung bình cộng" (`lessons/trung_binh_cong/`: story.md, voice.json, critique.md; scene `web/js/scenes/tbc.js`).
 
 ## Project rules (from .claude/CLAUDE.md, non-negotiable)
 - **Sound off:** the video must read with the sound off. Show objects first, then chalk.
@@ -19,7 +19,7 @@ This skill holds the **style, the engine and the process**: the board background
 - **Timing:** all timing comes from `timing/timing.json`. Scenes hold no times.
 - **Motion:** anticipation, follow-through, squash and stretch, springs, arcs; no linear moves.
 - **Camera:** none. Every board change is motivated by the eraser.
-- **Review in the browser only.** Export the MP4 once, after everything is approved (the user asked for this explicitly).
+- **Review in the browser only.** The user approves once, on the running HTML preview; export the MP4 once, after that approval (the user asked for this explicitly).
 
 ## The one place to edit the look: `web/theme.js`
 `THEME` holds every visual value. `web/js/theme_apply.js` turns it into CSS variables, `@font-face` rules and the SVG chalk/grain filters at start-up. `render/capture.mjs` reads the canvas size and fps from it. CSS, HTML and scenes contain no style values.
@@ -121,7 +121,7 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
                "windows": { "wipe": [6.0, 7.2, "raw"], "title": [7.3, 8.4] } } ] }
 ```
 - **Window format:** `[start_s, end_s, ease]`, where ease is `out` (the default; chalk must show the moment it touches), `spring`, `motion` (ease-in-out) or `raw` (the scene does its own anticipation, arc or stagger).
-- **Draft vs final:** before the voiceover exists, the file is a hand-made draft (`"draft": true`). After gate 3 it is **built, never hand-edited**: `render/voice.mjs` writes it from `lessons/<lesson>/voice.json`.
+- **Draft vs final:** before the voiceover exists, the file is a hand-made draft (`"draft": true`). Once the voiceover exists it is **built, never hand-edited**: `render/voice.mjs` writes it from `lessons/<lesson>/voice.json`.
 
 ### Voiceover script (`lessons/<lesson>/voice.json`)
 ```json
@@ -146,33 +146,40 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
 - **Spoken vs written:** write numbers as digits in the text; the voice reads them correctly. Say "chia" and "nhân" in words, while the board shows ":" and a drawn ×.
 - **Pauses:** a thinking pause is a long `tail` (≈2.4 s) on the question beat.
 
-## Workflow: five approval gates (show the work at each one, then wait)
-1. **Gate 1: facts + story** → `lessons/<lesson>/story.md`.
+## Workflow: one approval, on the running HTML (user's rule, 2026-10-25)
+Do **not** stop for approval on facts, story, storyboard, key poses or audio. Work straight through steps 1–4, self-checking each one, until the lesson **runs in the browser with its voiceover**. Then show it once (step 5) and wait. After the approval, export the MP4 (step 6) and the lesson is done.
+
+1. **Facts + story** → `lessons/<lesson>/story.md`.
    - Source every number (VnDoc / VietJack / SGK pages via the Browser pane).
    - Make a table of facts and sources, re-check the arithmetic, and add a scene table: board (readable with the sound off) | voice line.
-   - If the user wants it harder or easier, re-plan here and keep every new number derived from sourced ones.
-2. **Gate 2: style.**
-   - **One storyboard image first:** build scene 1 in the engine, render its key pose, wait for approval.
-   - **Then key poses:** write all beats with their progress keys, plus a draft timing. Render `capture.mjs --keyposes` and tile them into one sheet with ffmpeg `xstack`.
-   - **Self-critique before showing:** check readability, collisions (circles over "="), wasted space, and differences too small to see.
-3. **Gate 3: audio + timing.**
+   - Default tone for TikTok: a question hook in the first 2 s (answered visibly later), short spoken lines, a ✓/✗ "game show" check per example, a closing challenge with a 3-2-1 countdown that asks viewers to comment.
+   - If the user wants it harder or easier, keep every new number derived from sourced ones.
+2. **Scenes + key poses.**
+   - Build scene 1 in the engine first and check its key pose yourself, then write all beats with their progress keys and a draft timing.
+   - Render `capture.mjs --keyposes`, tile them into one sheet (ffmpeg `hstack`/`vstack`), and paint the platform zones red (`drawbox`) to check the safe area.
+   - **Self-critique:** readability, collisions (circles over "="), wasted space (use the whole content box, top to y ≈ 1550), and differences too small to see. Fix, re-render, and keep this set as the reference key poses.
+3. **Audio + timing.**
    - `node render/voice.mjs <lesson>` builds the timing and the voice WAV.
-   - Check `ffprobe` (stereo 48 kHz), `ebur128=peak=true` (true peak < −1 dBFS) and `silencedetect` (every silence > 1.2 s must be a wipe or an intended pause).
-   - Show the WAV plus the browser preview with audio. Report the length; the voice usually runs longer than the draft.
-4. **Gate 4: final video + contact sheet + critique.** Run all six loops first:
-   1. **Key-pose match:** run `capture.mjs --keyposes` on the audio timing, then `inspect.mjs diff` against the approved poses. The mean must be 0.
+   - Check `ffprobe` (stereo 48 kHz), `ebur128=peak=true` (true peak < −1 dBFS) and `silencedetect` (every silence > 1.2 s must be a wipe or an intended pause). Tighten `lead`/`tail` if not.
+   - Vietnamese 4-digit numbers read long ("ba nghìn không trăm mười lăm"): a lesson with many of them runs 20–40 % over the planned length. Rate `+12%` still sounds natural.
+4. **Verification loops** (all of them, before showing anything):
+   1. **Key-pose match:** run `capture.mjs --keyposes` on the audio timing, then `inspect.mjs diff` against the step-2 key poses. The mean must be 0, except where a later fix changed a pose on purpose (list those).
    2. **Sound-off read:** run `inspect.mjs sheet --every 0.5`, then send a **fresh general-purpose subagent** that reads only the sheet PNGs and retells scenes, the math and confusing moments, and gives a yes/no verdict. Fix what it flags if it is cheap.
    3. **Sync:** `node render/synccheck.mjs <lesson>` must report 0 windows off.
    4. **Fact check:** every on-screen word and voice line goes into a table with its source. Cut anything unmatched.
-   5. **Technical:** run `capture.mjs --out out/<lesson>_video.mp4` in the background (≈470 s for 84 s), then mux:
-      `ffmpeg -i video.mp4 -i audio/<lesson>/voice.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -ar 48000 -ac 2 -shortest -movflags +faststart out/<lesson>.mp4`.
-      Check the duration, stereo, true peak, `silencedetect` and `freezedetect=n=0.001:d=4`. Report a freeze honestly even when it is only a small cue drawing.
-   6. **Director's review:** watch every sheet, write a brutal critique (dead holds while the voice talks are the usual top issue), fix the top 3, then rebuild timing and sheets and review again.
+   5. **Director's review:** watch every sheet, write a brutal critique (dead holds while the voice talks are the usual top issue), fix the top 3, then rebuild timing and sheets and review again.
    - Write it all to `lessons/<lesson>/critique.md`, including what is still weak, as the user's call.
-5. **Gate 5: save the process.**
-   - Move any reusable helper from the lesson scene into the engine (`parts.js`), and diff the key poses (mean 0).
-   - Copy changed engine files into `template/` and update this file.
-   - Smoke-test the template in a scratch copy: symlink `node_modules` and `.venv`, run `voice.mjs example`, `synccheck.mjs example`, then a `capture --stills` call.
+5. **The one approval: the running HTML.**
+   - Start the preview (`preview_start` + navigate to `web/index.html?timing=/timing/<scene>.json`) so the user can press ▶ and hear the voice.
+   - Show the user: the preview link, the final contact sheets, the key-pose sheet, the WAV, and a short summary of `critique.md` (length, what was fixed, what is still weak). Then wait.
+   - Changes the user asks for: fix, re-run the loops they touch (sync always), show again.
+6. **After approval: export the MP4. Done.**
+   - Run `capture.mjs --out out/<lesson>_video.mp4` in the background (≈470 s for 84 s), then mux:
+     `ffmpeg -i out/<lesson>_video.mp4 -i audio/<lesson>/voice.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -ar 48000 -ac 2 -shortest -movflags +faststart out/<lesson>.mp4`.
+   - Technical check: duration, stereo, true peak, `silencedetect` and `freezedetect=n=0.001:d=4`. Report a freeze honestly even when it is only a small cue drawing.
+   - Hand over `out/<lesson>.mp4`. Nothing else is required.
+
+**Only when the user asks to update this skill:** move reusable helpers from the lesson scene into the engine (`parts.js`) and diff the key poses (mean 0); copy changed engine files into `template/`; smoke-test the template in a scratch copy (symlink `node_modules` and `.venv`, run `voice.mjs example`, `synccheck.mjs example`, then a `capture --stills` call).
 
 ### Setup and preview
 - **Copy:** copy `template/` into the project, run `npm i puppeteer-core@23.11.1`, and install ffmpeg (`brew install ffmpeg`) and Google Chrome. Fonts are in `template/fonts`.

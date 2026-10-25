@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "preview": "node render/serve.mjs 8123",
     "sheet": "node render/inspect.mjs sheet",
     "diff": "node render/inspect.mjs diff",

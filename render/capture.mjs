@@ -6,14 +6,14 @@
 //   node render/capture.mjs --stills 5.9,11.9 --dir out/stills   (PNG at given times)
 //   node render/capture.mjs --keyposes --dir out/html_keyposes   (frame before each beat end)
 //
-// Options: --timing timing/timing.json  --scene <module>  --chrome <path>  --crf 18  --fps 30
+// Options: --lesson <name>  --timing <path>  --scene <module path>  --chrome <path>  --crf 18  --fps 30
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { openPlayer, parseArgs } from './browser.mjs';
 
 const args = parseArgs(process.argv.slice(2));
-const player = await openPlayer({ timingPath: args.timing, scene: args.scene, chrome: args.chrome });
+const player = await openPlayer({ lesson: args.lesson, timingPath: args.timing, scene: args.scene, chrome: args.chrome });
 const { timing, shot } = player;
 const fps = Number(args.fps || player.fps);
 
@@ -29,12 +29,12 @@ try {
   if (args.keyposes) {
     // the last frame of each beat (before the eraser) must equal the approved key pose
     const times = timing.beats.map((b) => [b.id, Math.round(b.end * fps - 1) / fps]);
-    await stills(times, args.dir || 'out/html_keyposes');
+    await stills(times, args.dir || path.join(player.outDir, 'keyposes'));
   } else if (args.stills) {
     const times = String(args.stills).split(',').map((s) => [`t${Number(s).toFixed(2)}`, Number(s)]);
-    await stills(times, args.dir || 'out/stills');
+    await stills(times, args.dir || path.join(player.outDir, 'stills'));
   } else {
-    const out = args.out || 'out/video.mp4';
+    const out = args.out || path.join(player.outDir, 'video.mp4');
     fs.mkdirSync(path.dirname(out), { recursive: true });
     const f0 = Math.round(Number(args.from || 0) * fps);
     const f1 = Math.round(Number(args.to || timing.duration) * fps);

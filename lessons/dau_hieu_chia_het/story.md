@@ -19,21 +19,28 @@
 
 Kiểm tra số (đã chạy bằng code): 98 % 2 = 0 · 1995 % 2 = 1 · 4005 % 5 = 0 · 2021 % 5 = 1 · 906: tổng 15, % 9 = 6, % 3 = 0 · 3015: tổng 9, % 9 = 0 · 660: tổng 12, % 2 = % 5 = % 3 = 0, % 9 = 3.
 
-## Kịch bản (9 cảnh)
+## Hướng "cuốn, trẻ, câu view" (bản 2)
+- **Móc câu trong 2 giây đầu:** mở thẳng bằng câu hỏi, chưa có tiêu đề. Khối gỗ 3015 rơi "bịch" xuống bảng (nén–nảy), dấu "?" phấn vàng to.
+- **Hứa một mẹo:** "Không cần đặt tính, có mẹo!" – câu trả lời cho 3015 để dành tới giữa video (giữ người xem ở lại).
+- **Nhịp nhanh:** mỗi dấu hiệu 6–8 s, bảng đổi hình mỗi 2–3 s, tổng khoảng 50 s (bản 1: ~70 s). Giọng HoaiMy nhanh hơn (rate +4%), câu ngắn, kiểu nói chuyện: "Mẹo nè", "Dễ ợt".
+- **Kiểu gameshow:** mỗi số được "chấm" bằng dấu ✓ xanh / ✗ đỏ bật mạnh có bụi phấn văng ra.
+- **Ra đề cho người xem:** cuối video đếm ngược 3–2–1 bằng phấn, kêu gọi "Bình luận đáp án" rồi mới giải (khuyến khích bình luận và xem lại).
+- Âm thanh: chỉ giọng Edge TTS (theo luật dự án), không nhạc nền.
 
-Số luôn là **khối gỗ** (như các bài trước). Dấu ✓ (xanh lá) và ✗ (đỏ) vẽ bằng nét phấn, không dùng chữ. Chữ trên bảng chỉ: tiêu đề, dãy chữ số, phép cộng.
+## Kịch bản (8 cảnh, ~50 s)
 
 | Cảnh | Trên bảng (đọc được khi tắt tiếng) | Lời đọc |
 |---|---|---|
-| 1. Mở bài ~5 s | Tiêu đề phấn "Dấu hiệu chia hết". Bốn ô tròn phấn bật lên: 2, 5, 9, 3. Hai ô 2, 5 gạch chân vàng, hai ô 9, 3 gạch chân hồng (báo trước hai nhóm). | "Không cần làm phép chia, vẫn biết một số có chia hết cho 2, 5, 9 hay 3." |
-| 2. Chia hết cho 2 ~11 s | Tiêu đề "chia hết cho 2". Hàng phấn vàng "0 2 4 6 8". Khối 9 8 bật lên; khối cuối "8" nhún, nhấc lên, khoanh vàng; mũi tên cong tới chữ 8 trong hàng → ✓, phấn "số chẵn". Khối 1 9 9 5: khối "5" nhấc lên, không có trong hàng → ✗, phấn "số lẻ". | "Chia hết cho 2: chỉ nhìn chữ số tận cùng. Tận cùng là 0, 2, 4, 6, 8 thì chia hết cho 2. 98 tận cùng là 8, chia hết cho 2, là số chẵn. 1995 tận cùng là 5, không chia hết cho 2, là số lẻ." |
-| 3. Chia hết cho 5 ~8 s | Khăn lau xoá. Tiêu đề "chia hết cho 5". Hàng phấn "0 5". Khối 4005: "5" nhấc lên → ✓. Khối 2021: "1" nhấc lên → ✗. | "Chia hết cho 5: tận cùng là 0 hoặc 5. 4005 chia hết cho 5. 2021 tận cùng là 1, không chia hết cho 5." |
-| 4. Cả 2 và 5 ~6 s | Hai hàng "0 2 4 6 8" và "0 5" xếp chồng; chữ 0 ở cả hai hàng cùng được khoanh vàng, mũi tên nối. Khối 660 với "0" cuối được khoanh → ✓ ✓. | "Vừa chia hết cho 2, vừa chia hết cho 5 thì tận cùng là 0, như số 660." |
-| 5. Chia hết cho 9 ~12 s | Khăn lau. Tiêu đề "chia hết cho 9". Khối 9 0 6; ba khối bay cong xuống thành phép cộng phấn "9 + 0 + 6 = 15". 15 khoanh, so với 9 → ✗. Sau đó khối 3 0 1 5 → "3 + 0 + 1 + 5 = 9" → ✓. | "Chia hết cho 9 thì cộng các chữ số. 906: 9 cộng 0 cộng 6 bằng 15. 15 không chia hết cho 9, nên 906 không chia hết cho 9. 3015: tổng các chữ số là 9, nên 3015 chia hết cho 9." |
-| 6. Chia hết cho 3 ~8 s | Tiêu đề lau đổi thành "chia hết cho 3" (chỉ lau dải tiêu đề). Dòng "9 + 0 + 6 = 15" vẫn trên bảng; ✗ cũ bị lau, 15 khoanh lại → ✓ xanh. | "Chia hết cho 3 cũng cộng các chữ số. Vẫn số 906, tổng là 15. 15 chia hết cho 3, nên 906 chia hết cho 3." |
-| 7. Ghi nhớ ~6 s | Khăn lau. Khung hai cột: trái "2 · 5" + khối có chữ số cuối khoanh vàng ("tận cùng"); phải "9 · 3" + dấu "+" giữa các khối ("cộng các chữ số"). | "Nhớ nhé: 2 và 5 nhìn chữ số tận cùng. 9 và 3 cộng các chữ số." |
-| 8. Thử sức ~6 s (có 2–3 s im lặng) | Khăn lau. Khối 6 6 0 ở giữa. Bên dưới bốn ô 2, 5, 9, 3 có ô trống "?". Ba chấm phấn vàng bật lần lượt. | "Thử nhé: 660 chia hết cho số nào?" |
-| 9. Lời giải ~10 s | Khối "0" nhấc lên → ô 2 ✓, ô 5 ✓. Khối bay xuống "6 + 6 + 0 = 12" → ô 3 ✓, ô 9 ✗. | "Tận cùng là 0: chia hết cho 2 và 5. Tổng các chữ số là 12: chia hết cho 3, nhưng không chia hết cho 9." |
+| 1. Móc câu ~4 s | Bảng trống. Bốn khối 3 0 1 5 rơi xuống lần lượt (nén–nảy). Dấu "?" vàng to bật lên bên cạnh, cùng phấn "chia hết cho 9" phía trên. | "3015 có chia hết cho 9 không? Không cần đặt tính, có mẹo!" |
+| 2. Mở bài ~3 s | Khối 3015 trượt lên góc chờ. Tiêu đề phấn "Dấu hiệu chia hết". Bốn ô tròn 2, 5, 9, 3 bật lên; 2·5 gạch vàng + chữ "chữ số cuối", 9·3 gạch hồng + chữ "cộng chữ số". | "Mẹo cho cả 2, 5, 9 và 3 luôn nè." |
+| 3. Chia hết cho 2 ~7 s | Khăn lau. Hàng phấn vàng "0 2 4 6 8". Khối 98: "8" nhấc lên, khoanh vàng → ✓ bật. Khối 1995: "5" nhấc lên → ✗ bật. | "Chia hết cho 2? Nhìn chữ số cuối: 0, 2, 4, 6, 8 là được. 98, có! 1995, không!" |
+| 4. Chia hết cho 5 ~6 s | Hàng thứ hai "0 5". Khối 4005: "5" nhấc → ✓. Khối 2021: "1" nhấc → ✗. | "Chia hết cho 5? Chữ số cuối là 0 hoặc 5. 4005, có! 2021, không!" |
+| 5. Cả 2 và 5 ~4 s | Chữ 0 ở cả hai hàng khoanh vàng, mũi tên cong nối. Khối 660, "0" nhấc → ✓. | "Cả 2 và 5? Tận cùng là 0, như 660." |
+| 6. Chia hết cho 9 – giải móc câu ~9 s | Khăn lau (quét luôn 3015 ở góc). Khối 3015 rơi lại xuống giữa (nhắc lại câu móc). Bốn khối bay cong xuống thành "3 + 0 + 1 + 5 = 9" → ✓ to + bụi phấn. Rồi khối 906 → "9 + 0 + 6 = 15" → ✗. | "Còn 9 thì cộng các chữ số. 3015: 3 cộng 0 cộng 1 cộng 5 bằng 9. Chia hết cho 9! Còn 906, tổng 15, không chia hết cho 9." |
+| 7. Chia hết cho 3 – cú lật ~6 s | Chỉ lau dải tiêu đề: "9" đổi thành "3". ✗ của 906 bị lau, 15 khoanh lại → ✓ xanh. | "Nhưng với 3 thì sao? 15 chia hết cho 3, nên 906 chia hết cho 3!" |
+| 8–9. Thử thách ~14 s (2 beat: đề + đếm ngược / lời giải) | Khăn lau. Khối 6 6 0 rơi xuống. Bốn ô 2, 5, 9, 3 mỗi ô một dấu "?". Phấn đếm ngược 3, 2, 1. Rồi: "0" nhấc → ô 2 ✓, ô 5 ✓; khối bay xuống "6 + 6 + 0 = 12" → ô 3 ✓, ô 9 ✗. | "Đến lượt bạn: 660 chia hết cho những số nào? Bình luận đáp án nhé! … Đáp án: 2, 5 và 3. Không chia hết cho 9!" |
+
+(Ghi nhớ "2·5 nhìn số cuối, 9·3 cộng các chữ số" gộp vào cảnh 8: hai cách kiểm tra hiện ngay trên đáp án, bỏ cảnh tóm tắt riêng cho nhanh.)
 
 ## Ghi chú tạo hình
 - Chữ số tận cùng luôn là khối được "nhấc lên" (nhún, bay cong lên 40 px, khoanh vàng) – đây là động tác lặp lại để nhận ra nhóm 2/5.

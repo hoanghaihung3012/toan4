@@ -1,11 +1,11 @@
 // Tìm số trung bình cộng (Toán 4). Facts: lessons/trung_binh_cong/story.md.
 // beatN(ctx, p): every key in p is a progress 0..1 from timing.json; a key that the
 // beat's timing does not list defaults to 1, so beatN(ctx, {}) is the key pose.
-import { CHALK } from '../chalk.js';
-import { THEME } from '../../theme.js';
-import { clamp01, lerp, easeInOut, arcPoint, stagger, pop, landSquash, spring } from '../ease.js';
-import { tile, TILE_H, badge } from '../tiles.js';
-import { row, bar, arcArrow, flight } from '../parts.js';
+import { CHALK } from '../../shared/web/js/chalk.js';
+import { THEME } from '../../shared/web/theme.js';
+import { clamp01, lerp, easeInOut, arcPoint, stagger, pop, landSquash, spring } from '../../shared/web/js/ease.js';
+import { tile, TILE_H, badge } from '../../shared/web/js/tiles.js';
+import { row, bar, arcArrow, flight } from '../../shared/web/js/parts.js';
 
 // --- facts (VnDoc, Toán 4 bài 22, Bài toán 1), checked ------------------------
 const CAN_A = 6, CAN_B = 4, CANS = 2;

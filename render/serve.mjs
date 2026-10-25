@@ -1,5 +1,5 @@
 // Tiny static server for the project root (ES modules and fetch need http://, not file://).
-// node render/serve.mjs [port]  -> preview at http://localhost:<port>/web/index.html
+// node render/serve.mjs [port]  -> preview at http://localhost:<port>/shared/web/index.html
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -42,5 +42,5 @@ export function startServer(port = 0) {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const server = await startServer(Number(process.argv[2] || 8123));
-  console.log(`preview: http://localhost:${server.address().port}/web/index.html`);
+  console.log(`preview: http://localhost:${server.address().port}/shared/web/index.html`);
 }

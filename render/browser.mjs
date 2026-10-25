@@ -1,9 +1,10 @@
 // Shared headless-Chrome setup: serves the project, opens the player in capture mode and
 // returns shot(t) -> PNG buffer. Used by capture.mjs and inspect.mjs.
 import fs from 'node:fs';
+import path from 'node:path';
 import puppeteer from 'puppeteer-core';
 import { startServer } from './serve.mjs';
-import { THEME } from '../web/theme.js';
+import { THEME } from '../shared/web/theme.js';
 
 export const CHROME_DEFAULT = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 export const { width: W, height: H } = THEME.canvas;
@@ -28,7 +29,7 @@ export async function launch(chrome = CHROME_DEFAULT) {
   });
 }
 
-export async function openPlayer({ timingPath = 'timing/timing.json', scene, chrome } = {}) {
+export async function openPlayer({ lesson = 'decimal', timingPath = `lessons/${lesson}/timing.json`, scene, chrome } = {}) {
   const timing = JSON.parse(fs.readFileSync(timingPath, 'utf8'));
   const server = await startServer(0);
   const browser = await launch(chrome);
@@ -38,7 +39,7 @@ export async function openPlayer({ timingPath = 'timing/timing.json', scene, chr
   page.on('pageerror', (e) => console.error('[page error]', e.message));
   const q = new URLSearchParams({ capture: '1', timing: `/${timingPath}` });
   if (scene) q.set('scene', scene); // otherwise timing.json's "scene"
-  await page.goto(`http://127.0.0.1:${server.address().port}/web/index.html?${q}`, { waitUntil: 'networkidle0' });
+  await page.goto(`http://127.0.0.1:${server.address().port}/shared/web/index.html?${q}`, { waitUntil: 'networkidle0' });
   await page.evaluate(() => window.ready);
   // scale < 1 returns a downscaled frame (contact sheets)
   const shot = async (t, scale = 1) => {
@@ -46,5 +47,6 @@ export async function openPlayer({ timingPath = 'timing/timing.json', scene, chr
     return page.screenshot({ type: 'png', clip: { x: 0, y: 0, width: W, height: H, scale }, optimizeForSpeed: true });
   };
   const close = async () => { await browser.close(); server.close(); };
-  return { timing, fps: timing.fps || THEME.canvas.fps, browser, page, shot, close };
+  const outDir = path.join(path.dirname(timingPath), 'out');
+  return { timing, outDir, fps: timing.fps || THEME.canvas.fps, browser, page, shot, close };
 }

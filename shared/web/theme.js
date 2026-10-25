@@ -2,14 +2,14 @@
 // THEME: the one place to change the look of every lesson.
 // Colours, board background, fonts, chalk grain, tile style, eraser and the shared
 // board layout all live here. CSS variables, SVG filters and @font-face are generated
-// from this file at start-up (web/js/theme_apply.js), so nothing else needs editing.
+// from this file at start-up (shared/web/js/theme_apply.js), so nothing else needs editing.
 // Units: px on the 1080x1920 (9:16) stage.
 // ============================================================================
 
 export const THEME = {
   canvas: { width: 1080, height: 1920, fps: 30 },
 
-  // fonts live in <project>/fonts/; family names are what the code uses
+  // fonts live in <project>/shared/fonts/; family names are what the code uses
   fonts: {
     chalk: { family: 'Pangolin', file: 'Pangolin.ttf' },
     tile: { family: 'Baloo 2', file: 'Baloo2.ttf', weightRange: '400 800', weight: 760 },
