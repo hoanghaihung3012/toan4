@@ -45,3 +45,6 @@ Also: figures enlarged (L 150 → 170/190 px), the "+5" moved between the rows, 
 ## Preview
 Running HTML preview with voiceover: https://claude.ai/artifact/3Xc2GwkBzeF2UWqXLSZE9J (copy of `shared/web` + this lesson; audio as MP3 for the page host).
 Final MP4 is exported only after approval.
+
+## Final MP4 (after preview approval)
+`lessons/que_diem/out/que_diem.mp4` (committed): 62.07 s, 1862 frames, 1080×1920 @ 30 fps H.264, AAC 48 kHz stereo, −15.9 LUFS, true peak −3.3 dBFS. silencedetect (> 1.2 s): 6.0–7.8, 28.7–30.6, 48.5–50.5, 54.5–57.9, 60.8–62.1, all erasers, the countdown or the end tail. freezedetect (n = 0.001, d = 4 s): no freeze.
