@@ -34,3 +34,6 @@ Fixes: (1) table tiles 1.42×, products 124 px, rows spread to y 1560, recap 96 
 - In the challenge, the countdown "2" passes right under "Hiệu = ?" and could be mistaken for a hint for a split second.
 - The method is guess-and-check (đúng trình độ lớp 4), not the shortcut with (a − b)² = (a + b)² − 4ab, which is beyond grade 4.
 - Storyboard: no image-generation tool in this session, so the storyboard is the engine's own key poses (`out/keyposes_ref`), checked on beat 1 before building the rest.
+
+## Final MP4 (after preview approval, 2026-10-25)
+`out/tong_14_tich_48.mp4`: 52.733 s, 1080×1920 H.264 30 fps, AAC 48 kHz stereo, true peak −3.2 dBFS. Silences > 1.2 s are the same intended ones as the WAV. `freezedetect=n=0.001:d=4`: no freezes.
