@@ -28,3 +28,6 @@ English version of `ban_3_mui_ten`, reusing its scenes. Final length is 56.43 s 
 - The question "? different totals" only appears at about 8.5 s. The reviewer wanted it earlier.
 - The challenge answer "4 6 8 … 20" has no +2 arcs, and "9 totals" drops "different" (it mirrors the Vietnamese "9 tổng").
 - The lower part of the frame is empty in the first half.
+
+## Final MP4 (`final/2026-10-25/three_arrows.mp4`)
+1080×1920, 30 fps, 56.433 s; AAC 48 kHz stereo; true peak −2.0 dBFS; the same 3 intended silences as the WAV; freezedetect (n=0.001, d=4 s): no freeze.
