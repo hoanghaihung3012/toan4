@@ -3,7 +3,7 @@ Rules:
 - Only use facts I give you or that you can source. No made-up numbers or claims.
 - Use text sparingly and integrate it into the world (painted, stamped, written) rather than overlaying it.
 - Generated images are references only. They never appear on screen; draw the video in code.
-- When creating the storyboard, generate only 1 image first so I can check the style. Wait for my approval before generating the rest.
+- When creating the storyboard, generate 1 image first and self-check the style before generating the rest. Do not pause for approval.
 - The timing comes from the audio. All animation timing reads from timing.json, with nothing hardcoded.
 - Anticipation before every big action, follow-through after, squash and stretch, springs for landings, arcs for every moving object, and no linear easing.
 - Held props and text never mirror when a character turns. Motivate every camera move.
@@ -19,11 +19,16 @@ Verification loops (do not skip any):
 5. Technical: exact duration, stereo audio, peaks below -1 dBFS, no unintended dead air.
 6. Director's review: watch it twice as frames, write a brutal critique, fix the top 3 issues, review again.
 
-Approval gates:
-1. Facts + story
-2. Style: 1 storyboard image first → wait for my approval. Then character sheets and key poses - wait for my approval
-3. Audio-only mix and timing.json
-4. Final video, contact sheet and critique
-5. Save the process as a skill
+Approval: one review of the running HTML preview.
+1. Complete facts, story, storyboard, scenes, audio and timing without asking for intermediate approval. Run all applicable verification loops before presenting the preview.
+2. Start the HTML preview in the browser with working voiceover and playback controls. Show the preview link, contact sheet and critique, then wait for my approval. Show the work, not just a description of it.
+3. If I request changes, fix them, rerun the affected verification loops (always including sync), and return to the same preview review. Do not add separate approval gates for story, style, key poses or audio.
+4. Export the final MP4 only after preview approval, then complete the final technical checks. No separate final-video approval is required. Update the reusable skill only when explicitly requested.
 
-Keep a task list throughout. At each gate, show me the work, not a description of it.
+Git workflow for each new lesson:
+1. Create a new branch named `lesson/<lesson-name>` from the latest `develop` before starting lesson work. Keep any unrelated uncommitted changes intact.
+2. Keep the lesson's content, audio and scene code in `lessons/<lesson-name>/`. Reuse `shared/web/`, `shared/fonts/` and `render/` for common functionality.
+3. Commit and push the lesson branch, then open a pull request with `develop` as the base branch. Include the lesson summary, preview and verification results in the PR description.
+4. Do not commit lesson work directly to `develop` or `main`, and do not merge the PR unless explicitly requested.
+
+Keep a task list throughout.
