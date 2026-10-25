@@ -10,6 +10,7 @@ Length 113.9 s · 10 beats · voice vi-VN-HoaiMyNeural, rate +8 %.
 | 3. Sync | 47 word-anchored windows, 0 off by more than 1 frame. |
 | 4. Fact check | Table below. `console.assert` in scene.js checks 10 × 10 = 100, 12 × 6 = 72, 40 × 40 = 1600, 1600 × 150 = 240 000, 240 000 : 100 : 100 = 24, the four conversions and 300 + 5 = 305. Nothing cut. |
 | 5. Technical | voice.wav: 48 kHz stereo, 113.900 s, −16.0 LUFS, true peak −3.3 dBFS. Silences > 1.2 s: 3.9–5.7, 20.9–22.5, 30.1–31.8, 45.6–47.3, 55.0–57.1, 75.4–77.1 and 95.4–97.5 (eraser wipes), 85.4–86.8 (✓ on 500 dm² = 5 m², end of beat 7), 103.0–106.4 (3-2-1 countdown), 112.7–113.9 (end tail). All intended. |
+| 5b. Final MP4 | `final/2026-10-25/don_vi_dien_tich.mp4`: 1080×1920, 30 fps, 113.900 s, AAC 48 kHz stereo, true peak −3.3 dBFS, same silences as above. freezedetect (n=0.001, d=4) reports 103.3–108.2 s: the 3-2-1 countdown (a small chalk ring and digit) and the "?" winding up; counted as a dead hold. |
 | 6. Director's review | Two passes; top 3 fixed each time (below). |
 
 ## Fact check (on screen + voiceover)
