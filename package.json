@@ -9,6 +9,7 @@
     "diff": "node render/inspect.mjs diff",
     "keyposes": "node render/capture.mjs --keyposes",
     "export": "node render/capture.mjs",
+    "final": "node render/final.mjs",
     "voice": "node render/voice.mjs",
     "sync": "node render/synccheck.mjs",
     "pages": "node render/pages.mjs",

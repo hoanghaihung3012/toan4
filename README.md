@@ -16,7 +16,7 @@ lessons/
       cues.json
       voice.wav
       lines/
-    out/                 # ignored render output, except the committed <lesson>.mp4
+    out/                 # ignored render output
   dau_hieu_chia_het/
   decimal/               # draft scene and timing; no voiceover yet
 shared/
@@ -57,6 +57,7 @@ for explicit paths. MP4 capture still produces video only; mux it with the
 lesson's `audio/voice.wav` after preview approval.
 
 The existing root `out/` folder is retained for previous exports and comparisons.
-Both root and lesson-local `out/` folders are ignored by Git, except the final
-muxed `lessons/<lesson>/out/<lesson>.mp4`, which is force-added (`git add -f`) after approval. TTS line caches
+Both root and lesson-local `out/` folders are ignored by Git. After approval,
+`npm run final -- <lesson>` captures, muxes the voiceover and writes the one committed
+file, `final/<lesson>.mp4`; every finished MP4 lives in the repo-root `final/` folder. TTS line caches
 move with their lesson, so moving a lesson does not require synthesizing it again.
