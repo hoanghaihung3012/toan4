@@ -177,7 +177,7 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
    - technical;
    - director's review.
    
-   Then follow the same single approval on Pages (`npm run pages -- <lesson>_en`; `pages.mjs` copies the imported Vietnamese scene and sets `<html lang>` from `voice.json`), `npm run final -- <lesson>_en` → `final/<english_title>.mp4` (from `voice.json` `final`), and a PR to `develop`.
+   Then follow the same single approval on Pages (`npm run pages -- <lesson>_en`; `pages.mjs` copies the imported Vietnamese scene and sets `<html lang>` from `voice.json`), `npm run final -- <lesson>_en` → `final/<YYYY-MM-DD>/<english_title>.mp4` (from `voice.json` `final`), and a PR to `develop`.
 7. The talk with the user stays in Vietnamese. Only the clip is English.
 
 ## Workflow: one approval, on the running HTML (user's rule, 2026-10-25)
@@ -211,10 +211,10 @@ Do **not** stop for approval on facts, story, storyboard, key poses or audio. Wo
    - Show the user: the Pages link, the final contact sheets, the key-pose sheet, the WAV, and a short summary of `critique.md` (length, what was fixed, what is still weak). Then wait.
    - Changes the user asks for: fix, re-run the loops they touch (sync always), republish with `npm run pages -- <lesson>`, show the same link again.
 6. **After approval of the Pages preview: export the MP4 right away. Done.**
-   - Run `npm run final -- <lesson>` (`render/final.mjs`) in the background (≈470 s for 84 s). It captures `lessons/<lesson>/out/<lesson>_video.mp4`, muxes the lesson's `audio/voice.wav` (AAC 192k, 48 kHz stereo, `+faststart`) and writes **`final/<lesson>.mp4`**, or `final/<voice.json final>.mp4` when the lesson sets `final` (English versions: English name, no `_en`) (user's rule, 2026-10-25: every finished MP4 lives in the repo-root `final/` folder, never inside the lesson).
-   - Technical check on `final/<lesson>.mp4`: duration, stereo, true peak, `silencedetect` and `freezedetect=n=0.001:d=4`. Report a freeze honestly even when it is only a small cue drawing.
-   - Hand over the file `final.mjs` printed (`final/<lesson>.mp4`, or the English name).
-   - **Commit the final MP4, and only that file** (user's rule, 2026-10-25): `git add final/<name>.mp4` (not ignored, no `-f`). Never commit the video-only capture, key poses, sheets or stills. Commit it with the lesson on the lesson branch so it is in the PR.
+   - Run `npm run final -- <lesson>` (`render/final.mjs`) in the background (≈470 s for 84 s). It captures `lessons/<lesson>/out/<lesson>_video.mp4`, muxes the lesson's `audio/voice.wav` (AAC 192k, 48 kHz stereo, `+faststart`) and writes **`final/<YYYY-MM-DD>/<lesson>.mp4`**, or `final/<YYYY-MM-DD>/<voice.json final>.mp4` when the lesson sets `final` (English versions: English name, no `_en`) (user's rule, 2026-10-25: every finished MP4 lives in the repo-root `final/` folder, never inside the lesson; user's rule, 2026-10-25: inside `final/`, one sub-folder per day the clip was made, `YYYY-MM-DD` in Vietnam time). The day is the export day; when a lesson is re-exported later, pass `--date <original day>` so the file stays in its first folder instead of being duplicated.
+   - Technical check on `final/<YYYY-MM-DD>/<lesson>.mp4`: duration, stereo, true peak, `silencedetect` and `freezedetect=n=0.001:d=4`. Report a freeze honestly even when it is only a small cue drawing.
+   - Hand over the file `final.mjs` printed (`final/<YYYY-MM-DD>/<lesson>.mp4`, or the English name).
+   - **Commit the final MP4, and only that file** (user's rule, 2026-10-25): `git add final/<YYYY-MM-DD>/<name>.mp4` (not ignored, no `-f`). Never commit the video-only capture, key poses, sheets or stills. Commit it with the lesson on the lesson branch so it is in the PR.
 
 **Only when the user asks to update this skill:** move reusable helpers from the lesson scene into the engine (`parts.js`) and diff the key poses (mean 0); copy changed engine files into `template/`; smoke-test the template in a scratch copy (symlink `node_modules` and `.venv`, run `voice.mjs example`, `synccheck.mjs example`, then a `capture --stills` call).
 

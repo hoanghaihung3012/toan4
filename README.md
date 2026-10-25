@@ -59,6 +59,6 @@ lesson's `audio/voice.wav` after preview approval.
 The existing root `out/` folder is retained for previous exports and comparisons.
 Both root and lesson-local `out/` folders are ignored by Git. After approval,
 `npm run final -- <lesson>` captures, muxes the voiceover and writes the one committed
-file, `final/<lesson>.mp4` (or `final/<name>.mp4` when `voice.json` sets `"final"`; English
-versions use an English name with no `_en`, e.g. `final/divisibility_rules.mp4`); every finished MP4 lives in the repo-root `final/` folder. TTS line caches
+file, `final/<YYYY-MM-DD>/<lesson>.mp4` (or `final/<YYYY-MM-DD>/<name>.mp4` when `voice.json` sets `"final"`; English
+versions use an English name with no `_en`, e.g. `final/2026-10-25/divisibility_rules.mp4`); every finished MP4 lives in the repo-root `final/` folder, in a sub-folder for the day it was made (Vietnam time; `--date` keeps an earlier day on a re-export). TTS line caches
 move with their lesson, so moving a lesson does not require synthesizing it again.
