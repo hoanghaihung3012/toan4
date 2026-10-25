@@ -1,0 +1,530 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs tinh_tuoi. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "tinh_tuoi",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1",
+   "lead": 0.3,
+   "tail": 2.2,
+   "lines": [
+    {
+     "id": "L1",
+     "text": "Hiện nay, tổng số tuổi của hai bố con là 48 tuổi."
+    },
+    {
+     "id": "L2",
+     "text": "4 năm trước, tuổi bố gấp 4 lần tuổi con."
+    },
+    {
+     "id": "L3",
+     "gap": 0.35,
+     "text": "Hỏi hiện nay bố bao nhiêu tuổi?"
+    }
+   ],
+   "windows": {
+    "title": [
+     "beat^",
+     1.0
+    ],
+    "r1": [
+     "L1^",
+     "L1.48>"
+    ],
+    "r2a": [
+     "L2^",
+     "L2.trước>"
+    ],
+    "r2b": [
+     "L2.tuổi",
+     "L2$"
+    ],
+    "ask": [
+     "L3^",
+     "L3.bố>"
+    ],
+    "q": [
+     "L3.nhiêu",
+     0.7,
+     "raw"
+    ],
+    "dots": [
+     "L3$",
+     1.9,
+     "raw",
+     0.2
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "prev": "beat1",
+   "lead": 1.1,
+   "tail": 0.6,
+   "lines": [
+    {
+     "id": "L4",
+     "text": "4 năm trước, bố bớt 4 tuổi,"
+    },
+    {
+     "id": "L5",
+     "gap": 0.2,
+     "text": "con cũng bớt 4 tuổi."
+    },
+    {
+     "id": "L6",
+     "gap": 0.35,
+     "text": "Vậy tổng tuổi khi đó là 48 trừ 4 trừ 4, bằng 40."
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "bars": [
+     "beat^",
+     1.0,
+     "raw",
+     0.9
+    ],
+    "title": [
+     "L4^",
+     "L4.trước>"
+    ],
+    "cut1": [
+     "L4.bớt",
+     1.1,
+     "raw",
+     -0.1
+    ],
+    "cut2": [
+     "L5.bớt",
+     1.1,
+     "raw",
+     -0.1
+    ],
+    "lbl": [
+     "L6^",
+     "L6.đó>"
+    ],
+    "eq": [
+     "L6.48",
+     "L6.40>"
+    ],
+    "loop": [
+     "L6.40",
+     0.7,
+     "out",
+     0.15
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "prev": "beat2",
+   "lead": 1.1,
+   "tail": 0.8,
+   "lines": [
+    {
+     "id": "L7",
+     "text": "Vẽ sơ đồ 4 năm trước: con 1 phần, bố 4 phần."
+    },
+    {
+     "id": "L8",
+     "text": "Tổng là 5 phần, bằng 40 tuổi."
+    },
+    {
+     "id": "L9",
+     "text": "Một phần là 40 chia 5, bằng 8."
+    },
+    {
+     "id": "L10",
+     "gap": 0.2,
+     "text": "Đó là tuổi con khi ấy."
+    },
+    {
+     "id": "L11",
+     "text": "Bố khi ấy 8 nhân 4, bằng 32 tuổi."
+    },
+    {
+     "id": "L12",
+     "gap": 0.35,
+     "text": "Vậy hiện nay bố 32 cộng 4, bằng 36 tuổi!"
+    },
+    {
+     "id": "L31",
+     "gap": 0.45,
+     "text": "Thử lại: con nay 12 tuổi, 36 cộng 12 bằng 48. Đúng!"
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "title": [
+     "L7^",
+     "L7.trước>"
+    ],
+    "con": [
+     "L7.con",
+     0.8,
+     "raw",
+     -0.05
+    ],
+    "bo": [
+     "L7.bố",
+     1.1,
+     "raw",
+     -0.05
+    ],
+    "s1": [
+     "L8^",
+     "L8.phần>"
+    ],
+    "brace": [
+     "L8.bằng",
+     "L8.40>"
+    ],
+    "s2": [
+     "L9^",
+     "L9.8>"
+    ],
+    "fill": [
+     "L10^",
+     "L10$",
+     "raw"
+    ],
+    "s3": [
+     "L11^",
+     "L11.32>"
+    ],
+    "s4": [
+     "L12.hiện",
+     "L12.36>"
+    ],
+    "loop": [
+     "L12.36",
+     0.7,
+     "out",
+     0.15
+    ],
+    "spark": [
+     "L12$",
+     0.9,
+     "raw"
+    ],
+    "s5": [
+     "L31.36",
+     "L31.48>"
+    ],
+    "ok": [
+     "L31.Đúng",
+     0.8,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat4",
+   "prev": "beat3",
+   "lead": 1.1,
+   "tail": 2.2,
+   "lines": [
+    {
+     "id": "L13",
+     "text": "Hiện nay mẹ 35 tuổi và con gái 7 tuổi."
+    },
+    {
+     "id": "L14",
+     "gap": 0.35,
+     "text": "Hỏi sau bao nhiêu năm nữa,"
+    },
+    {
+     "id": "L15",
+     "gap": 0.15,
+     "text": "thì tuổi mẹ sẽ gấp 3 lần tuổi con?"
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "title": [
+     "beat^",
+     0.9,
+     "out",
+     1.0
+    ],
+    "r1": [
+     "L13.mẹ",
+     "L13.tuổi>"
+    ],
+    "r2": [
+     "L13.con",
+     "L13.tuổi#2>"
+    ],
+    "r3a": [
+     "L14^",
+     "L14.nữa>"
+    ],
+    "q": [
+     "L14.nhiêu",
+     0.7,
+     "raw"
+    ],
+    "r3b": [
+     "L15^",
+     "L15$"
+    ],
+    "dots": [
+     "L15$",
+     1.9,
+     "raw",
+     0.2
+    ]
+   }
+  },
+  {
+   "id": "beat5",
+   "prev": "beat4",
+   "lead": 1.1,
+   "tail": 0.8,
+   "lines": [
+    {
+     "id": "L16",
+     "text": "Mẹ hơn con 35 trừ 7, bằng 28 tuổi."
+    },
+    {
+     "id": "L17",
+     "gap": 0.35,
+     "text": "Mỗi năm, mẹ thêm 1 tuổi, con cũng thêm 1 tuổi."
+    },
+    {
+     "id": "L18",
+     "text": "Nên mẹ vẫn hơn con 28 tuổi."
+    },
+    {
+     "id": "L19",
+     "gap": 0.35,
+     "text": "Hiệu số tuổi không bao giờ đổi!"
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "title": [
+     "beat^",
+     0.9,
+     "out",
+     1.0
+    ],
+    "bars": [
+     "L16^",
+     0.9,
+     "raw",
+     -0.3
+    ],
+    "eq": [
+     "L16.35",
+     "L16.28>"
+    ],
+    "gap": [
+     "L16.bằng",
+     "L16.28>",
+     "raw"
+    ],
+    "grow": [
+     "L17^",
+     "L18.vẫn",
+     "raw"
+    ],
+    "keep": [
+     "L18.hơn",
+     "L18.28>",
+     "raw"
+    ],
+    "stamp": [
+     "L19^",
+     "L19$",
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat6",
+   "prev": "beat5",
+   "lead": 1.1,
+   "tail": 1.2,
+   "lines": [
+    {
+     "id": "L20",
+     "text": "Vẽ sơ đồ lúc mẹ gấp 3 lần con:"
+    },
+    {
+     "id": "L21",
+     "gap": 0.2,
+     "text": "con 1 phần, mẹ 3 phần."
+    },
+    {
+     "id": "L22",
+     "text": "Mẹ hơn con 2 phần, chính là 28 tuổi."
+    },
+    {
+     "id": "L23",
+     "text": "Một phần là 28 chia 2, bằng 14."
+    },
+    {
+     "id": "L24",
+     "gap": 0.2,
+     "text": "Lúc đó con 14 tuổi."
+    },
+    {
+     "id": "L25",
+     "gap": 0.35,
+     "text": "Vậy sau 14 trừ 7, bằng 7 năm nữa!"
+    },
+    {
+     "id": "L26",
+     "gap": 0.45,
+     "text": "Thử lại: mẹ 35 cộng 7, bằng 42 tuổi, đúng bằng 3 lần 14."
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "title": [
+     "L20^",
+     "L20$"
+    ],
+    "con": [
+     "L21.con",
+     0.8,
+     "raw",
+     -0.05
+    ],
+    "me": [
+     "L21.mẹ",
+     1.1,
+     "raw",
+     -0.05
+    ],
+    "s1": [
+     "L22^",
+     "L22.phần>"
+    ],
+    "brace": [
+     "L22.chính",
+     "L22.28>"
+    ],
+    "s2": [
+     "L23^",
+     "L23.14>"
+    ],
+    "fill": [
+     "L24^",
+     "L24$",
+     "raw"
+    ],
+    "s3": [
+     "L25.sau",
+     "L25.năm>"
+    ],
+    "loop": [
+     "L25.năm",
+     0.7,
+     "out",
+     0.1
+    ],
+    "s4": [
+     "L26.mẹ",
+     "L26.42>"
+    ],
+    "s5": [
+     "L26.đúng",
+     "L26.14>"
+    ],
+    "ok": [
+     "L26.14",
+     0.8,
+     "raw",
+     0.3
+    ]
+   }
+  },
+  {
+   "id": "beat7",
+   "prev": "beat6",
+   "lead": 1.1,
+   "tail": 1.4,
+   "lines": [
+    {
+     "id": "L27",
+     "text": "Nhớ 2 mẹo nhé!"
+    },
+    {
+     "id": "L28",
+     "gap": 0.35,
+     "text": "Một: mỗi năm, ai cũng thêm 1 tuổi."
+    },
+    {
+     "id": "L29",
+     "gap": 0.35,
+     "text": "Hai: hiệu số tuổi không bao giờ đổi."
+    },
+    {
+     "id": "L30",
+     "gap": 0.45,
+     "text": "Thấy hay thì bình luận nhé!"
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "title": [
+     "L27^",
+     "L27$"
+    ],
+    "t1": [
+     "L28^",
+     "L28$"
+    ],
+    "m1": [
+     "L28.thêm",
+     1.0,
+     "raw"
+    ],
+    "t2": [
+     "L29^",
+     "L29$"
+    ],
+    "m2": [
+     "L29.không",
+     1.0,
+     "raw"
+    ],
+    "cmt": [
+     "L30^",
+     "L30$"
+    ]
+   }
+  }
+ ]
+}
