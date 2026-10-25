@@ -39,7 +39,7 @@ Length 73.53 s (Vietnamese 72.37 s), 9 beats, 20 voice lines (en-US-AvaNeural, +
 - The 9 → 3 switch only changes the title digit; 3015's ticks stay without being tied to 3.
 - The countdown "3" can be confused with the divisor 3.
 
-## Final MP4 (`final/dau_hieu_chia_het_en.mp4`, after preview approval)
+## Final MP4 (`final/divisibility_rules.mp4`, after preview approval)
 - 73.533 s, 1080×1920 at 30 fps, H.264 + AAC 48 kHz stereo, −16.0 LUFS, true peak −1.5 dBFS.
 - The silences are the same as in the WAV (parking, wipes, the countdown).
 - `freezedetect=n=0.001:d=4` flags 50.0–55.2 s (beat 7, "15 is divisible by 3, so 906 is divisible by 3!"). In that window only the title digit 9 → 3, the small circle around 15 and the tick are drawn, which is below the detector's threshold. It is the same staging as the Vietnamese beat 7, so it counts as a weak spot of the shared layout, not a new dead hold.

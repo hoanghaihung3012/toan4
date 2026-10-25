@@ -2,6 +2,7 @@
   "_note": "English voiceover for the dau_hieu_chia_het scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs dau_hieu_chia_het_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
   "scene": "chiahet",
   "lang": "en",
+  "final": "divisibility_rules",
   "voice": "en-US-AvaNeural",
   "rate": "+10%",
   "fps": 30,
