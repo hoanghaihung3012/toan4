@@ -31,7 +31,7 @@ Length 65.47 s, 7 beats, 19 voice lines (en-US-AvaNeural, +6%). Scenes are the V
 - "Way 2" with no "Way 1" (the same as "Cách 2" in the Vietnamese cut). The voice says "another way", so it reads as a second method.
 - The small "×2" labels and the countdown 3-2-1 straight into the answer are inherited from the approved Vietnamese layout.
 
-## Final MP4 (`final/day_so_tiep_theo_en.mp4`, after preview approval)
+## Final MP4 (`final/what_comes_next.mp4`, after preview approval)
 - 65.467 s, 1080×1920 at 30 fps, H.264 + AAC 48 kHz stereo, −15.9 LUFS, true peak −1.5 dBFS.
 - The silences are the same as in the WAV (thinking dots, two wipes, the countdown).
 - `freezedetect=n=0.001:d=4` flags 10.6–14.7 s and 16.9–26.3 s. In those windows only the small jump arcs, the "+n" labels and the "×2" arcs are drawn, which is below the detector's threshold. The Vietnamese final shows the same two flags (10.6–15.6, 16.7–25.0), so this comes from the shared layout and is not a new dead hold.

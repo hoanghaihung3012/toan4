@@ -1,0 +1,499 @@
+{
+  "_note": "English voiceover for the dau_hieu_chia_het scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs dau_hieu_chia_het_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+  "scene": "chiahet",
+  "lang": "en",
+  "final": "divisibility_rules",
+  "voice": "en-US-AvaNeural",
+  "rate": "+10%",
+  "fps": 30,
+  "gap": 0.3,
+  "beats": [
+    {
+      "id": "beat1",
+      "lead": 0.5,
+      "tail": 0.3,
+      "lines": [
+        {
+          "id": "L1",
+          "text": "Is 3015 divisible by 9?"
+        },
+        {
+          "id": "L2",
+          "text": "No need to divide. There's a trick!"
+        }
+      ],
+      "windows": {
+        "drop": [
+          "beat^",
+          1.3,
+          "raw",
+          0.05
+        ],
+        "ask": [
+          "L1.divisible",
+          "L1.9>"
+        ],
+        "q": [
+          "L1.9>",
+          0.8,
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "beat2",
+      "lead": 1.1,
+      "tail": 0.2,
+      "lines": [
+        {
+          "id": "L3",
+          "text": "A trick for 2, 5, 9 and 3, all of them!"
+        }
+      ],
+      "windows": {
+        "park": [
+          "beat^",
+          0.9,
+          "raw"
+        ],
+        "erase": [
+          "beat^",
+          1.0,
+          "raw",
+          0.4
+        ],
+        "title": [
+          "L3.A",
+          0.7
+        ],
+        "divs": [
+          "L3.2",
+          "L3.3>",
+          "raw"
+        ],
+        "groups": [
+          "L3.9",
+          0.4
+        ],
+        "hint1": [
+          "L3.and",
+          0.3
+        ],
+        "hint2": [
+          "L3.all",
+          0.3
+        ]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.0,
+      "tail": 0.4,
+      "lines": [
+        {
+          "id": "L4",
+          "text": "Divisible by 2? Look at the last digit: 0, 2, 4, 6, 8 works!"
+        },
+        {
+          "id": "L5",
+          "gap": 0.3,
+          "text": "98, yes, even!"
+        },
+        {
+          "id": "L6",
+          "gap": 0.5,
+          "text": "1995, no, odd!"
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "L4.Divisible",
+          0.8
+        ],
+        "rule": [
+          "L4.Look",
+          "L4.8>"
+        ],
+        "n1": [
+          "L5^",
+          0.4,
+          "raw",
+          -0.45
+        ],
+        "lift1": [
+          "L5^",
+          0.5,
+          "raw"
+        ],
+        "arrow1": [
+          "L5.yes",
+          0.4,
+          "out",
+          -0.3
+        ],
+        "mark1": [
+          "L5.yes",
+          0.6,
+          "raw"
+        ],
+        "n2": [
+          "L6^",
+          0.4,
+          "raw",
+          -0.45
+        ],
+        "lift2": [
+          "L6^",
+          0.5,
+          "raw"
+        ],
+        "mark2": [
+          "L6.no",
+          0.6,
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "beat4",
+      "lead": 0.9,
+      "tail": 0.3,
+      "lines": [
+        {
+          "id": "L7",
+          "text": "Divisible by 5? The last digit is 0 or 5."
+        },
+        {
+          "id": "L8",
+          "gap": 0.3,
+          "text": "4005, yes!"
+        },
+        {
+          "id": "L9",
+          "gap": 0.5,
+          "text": "2021, no!"
+        }
+      ],
+      "windows": {
+        "erase": [
+          "beat^",
+          1.1,
+          "raw"
+        ],
+        "title": [
+          "L7.Divisible",
+          0.7
+        ],
+        "rule": [
+          "L7.The",
+          "L7$"
+        ],
+        "n1": [
+          "L8^",
+          0.4,
+          "raw",
+          -0.45
+        ],
+        "lift1": [
+          "L8^",
+          0.5,
+          "raw"
+        ],
+        "arrow1": [
+          "L8.yes",
+          0.4,
+          "out",
+          -0.3
+        ],
+        "mark1": [
+          "L8.yes",
+          0.6,
+          "raw"
+        ],
+        "n2": [
+          "L9^",
+          0.4,
+          "raw",
+          -0.45
+        ],
+        "lift2": [
+          "L9^",
+          0.5,
+          "raw"
+        ],
+        "mark2": [
+          "L9.no",
+          0.6,
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "beat5",
+      "lead": 0.9,
+      "tail": 0.3,
+      "lines": [
+        {
+          "id": "L10",
+          "text": "Both 2 and 5? It ends in 0, like 660."
+        }
+      ],
+      "windows": {
+        "erase": [
+          "beat^",
+          1.1,
+          "raw"
+        ],
+        "title": [
+          "L10.Both",
+          "L10.5>"
+        ],
+        "zero": [
+          "L10.It",
+          "L10.0>"
+        ],
+        "n1": [
+          "L10.like",
+          0.4,
+          "raw"
+        ],
+        "lift1": [
+          "L10.660",
+          0.5,
+          "raw"
+        ],
+        "arrow1": [
+          "L10.660",
+          0.5,
+          "out",
+          0.3
+        ],
+        "mark1": [
+          "L10.660",
+          0.6,
+          "raw",
+          0.5
+        ]
+      }
+    },
+    {
+      "id": "beat6",
+      "prev": "beat5",
+      "lead": 1.0,
+      "tail": 0.4,
+      "lines": [
+        {
+          "id": "L11",
+          "text": "For 9, add up the digits."
+        },
+        {
+          "id": "L12",
+          "text": "3015: 3 plus 0 plus 1 plus 5 makes 9."
+        },
+        {
+          "id": "L13",
+          "text": "Divisible by 9!"
+        },
+        {
+          "id": "L14",
+          "gap": 0.5,
+          "text": "And 906: digit sum 15, not divisible by 9."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "L11.For",
+          "L11.9>"
+        ],
+        "drop1": [
+          "L11.add",
+          1.0,
+          "raw"
+        ],
+        "fly1": [
+          "L12.3",
+          "L12.5>",
+          "raw"
+        ],
+        "sum1": [
+          "L12.makes",
+          "L12.9>"
+        ],
+        "mark1": [
+          "L13.Divisible",
+          1.0,
+          "raw"
+        ],
+        "drop2": [
+          "L14^",
+          0.8,
+          "raw",
+          -0.3
+        ],
+        "fly2": [
+          "L14.906>",
+          "L14.sum>",
+          "raw"
+        ],
+        "sum2": [
+          "L14.15",
+          0.4
+        ],
+        "mark2": [
+          "L14.not",
+          0.6,
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "beat7",
+      "lead": 0.3,
+      "tail": 0.3,
+      "lines": [
+        {
+          "id": "L15",
+          "text": "But what about 3?"
+        },
+        {
+          "id": "L16",
+          "gap": 0.6,
+          "text": "15 is divisible by 3, so 906 is divisible by 3!"
+        }
+      ],
+      "windows": {
+        "erase2": [
+          "L15^",
+          0.7,
+          "raw"
+        ],
+        "erase": [
+          "L15.what",
+          1.0,
+          "raw"
+        ],
+        "title": [
+          "L15.3",
+          0.6
+        ],
+        "loop": [
+          "L16.15",
+          0.6
+        ],
+        "mark2": [
+          "L16.so",
+          0.6,
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "beat8",
+      "prev": "beat7",
+      "lead": 1.0,
+      "tail": 0.3,
+      "lines": [
+        {
+          "id": "L17",
+          "text": "Your turn: 660 is divisible by which numbers?"
+        },
+        {
+          "id": "L18",
+          "text": "Comment your answer!"
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "drop": [
+          "L17.660",
+          1.0,
+          "raw",
+          -0.3
+        ],
+        "label": [
+          "L17.divisible",
+          "L17.by>"
+        ],
+        "divs": [
+          "L17.which",
+          0.8,
+          "raw"
+        ],
+        "qs": [
+          "L17.numbers",
+          0.6,
+          "raw"
+        ],
+        "count": [
+          "L18$",
+          3.0,
+          "raw",
+          0.3
+        ]
+      }
+    },
+    {
+      "id": "beat9",
+      "lead": 0.1,
+      "tail": 1.0,
+      "lines": [
+        {
+          "id": "L19",
+          "text": "Answer: it ends in 0, so it's divisible by 2 and 5."
+        },
+        {
+          "id": "L20",
+          "text": "Its digits add up to 12: divisible by 3, not by 9!"
+        }
+      ],
+      "windows": {
+        "lift": [
+          "L19.Answer",
+          0.7,
+          "raw"
+        ],
+        "mark25": [
+          "L19.divisible",
+          1.2,
+          "raw"
+        ],
+        "fly": [
+          "L20.Its",
+          "L20.12",
+          "raw"
+        ],
+        "sum": [
+          "L20.12",
+          0.5
+        ],
+        "loop12": [
+          "L20.12",
+          0.5,
+          "out",
+          0.3
+        ],
+        "marksum": [
+          "L20.3",
+          1.6,
+          "raw",
+          -0.3
+        ]
+      }
+    }
+  ]
+}

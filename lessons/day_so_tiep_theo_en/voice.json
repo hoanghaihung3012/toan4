@@ -2,6 +2,7 @@
   "_note": "English voiceover for the day_so_tiep_theo scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs day_so_tiep_theo_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
   "scene": "dayso",
   "lang": "en",
+  "final": "what_comes_next",
   "voice": "en-US-AvaNeural",
   "rate": "+6%",
   "fps": 30,
