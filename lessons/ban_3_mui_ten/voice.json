@@ -1,0 +1,125 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs ban_3_mui_ten. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "./scene.js",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.2, "tail": 0.5,
+   "lines": [
+    { "id": "L1", "text": "Gloria bắn 3 mũi tên, cả 3 đều trúng bia." },
+    { "id": "L2", "text": "Ví dụ: 5 cộng 3 cộng 1 bằng 9 điểm." },
+    { "id": "L3", "text": "Có thể được bao nhiêu tổng điểm khác nhau?" }
+   ],
+   "windows": {
+    "lab": ["L1.3", 0.7, "raw"],
+    "f1": ["beat^", 1.0, "raw", 0.1],
+    "f2": ["beat^", 1.0, "raw", 0.75],
+    "f3": ["beat^", 1.0, "raw", 1.4],
+    "ex": ["L2.5", "L2.9>"],
+    "q": ["L3^", 0.8, "raw"],
+    "qt": ["L3.tổng", "L3$"]
+   }
+  },
+  {
+   "id": "beat2", "lead": 0.3, "tail": 0.3,
+   "lines": [
+    { "id": "L4", "text": "Thấp nhất: cả 3 mũi tên trúng vòng 1." },
+    { "id": "L5", "text": "1 cộng 1 cộng 1 bằng 3." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.0, "raw"],
+    "down": ["L4.cả", "L4.1>", "raw"],
+    "r0": ["L5^", "L5$"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L6", "text": "Đưa 1 mũi tên vào vòng trong: tổng thêm 2." },
+    { "id": "L7", "gap": 0.5, "text": "Được 5." },
+    { "id": "L8", "gap": 0.5, "text": "Rồi 7." },
+    { "id": "L9", "gap": 0.5, "text": "9." },
+    { "id": "L10", "gap": 0.5, "text": "11." },
+    { "id": "L11", "gap": 0.5, "text": "13." },
+    { "id": "L12", "gap": 0.5, "text": "Cao nhất: 5 cộng 5 cộng 5 bằng 15." }
+   ],
+   "windows": {
+    "h1": ["L6^", 1.0, "raw"],
+    "r1": ["L6.tổng", "L6$"],
+    "p1": ["L6.2", 0.6, "raw"],
+    "k1": ["L7.5", 0.7, "raw"],
+    "h2": ["L8^", 0.6, "raw", -0.6],
+    "r2": ["L8^", "L8$"],
+    "p2": ["L8.7", 0.5, "raw"],
+    "h3": ["L9^", 0.6, "raw", -0.6],
+    "r3": ["L9^", "L9$"],
+    "p3": ["L9^", 0.5, "raw"],
+    "h4": ["L10^", 0.6, "raw", -0.6],
+    "r4": ["L10^", "L10$"],
+    "p4": ["L10^", 0.5, "raw"],
+    "h5": ["L11^", 0.6, "raw", -0.6],
+    "r5": ["L11^", "L11$"],
+    "p5": ["L11^", 0.5, "raw"],
+    "h6": ["L12^", 0.9, "raw"],
+    "r6": ["L12.5", "L12.15>"],
+    "p6": ["L12.15", 0.6, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.4, "tail": 0.6,
+   "lines": [
+    { "id": "L13", "text": "Còn 1 cộng 1 cộng 5 thì sao?" },
+    { "id": "L14", "text": "Cũng bằng 7. Trùng rồi!" }
+   ],
+   "windows": {
+    "dup": ["L13^", 0.9, "raw"],
+    "chk": ["L13.1", "L13.5>"],
+    "chk2": ["L14.bằng", "L14.7>"],
+    "same": ["L14.7", 0.8, "raw"],
+    "tr": ["L14.trùng", 0.7, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "lead": 0.9, "tail": 0.8,
+   "lines": [
+    { "id": "L15", "text": "Từ 3 đến 15, mỗi lần thêm 2." },
+    { "id": "L16", "text": "Có tất cả 7 tổng điểm khác nhau!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.0, "raw"],
+    "count": ["L15.3", "L15$", "raw"],
+    "seven": ["L16.7", 0.9, "raw"],
+    "words": ["L16.tổng", "L16$"]
+   }
+  },
+  {
+   "id": "beat6", "prev": "beat5", "lead": 1.05, "tail": 0.2,
+   "lines": [
+    { "id": "L17", "text": "Đến lượt bạn: nếu bắn 4 mũi tên thì có bao nhiêu tổng điểm?" },
+    { "id": "L18", "text": "Bình luận nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L17^", 0.8],
+    "board": ["L17^", 0.8, "raw"],
+    "shots": ["L17.bắn", 1.6, "raw"],
+    "lab": ["L17.4", 0.8, "raw"],
+    "q": ["L17.bao", 0.8, "raw"],
+    "count": ["L18$", 2.4, "raw", 0.15]
+   }
+  },
+  {
+   "id": "beat7", "lead": 0.3, "tail": 1.2,
+   "lines": [
+    { "id": "L19", "text": "Đáp án: từ 4 đến 20, mỗi lần thêm 2, có 9 tổng điểm!" }
+   ],
+   "windows": {
+    "nums": ["L19.4", "L19.thêm>", "raw"],
+    "nine": ["L19.9", 0.9, "raw"]
+   }
+  }
+ ]
+}
