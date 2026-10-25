@@ -1,0 +1,133 @@
+{
+ "_note": "English voiceover for the que_diem scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs que_diem_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+ "scene": "que_diem",
+ "lang": "en",
+ "voice": "en-US-AvaNeural",
+ "rate": "+10%",
+ "final": "matchsticks",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.5, "tail": 0.4,
+   "lines": [
+    { "id": "L1", "text": "Figure 99: how many matchsticks?" },
+    { "id": "L2", "text": "Counting one by one is tiring. Here's a trick!" }
+   ],
+   "windows": {
+    "title": ["beat^", 0.7],
+    "houses": ["beat^", 2.4, "raw", 0.1],
+    "tag": ["L1^", 0.8],
+    "q": ["L1.how", 0.8, "raw"],
+    "count": ["L2.Counting", 1.0],
+    "cross": ["L2.tiring", 0.6, "raw"],
+    "tip": ["L2.trick", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L3", "text": "Figure 1 is one house." },
+    { "id": "L4", "text": "Let's count: 1, 2, 3, 4, 5, 6. That's 6 sticks." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "label": ["L3^", 0.7],
+    "house": ["L3.house", 1.1, "raw"],
+    "s1": ["L4.1", 0.5, "raw"],
+    "s2": ["L4.2", 0.5, "raw"],
+    "s3": ["L4.3", 0.5, "raw"],
+    "s4": ["L4.4", 0.5, "raw"],
+    "s5": ["L4.5", 0.5, "raw"],
+    "s6": ["L4.6", 0.5, "raw"],
+    "total": ["L4.6#2", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 0.3, "tail": 0.3,
+   "lines": [
+    { "id": "L5", "text": "Figure 2 adds one more house." },
+    { "id": "L6", "text": "The middle wall is shared, so we only add 5 sticks." },
+    { "id": "L7", "text": "6 plus 5 makes 11." }
+   ],
+   "windows": {
+    "label": ["L5^", 0.7],
+    "old": ["L5.adds", 0.9, "raw"],
+    "wall": ["L6^", 0.9, "raw"],
+    "new": ["L6.5", 1.2, "raw"],
+    "plus": ["L7^", 0.9, "raw"],
+    "total": ["L7.11", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L8", "text": "Figure 3 adds 5 more. 11 plus 5 makes 16." },
+    { "id": "L9", "text": "Each new house adds 5 sticks." }
+   ],
+   "windows": {
+    "label": ["L8^", 0.7],
+    "old": ["L8^", 0.9, "raw", 0.1],
+    "new": ["L8.5", 1.2, "raw"],
+    "plus": ["L8.11", 0.9, "raw"],
+    "total": ["L8.16", 0.8, "raw"],
+    "loops": ["L9.5", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "prev": "beat4", "lead": 1.05, "tail": 0.4,
+   "lines": [
+    { "id": "L10", "text": "Each house needs 5 sticks, plus 1 stick for the first wall." },
+    { "id": "L11", "text": "Figure 3: 1 plus 5 times 3 makes 16. Correct!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "fig": ["beat^", 0.9, "raw", 1.15],
+    "groups": ["L10.5", 1.5, "raw"],
+    "wall": ["L10.1", 0.9, "raw"],
+    "eq": ["L11^", "L11.16>"],
+    "ok": ["L11.Correct", 0.7, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "lead": 0.3, "tail": 0.5,
+   "lines": [
+    { "id": "L12", "text": "So figure 99 has 1 plus 5 times 99." },
+    { "id": "L13", "text": "5 times 99 makes 495. Plus 1 gives 496 sticks." },
+    { "id": "L14", "text": "Pick answer B!" }
+   ],
+   "windows": {
+    "eq": ["L12.So>", "L12$"],
+    "mul": ["L13^", "L13.495>"],
+    "plus1": ["L13.Plus", 0.7, "raw"],
+    "res": ["L13.496", 0.8, "raw"],
+    "opts": ["L14^", 0.7],
+    "pick": ["L14.B", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat7", "prev": "beat6", "lead": 1.05, "tail": 0.2,
+   "lines": [
+    { "id": "L15", "text": "Your turn: figure 10. How many matchsticks?" },
+    { "id": "L16", "text": "Comment your answer!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "label": ["L15^", 0.8],
+    "houses": ["L15.turn>", 1.5, "raw"],
+    "q": ["L15.How", 0.8, "raw"],
+    "count": ["L16$", 2.4, "raw", 0.15]
+   }
+  },
+  {
+   "id": "beat8", "lead": 0.3, "tail": 1.2,
+   "lines": [
+    { "id": "L17", "text": "Answer: 1 plus 5 times 10 makes 51 sticks!" }
+   ],
+   "windows": {
+    "ans": ["L17^", "L17.51>"],
+    "loop": ["L17.51", 0.9, "raw"]
+   }
+  }
+ ]
+}

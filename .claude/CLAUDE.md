@@ -21,6 +21,7 @@ Verification loops (do not skip any):
 6. Director's review: watch it twice as frames, write a brutal critique, fix the top 3 issues, review again.
 
 Approval: one review of the running HTML preview.
+English versions need no approval: publish to Pages (the Zalo link is a notice only), then export the final MP4 and open the PR straight away.
 1. Complete facts, story, storyboard, scenes, audio and timing without asking for intermediate approval. Run all applicable verification loops before presenting the preview.
 2. Publish the HTML preview to GitHub Pages with `npm run pages -- <lesson>` (working voiceover and playback controls, opens on a phone at `https://hoanghaihung3012.github.io/toan4/<lesson>/`). `npm run pages` also sends the link to my Zalo review group (token from the `ZALO_BOT_TOKEN` environment secret, never committed). Show that Pages link, contact sheet and critique, then wait for my approval. Show the work, not just a description of it.
 3. If I request changes, fix them, rerun the affected verification loops (always including sync), republish with `npm run pages -- <lesson>` and return to the same preview review. Do not add separate approval gates for story, style, key poses or audio.

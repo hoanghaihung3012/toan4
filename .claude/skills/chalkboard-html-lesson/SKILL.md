@@ -20,7 +20,7 @@ This skill holds the **style, the engine and the process**: the board background
 - **Motion:** anticipation, follow-through, squash and stretch, springs, arcs; no linear moves.
 - **Camera:** none. Every board change is motivated by the eraser.
 - **Language:** Vietnamese by default (user's rule, 2026-10-25). Make an English version only when the user asks for it, and always **reuse the Vietnamese lesson** (see **Language versions**). Never write a new story or new scenes for it.
-- **Review in the browser only.** The user approves once, on the running HTML preview; export the MP4 once, after that approval (the user asked for this explicitly).
+- **Review in the browser only.** The user approves once, on the running HTML preview; export the MP4 once, after that approval (the user asked for this explicitly). English versions skip that approval (see **Language versions** step 6).
 
 ## The one place to edit the look: `web/theme.js`
 `THEME` holds every visual value. `web/js/theme_apply.js` turns it into CSS variables, `@font-face` rules and the SVG chalk/grain filters at start-up. `render/capture.mjs` reads the canvas size and fps from it. CSS, HTML and scenes contain no style values.
@@ -177,7 +177,9 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
    - technical;
    - director's review.
    
-   Then follow the same single approval on Pages (`npm run pages -- <lesson>_en`; `pages.mjs` copies the imported Vietnamese scene and sets `<html lang>` from `voice.json`), `npm run final -- <lesson>_en` → `final/<YYYY-MM-DD>/<english_title>.mp4` (from `voice.json` `final`), and a PR to `develop`.
+   Then **no approval wait** (user's rule, 2026-10-25: the English version skips the Pages review). Publish with `npm run pages -- <lesson>_en` (`pages.mjs` copies the imported Vietnamese scene and sets `<html lang>` from `voice.json`; it still sends the Zalo link once Pages is live, as a notice only), then go straight on: `npm run final -- <lesson>_en` → `final/<YYYY-MM-DD>/<english_title>.mp4` (from `voice.json` `final`), the final technical checks, and a PR to `develop`. Tell the user the Pages link, the PR and the MP4 in one message at the end. If the user later asks for changes, fix them, re-run the loops they touch (sync always), republish, re-export the MP4 and push to the same PR.
+   - Edge TTS English also merges **"Figure 99" / "figure 10"** into ONE word boundary: anchor on the line start or the word before, never on the number after "figure".
+   - When an English word is longer and collides with the drawn layout, add a small `FIT` export next to `TEXT` in the Vietnamese scene (offsets/sizes that default to the Vietnamese values) and override it in the wrapper; the Vietnamese key-pose diff must stay 0.000 (example: `lessons/que_diem_en/`).
 7. The talk with the user stays in Vietnamese. Only the clip is English.
 
 ## Workflow: one approval, on the running HTML (user's rule, 2026-10-25)
