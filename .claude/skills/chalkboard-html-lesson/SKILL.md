@@ -20,6 +20,7 @@ This skill holds the **style, the engine and the process**: the board background
 - **Motion:** anticipation, follow-through, squash and stretch, springs, arcs; no linear moves.
 - **Camera:** none. Every board change is motivated by the eraser.
 - **Language:** Vietnamese by default (user's rule, 2026-10-25). Make an English version only when the user asks for it, and always **reuse the Vietnamese lesson** (see **Language versions**). Never write a new story or new scenes for it.
+- **Names match the language** (user's rule, 2026-10-25): a Vietnamese lesson uses only Vietnamese names (An, Bảo, Chi, Dũng, …), an English lesson only English names (Alex, Ben, Cindy, Dan, …). When the source problem uses names from the other language, rename the people (keep the initials when the puzzle refers to them, keep the logic unchanged) and record the mapping in story.md. In Vietnamese avoid "Bình" (it clashes with the closing "Bình luận"). An English version (`_en`) renames them back to English names in its `TEXT` and voice lines.
 - **Review in the browser only.** The user approves once, on the running HTML preview; export the MP4 once, after that approval (the user asked for this explicitly). English versions skip that approval (see **Language versions** step 6).
 
 ## The one place to edit the look: `web/theme.js`
@@ -160,7 +161,7 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
    Object.assign(TEXT, { question: 'What comes next?', /* … */ });
    export { scenes };
    ```
-   Numbers, ×, =, + and digits stay as drawn. Keep each English string about as long as the Vietnamese one, or shorter, so the layout fits. Check this on the key poses.
+   Numbers, ×, =, + and digits stay as drawn. People's names are translated too: Vietnamese names in the Vietnamese lesson, English names in the English one (see **Project rules**). Keep each English string about as long as the Vietnamese one, or shorter, so the layout fits. Check this on the key poses.
 4. **`lessons/<lesson>_en/voice.json`**: copy the Vietnamese one, then set `"lang": "en"`, `"voice": "en-US-AvaNeural"`, `"rate": "+6%"` and `"final": "<english_title>"`.
    - `final` names the finished MP4 in English, snake_case, with **no `_en` suffix** (user's rule, 2026-10-25): e.g. `"divisibility_rules"`, `"what_comes_next"`. Take it from the English title in `story.md`.
    - Keep the **same beat ids, window keys, `prev`/`wipe`, lead/tail** and translate each line.
