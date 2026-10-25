@@ -1,0 +1,112 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs vuon_thanh_hinh_vuong. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "vuon_thanh_hinh_vuong",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.4, "tail": 0.3,
+   "lines": [
+    { "id": "L1", "text": "Mảnh vườn hình chữ nhật có chu vi 120 mét." },
+    { "id": "L2", "text": "Tăng chiều rộng thêm 10 mét, giảm chiều dài đi 10 mét, thì thành hình vuông." },
+    { "id": "L3", "text": "Tính diện tích mảnh vườn ban đầu nhé!" }
+   ],
+   "windows": {
+    "title": ["beat^", 0.8],
+    "garden": ["beat^", 1.4, "raw", 0.1],
+    "trace": ["L1.chu", 1.1, "raw"],
+    "per": ["L1.120", 0.8],
+    "wid": ["L2.rộng", 1.0, "raw"],
+    "len": ["L2.dài", 1.0, "raw"],
+    "sq": ["L2.hình", 0.8, "raw"],
+    "area": ["L3.diện", 1.2, "raw"],
+    "ask": ["L3.diện", 0.9],
+    "dots": ["L3$", 2.2, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L4", "text": "Nửa chu vi là chiều dài cộng chiều rộng." },
+    { "id": "L5", "text": "120 chia 2 bằng 60 mét." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "fig": ["beat^", 0.9, "raw", 1.15],
+    "half": ["L4.Nửa", 0.9, "raw"],
+    "fly": ["L4.chiều", "L4$", "raw"],
+    "eq": ["L5^", "L5$"],
+    "brace": ["L5.60", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 0.3, "tail": 0.3,
+   "lines": [
+    { "id": "L6", "text": "Bớt chiều dài 10 mét, thêm chiều rộng 10 mét, thì hai cạnh bằng nhau." },
+    { "id": "L7", "text": "Vậy chiều dài hơn chiều rộng: 10 cộng 10, bằng 20 mét." }
+   ],
+   "windows": {
+    "rows": ["L6^", 0.9, "raw"],
+    "cut": ["L6.10", 1.0, "raw"],
+    "add": ["L6.thêm", 1.0, "raw"],
+    "same": ["L6.bằng", 0.8, "raw"],
+    "gap": ["L7.hơn", 1.0, "raw"],
+    "e1": ["L7.10", "L7$"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L8", "text": "Tổng là 60, hiệu là 20." },
+    { "id": "L9", "text": "Chiều dài: 60 cộng 20, chia 2, bằng 40 mét." },
+    { "id": "L10", "text": "Chiều rộng: 60 trừ 40, bằng 20 mét." }
+   ],
+   "windows": {
+    "hl": ["L8^", "L8$", "raw"],
+    "e2": ["L9^", "L9$"],
+    "e3": ["L10^", "L10$"]
+   }
+  },
+  {
+   "id": "beat5", "prev": "beat4", "lead": 1.05, "tail": 0.4,
+   "lines": [
+    { "id": "L11", "text": "Diện tích là 40 nhân 20, bằng 800 mét vuông." },
+    { "id": "L12", "text": "Thử lại: 40 trừ 10 bằng 30, 20 cộng 10 cũng bằng 30. Đúng là hình vuông!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "fig": ["beat^", 0.9, "raw", 1.15],
+    "area": ["L11^", 1.2, "raw"],
+    "dims": ["L11.40", 0.8, "raw"],
+    "eq": ["L11.40", "L11.20>"],
+    "res": ["L11.800", 1.0, "raw"],
+    "c1": ["L12.40", "L12.30>"],
+    "c2": ["L12.20", "L12.30#2>"],
+    "ok": ["L12.Đúng", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "prev": "beat5", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L13", "text": "Đến lượt bạn: chu vi 100 mét, cũng tăng rộng 10 mét, giảm dài 10 mét thì thành hình vuông." },
+    { "id": "L14", "text": "Diện tích là bao nhiêu? Bình luận nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L13^", 0.8],
+    "garden": ["L13^", 1.2, "raw"],
+    "trace": ["L13.chu", 1.1, "raw"],
+    "per": ["L13.100", 0.8],
+    "wid": ["L13.rộng", 1.0, "raw"],
+    "len": ["L13.dài", 1.0, "raw"],
+    "sq": ["L13.hình", 0.8, "raw"],
+    "ask": ["L14^", 0.9],
+    "area": ["L14^", 1.2, "raw"],
+    "cmt": ["L14.Bình", 0.9],
+    "count": ["L14$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}
