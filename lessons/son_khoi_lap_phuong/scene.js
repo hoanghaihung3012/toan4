@@ -131,7 +131,7 @@ function arrows(L, S) {
     const k = u < 0.2 ? -0.1 * Math.sin((Math.PI * u) / 0.2) : easeInOut((u - 0.2) / 0.8);
     const to = [a.from[0] + (a.to[0] - a.from[0]) * Math.max(0.05, k), a.from[1] + (a.to[1] - a.from[1]) * Math.max(0.05, k)];
     L.arrow(a.from, to, { color, width: 9, t: clamp01(u * 1.4), seed: 600 + i, head: 30 });
-    popLabel(L, a.word, a.lab[0], a.lab[1], u, { size: 54, color });
+    popLabel(L, a.word, a.lab[0], a.lab[1], u, { size: 68, color });
   });
 }
 
@@ -146,7 +146,7 @@ function worksheet(objs, L, S) {
     r.slots.forEach((s, si) => {
       const x0 = gridLeft(si, s.h);
       const lu = S('beat2', said[ri * 2 + si]);
-      popLabel(L, s.label, SLOT_X[si], gridTop(r) - 26, lu, { size: 54, color: INK[r.side] });
+      popLabel(L, s.label, SLOT_X[si], gridTop(r) - 26, lu, { size: 68, color: INK[r.side] });
       const gu = S(b, si ? 'gridB' : 'gridA');
       const hy = hop < 1 ? -hopY(hop, 30) : 0;
       flatGrid(svg, s.h, x0, r.base + 0, C, { color: PAINT[r.side], u: gu, hop: -hy });
@@ -205,12 +205,12 @@ function board(ctx, beat, p) {
     if (beat === 'beat2' && n > 0 && k > 0) {
       [0, 1, 2, 3].forEach((x) => {
         const [cx, cy] = M.pt(x + 0.5, 0, 0.5);
-        L.text(String(x + 1), cx, cy + 22, { size: 64, color: CHALK.white, align: 'center', scale: k * stagger(n, x, 4, 0.5) });
+        L.text(String(x + 1), cx, cy + 30, { size: 88, color: 'rgb(92, 58, 30)', align: 'center', scale: k * stagger(n, x, 4, 0.5) });
       });
       const cr = S('beat2', 'cross');
       const [l, r] = [M.pt(0.1, 0, 0.5), M.pt(3.9, 0, 0.5)];
       const mid = (l[0] + r[0]) / 2;
-      L.line([mid + (l[0] - mid) * k, l[1] + 10], [mid + (r[0] - mid) * k, r[1] - 10], { color: CHALK.red, width: 12, t: cr, seed: 70 });
+      L.line([mid + (l[0] - mid) * k, l[1] + 10], [mid + (r[0] - mid) * k, r[1] - 10], { color: CHALK.red, width: 18, t: cr, seed: 70 });
     }
   };
   if (beat === 'beat6') bandWipe(ctx, g(p, 'wipe'), [150, 860], drawTop, 3);
@@ -226,14 +226,14 @@ const EQ = { x: 540, y: [290, 410, 530], sumY: 690 };
 function sums(L, p) {
   const lines = [['8', '8', '16', 'top'], ['9', '9', '18', 'front'], ['4', '4', '8', 'right']];
   lines.forEach(([a, b, s, side], i) => {
-    row(L, [a, '+', b, '=', { s, color: CHALK.yellow }], EQ.x, EQ.y[i], { size: 92, t: g(p, `e${i + 1}`), seed: 700 + i * 10 });
-    // the pair's colour as a chalk dash in front of the row
-    L.line([EQ.x - 260, EQ.y[i] - 30], [EQ.x - 200, EQ.y[i] - 30], { color: INK[side], width: 16, t: g(p, `e${i + 1}`), seed: 760 + i });
+    // the pair's colour on its two numbers ties each row to its two flat views below
+    row(L, [{ s: a, color: INK[side] }, '+', { s: b, color: INK[side] }, '=', { s, color: CHALK.yellow }], EQ.x, EQ.y[i],
+      { size: 92, t: g(p, `e${i + 1}`), seed: 700 + i * 10 });
   });
   const xs = row(L, ['16', '+', '18', '+', '8', '=', { s: '42', color: CHALK.yellow, size: 130 }], EQ.x, EQ.sumY,
-    { size: 96, t: g(p, 'sum'), seed: 780 });
+    { size: 96, t: g(p, 'sum'), seed: 780, gap: 0.7 });
   const lp = g(p, 'loop');
-  L.loop(xs[6], EQ.sumY - 40, 100, 80, { color: CHALK.yellow, width: 9, t: clamp01(lp * 1.4), seed: 790 });
+  L.loop(xs[6], EQ.sumY - 40, 86, 80, { color: CHALK.yellow, width: 9, t: clamp01(lp * 1.4), seed: 790 });
   sparks(L, xs[6], EQ.sumY - 40, 112, 140, clamp01(lp * 1.5 - 0.5), { seed: 795 });
 }
 
@@ -260,10 +260,10 @@ function quizBoard(ctx, p) {
   flatGrid(svgLayer(objs), [2, 2, 2, 2], Q.gx, Q.gy, Q.c, { color: PAINT.top, u: clamp01(m * 1.5 - 0.3) });
   const L = ctx.chalk(60);
   L.text('Đến lượt bạn!', 540, Q.labY, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'label') });
-  L.text('mặt đáy', 540, Q.gy - 2 * Q.c - 22, { size: 54, color: CHALK.pink, align: 'center', t: clamp01(m * 1.5 - 0.5) });
+  L.text('mặt đáy', 540, Q.gy - 2 * Q.c - 26, { size: 68, color: CHALK.pink, align: 'center', t: clamp01(m * 1.5 - 0.5) });
   L.line([Q.gx - 20, Q.gy - 2 * Q.c - 10], [Q.gx + 4 * Q.c + 20, Q.gy + 10], { color: CHALK.red, width: 14, t: clamp01(no * 2), seed: 810 });
   L.line([Q.gx + 4 * Q.c + 20, Q.gy - 2 * Q.c - 10], [Q.gx - 20, Q.gy + 10], { color: CHALK.red, width: 14, t: clamp01(no * 2 - 1), seed: 811 });
-  L.text('không sơn', 540, Q.noY, { size: 64, color: CHALK.red, align: 'center', t: clamp01(no * 2 - 0.6) });
+  L.text('không sơn', 540, Q.noY + 12, { size: 84, color: CHALK.red, align: 'center', t: clamp01(no * 2 - 0.6) });
   return L;
 }
 
@@ -288,11 +288,11 @@ function beat8(ctx, p) {
   const k = outScale(1, clamp01(e * 3));
   if (k > 0) L.text('? ô', 540, Q.qY, { size: 160, color: CHALK.yellow, align: 'center', scale: k });
   const xs = row(L, ['42', { sym: 'minus' }, '8', '=', { s: '34', color: CHALK.yellow, size: 140 }], 540, Q.eqY + 40,
-    { size: 110, t: clamp01(e * 1.4 - 0.3), seed: 850 });
+    { size: 110, t: clamp01(e * 1.4 - 0.3), seed: 850, gap: 0.7 });
   const lp = g(p, 'loop');
-  L.loop(xs[4], Q.eqY, 100, 84, { color: CHALK.yellow, width: 9, t: clamp01(lp * 1.4), seed: 860 });
+  L.loop(xs[4], Q.eqY, 86, 84, { color: CHALK.yellow, width: 9, t: clamp01(lp * 1.4), seed: 860 });
   sparks(L, xs[4], Q.eqY, 125, 165, clamp01(lp * 1.5 - 0.5), { seed: 865 });
-  L.text('ô vuông', 540, Q.countY, { size: 80, align: 'center', t: clamp01(lp * 2 - 0.5) });
+  L.text('ô vuông', 540, Q.countY, { size: 104, align: 'center', t: clamp01(lp * 2 - 0.5) });
 }
 
 export const scenes = { beat1, beat2, beat3, beat4, beat5, beat6, beat7, beat8 };
