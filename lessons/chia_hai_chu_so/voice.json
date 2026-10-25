@@ -1,0 +1,456 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs chia_hai_chu_so. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "chia2",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+10%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1",
+   "lead": 0.6,
+   "tail": 0.3,
+   "lines": [
+    {
+     "id": "L1",
+     "text": "68917 chia 85 bằng bao nhiêu?"
+    },
+    {
+     "id": "L2",
+     "text": "Nhìn khó, nhưng chỉ có 4 bước thôi!"
+    }
+   ],
+   "windows": {
+    "drop": [
+     "beat^",
+     1.4,
+     "raw",
+     0.05
+    ],
+    "drop2": [
+     "L1.chia",
+     0.9,
+     "raw"
+    ],
+    "q": [
+     "L1.bao",
+     0.8,
+     "raw"
+    ],
+    "four": [
+     "L2.4",
+     0.7,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "lead": 1.0,
+   "tail": 0.3,
+   "lines": [
+    {
+     "id": "L3",
+     "text": "Đặt tính như thế này."
+    },
+    {
+     "id": "L4",
+     "text": "Nhớ 4 bước: chia, nhân, trừ, hạ."
+    }
+   ],
+   "windows": {
+    "erase": [
+     "beat^",
+     1.0,
+     "raw"
+    ],
+    "park": [
+     "beat^",
+     1.2,
+     "raw",
+     0.8
+    ],
+    "lines": [
+     "L3.như",
+     0.7
+    ],
+    "title": [
+     "L3.này",
+     0.8
+    ],
+    "strip": [
+     "L4.chia",
+     "L4.hạ>",
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "lead": 0.3,
+   "tail": 0.4,
+   "lines": [
+    {
+     "id": "L5",
+     "text": "68 bé hơn 85, nên ta lấy 689."
+    },
+    {
+     "id": "L6",
+     "text": "Mẹo: che chữ số cuối."
+    },
+    {
+     "id": "L7",
+     "text": "68 chia 8 được 8. Viết 8."
+    }
+   ],
+   "windows": {
+    "u68": [
+     "L5^",
+     0.5
+    ],
+    "note1": [
+     "L5.bé",
+     0.8
+    ],
+    "u689": [
+     "L5.689",
+     0.5
+    ],
+    "erase": [
+     "L6^",
+     0.8,
+     "raw"
+    ],
+    "cover": [
+     "L6.che",
+     0.9,
+     "raw"
+    ],
+    "note2": [
+     "L7^",
+     "L7.8#2>"
+    ],
+    "chia": [
+     "L7.chia",
+     0.4
+    ],
+    "q": [
+     "L7.Viết",
+     0.6,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat4",
+   "lead": 0.3,
+   "tail": 0.4,
+   "lines": [
+    {
+     "id": "L8",
+     "text": "8 nhân 85 bằng 680."
+    },
+    {
+     "id": "L9",
+     "text": "689 trừ 680 bằng 9."
+    },
+    {
+     "id": "L10",
+     "text": "9 bé hơn 85, đúng rồi!"
+    }
+   ],
+   "windows": {
+    "uncover": [
+     "beat^",
+     0.8,
+     "raw"
+    ],
+    "nhan": [
+     "L8^",
+     0.4
+    ],
+    "arrow": [
+     "L8.nhân",
+     0.6
+    ],
+    "prod": [
+     "L8.680",
+     0.7
+    ],
+    "tru": [
+     "L9^",
+     0.4
+    ],
+    "minus": [
+     "L9.trừ",
+     0.5
+    ],
+    "diff": [
+     "L9.9",
+     0.4
+    ],
+    "erase": [
+     "beat^",
+     0.8,
+     "raw"
+    ],
+    "note": [
+     "L10.9",
+     "L10.85>"
+    ],
+    "ok": [
+     "L10.đúng",
+     0.7,
+     "raw"
+    ],
+    "mulnote": [
+     "L8.nhân",
+     "L8.680>"
+    ],
+    "erase2": [
+     "L9.bằng",
+     0.8,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat5",
+   "lead": 0.3,
+   "tail": 0.4,
+   "lines": [
+    {
+     "id": "L11",
+     "text": "Hạ 1, được 91."
+    },
+    {
+     "id": "L12",
+     "text": "91 chia 85 được 1."
+    },
+    {
+     "id": "L13",
+     "text": "1 nhân 85 bằng 85. 91 trừ 85 bằng 6."
+    }
+   ],
+   "windows": {
+    "ha": [
+     "L11^",
+     0.4
+    ],
+    "bring": [
+     "L11^",
+     0.9,
+     "raw"
+    ],
+    "loop": [
+     "L11.91",
+     0.5
+    ],
+    "chia": [
+     "L12^",
+     0.4
+    ],
+    "q": [
+     "L12.được",
+     0.6,
+     "raw"
+    ],
+    "nhan": [
+     "L13^",
+     0.4
+    ],
+    "prod": [
+     "L13.85#2",
+     0.6
+    ],
+    "tru": [
+     "L13.91",
+     0.4
+    ],
+    "minus": [
+     "L13.trừ",
+     0.5
+    ],
+    "diff": [
+     "L13.6",
+     0.4
+    ],
+    "divnote": [
+     "L12^",
+     "L12.1>"
+    ],
+    "erase": [
+     "L13^",
+     0.8,
+     "raw"
+    ],
+    "mulnote": [
+     "L13.nhân",
+     "L13.85#2>",
+     "out",
+     0.25
+    ],
+    "erase0": [
+     "L11^",
+     0.8,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat6",
+   "lead": 0.3,
+   "tail": 0.5,
+   "lines": [
+    {
+     "id": "L14",
+     "text": "Hạ 7, được 67."
+    },
+    {
+     "id": "L15",
+     "text": "67 chia 85? 67 bé hơn 85, nên được 0."
+    },
+    {
+     "id": "L16",
+     "text": "Nhớ viết 0 vào thương!"
+    }
+   ],
+   "windows": {
+    "ha": [
+     "L14^",
+     0.4
+    ],
+    "bring": [
+     "L14^",
+     0.9,
+     "raw"
+    ],
+    "chia": [
+     "L15^",
+     0.4
+    ],
+    "erase": [
+     "L15^",
+     0.8,
+     "raw"
+    ],
+    "note": [
+     "L15.67#2",
+     "L15.0>"
+    ],
+    "q": [
+     "L15.0",
+     0.8,
+     "raw"
+    ],
+    "zero": [
+     "L16.viết",
+     0.7,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat7",
+   "lead": 1.0,
+   "tail": 1.0,
+   "lines": [
+    {
+     "id": "L17",
+     "text": "Vậy 68917 chia 85 bằng 810, dư 67."
+    }
+   ],
+   "windows": {
+    "erase": [
+     "beat^",
+     0.8,
+     "raw",
+     0.1
+    ],
+    "res": [
+     "L17.68917",
+     "L17.810>"
+    ],
+    "loopQ": [
+     "L17.810",
+     0.5
+    ],
+    "rem": [
+     "L17.dư",
+     "L17.67>"
+    ]
+   }
+  },
+  {
+   "id": "beat8",
+   "prev": "beat7",
+   "lead": 1.0,
+   "tail": 0.3,
+   "lines": [
+    {
+     "id": "L18",
+     "text": "Đến lượt bạn: 2996 chia 28 bằng bao nhiêu?"
+    },
+    {
+     "id": "L19",
+     "text": "Bình luận đáp án nhé!"
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "label": [
+     "L18^",
+     "L18.bạn>"
+    ],
+    "drop": [
+     "L18.2996",
+     1.2,
+     "raw",
+     -0.2
+    ],
+    "drop2": [
+     "L18.chia",
+     0.9,
+     "raw"
+    ],
+    "q": [
+     "L18.bao",
+     0.8,
+     "raw"
+    ],
+    "count": [
+     "L19$",
+     3.0,
+     "raw",
+     0.2
+    ]
+   }
+  },
+  {
+   "id": "beat9",
+   "lead": 0.1,
+   "tail": 1.2,
+   "lines": [
+    {
+     "id": "L20",
+     "text": "Đáp án: 107. Lại có số 0 ở giữa đấy!"
+    }
+   ],
+   "windows": {
+    "ans": [
+     "L20.Đáp",
+     "L20.107>"
+    ],
+    "zero": [
+     "L20.0",
+     0.7,
+     "raw"
+    ]
+   }
+  }
+ ]
+}
