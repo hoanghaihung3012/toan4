@@ -22,3 +22,6 @@ Length 54.9 s (Vietnamese 53.5 s) · same 6 beats on one board · voice en-US-Av
 - The mirror rule (left part + its flipped image) is shown by the sight line and the cream/mint colours, not spelled out; the sound-off reader found A and D the hardest to follow.
 - "largest, not over 1000" and "> 1000" are small for a phone (64 / 58 px).
 - Row D is dense; the lower ~320 px stay empty by design (TikTok caption zone).
+
+## Final MP4
+`final/2026-10-25/where_should_the_mirror_go.mp4`: 54.90 s, 1080×1920 @ 30 fps H.264, AAC 48 kHz stereo, true peak −1.5 dBFS. silencedetect (> 1.2 s): 8.3–11.9 s only (3-2-1 countdown). freezedetect (n = 0.001, d = 4 s): 17.8–22.4 s, 25.0–29.2 s and 50.0–54.9 s. Only small chalk marks change in them (the loop round the 8 and "= 181"; the loop round "81", "= 1881" and the red cross; the ✓ hop and mirror glint at the end), the same weak holds as the Vietnamese clip.
