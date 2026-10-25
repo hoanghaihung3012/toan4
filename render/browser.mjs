@@ -6,7 +6,8 @@ import puppeteer from 'puppeteer-core';
 import { startServer } from './serve.mjs';
 import { THEME } from '../shared/web/theme.js';
 
-export const CHROME_DEFAULT = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+// macOS Chrome by default; CHROME_PATH overrides it (e.g. Linux cloud sessions)
+export const CHROME_DEFAULT = process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 export const { width: W, height: H } = THEME.canvas;
 
 // --key value / --flag -> { key: value | true }
@@ -25,7 +26,9 @@ export async function launch(chrome = CHROME_DEFAULT) {
   return puppeteer.launch({
     executablePath: chrome,
     headless: true,
-    args: ['--force-color-profile=srgb', '--disable-lcd-text', '--font-render-hinting=none'],
+    args: ['--force-color-profile=srgb', '--disable-lcd-text', '--font-render-hinting=none',
+      // Chrome refuses to start as root (containers) unless the sandbox is off
+      ...(process.getuid?.() === 0 ? ['--no-sandbox'] : [])],
   });
 }
 
