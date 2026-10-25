@@ -1,0 +1,110 @@
+{
+  "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs tong_14_tich_48. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+  "scene": "tong_tich",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+8%",
+  "fps": 30,
+  "gap": 0.3,
+  "beats": [
+    { "id": "beat1", "lead": 0.3, "tail": 2.2,
+      "lines": [
+        { "id": "L1", "text": "Hai số có tổng là 14 và tích là 48." },
+        { "id": "L2", "gap": 0.4, "text": "Hiệu của chúng là bao nhiêu?" }
+      ],
+      "windows": {
+        "shapes": ["L1.Hai", "L1.số>", "raw"],
+        "eq1":    ["L1.tổng", "L1.14>"],
+        "eq2":    ["L1.tích", "L1.48>"],
+        "hieu":   ["L2^", "L2.chúng>"],
+        "q":      ["L2.nhiêu", 0.7, "raw"],
+        "title":  ["beat^", 1.0],
+        "dots":   ["L2$", 1.9, "raw", 0.2]
+      }
+    },
+    { "id": "beat2", "prev": "beat1", "lead": 1.0, "tail": 0.4,
+      "lines": [
+        { "id": "L3", "text": "Mẹo: tách 14 thành hai số, rồi nhân thử!" },
+        { "id": "L4", "gap": 0.35, "text": "1 nhân 13 là 13." },
+        { "id": "L5", "gap": 0.15, "text": "2 nhân 12 là 24." },
+        { "id": "L6", "gap": 0.15, "text": "3 nhân 11 là 33." },
+        { "id": "L7", "gap": 0.15, "text": "4 nhân 10 là 40." },
+        { "id": "L8", "gap": 0.15, "text": "5 nhân 9 là 45." },
+        { "id": "L9", "gap": 0.15, "text": "6 nhân 8 là 48. Đúng rồi!" }
+      ],
+      "windows": {
+        "wipe":   ["beat^", 1.2, "raw"],
+        "recap":  ["L3.Mẹo", "L3.số>"],
+        "split":  ["L3.tách", "L3.số>", "raw"],
+        "head":   ["L3.rồi", "L3$"],
+        "a1": ["L4.1", 0.8, "raw", -0.15],  "b1": ["L4.13", 0.8, "raw", -0.15],  "p1": ["L4.13#2", 0.45], "m1": ["L4$", 0.6, "raw"],
+        "a2": ["L5.2", 0.8, "raw", -0.15],  "b2": ["L5.12", 0.8, "raw", -0.15],  "p2": ["L5.24", 0.45],   "m2": ["L5$", 0.6, "raw"],
+        "a3": ["L6.3", 0.8, "raw", -0.15],  "b3": ["L6.11", 0.8, "raw", -0.15],  "p3": ["L6.33", 0.45],   "m3": ["L6$", 0.6, "raw"],
+        "a4": ["L7.4", 0.8, "raw", -0.15],  "b4": ["L7.10", 0.8, "raw", -0.15],  "p4": ["L7.40", 0.45],   "m4": ["L7$", 0.6, "raw"],
+        "a5": ["L8.5", 0.8, "raw", -0.15],  "b5": ["L8.9", 0.8, "raw", -0.15],   "p5": ["L8.45", 0.45],   "m5": ["L8$", 0.6, "raw"],
+        "a6": ["L9.6", 0.8, "raw", -0.15],  "b6": ["L9.8", 0.8, "raw", -0.15],   "p6": ["L9.48", 0.45],
+        "loop6":  ["L9.48", 0.7, "out", 0.2],
+        "m6":     ["L9.Đúng", 0.8, "raw"]
+      }
+    },
+    { "id": "beat3", "prev": "beat2", "lead": 1.0, "tail": 1.0,
+      "lines": [
+        { "id": "L10", "text": "Vậy hai số là 6 và 8." },
+        { "id": "L11", "text": "6 cộng 8 bằng 14, 6 nhân 8 bằng 48." },
+        { "id": "L12", "gap": 0.35, "text": "Hiệu là 8 trừ 6, bằng 2!" }
+      ],
+      "windows": {
+        "wipe":   ["beat^", 1.2, "raw"],
+        "title":  ["beat^", 0.9, "out", 1.0],
+        "eq1":    ["L10^", 0.8, "out", -0.1],
+        "eq2":    ["L10^", 0.8, "out", 0.25],
+        "hieu":   ["L10^", 0.6, "out", 0.6],
+        "fa":     ["L10.6", 0.8, "raw", -0.1],
+        "fb":     ["L10.8", 0.8, "raw", -0.1],
+        "h1":     ["L11.6", 0.7, "raw", -0.1],
+        "h2":     ["L11.6#2", 0.7, "raw", -0.1],
+        "ok1":    ["L11.14", 0.8, "raw"],
+        "ok2":    ["L11.48", 0.8, "raw"],
+        "pick":   ["L12.8", "L12.6>", "raw", -0.1],
+        "diff":   ["L12.8", "L12.2>", "out", -0.05],
+        "loop":   ["L12.2", 0.7, "out", 0.15],
+        "spark":  ["L12$", 0.9, "raw"]
+      }
+    },
+    { "id": "beat4", "prev": "beat3", "lead": 1.0, "tail": 0.3,
+      "lines": [
+        { "id": "L13", "text": "Đến lượt bạn: tổng là 13, tích là 40." },
+        { "id": "L14", "text": "Hiệu là bao nhiêu?" },
+        { "id": "L15", "gap": 0.35, "text": "Bình luận đáp án nhé!" }
+      ],
+      "windows": {
+        "wipe":   ["beat^", 1.2, "raw"],
+        "title":  ["L13^", "L13.bạn>"],
+        "shapes": ["L13.tổng", 0.6, "raw", -0.1],
+        "eq1":    ["L13.tổng", "L13.13>"],
+        "eq2":    ["L13.tích", "L13.40>"],
+        "hieu":   ["L14^", "L14.là>"],
+        "q":      ["L14.nhiêu", 0.7, "raw"],
+        "cmt":    ["L15^", "L15$"],
+        "count":  ["L15$", 3.0, "raw", 0.3]
+      }
+    },
+    { "id": "beat5", "lead": 1.2, "tail": 1.3,
+      "lines": [
+        { "id": "L16", "text": "Đáp án: hai số là 5 và 8." },
+        { "id": "L17", "text": "Hiệu là 8 trừ 5, bằng 3!" }
+      ],
+      "windows": {
+        "fa":     ["L16.5", 0.8, "raw", -0.1],
+        "fb":     ["L16.8", 0.8, "raw", -0.1],
+        "h1":     ["L16.8", 0.7, "raw", 0.4],
+        "h2":     ["L16.8", 0.7, "raw", 0.7],
+        "ok1":    ["L16.8", 0.8, "raw", 0.5],
+        "ok2":    ["L16.8", 0.8, "raw", 0.8],
+        "pick":   ["L17.8", "L17.5>", "raw", -0.1],
+        "diff":   ["L17.8", "L17.3>", "out", -0.05],
+        "loop":   ["L17.3", 0.7, "out", 0.15],
+        "spark":  ["L17$", 0.9, "raw"]
+      }
+    }
+  ]
+}
