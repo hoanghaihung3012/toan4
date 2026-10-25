@@ -1,0 +1,123 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs vuon_chu_nhat_140. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "vuon_chu_nhat_140",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.4, "tail": 0.3,
+   "lines": [
+    { "id": "L1", "text": "Khu vườn hình chữ nhật có chu vi 140 mét." },
+    { "id": "L2", "text": "3 lần chiều rộng bằng 2 lần chiều dài." },
+    { "id": "L3", "text": "Tính diện tích khu vườn nhé!" }
+   ],
+   "windows": {
+    "title": ["beat^", 0.8],
+    "garden": ["beat^", 1.4, "raw", 0.1],
+    "trace": ["L1.chu", 1.1, "raw"],
+    "per": ["L1.140", 0.8],
+    "rw": ["L2.rộng", 0.8, "raw"],
+    "ln": ["L2.dài", 0.8, "raw"],
+    "rule": ["L2^", "L2$"],
+    "area": ["L3.diện", 1.2, "raw"],
+    "ask": ["L3.diện", 0.9],
+    "dots": ["L3$", 2.2, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L4", "text": "Chu vi là cả vòng rào." },
+    { "id": "L5", "text": "Nửa vòng rào là một chiều dài cộng một chiều rộng." },
+    { "id": "L6", "text": "140 chia 2 bằng 70 mét." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "fig": ["beat^", 0.9, "raw", 1.15],
+    "all": ["L4.cả", 1.0, "raw"],
+    "half": ["L5.Nửa", 0.9, "raw"],
+    "fly": ["L5.chiều", "L5$", "raw"],
+    "eq": ["L6^", "L6$"],
+    "brace": ["L6.70", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 0.3, "tail": 0.3,
+   "lines": [
+    { "id": "L7", "text": "3 lần chiều rộng dài bằng 2 lần chiều dài." },
+    { "id": "L8", "text": "Chia đoạn này thành 6 phần bằng nhau." },
+    { "id": "L9", "text": "Chiều rộng là 2 phần, chiều dài là 3 phần." }
+   ],
+   "windows": {
+    "rowA": ["L7^", 1.0, "raw"],
+    "rowB": ["L7.bằng", 1.0, "raw"],
+    "same": ["L7.dài#2", 0.8, "raw"],
+    "ticks": ["L8.6", 1.0, "raw"],
+    "lab2": ["L9.2", 0.8, "raw"],
+    "lab3": ["L9.3", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L10", "text": "Vậy dài cộng rộng là 5 phần, bằng 70 mét." },
+    { "id": "L11", "text": "Một phần là 70 chia 5, bằng 14 mét." },
+    { "id": "L12", "text": "Chiều dài: 14 nhân 3 bằng 42 mét." },
+    { "id": "L13", "text": "Chiều rộng: 14 nhân 2 bằng 28 mét." }
+   ],
+   "windows": {
+    "ticks": ["L10.5", 0.9, "raw"],
+    "e1": ["L10.5", "L10$"],
+    "e2": ["L11^", "L11$"],
+    "one": ["L11.14", 0.9, "raw"],
+    "len": ["L12^", 0.8, "raw"],
+    "e3": ["L12^", "L12$"],
+    "wid": ["L13^", 0.8, "raw"],
+    "e4": ["L13^", "L13$"]
+   }
+  },
+  {
+   "id": "beat5", "prev": "beat4", "lead": 1.05, "tail": 0.5,
+   "lines": [
+    { "id": "L14", "text": "Diện tích khu vườn là 42 nhân 28." },
+    { "id": "L15", "text": "Bằng 1176 mét vuông!" },
+    { "id": "L16", "text": "Thử lại: 3 lần 28 là 84, 2 lần 42 cũng là 84. Đúng rồi!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["beat^", 0.7, "out", 1.1],
+    "fig": ["beat^", 0.9, "raw", 1.15],
+    "area": ["L14^", 1.3, "raw"],
+    "dims": ["L14.42", 0.8, "raw"],
+    "eq": ["L14.42", "L14$"],
+    "res": ["L15.1176", 1.0, "raw"],
+    "c1": ["L16.3", "L16.84>"],
+    "c2": ["L16.2", "L16.84#2>"],
+    "ok": ["L16.Đúng", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "prev": "beat5", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L17", "text": "Đến lượt bạn: chu vi 100 mét, 3 lần chiều rộng vẫn bằng 2 lần chiều dài." },
+    { "id": "L18", "text": "Diện tích là bao nhiêu? Bình luận nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L17^", 0.8],
+    "garden": ["L17^", 1.2, "raw"],
+    "trace": ["L17.chu", 1.1, "raw"],
+    "per": ["L17.100", 0.8],
+    "rw": ["L17.rộng", 0.8, "raw"],
+    "ln": ["L17.dài", 0.8, "raw"],
+    "rule": ["L17.3", "L17$"],
+    "ask": ["L18^", 0.9],
+    "area": ["L18^", 1.2, "raw"],
+    "cmt": ["L18.Bình", 0.9],
+    "count": ["L18$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}
