@@ -27,6 +27,17 @@ console.assert(digitSum(NINE) === 15 && NINE % 9 !== 0 && NINE % 3 === 0, '906: 
 console.assert(digitSum(QUIZ) === 12, '660 sum 12');
 for (const [d, ok] of Object.entries(QUIZ_ANS)) console.assert((QUIZ % d === 0) === ok, `660 : ${d}`);
 
+// --- board text (read at render time; an English variant overrides it) ------------
+export const TEXT = {
+  divisibleBy: 'chia hết cho',
+  and: 'và',
+  title: 'Dấu hiệu chia hết',
+  lastDigit: 'chữ số cuối',
+  addDigits: 'cộng chữ số',
+  even: 'chẵn',
+  odd: 'lẻ',
+};
+
 // --- small helpers ------------------------------------------------------------------
 const g = (p, k) => (k in p ? p[k] : 1);
 const BIG = 1.9; // hook tiles
@@ -179,9 +190,9 @@ function sumEquation(objs, L, s, fromXs, fromY, fromScale, cx, y, u, t, { color 
 
 // a full title line "chia hết cho N" with the divisor in yellow
 function ruleTitle(L, parts, t, y = 330) {
-  const items = ['chia hết cho'];
+  const items = [TEXT.divisibleBy];
   parts.forEach((d, i) => {
-    if (i) items.push('và');
+    if (i) items.push(TEXT.and);
     items.push({ s: String(d), color: CHALK.yellow, size: 136 });
   });
   row(L, items, 540, y, { size: 96, t });
@@ -213,7 +224,7 @@ const H = { askY: 420, tileY: 740, qY: 1240 };
 
 function hookChalk(ctx, p) {
   const top = ctx.chalk(60);
-  row(top, ['chia hết cho', { s: '9', color: CHALK.yellow, size: 140 }], 540, H.askY, { size: 96, t: g(p, 'ask') });
+  row(top, [TEXT.divisibleBy, { s: '9', color: CHALK.yellow, size: 140 }], 540, H.askY, { size: 96, t: g(p, 'ask') });
   const q = g(p, 'q');
   if (q > 0) {
     top.text('?', 540, H.qY + 120, { size: 400, color: CHALK.yellow, align: 'center', scale: spring(q, 3.2, 6) });
@@ -259,15 +270,15 @@ function beat2(ctx, p) {
   });
 
   const L = ctx.chalk(60);
-  L.text('Dấu hiệu chia hết', 540, 680, { size: 112, align: 'center', t: g(p, 'title') });
+  L.text(TEXT.title, 540, 680, { size: 112, align: 'center', t: g(p, 'title') });
   divisorCircles(L, 1010, g(p, 'divs'));
   // two families: 2 and 5 underlined yellow, 9 and 3 underlined pink
   const ul = g(p, 'groups');
   L.line([DIV_X[0] - 90, 1160], [DIV_X[1] + 90, 1160], { color: CHALK.yellow, width: 9, t: clamp01(ul * 2), seed: 320 });
   L.line([DIV_X[2] - 90, 1160], [DIV_X[3] + 90, 1160], { color: CHALK.pink, width: 9, t: clamp01(ul * 2 - 1), seed: 321 });
   // what each family looks at: the last digit / the digit sum
-  L.text('chữ số cuối', (DIV_X[0] + DIV_X[1]) / 2, 1280, { size: 84, color: CHALK.yellow, align: 'center', t: g(p, 'hint1') });
-  L.text('cộng chữ số', (DIV_X[2] + DIV_X[3]) / 2, 1280, { size: 84, color: CHALK.pink, align: 'center', t: g(p, 'hint2') });
+  L.text(TEXT.lastDigit, (DIV_X[0] + DIV_X[1]) / 2, 1280, { size: 84, color: CHALK.yellow, align: 'center', t: g(p, 'hint1') });
+  L.text(TEXT.addDigits, (DIV_X[2] + DIV_X[3]) / 2, 1280, { size: 84, color: CHALK.pink, align: 'center', t: g(p, 'hint2') });
 }
 
 // --- beats 3–5: the last digit (2, 5, both) ------------------------------------------
@@ -305,8 +316,8 @@ function beat3(ctx, p) {
   const L = ctx.chalk(60);
   const xs = row(L, EVEN_ENDS.map(String), 540, ENDS.row1, { size: 120, gap: 0.8, t: 0 });
   example(ctx, objs, L, TWO[0][0], TWO[0][1], ENDS.y1, p, 1,
-    { label: 'chẵn', arrowTo: [xs[4], ENDS.row1 + 22], seed: 400 });
-  example(ctx, objs, L, TWO[1][0], TWO[1][1], ENDS.y2, p, 2, { label: 'lẻ', seed: 420 });
+    { label: TEXT.even, arrowTo: [xs[4], ENDS.row1 + 22], seed: 400 });
+  example(ctx, objs, L, TWO[1][0], TWO[1][1], ENDS.y2, p, 2, { label: TEXT.odd, seed: 420 });
 }
 
 const TITLE_BAND = [250, 380];
@@ -317,8 +328,8 @@ function beat4(ctx, p) {
     const objs = sub.objects();
     const L = sub.chalk(60);
     const xs = row(L, EVEN_ENDS.map(String), 540, ENDS.row1, { size: 120, gap: 0.8, t: 0 });
-    example(sub, objs, L, TWO[0][0], TWO[0][1], ENDS.y1, {}, 1, { label: 'chẵn', arrowTo: [xs[4], ENDS.row1 + 22], seed: 400 });
-    example(sub, objs, L, TWO[1][0], TWO[1][1], ENDS.y2, {}, 2, { label: 'lẻ', seed: 420 });
+    example(sub, objs, L, TWO[0][0], TWO[0][1], ENDS.y1, {}, 1, { label: TEXT.even, arrowTo: [xs[4], ENDS.row1 + 22], seed: 400 });
+    example(sub, objs, L, TWO[1][0], TWO[1][1], ENDS.y2, {}, 2, { label: TEXT.odd, seed: 420 });
   }, 4);
   const top = ctx.chalk(60);
   ruleTitle(top, [5], g(p, 'title'));
@@ -410,7 +421,7 @@ function quizBoard(ctx, p) {
   const xs = tileXs(s, 540, 1.5);
   dropTiles(objs, under, s, xs, Q.numY, g(p, 'drop'), 1.5, 700);
   const L = ctx.chalk(60);
-  L.text('chia hết cho', 540, Q.labelY, { size: 90, align: 'center', t: g(p, 'label') });
+  L.text(TEXT.divisibleBy, 540, Q.labelY, { size: 90, align: 'center', t: g(p, 'label') });
   divisorCircles(L, Q.circY, g(p, 'divs'), { r: 84, size: 120, seed: 710 });
   return { objs, L, xs };
 }
