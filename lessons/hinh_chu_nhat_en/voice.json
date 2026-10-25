@@ -1,0 +1,130 @@
+{
+ "_note": "English voiceover for the hinh_chu_nhat scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs hinh_chu_nhat_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+ "scene": "hinh_chu_nhat",
+ "lang": "en",
+ "voice": "en-US-AvaNeural",
+ "rate": "+6%",
+ "final": "how_many_rectangles",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.5, "tail": 0.4,
+   "lines": [
+    { "id": "L1", "text": "Figure 6: how many rectangles?" },
+    { "id": "L2", "text": "Spot the pattern and it's easy!" }
+   ],
+   "windows": {
+    "title": ["beat^", 0.7],
+    "figs": ["beat^", 1.6, "raw", 0.1],
+    "tag": ["L1^", 0.8],
+    "q": ["L1.how", 0.8, "raw"],
+    "hops": ["L2.pattern", 1.2, "raw"]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L3", "text": "Each cell is one rectangle. Let's count row by row." },
+    { "id": "L4", "text": "Figure 1 has 1 rectangle." },
+    { "id": "L5", "text": "Figure 2: bottom row 2, top row 1. That's 3 in all." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "cell": ["L3.cell", 0.9, "raw"],
+    "note": ["L3.rectangle", 0.9],
+    "fig1": ["L4^", 0.7, "raw"],
+    "c1": ["L4.1", 0.6, "raw"],
+    "fig2": ["L5^", 0.8, "raw"],
+    "c2a": ["L5.bottom", 0.6, "raw"],
+    "c2b": ["L5.top", 0.6, "raw"],
+    "sum2": ["L5.That's", "L5$"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L6", "text": "Figure 3: 3, 2, 1. That's 6 in all." },
+    { "id": "L7", "text": "Each new figure adds a row at the bottom, 1 cell longer." }
+   ],
+   "windows": {
+    "fig3": ["L6^", 0.8, "raw"],
+    "c3a": ["L6.3", 0.5, "raw"],
+    "c3b": ["L6.2", 0.5, "raw"],
+    "c3c": ["L6.1", 0.5, "raw"],
+    "sum3": ["L6.That's", "L6$"],
+    "newrow": ["L7.adds", 1.4, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "prev": "beat3", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L8", "text": "So figure 6 has 6 rows:" },
+    { "id": "L9", "text": "6, 5, 4, 3, 2, 1." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "label": ["L8.So>", 0.7],
+    "fig": ["L8^", 1.3, "raw"],
+    "r6": ["L9.6", 0.45, "raw"],
+    "r5": ["L9.5", 0.45, "raw"],
+    "r4": ["L9.4", 0.45, "raw"],
+    "r3": ["L9.3", 0.45, "raw"],
+    "r2": ["L9.2", 0.45, "raw"],
+    "r1": ["L9.1", 0.45, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L10", "text": "Quick add: pair 6 with 1, 5 with 2, 4 with 3." },
+    { "id": "L11", "text": "Each pair makes 7. 3 pairs is 7 times 3, which makes 21." }
+   ],
+   "windows": {
+    "tiles": ["L10^", 0.9, "raw"],
+    "p1": ["L10.6", 0.9, "raw"],
+    "p2": ["L10.5", 0.9, "raw"],
+    "p3": ["L10.4", 0.9, "raw"],
+    "sevens": ["L11.7", 0.9, "raw"],
+    "eq": ["L11.3", "L11.21>"],
+    "loop": ["L11.21", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "lead": 0.3, "tail": 0.5,
+   "lines": [
+    { "id": "L12", "text": "Figure 6 has 21 rectangles. Pick answer A!" }
+   ],
+   "windows": {
+    "opts": ["L12^", 0.9],
+    "pick": ["L12.A", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat7", "prev": "beat6", "lead": 1.05, "tail": 0.2,
+   "lines": [
+    { "id": "L13", "text": "Your turn: figure 10. How many rectangles?" },
+    { "id": "L14", "text": "Comment your answer!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "label": ["L13^", 0.8],
+    "fig": ["L13.turn>", 1.5, "raw"],
+    "q": ["L13.How", 0.8, "raw"],
+    "count": ["L14$", 2.4, "raw", 0.15]
+   }
+  },
+  {
+   "id": "beat8", "lead": 0.3, "tail": 1.2,
+   "lines": [
+    { "id": "L15", "text": "Answer: 5 pairs, each makes 11. 11 times 5 makes 55 rectangles!" }
+   ],
+   "windows": {
+    "sum": ["L15^", 1.2],
+    "pairs": ["L15.5", 1.0, "raw"],
+    "eq": ["L15.11#2", "L15.55>"],
+    "loop": ["L15.55", 0.9, "raw"]
+   }
+  }
+ ]
+}
