@@ -149,6 +149,8 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
 ## Workflow: one approval, on the running HTML (user's rule, 2026-10-25)
 Do **not** stop for approval on facts, story, storyboard, key poses or audio. Work straight through steps 1–4, self-checking each one, until the lesson **runs in the browser with its voiceover**. Then show it once (step 5) and wait. After the approval, export the MP4 (step 6) and the lesson is done.
 
+0. **New video → new branch from the latest `develop`** (user's rule, 2026-10-25). Before any lesson work:
+   `git fetch origin develop && git checkout -b lesson/<lesson> origin/develop` (keep unrelated uncommitted changes; stash only if checkout refuses). Never start a lesson on `main`, on `develop` itself, or on another lesson's branch. Commit and push the lesson there, then open a PR with base `develop`.
 1. **Facts + story** → `lessons/<lesson>/story.md`.
    - Source every number (VnDoc / VietJack / SGK pages via the Browser pane).
    - Make a table of facts and sources, re-check the arithmetic, and add a scene table: board (readable with the sound off) | voice line.
