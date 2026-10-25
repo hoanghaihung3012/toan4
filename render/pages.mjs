@@ -40,9 +40,20 @@ try {
   fs.mkdirSync(path.join(out, 'lessons', lesson, 'audio'), { recursive: true });
   fs.cpSync('shared/web', path.join(out, 'shared/web'), { recursive: true });
   fs.cpSync('shared/fonts', path.join(out, 'shared/fonts'), { recursive: true });
-  for (const f of fs.readdirSync(src).filter((f) => f.endsWith('.js'))) {
-    fs.copyFileSync(path.join(src, f), path.join(out, 'lessons', lesson, f));
-  }
+  // the lesson's .js files, plus those of any lesson they import (a language variant such as
+  // day_so_tiep_theo_en imports the scenes of day_so_tiep_theo)
+  const copied = new Set();
+  const copyLesson = (name) => {
+    if (copied.has(name)) return;
+    copied.add(name);
+    const dir = path.resolve('lessons', name);
+    fs.mkdirSync(path.join(out, 'lessons', name), { recursive: true });
+    for (const f of fs.readdirSync(dir).filter((f) => f.endsWith('.js'))) {
+      fs.copyFileSync(path.join(dir, f), path.join(out, 'lessons', name, f));
+      for (const [, dep] of fs.readFileSync(path.join(dir, f), 'utf8').matchAll(/from\s+'\.\.\/([^/.][^/]*)\//g)) copyLesson(dep);
+    }
+  };
+  copyLesson(lesson);
   // MP3 keeps the page light on a phone; the player reads timing.audio relative to timing.json
   execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', path.join(src, timing.audio),
     '-c:a', 'libmp3lame', '-b:a', '160k', path.join(out, 'lessons', lesson, 'audio/voice.mp3')]);
@@ -58,7 +69,9 @@ try {
 
   const title = (fs.readFileSync(path.join(src, 'story.md'), 'utf8').match(/^#\s+(.+)$/m)?.[1] || lesson)
     .split(/\s+[—-]\s+/)[0];
+  const lang = JSON.parse(fs.readFileSync(path.join(src, 'voice.json'), 'utf8')).lang || 'vi';
   const page = fs.readFileSync('shared/web/index.html', 'utf8')
+    .replace(/<html lang="[^"]*">/, `<html lang="${lang}">`)
     .replace(/<title>.*<\/title>/, `<title>${title}</title>`)
     .replace(/(href|src)="(css|js)\//g, '$1="shared/web/$2/')
     .replace('</head>', '  <style>#controls{display:flex;gap:10px;align-items:center;padding:8px 16px}'

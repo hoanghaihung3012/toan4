@@ -21,6 +21,14 @@ STEPS.slice(1).forEach((s, i) => console.assert(s === 2 * STEPS[i], `step ${s} =
 FULL.slice(1).forEach((n, i) => console.assert(n === FULL[i] * 2 + 2, `${n} = ${FULL[i]} x 2 + 2`));
 console.assert(24 * 2 === 48 && 46 + 48 === ANS && 48 * 2 === 96 && ANS + 96 === NEXT, 'answers');
 
+// board text; a language variant (e.g. lessons/day_so_tiep_theo_en) overrides it with Object.assign
+export const TEXT = {
+  question: 'Số tiếp theo là gì?',
+  way2: 'Cách 2:',
+  yourTurn: 'Đến lượt bạn!',
+  comment: 'Bình luận đáp án nhé!',
+};
+
 const str = String;
 const TIMES = (color) => ({ sym: 'times', color });
 
@@ -84,7 +92,7 @@ function boardA(ctx, p) {
   const L = ctx.chalk(60);
   const ws = A_ITEMS.map((s) => numW(s.length));
 
-  L.text('Số tiếp theo là gì?', A.cx, A.titleY, { size: 100, align: 'center', t: g(p, 'title') });
+  L.text(TEXT.question, A.cx, A.titleY, { size: 100, align: 'center', t: g(p, 'title') });
   // "Mẹo nè": an idea burst around the question
   const idea = g(p, 'idea');
   if (idea < 1) {
@@ -159,7 +167,7 @@ function chainRow(objs, L, k, u, prevEnd) {
 function beat5(ctx, p) {
   const objs = ctx.objects();
   const L = ctx.chalk(60);
-  row(L, ['Cách 2:', TIMES(CHALK.pink), { s: '2', color: CHALK.pink }, { s: '+', color: CHALK.pink }, { s: '2', color: CHALK.pink }],
+  row(L, [TEXT.way2, TIMES(CHALK.pink), { s: '2', color: CHALK.pink }, { s: '+', color: CHALK.pink }, { s: '2', color: CHALK.pink }],
     552, C.titleY, { size: 100, t: g(p, 'title'), seed: 590 });
   let end = null;
   C.ys.forEach((_, k) => {
@@ -188,8 +196,8 @@ function boardB(ctx, p) {
   const under = ctx.chalk(50);
   const objs = ctx.objects();
   const L = ctx.chalk(60);
-  L.text('Đến lượt bạn!', B.cx, B.titleY, { size: 108, align: 'center', t: g(p, 'title') });
-  L.text('Bình luận đáp án nhé!', B.cx, B.cmtY, { size: 76, color: CHALK.pink, align: 'center', t: g(p, 'cmt') });
+  L.text(TEXT.yourTurn, B.cx, B.titleY, { size: 108, align: 'center', t: g(p, 'title') });
+  L.text(TEXT.comment, B.cx, B.cmtY, { size: 76, color: CHALK.pink, align: 'center', t: g(p, 'cmt') });
   B_ITEMS.slice(0, 3).forEach((s, i) => {
     const u = stagger(g(p, 'drop'), i, 3, 0.5);
     const pose = dropPose(u, B.y, 480);
