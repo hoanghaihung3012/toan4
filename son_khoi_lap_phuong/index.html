@@ -1,28 +1,24 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sơn khối lập phương</title>
-<style>
-  /* single dark look: the chalkboard stage sits on a near-black ground */
-  :root { --ground: #161616; --ink: #dddddd; color-scheme: dark; }
-  html, body { background: var(--ground); color: var(--ink); }
-  #controls { display: flex; gap: 10px; align-items: center; padding: 8px 16px; font: 14px system-ui, sans-serif; }
-  #controls button { font-size: 18px; min-width: 44px; min-height: 36px; }
-  #controls input { flex: 1; min-width: 0; }
-  #time, #beat { font-variant-numeric: tabular-nums; }
+  <meta charset="utf-8">
+  <title>Sơn khối lập phương, kể cả mặt đáy: bao nhiêu ô vuông?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="shared/web/css/board.css">
+  <style>#controls{display:flex;gap:10px;align-items:center;padding:8px 16px}#controls button{font-size:18px;min-width:44px;min-height:36px}#controls input{flex:1;min-width:0}</style>
 </head>
 <body>
-</style>
-<link rel="stylesheet" href="shared/web/css/board.css">
-<div id="stage"></div>
-<div id="controls">
-  <button id="play" aria-label="Phát / tạm dừng">▶</button>
-  <input id="scrub" type="range" min="0" max="1000" value="0" aria-label="Tua">
-  <span id="time">0.00 s</span>
-  <span id="beat"></span>
-</div>
-<script type="module" src="shared/web/js/player.js"></script>
+  <!-- chalk/grain filters, fonts and CSS variables are generated from web/theme.js -->
+  <div id="stage"></div>
+
+  <div id="controls">
+    <button id="play">▶</button>
+    <input id="scrub" type="range" min="0" max="1000" value="0">
+    <span id="time">0.00 s</span>
+    <span id="beat"></span>
+  </div>
+
+  <script type="module" src="shared/web/js/player.js"></script>
 </body>
 </html>
