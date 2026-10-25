@@ -10,6 +10,7 @@ Rules:
 - Sound generates free using Edge TTS
 - Generate source code in the folder, split files then we can reuse, split scenes if needed
 - Video format 9:16 to upload to tiktok
+- Language: Vietnamese by default when no language is named. An English version reuses the existing Vietnamese lesson (story, scenes, assets) as `lessons/<lesson>_en/` with its own voice and board text; never build it from scratch (see the chalkboard-html-lesson skill, "Language versions").
 
 Verification loops (do not skip any):
 1. Key-pose match: compare each key pose frame side by side with its key art and fix what differs.

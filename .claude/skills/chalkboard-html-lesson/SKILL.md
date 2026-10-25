@@ -19,6 +19,7 @@ This skill holds the **style, the engine and the process**: the board background
 - **Timing:** all timing comes from `timing/timing.json`. Scenes hold no times.
 - **Motion:** anticipation, follow-through, squash and stretch, springs, arcs; no linear moves.
 - **Camera:** none. Every board change is motivated by the eraser.
+- **Language:** Vietnamese by default (user's rule, 2026-10-25). Make an English version only when the user asks for it, and always **reuse the Vietnamese lesson** (see **Language versions**). Never write a new story or new scenes for it.
 - **Review in the browser only.** The user approves once, on the running HTML preview; export the MP4 once, after that approval (the user asked for this explicitly).
 
 ## The one place to edit the look: `web/theme.js`
@@ -146,6 +147,38 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
 - **Spoken vs written:** write numbers as digits in the text; the voice reads them correctly. Say "chia" and "nhân" in words, while the board shows ":" and a drawn ×.
 - **Pauses:** a thinking pause is a long `tail` (≈2.4 s) on the question beat.
 
+## Language versions (English, user's rule 2026-10-25)
+**Default is Vietnamese.** When the user does not name a language, the lesson is Vietnamese (`vi-VN-HoaiMyNeural`, Vietnamese board text). An English version ("bản tiếng Anh") **reuses** the Vietnamese lesson: same story, facts, scenes, motion and layout. Only the voiceover and the board text change. Example: `lessons/day_so_tiep_theo_en/` (reuses `lessons/day_so_tiep_theo/`).
+
+1. **Branch** `lesson/<lesson>_en` from the latest `develop`. The variant lives in `lessons/<lesson>_en/`.
+2. **Vietnamese scene: export the board text.** If `lessons/<lesson>/scene.js` does not have it yet, move every on-board word into
+   `export const TEXT = { question: 'Số tiếp theo là gì?', ... }` and read `TEXT.x` at render time (never copy it into a module-level constant).
+   - Prove the Vietnamese output is unchanged: run `capture.mjs --keyposes` before and after, then `inspect.mjs diff`. The mean must be 0.000 on every beat. Do not touch its voice.json, timing or audio.
+3. **`lessons/<lesson>_en/scene.js`** is only a wrapper:
+   ```js
+   import { scenes, TEXT } from '../<lesson>/scene.js';
+   Object.assign(TEXT, { question: 'What comes next?', /* … */ });
+   export { scenes };
+   ```
+   Numbers, ×, =, + and digits stay as drawn. Keep each English string about as long as the Vietnamese one, or shorter, so the layout fits. Check this on the key poses.
+4. **`lessons/<lesson>_en/voice.json`**: copy the Vietnamese one, then set `"lang": "en"`, `"voice": "en-US-AvaNeural"` and `"rate": "+6%"`.
+   - Keep the **same beat ids, window keys, `prev`/`wipe`, lead/tail** and translate each line.
+   - Re-anchor every window to the English word that carries the same meaning, e.g. `L2.gì` → `L2.next` and `L3.đừng` → `L3.don't`.
+   - Then run `npm run voice -- <lesson>_en`.
+   - **Edge TTS English pitfall:** "48 equals 94" and "2 is 4" come back as ONE word boundary, so "94" cannot be anchored. Say results with **"makes"** ("46 plus 48 makes 94"). After the voice is built, check each line's word list in `audio/lines/L*.json`.
+   - Aim for about the Vietnamese length. Raise `rate` (up to about +10%) if the English runs longer.
+5. **Story/critique:** write `story.md` (title in English plus "(bản tiếng Anh)"). It holds a VI ↔ EN table for the board text and the voice lines, and points to the Vietnamese story.md for facts and sources. **Add no new facts.**
+6. Run **all verification loops** on the `_en` lesson:
+   - key poses (layout identical to the Vietnamese one, only the text differs; make a VI/EN comparison strip);
+   - sound-off reader (also ask whether the English reads naturally);
+   - sync;
+   - fact check against the Vietnamese sources;
+   - technical;
+   - director's review.
+   
+   Then follow the same single approval on Pages (`npm run pages -- <lesson>_en`; `pages.mjs` copies the imported Vietnamese scene and sets `<html lang>` from `voice.json`), `npm run final -- <lesson>_en` → `final/<lesson>_en.mp4`, and a PR to `develop`.
+7. The talk with the user stays in Vietnamese. Only the clip is English.
+
 ## Workflow: one approval, on the running HTML (user's rule, 2026-10-25)
 Do **not** stop for approval on facts, story, storyboard, key poses or audio. Work straight through steps 1–4, self-checking each one, until the lesson **runs in the browser with its voiceover**. Then show it once (step 5) and wait. After the approval, export the MP4 (step 6) and the lesson is done.
 
@@ -173,7 +206,7 @@ Do **not** stop for approval on facts, story, storyboard, key poses or audio. Wo
    - Write it all to `lessons/<lesson>/critique.md`, including what is still weak, as the user's call.
 5. **The one approval: the running HTML.**
    - **Publish it to GitHub Pages** (user's rule, 2026-10-25) so the user can review on a phone: `npm run pages -- <lesson>` (`render/pages.mjs`). It copies the shared player, fonts, the lesson's `.js` files and timing, converts the voice to MP3, writes `<lesson>/index.html` on the `gh-pages` branch, rebuilds the index of all published lessons and pushes. The link is `https://hoanghaihung3012.github.io/toan4/<lesson>/` (Pages serves `gh-pages`, `/ (root)`; the repo is public). Pages takes 1–2 minutes to update after a push.
-   - **Send the link to the Zalo review group** (user's rule, 2026-10-25): `npm run pages` does it by itself after the push (`render/zalo.mjs`, Zalo Bot `sendMessage` to group `zgr-7722d0d041bfa8e1f1ae`; `ZALO_CHAT_ID` overrides). The bot token is the cloud-environment secret `ZALO_BOT_TOKEN`: never commit, print or paste it. The environment must allow `bot-api.zaloplatforms.com`. If the script prints `zalo: not sent (…)`, say so in one line and carry on; the link in the thread is the fallback. Only the preview link goes to Zalo, not the PR link (user's rule, 2026-10-25). `--no-zalo` skips it.
+   - **Send the link to the Zalo review group** (user's rule, 2026-10-25): `npm run pages` does it by itself, **only once GitHub has deployed the pushed gh-pages commit** (it waits for the Actions run "pages build and deployment" of that commit; `*.github.io` itself is blocked from cloud sessions) and **only once per lesson** (record: `zalo_sent.json` on `gh-pages`; a republish never sends again) (user's rule, 2026-10-25) (`render/zalo.mjs`, Zalo Bot `sendMessage` to group `zgr-7722d0d041bfa8e1f1ae`; `ZALO_CHAT_ID` overrides). The bot token is the cloud-environment secret `ZALO_BOT_TOKEN`: never commit, print or paste it. The environment must allow `bot-api.zaloplatforms.com`. If the script prints `zalo: not sent (…)`, say so in one line and carry on; the link in the thread is the fallback. Only the preview link goes to Zalo, not the PR link (user's rule, 2026-10-25). `--no-zalo` skips it.
    - Show the user: the Pages link, the final contact sheets, the key-pose sheet, the WAV, and a short summary of `critique.md` (length, what was fixed, what is still weak). Then wait.
    - Changes the user asks for: fix, re-run the loops they touch (sync always), republish with `npm run pages -- <lesson>`, show the same link again.
 6. **After approval of the Pages preview: export the MP4 right away. Done.**
