@@ -5,7 +5,9 @@
 //   node render/pages.mjs <lesson> [--no-push] [--no-zalo]
 //   -> https://<owner>.github.io/<repo>/<lesson>/
 //
-// After a push it sends the link to the Zalo review group (render/zalo.mjs; needs ZALO_BOT_TOKEN).
+// After a push it waits until GitHub has deployed that gh-pages commit, then sends the link to the
+// Zalo review group once per lesson (render/zalo.mjs; needs ZALO_BOT_TOKEN; record: zalo_sent.json
+// on gh-pages).
 //
 // One-time setup by the repo owner: Settings -> Pages -> Deploy from a branch -> gh-pages, / (root).
 // The repo must be public (or on a paid plan) for Pages to serve it.
@@ -34,6 +36,9 @@ if (remote) git('worktree', 'add', '-B', 'gh-pages', work, 'origin/gh-pages');
 else git('worktree', 'add', '--orphan', '-B', 'gh-pages', work);
 
 try {
+  const published = fs.readdirSync(work, { withFileTypes: true })
+    .filter((d) => d.isDirectory() && fs.existsSync(path.join(work, d.name, 'index.html'))).map((d) => d.name);
+
   // --- 2. the lesson: shared player, fonts, lesson code, timing, voice as MP3 -------------------
   const out = path.join(work, lesson);
   fs.rmSync(out, { recursive: true, force: true });
@@ -111,6 +116,12 @@ ${items.join('\n')}
   fs.writeFileSync(path.join(work, '.nojekyll'), '');
 
   // --- 4. commit + push --------------------------------------------------------------------------
+  // lessons already announced on Zalo (once per clip, user's rule 2026-10-25); seeded with every
+  // lesson published before the record existed, since those links went out already
+  const sentFile = path.join(work, 'zalo_sent.json');
+  const sent = fs.existsSync(sentFile) ? JSON.parse(fs.readFileSync(sentFile, 'utf8'))
+    : Object.fromEntries(published.map((d) => [d, 'before-record']));
+  fs.writeFileSync(sentFile, `${JSON.stringify(sent, null, 1)}\n`);
   sh(work, 'add', '-A');
   const changed = execFileSync('git', ['-C', work, 'status', '--porcelain'], { encoding: 'utf8' }).trim();
   if (changed) {
@@ -120,10 +131,53 @@ ${items.join('\n')}
   const m = git('remote', 'get-url', 'origin').match(/([^/:]+)\/([^/]+?)(\.git)?\/?$/);
   const url = m ? `https://${m[1].toLowerCase()}.github.io/${m[2]}/${lesson}/` : `<pages site>/${lesson}/`;
   console.log(changed ? `published ${lesson}: ${url}` : `no change for ${lesson}: ${url}`);
+
+  // --- 5. Zalo: only once Pages serves this commit, and only once per lesson ----------------------
   if (!args['no-push'] && !args['no-zalo']) {
-    const r = sendZalo(`Bản xem trước: ${title}\n${url}\n(GitHub Pages cập nhật sau 1–2 phút)`);
-    console.log(r.ok ? 'zalo: link sent to the review group' : `zalo: not sent (${r.reason})`);
+    if (sent[lesson]) console.log(`zalo: not sent (already sent for ${lesson} on ${sent[lesson]})`);
+    else if (!m) console.log('zalo: not sent (no GitHub remote to check Pages)');
+    else {
+      const sha = execFileSync('git', ['-C', work, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+      const live = await waitForPages(`${m[1]}/${m[2]}`, sha);
+      if (!live.ok) console.log(`zalo: not sent (${live.reason})`);
+      else {
+        const r = sendZalo(`Bản xem trước: ${title}\n${url}`);
+        console.log(r.ok ? 'zalo: link sent to the review group' : `zalo: not sent (${r.reason})`);
+        if (r.ok) {
+          sent[lesson] = new Date().toISOString();
+          fs.writeFileSync(sentFile, `${JSON.stringify(sent, null, 1)}\n`);
+          sh(work, 'commit', '-q', '-m', `Record Zalo link sent: ${lesson}`, '--', 'zalo_sent.json');
+          sh(work, 'push', '-q', 'origin', 'gh-pages');
+        }
+      }
+    }
   }
 } finally {
   git('worktree', 'remove', '--force', work);
+}
+
+// GitHub's own "pages build and deployment" run for the pushed gh-pages commit (*.github.io itself
+// is not reachable from the cloud sessions). -> { ok } once it succeeded, { ok: false, reason } else
+async function waitForPages(repo, sha, { timeoutS = 600, everyS = 10 } = {}) {
+  const query = `repos/${repo}/actions/runs?branch=gh-pages&head_sha=${sha}`;
+  const get = () => {
+    try {
+      return JSON.parse(execFileSync('gh', ['api', query], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }));
+    } catch {
+      return JSON.parse(execFileSync('curl', ['-sS', '--max-time', '20', `https://api.github.com/${query}`], { encoding: 'utf8' }));
+    }
+  };
+  for (let waited = 0; waited <= timeoutS; waited += everyS) {
+    try {
+      const run = (get().workflow_runs || []).find((r) => r.name === 'pages build and deployment');
+      if (run?.status === 'completed') {
+        return run.conclusion === 'success' ? { ok: true } : { ok: false, reason: `Pages build ${run.conclusion}` };
+      }
+    } catch (e) {
+      if (waited + everyS > timeoutS) return { ok: false, reason: `cannot check Pages: ${String(e.message).slice(0, 120)}` };
+    }
+    process.stdout.write(`\rwaiting for GitHub Pages to go live… ${waited}s`);
+    await new Promise((r) => setTimeout(r, everyS * 1000));
+  }
+  return { ok: false, reason: `Pages not live after ${timeoutS}s` };
 }
