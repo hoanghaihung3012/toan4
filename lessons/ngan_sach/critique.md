@@ -33,3 +33,7 @@ Verdict: yes. The remaining notes were "small text on a downscaled sheet" (on a 
 - **Facts:** every number is in story.md (F1, D1–D5) and asserted in scene.js.
 - **Audio:** 69.400 s, 48 kHz stereo, true peak −3.5 dBFS. Silences over 1.2 s are the thinking pause (11.1–14.6 s), the three eraser wipes and the end countdown.
 npm test: 15 pass, 0 fail.
+
+## Final MP4 (final/ngan_sach.mp4, after approval)
+- 1080×1920, 30 fps, 69.400 s; AAC stereo 48 kHz; true peak −3.5 dBFS.
+- freezedetect (n=0.001, d=4): one near-hold at 25.3–30.2 s, where "168 : 2 = 84" stands while the voice says "Sau khi chuyển, ngăn thứ nhất có 84 cuốn". Only the circle around 84 and the shelf label "84" change there. Kept: it is your call whether to add more motion.
