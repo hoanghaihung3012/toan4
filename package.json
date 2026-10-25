@@ -11,7 +11,8 @@
     "export": "node render/capture.mjs",
     "voice": "node render/voice.mjs",
     "sync": "node render/synccheck.mjs",
-    "pages": "node render/pages.mjs"
+    "pages": "node render/pages.mjs",
+    "zalo": "node render/zalo.mjs"
   },
   "dependencies": {
     "puppeteer-core": "^23.11.1"

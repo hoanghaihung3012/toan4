@@ -2,8 +2,10 @@
 // Copies the shared player + the lesson into the gh-pages branch under <lesson>/, rebuilds the
 // index page that lists every published lesson, then commits and pushes gh-pages.
 //
-//   node render/pages.mjs <lesson> [--no-push]
+//   node render/pages.mjs <lesson> [--no-push] [--no-zalo]
 //   -> https://<owner>.github.io/<repo>/<lesson>/
+//
+// After a push it sends the link to the Zalo review group (render/zalo.mjs; needs ZALO_BOT_TOKEN).
 //
 // One-time setup by the repo owner: Settings -> Pages -> Deploy from a branch -> gh-pages, / (root).
 // The repo must be public (or on a paid plan) for Pages to serve it.
@@ -12,6 +14,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { parseArgs } from './browser.mjs';
+import { sendZalo } from './zalo.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
@@ -104,6 +107,10 @@ ${items.join('\n')}
   const m = git('remote', 'get-url', 'origin').match(/([^/:]+)\/([^/]+?)(\.git)?\/?$/);
   const url = m ? `https://${m[1].toLowerCase()}.github.io/${m[2]}/${lesson}/` : `<pages site>/${lesson}/`;
   console.log(changed ? `published ${lesson}: ${url}` : `no change for ${lesson}: ${url}`);
+  if (!args['no-push'] && !args['no-zalo']) {
+    const r = sendZalo(`Bản xem trước: ${title}\n${url}\n(GitHub Pages cập nhật sau 1–2 phút)`);
+    console.log(r.ok ? 'zalo: link sent to the review group' : `zalo: not sent (${r.reason})`);
+  }
 } finally {
   git('worktree', 'remove', '--force', work);
 }
