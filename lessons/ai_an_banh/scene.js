@@ -8,9 +8,29 @@ import { row, flight } from '../../shared/web/js/parts.js';
 import { g, burst, mark, hopY, thinkingDots, countdown, popLabel } from '../../shared/web/js/fx.js';
 import { propSvg, cake, nameTag, stamp, impact } from './props.js';
 
+// --- board text (the English version lessons/ai_an_banh_en overrides it; read at render time) --
+export const TEXT = {
+  title: 'Ai đã ăn bánh?',
+  kids: ['An', 'Bảo', 'Chi', 'Dũng'],
+  quotes: ['“Bảo đã ăn bánh.”', '“Dũng đã ăn bánh.”', '“Tớ không ăn bánh.”', '“Bảo đang nói dối đấy.”'],
+  // the words marked inside the quotes: the text before each, then the word
+  liePre: '“Bảo đang nói ', lieWord: 'dối',
+  notPre: '“Tớ ', notWord: 'không',
+  ruleTruth: ['Chỉ', 'bạn nói', 'thật'],
+  ruleLie: ['Chỉ', 'bạn nói', 'dối'],
+  one: ['1 câu', 'đúng,', '1 câu', 'sai'],
+  link: ['hoặc', 'nói thật'],
+  ans: 'đã ăn bánh!',
+  lie: 'DỐI', truth: 'THẬT',
+  yourTurn: 'Đến lượt bạn!',
+  ask: 'Ai ăn bánh?',
+  comment: 'Bình luận đáp án nhé!',
+};
+// layout tweaks for longer text (defaults = the Vietnamese layout)
+export const FIT = { ruleSize: 70, ansX: 470, ansSize: 80, ansGap: 0.5, linkSize: 72, markDx: 140 };
+
 // --- facts (story.md F1–F3), checked by trying every eater -----------------------------------
 const KIDS = ['An', 'Bảo', 'Chi', 'Dũng'];
-const QUOTES = ['“Bảo đã ăn bánh.”', '“Dũng đã ăn bánh.”', '“Tớ không ăn bánh.”', '“Bảo đang nói dối đấy.”'];
 // what each kid says, as a test of "who ate" (Dũng's sentence is: Bảo's sentence is false)
 const says = [
   (e) => e === 'Bảo',
@@ -35,8 +55,7 @@ const STAMP_X = 128, TAG_X = 335, QX = 452, QS = 58;
 const RULE_Y = 435;
 const CAKE0 = [905, 245], CAKE1 = [895, 1500];
 const LINK_Y = 1310, ONE_Y = 1405, ANS_Y = 1545;
-const qEnd = QUOTES.map((q) => QX + measure(q, QS));
-console.assert(Math.max(...qEnd) < 1035, 'quotes stay inside the content box');
+const quoteEnds = () => TEXT.quotes.map((q) => QX + measure(q, QS));
 
 function heading(L, s, t, color = CHALK.white) {
   const w = L.text(s, T.x, T.y, { size: T.size, t, color });
@@ -59,12 +78,12 @@ function kids(svg, L, prog, pulse = [0, 0, 0, 0]) {
   ROWS.forEach((y, i) => {
     const u = prog[i];
     const { scale, squash } = pop(clamp01(u * 2.2));
-    nameTag(svg, TAG_X, y, KIDS[i], { scale, squash, dy: hopY(pulse[i], 22) });
-    L.text(QUOTES[i], QX, y + 20, { size: QS, t: clamp01(u * 1.6 - 0.4) });
+    nameTag(svg, TAG_X, y, TEXT.kids[i], { scale, squash, dy: hopY(pulse[i], 22) });
+    L.text(TEXT.quotes[i], QX, y + 20, { size: QS, t: clamp01(u * 1.6 - 0.4) });
   });
 }
-function rule(L, t, word, color, seed) {
-  return row(L, ['Chỉ', { s: '1', color: CHALK.yellow, size: 84 }, 'bạn nói', { s: word, color }], 540, RULE_Y, { size: 70, t, seed, gap: 0.28 });
+function rule(L, t, [pre, mid, word], color, seed) {
+  return row(L, [pre, { s: '1', color: CHALK.yellow, size: 84 }, mid, { s: word, color }], 540, RULE_Y, { size: FIT.ruleSize, t, seed, gap: 0.28 });
 }
 
 // --- beats 1–4: one board --------------------------------------------------------------------
@@ -74,8 +93,10 @@ function mainBoard(ctx, beat, p) {
   const St = stateOf(ORDER, beat, p);
   const svg = propSvg(ctx.objects());
   const L = ctx.chalk(60);
-  heading(L, 'Ai đã ăn bánh?', St('beat1', 'title'));
-  const ruleX = rule(L, St('beat1', 'rule'), 'thật', CHALK.green, 10);
+  const qEnd = quoteEnds();
+  console.assert(Math.max(...qEnd) < 1035, 'quotes stay inside the content box');
+  heading(L, TEXT.title, St('beat1', 'title'));
+  const ruleX = rule(L, St('beat1', 'rule'), TEXT.ruleTruth, CHALK.green, 10);
   kids(svg, L, rowKeys.map((k) => St('beat1', k)),
     [St('beat4', 'pA'), St('beat4', 'pB'), St('beat4', 'pC'), St('beat4', 'pD')]);
   thinkingDots(L, 540, 1200, St('beat1', 'dots'), { gap: 80, r: 16 });
@@ -98,39 +119,39 @@ function mainBoard(ctx, beat, p) {
     [-1, 1].forEach((sg) => L.line(p, [p[0] - 28 * Math.cos(a + sg * 0.5), p[1] - 28 * Math.sin(a + sg * 0.5)], { color: CHALK.yellow, width: 8, t: ht, seed: 27 + sg }));
   }
   // "dối" in Dũng's quote points at Bảo: underline it
-  const dX = QX + measure('“Bảo đang nói ', QS), dW = measure('dối', QS);
+  const dX = QX + measure(TEXT.liePre, QS), dW = measure(TEXT.lieWord, QS);
   L.line([dX, ROWS[3] + 36], [dX + dW, ROWS[3] + 36], { color: CHALK.red, width: 7, t: St('beat2', 'neg'), seed: 22 });
-  const bW = measure('“Bảo', QS) - measure('“', QS), bX = QX + measure('“', QS);
+  const bW = measure('“' + TEXT.kids[1], QS) - measure('“', QS), bX = QX + measure('“', QS);
   L.line([bX, ROWS[3] + 36], [bX + bW, ROWS[3] + 36], { color: CHALK.yellow, width: 7, t: St('beat2', 'neg'), seed: 23 });
-  row(L, ['1 câu', { s: 'đúng,', color: CHALK.green }, '1 câu', { s: 'sai', color: CHALK.red }], 540, ONE_Y,
+  row(L, [TEXT.one[0], { s: TEXT.one[1], color: CHALK.green }, TEXT.one[2], { s: TEXT.one[3], color: CHALK.red }], 540, ONE_Y,
     { size: 64, t: St('beat2', 'one'), seed: 25, gap: 0.25 });
-  row(L, [{ s: 'Bảo', color: CHALK.yellow }, 'hoặc', { s: 'Dũng', color: CHALK.yellow }, 'nói thật'], 540, LINK_Y,
-    { size: 72, t: St('beat2', 'link'), seed: 30, gap: 0.3 });
+  row(L, [{ s: TEXT.kids[1], color: CHALK.yellow }, TEXT.link[0], { s: TEXT.kids[3], color: CHALK.yellow }, TEXT.link[1]], 540, LINK_Y,
+    { size: FIT.linkSize, t: St('beat2', 'link'), seed: 30, gap: 0.3 });
 
   // beat 3: An and Chi lie; Chi's "không" is false -> Chi ate
   const sA = St('beat3', 'sA'), sC = St('beat3', 'sC');
   // back to the rule: only 1 truth-teller, and it is Bảo or Dũng
   const back = St('beat3', 'back');
   L.line([ruleX[0] - 70, RULE_Y + 22], [ruleX[3] + 70, RULE_Y + 22], { color: CHALK.yellow, width: 7, t: back, seed: 35 });
-  const kX = QX + measure('“Tớ ', QS), kW = measure('không', QS);
+  const kX = QX + measure(TEXT.notPre, QS), kW = measure(TEXT.notWord, QS);
   const strike = St('beat3', 'strike');
   L.loop(kX + kW / 2, ROWS[2] + 2, kW / 2 + 22, 46, { color: CHALK.red, width: 7, t: clamp01(strike * 2), seed: 42 });
   L.line([kX - 8, ROWS[2] - 12], [kX + kW + 8, ROWS[2] - 4], { color: CHALK.red, width: 9, t: clamp01(strike * 2 - 1), seed: 40 });
   const fly = St('beat3', 'fly');
   const ans = St('beat3', 'ans');
-  const ax = row(L, [{ s: 'Chi', color: CHALK.yellow }, 'đã ăn bánh!'], 470, ANS_Y, { size: 80, t: ans, seed: 50, gap: 0.5 });
-  L.loop(ax[0], ANS_Y - 26, measure('Chi', 80) / 2 + 40, 66, { color: CHALK.yellow, width: 7, t: clamp01(ans * 2 - 1), seed: 51 });
+  const ax = row(L, [{ s: TEXT.kids[2], color: CHALK.yellow }, TEXT.ans], FIT.ansX, ANS_Y, { size: FIT.ansSize, t: ans, seed: 50, gap: FIT.ansGap });
+  L.loop(ax[0], ANS_Y - 26, measure(TEXT.kids[2], FIT.ansSize) / 2 + 40, 66, { color: CHALK.yellow, width: 7, t: clamp01(ans * 2 - 1), seed: 51 });
 
   // beat 4: check, Bảo lies and Dũng tells the truth: exactly 1 truth
   const sB = St('beat4', 'sB'), sD = St('beat4', 'sD');
   const ok = St('beat4', 'ok');
   L.loop(ruleX[1], RULE_Y - 26, 50, 62, { color: CHALK.yellow, width: 7, t: ok, seed: 60 });
-  mark(L, true, ruleX[3] + 140, RULE_Y - 24, ok, { size: 84, seed: 61 });
+  mark(L, true, ruleX[3] + FIT.markDx, RULE_Y - 24, ok, { size: 84, seed: 61 });
 
   // stamps and the cake go on top
   const top = propSvg(ctx.objects());
   const L2 = ctx.chalk(60);
-  [[sA, 0, 'DỐI', CHALK.red], [sB, 1, 'DỐI', CHALK.red], [sC, 2, 'DỐI', CHALK.red], [sD, 3, 'THẬT', CHALK.green]].forEach(([u, i, w, c]) => {
+  [[sA, 0, TEXT.lie, CHALK.red], [sB, 1, TEXT.lie, CHALK.red], [sC, 2, TEXT.lie, CHALK.red], [sD, 3, TEXT.truth, CHALK.green]].forEach(([u, i, w, c]) => {
     stamp(top, STAMP_X, ROWS[i], w, c, u);
     burst(L2, STAMP_X, ROWS[i], 70, impact(u), { color: CHALK.white, n: 8, seed: 70 + i });
   });
@@ -153,15 +174,15 @@ const beat4 = (ctx, p) => mainBoard(ctx, 'beat4', p);
 function beat5(ctx, p) {
   const svg = propSvg(ctx.objects());
   const L = ctx.chalk(60);
-  heading(L, 'Đến lượt bạn!', g(p, 'title'), CHALK.yellow);
-  rule(L, g(p, 'rule'), 'dối', CHALK.red, 90);
+  heading(L, TEXT.yourTurn, g(p, 'title'), CHALK.yellow);
+  rule(L, g(p, 'rule'), TEXT.ruleLie, CHALK.red, 90);
   const rows = g(p, 'rows');
   kids(svg, L, ROWS.map((_, i) => stagger(rows, i, 4, 0.55)));
   const cp = pop(clamp01(g(p, 'cake')));
   cake(svg, CAKE0[0], CAKE0[1], { scale: cp.scale * 0.8, squash: cp.squash });
-  popLabel(L, 'Ai ăn bánh?', 540, LINK_Y - 10, g(p, 'ask'), { size: 80 });
+  popLabel(L, TEXT.ask, 540, LINK_Y - 10, g(p, 'ask'), { size: 80 });
   countdown(L, 540, 1440, g(p, 'count'), { size: 170 });
-  row(L, ['Bình luận đáp án nhé!'], 540, 1590, { size: 72, t: g(p, 'cmt'), seed: 95 });
+  row(L, [TEXT.comment], 540, 1590, { size: 72, t: g(p, 'cmt'), seed: 95 });
 }
 
 export const scenes = { beat1, beat2, beat3, beat4, beat5 };
