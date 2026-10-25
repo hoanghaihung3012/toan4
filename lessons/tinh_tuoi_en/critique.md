@@ -34,3 +34,9 @@ Length 109.53 s (Vietnamese 102.57 s), 7 beats, 31 voice lines (en-US-AvaNeural,
 - The check "36 + 12 = 48" uses Kid now = 12, which is only said in the voice, not written.
 - "+1" marks and bar-name labels are small on a phone.
 - ≈ 3 s hold around 42–45 s while the voice says "So now Dad is 32 plus 4…" before the circle.
+
+## Final MP4 (`final/2026-10-25/age_puzzles.mp4`)
+- 109.533 s, 1080×1920 at 30 fps, H.264 + AAC 48 kHz stereo, −16.2 LUFS, true peak −1.5 dBFS.
+- Silences are the same as in the WAV (thinking dots, wipes, end tail).
+- `freezedetect=n=0.001:d=4`: no freeze.
+- Published without a separate preview approval (standing rule for English versions); preview: https://hoanghaihung3012.github.io/toan4/tinh_tuoi_en/
