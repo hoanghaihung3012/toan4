@@ -12,3 +12,6 @@ Bản tiếng Anh dùng lại cảnh của `ai_an_banh` (đã duyệt). Chỉ đ
 6. **Director's review:**
    - Đã sửa: (1) "Cindy ate the cake!" dài hơn bản Việt, chạm chiếc bánh vừa rơi xuống → dời trái, cỡ 72; (2) vòng tròn quanh "Cindy" chạm chữ "ate" → giãn khoảng cách (FIT.ansGap); (3) dòng thử sức ban đầu đọc thành "Only 1 one is lying" → sửa thành "Only 1 is lying".
    - Còn yếu (giữ vì bố cục bản Việt đã duyệt, anh/chị quyết): vòng khoanh "didn't" khá sát chữ "I"; giữa 13–16 s chỉ có ba chấm suy nghĩ.
+
+## MP4 cuối (`final/2026-10-25/who_ate_the_cake.mp4`)
+52,167 s, H.264 + AAC 48 kHz stereo, true peak −2,3 dBFS. Khoảng lặng giống voice.wav (đều cố ý). `freezedetect` (n=0.001, d=4): 12,9–17,3 s (4,5 s) là đoạn ba chấm suy nghĩ sau câu đề: chấm nhỏ nên máy coi như đứng hình; tính là một đoạn giữ hình hơi lâu (giống bản Việt).
