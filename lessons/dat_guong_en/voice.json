@@ -1,0 +1,318 @@
+{
+ "_note": "English voiceover for the dat_guong scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs dat_guong_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+ "scene": "dat_guong",
+ "voice": "en-US-AvaNeural",
+ "rate": "+6%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1",
+   "lead": 0.4,
+   "tail": 0.3,
+   "lines": [
+    {
+     "id": "L1",
+     "text": "Where should the mirror go to get the largest result, not over 1000?"
+    },
+    {
+     "id": "L2",
+     "text": "There are 4 spots: A, B, C or D? Make your guess!"
+    }
+   ],
+   "windows": {
+    "title": [
+     "beat^",
+     0.8
+    ],
+    "disp": [
+     "beat^",
+     1.8,
+     "raw",
+     0.1
+    ],
+    "eye": [
+     "L1.mirror",
+     0.8,
+     "raw"
+    ],
+    "q": [
+     "L1.where",
+     0.8,
+     "raw"
+    ],
+    "cond": [
+     "L1.largest",
+     "L1.1000>"
+    ],
+    "la": [
+     "L2.a",
+     0.6,
+     "raw"
+    ],
+    "lb": [
+     "L2.b",
+     0.6,
+     "raw"
+    ],
+    "lc": [
+     "L2.c",
+     0.6,
+     "raw"
+    ],
+    "ld": [
+     "L2.d",
+     0.6,
+     "raw"
+    ],
+    "count": [
+     "L2$",
+     2.6,
+     "raw",
+     0.2
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "lead": 0.3,
+   "tail": 0.3,
+   "lines": [
+    {
+     "id": "L3",
+     "text": "The eye looks from the left, so it only sees the part left of the mirror, and its flipped image."
+    },
+    {
+     "id": "L4",
+     "text": "Put it at A: half of the 8 flips into a whole 8. We get 181."
+    }
+   ],
+   "windows": {
+    "sight": [
+     "L3.eye",
+     1.0,
+     "raw"
+    ],
+    "mirror": [
+     "L3.mirror",
+     0.9,
+     "raw"
+    ],
+    "left": [
+     "L3.part",
+     1.0,
+     "raw"
+    ],
+    "flip": [
+     "L3.flipped",
+     1.4,
+     "raw"
+    ],
+    "half": [
+     "L4.half",
+     0.9,
+     "raw"
+    ],
+    "res": [
+     "L4.181",
+     0.8,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "lead": 0.3,
+   "tail": 0.3,
+   "lines": [
+    {
+     "id": "L5",
+     "text": "At B: 18 flips into 81. We get 1881."
+    },
+    {
+     "id": "L6",
+     "text": "That's over 1000, out!"
+    }
+   ],
+   "windows": {
+    "move": [
+     "L5^",
+     0.9,
+     "raw"
+    ],
+    "left": [
+     "L5.18",
+     0.8,
+     "raw"
+    ],
+    "flip": [
+     "L5.flips",
+     1.3,
+     "raw"
+    ],
+    "r81": [
+     "L5.81",
+     0.8,
+     "raw"
+    ],
+    "res": [
+     "L5.1881",
+     0.8,
+     "raw"
+    ],
+    "cross": [
+     "L6^",
+     0.9,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat4",
+   "lead": 0.3,
+   "tail": 0.3,
+   "lines": [
+    {
+     "id": "L7",
+     "text": "At C: a plus sign flipped is still a plus sign."
+    },
+    {
+     "id": "L8",
+     "text": "18 plus 81 makes 99."
+    }
+   ],
+   "windows": {
+    "move": [
+     "L7^",
+     0.9,
+     "raw"
+    ],
+    "left": [
+     "L7^",
+     0.8,
+     "raw",
+     0.5
+    ],
+    "flip": [
+     "L7.flipped",
+     1.3,
+     "raw"
+    ],
+    "plus": [
+     "L7.still",
+     0.8,
+     "raw"
+    ],
+    "res": [
+     "L8.99",
+     0.8,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat5",
+   "lead": 0.3,
+   "tail": 0.3,
+   "lines": [
+    {
+     "id": "L9",
+     "text": "At D: we get 18 plus 181 plus 81."
+    },
+    {
+     "id": "L10",
+     "text": "That makes 280."
+    }
+   ],
+   "windows": {
+    "move": [
+     "L9^",
+     0.9,
+     "raw"
+    ],
+    "left": [
+     "L9^",
+     0.9,
+     "raw",
+     0.5
+    ],
+    "flip": [
+     "L9.18",
+     "L9.81>",
+     "raw"
+    ],
+    "res": [
+     "L10.280",
+     0.8,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat6",
+   "lead": 0.3,
+   "tail": 1.0,
+   "lines": [
+    {
+     "id": "L11",
+     "text": "Compare 181, 99 and 280."
+    },
+    {
+     "id": "L12",
+     "text": "Of these, 280 is the largest not over 1000."
+    },
+    {
+     "id": "L13",
+     "text": "So put the mirror at D!"
+    },
+    {
+     "id": "L14",
+     "text": "Did you guess right? Comment below!"
+    }
+   ],
+   "windows": {
+    "cmp": [
+     "L11^",
+     "L11$"
+    ],
+    "ca": [
+     "L11.181",
+     0.7,
+     "raw"
+    ],
+    "cc": [
+     "L11.99",
+     0.7,
+     "raw"
+    ],
+    "cd": [
+     "L11.280",
+     0.7,
+     "raw"
+    ],
+    "lim": [
+     "L12.not",
+     0.9,
+     "raw"
+    ],
+    "best": [
+     "L12.280",
+     0.9,
+     "raw"
+    ],
+    "pick": [
+     "L13.d",
+     0.9,
+     "raw"
+    ],
+    "ask": [
+     "L14^",
+     "L14$",
+     "raw"
+    ]
+   }
+  }
+ ],
+ "lang": "en",
+ "final": "where_should_the_mirror_go"
+}
