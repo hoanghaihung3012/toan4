@@ -6,6 +6,8 @@
 //   lessons/<lesson>/timing.json       what the player reads
 //
 //   node render/voice.mjs trung_binh_cong [--force]
+//   node render/voice.mjs trung_binh_cong --estimate   (no TTS: guessed word times, draft timing,
+//                                                       no audio; for building scenes offline only)
 import { execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
@@ -22,7 +24,20 @@ fs.mkdirSync(lineDir, { recursive: true });
 const PY = '.venv/bin/python';
 
 // --- 1. synthesise each line (cached by voice + rate + text) -----------------------
+// rough word times (~0.3 s per syllable, longer after punctuation) when TTS is unreachable
+function estimate(line) {
+  let t = 0;
+  const words = line.text.split(/\s+/).map((w) => {
+    const d = 0.3 * Math.max(1, (w.match(/\d/g) || []).length) ;
+    const out = { text: w.replace(/[.,!?:;]+$/, ''), start: t, end: t + d };
+    t += d + (/[.,!?:;]$/.test(w) ? 0.25 : 0.04);
+    return out;
+  });
+  return { mp3: null, words };
+}
+
 function synth(line) {
+  if (args.estimate) return estimate(line);
   const key = crypto.createHash('sha1').update(`${spec.voice}|${spec.rate}|${line.text}`).digest('hex').slice(0, 10);
   const mp3 = path.join(lineDir, `${line.id}.mp3`);
   const words = path.join(lineDir, `${line.id}.json`);
@@ -52,7 +67,8 @@ let cursor = 0;
 const lines = {};
 const timing = {
   _note: `Built from the voiceover by render/voice.mjs (lessons/${lesson}/voice.json). Do not edit by hand.`,
-  draft: false, scene: './scene.js', fps: spec.fps, duration: 0, audio: './audio/voice.wav', beats: [],
+  draft: !!args.estimate, scene: './scene.js', fps: spec.fps, duration: 0,
+  ...(args.estimate ? {} : { audio: './audio/voice.wav' }), beats: [],
 };
 
 for (const beat of spec.beats) {
@@ -101,6 +117,11 @@ timing.duration = Math.round(cursor * 1000) / 1000;
 fs.writeFileSync(`lessons/${lesson}/timing.json`, `${JSON.stringify(timing, null, 1)}\n`);
 fs.writeFileSync(path.join(outDir, 'cues.json'), `${JSON.stringify(Object.values(lines).map(
   ({ id, start, end, words }) => ({ id, start, end, words })), null, 1)}\n`);
+
+if (args.estimate) {
+  console.log(`estimate: wrote draft lessons/${lesson}/timing.json (${timing.duration}s), no audio`);
+  process.exit(0);
+}
 
 // --- 3. mix: every line at its time, stereo 48 kHz, loudness -16 LUFS, true peak -1.5 dB --
 const order = Object.values(lines);
