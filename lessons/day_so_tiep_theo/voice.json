@@ -1,0 +1,128 @@
+{
+  "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs day_so_tiep_theo. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+  "scene": "dayso",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+8%",
+  "fps": 30,
+  "gap": 0.3,
+  "beats": [
+    { "id": "beat1", "lead": 0.4, "tail": 2.0,
+      "lines": [
+        { "id": "L1", "text": "1, 4, 10, 22, 46." },
+        { "id": "L2", "gap": 0.4, "text": "Số tiếp theo là gì?" }
+      ],
+      "windows": {
+        "t1":    ["L1.1", 0.9, "raw", -0.25],
+        "t2":    ["L1.4", 0.9, "raw", -0.25],
+        "t3":    ["L1.10", 0.9, "raw", -0.25],
+        "t4":    ["L1.22", 0.9, "raw", -0.25],
+        "t5":    ["L1.46", 0.9, "raw", -0.25],
+        "slot":  ["L2^", 0.7, "raw"],
+        "title": ["L2^", "L2$"],
+        "q":     ["L2.gì", 0.8, "raw"],
+        "dots":  ["L2$", 1.8, "raw", 0.2]
+      }
+    },
+    { "id": "beat2", "lead": 0.1, "tail": 0.4,
+      "lines": [
+        { "id": "L3", "text": "Mẹo nè: đừng nhìn số, hãy nhìn bước nhảy!" },
+        { "id": "L4", "gap": 0.4, "text": "1 lên 4, nhảy 3." },
+        { "id": "L5", "text": "4 lên 10, nhảy 6." },
+        { "id": "L6", "text": "Rồi nhảy 12, nhảy 24!" }
+      ],
+      "windows": {
+        "idea":   ["L3.Mẹo", 0.9, "raw"],
+        "shake":  ["L3.đừng", "L3.số>", "raw"],
+        "bounce": ["L3.hãy", "L3$", "raw"],
+        "hop1":   ["L4^", "L4.4>", "raw"],
+        "lab1":   ["L4.3", 0.5, "raw"],
+        "hop2":   ["L5^", "L5.10>", "raw"],
+        "lab2":   ["L5.6", 0.5, "raw"],
+        "hop3":   ["L6.nhảy", 0.5, "raw", -0.1],
+        "lab3":   ["L6.12", 0.5, "raw"],
+        "hop4":   ["L6.nhảy#2", 0.5, "raw", -0.1],
+        "lab4":   ["L6.24", 0.5, "raw"]
+      }
+    },
+    { "id": "beat3", "lead": 0.3, "tail": 0.3,
+      "lines": [
+        { "id": "L7", "text": "Thấy gì không?" },
+        { "id": "L8", "text": "3 gấp đôi là 6, 6 gấp đôi là 12, 12 gấp đôi là 24!" }
+      ],
+      "windows": {
+        "look": ["L7^", "L7$", "raw"],
+        "x1":   ["L8.3", "L8.6>", "raw"],
+        "x2":   ["L8.6#2", "L8.12>", "raw"],
+        "x3":   ["L8.12#2", "L8.24>", "raw"]
+      }
+    },
+    { "id": "beat4", "lead": 0.3, "tail": 0.5,
+      "lines": [
+        { "id": "L9", "text": "Vậy bước tiếp theo: 24 gấp đôi là 48." },
+        { "id": "L10", "text": "46 cộng 48 bằng 94!" }
+      ],
+      "windows": {
+        "hop5": ["L9.Vậy", "L9.theo>", "raw"],
+        "x4":   ["L9.24", "L9.48>", "raw"],
+        "eq1":  ["L9.24", "L9.48>"],
+        "lab5": ["L9.48", 0.5, "raw"],
+        "eq2":  ["L10^", "L10$"],
+        "fill": ["L10.94", 0.8, "raw", -0.1],
+        "loop": ["L10.94", 0.6, "out", 0.3],
+        "ok":   ["L10$", 0.8, "raw", 0.1]
+      }
+    },
+    { "id": "beat5", "prev": "beat4", "lead": 1.0, "tail": 0.5,
+      "lines": [
+        { "id": "L11", "text": "Thử lại bằng cách khác: nhân 2 rồi cộng 2." },
+        { "id": "L12", "text": "1 nhân 2 cộng 2 bằng 4." },
+        { "id": "L13", "text": "4 thành 10, 10 thành 22, 22 thành 46." },
+        { "id": "L14", "text": "Và 46 nhân 2 cộng 2 bằng 94!" },
+        { "id": "L15", "gap": 0.4, "text": "Hai cách, cùng ra 94!" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["L11.cách", "L11$"],
+        "r1":    ["L12^", "L12$", "raw"],
+        "r2":    ["L13^", "L13.10>", "raw", -0.15],
+        "r3":    ["L13.10#2", "L13.22>", "raw", -0.15],
+        "r4":    ["L13.22#2", "L13.46>", "raw", -0.15],
+        "r5":    ["L14.46", "L14.94>", "raw", -0.15],
+        "loop5": ["L14.94", 0.6, "out", 0.2],
+        "ok5":   ["L14$", 0.8, "raw"],
+        "big":   ["L15.Hai", 1.0, "raw"]
+      }
+    },
+    { "id": "beat6", "prev": "beat5", "lead": 1.0, "tail": 0.3,
+      "lines": [
+        { "id": "L16", "text": "Đến lượt bạn: sau 94 là số nào?" },
+        { "id": "L17", "text": "Bình luận đáp án nhé!" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["L16^", "L16.bạn>"],
+        "drop":  ["L16.sau", 1.0, "raw", -0.2],
+        "hops":  ["L16.là", 0.8, "raw"],
+        "q":     ["L16.nào", 0.6, "raw"],
+        "cmt":   ["L17^", "L17$"],
+        "count": ["L17$", 3.0, "raw", 0.3]
+      }
+    },
+    { "id": "beat7", "lead": 0.1, "tail": 1.2,
+      "lines": [
+        { "id": "L18", "text": "Đáp án: 48 gấp đôi là 96." },
+        { "id": "L19", "text": "94 cộng 96 bằng 190!" }
+      ],
+      "windows": {
+        "hop":  ["L18.Đáp", "L18.án>", "raw"],
+        "x":    ["L18.48", "L18.96>", "raw"],
+        "eq1":  ["L18.48", "L18.96>"],
+        "lab":  ["L18.96", 0.5, "raw"],
+        "eq2":  ["L19^", "L19$"],
+        "fill": ["L19.190", 0.8, "raw", -0.1],
+        "loop": ["L19.190", 0.6, "out", 0.3],
+        "ok":   ["L19$", 0.8, "raw", 0.1]
+      }
+    }
+  ]
+}
