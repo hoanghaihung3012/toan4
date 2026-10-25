@@ -29,6 +29,23 @@ const CHAL = 5; // D4 (answer not shown)
 console.assert(ways(CHAL) === 21, 'challenge 21');
 void BASKETS;
 
+// every word on the board; read at render time so a language variant can override it
+// (lessons/xep_tao_vao_ro_en/scene.js)
+export const TEXT = {
+  title: 'Xếp táo vào rổ',
+  canBeEmpty: 'Rổ có thể trống',
+  ask: 'Bao nhiêu cách?',
+  note: '3 số, tổng = 7',
+  byA: 'Đếm theo rổ A',
+  bTakes: 'Rổ B lấy:',
+  ways: 'cách',
+  cRest: 'C lấy phần còn lại',
+  addUp: 'Cộng lại',
+  so: 'Có',
+  yourTurn: 'Đến lượt bạn!',
+  comment: 'Bình luận đáp án nhé!',
+};
+
 const str = String;
 const CX = 552;
 const NS = 'http://www.w3.org/2000/svg';
@@ -129,21 +146,21 @@ function problemBoard(ctx, p, n, { heading, challenge = false }) {
     basket(svg, BX[i], 820, c, { scale: k.scale, squash: k.squash });
   });
   if (!challenge) {
-    L.text('Rổ có thể trống', CX, 1180, { size: 100, color: CHALK.pink, align: 'center', t: g(p, 'r2') });
-    L.text('Bao nhiêu cách?', CX, 1370, { size: 120, color: CHALK.white, align: 'center', t: g(p, 'ask') });
+    L.text(TEXT.canBeEmpty, CX, 1180, { size: 100, color: CHALK.pink, align: 'center', t: g(p, 'r2') });
+    L.text(TEXT.ask, CX, 1370, { size: 120, color: CHALK.white, align: 'center', t: g(p, 'ask') });
     const d = g(p, 'dots');
     thinkingDots(L, CX, 1500, d < 1 ? d : 0, { r: 16, gap: 80 });
   } else {
-    const xs = eq(L, [{ s: '   ' }, 'cách'], CX, 1150, { size: 130, t: g(p, 'ask') });
+    const xs = eq(L, [{ s: '   ' }, TEXT.ways], CX, 1150, { size: 130, t: g(p, 'ask') });
     const q = g(p, 'ask');
     if (q > 0) L.text('?', xs[0], 1155, { size: 160, color: CHALK.yellow, align: 'center', scale: spring(q, 3, 6) });
-    L.text('Bình luận đáp án nhé!', CX, 1320, { size: 84, color: CHALK.pink, align: 'center', t: g(p, 'cmt') });
+    L.text(TEXT.comment, CX, 1320, { size: 84, color: CHALK.pink, align: 'center', t: g(p, 'cmt') });
     const c = g(p, 'count');
     countdown(L, CX, 1430, c < 1 ? c : 0, { size: 220 });
   }
 }
-const beat1 = (ctx, p) => problemBoard(ctx, p, N, { heading: 'Xếp táo vào rổ' });
-const beat5 = (ctx, p) => problemBoard(ctx, p, CHAL, { heading: 'Đến lượt bạn!', challenge: true });
+const beat1 = (ctx, p) => problemBoard(ctx, p, N, { heading: TEXT.title });
+const beat5 = (ctx, p) => problemBoard(ctx, p, CHAL, { heading: TEXT.yourTurn, challenge: true });
 
 // --- beat 2: two example arrangements ----------------------------------------------------------
 const RIM2 = 760;
@@ -196,7 +213,7 @@ function beat2(ctx, p) {
   mark(L, true, 905, 1130, g(p, 'ok1'), { size: 70, seed: 41 });
   eq(L, [str(EX2[0]), '+', str(EX2[1]), '+', str(EX2[2]), '=', { s: str(N), color: CHALK.yellow }], CX - 40, 1340, { size: 120, t: g(p, 'e2') });
   mark(L, true, 905, 1300, g(p, 'ok2'), { size: 70, seed: 51 });
-  L.text('3 số, tổng = 7', CX, 1520, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'note') });
+  L.text(TEXT.note, CX, 1520, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'note') });
 }
 
 // --- beat 3: count by basket A — a staircase of B's choices ------------------------------------
@@ -204,10 +221,10 @@ const R3 = { y0: 530, dy: 150, lx: 236, tx: 330, step: 78, scale: 0.88, cx: 1012
 function beat3(ctx, p) {
   const objs = ctx.objects();
   const L = ctx.chalk(60);
-  title(L, 'Đếm theo rổ A', 250, g(p, 'title'), { size: 104, color: CHALK.yellow });
+  title(L, TEXT.byA, 250, g(p, 'title'), { size: 104, color: CHALK.yellow });
   const hd = g(p, 'head');
-  L.text('Rổ B lấy:', R3.tx - 40, 400, { size: 84, color: CHALK.mint, t: hd });
-  L.text('cách', R3.cx, 400, { size: 72, color: CHALK.yellow, align: 'center', t: hd });
+  L.text(TEXT.bTakes, R3.tx - 40, 400, { size: 84, color: CHALK.mint, t: hd });
+  L.text(TEXT.ways, R3.cx, 400, { size: 72, color: CHALK.yellow, align: 'center', t: hd });
   // row progress: rows 0..2 have their own windows, rows 3..6 share "mid", row 7 its own
   const mid = g(p, 'mid');
   const prog = (r) => (r <= 2 ? g(p, `r${r}`) : r === 7 ? g(p, 'r7') : stagger(mid, r - 3, 4, 0.55));
@@ -228,7 +245,7 @@ function beat3(ctx, p) {
     popLabel(L, str(n), R3.cx, y + 30, c, { size: 92, color: CHALK.yellow, pulse: clamp01((u - 0.8) / 0.2) });
   });
   // C takes whatever is left: said with the first row
-  L.text('C lấy phần còn lại', CX, 1790, { size: 92, color: CHALK.pink, align: 'center', t: clamp01((g(p, 'r0') - 0.5) * 2) });
+  L.text(TEXT.cRest, CX, 1790, { size: 92, color: CHALK.pink, align: 'center', t: clamp01((g(p, 'r0') - 0.5) * 2) });
 }
 
 // --- beat 4: add the steps by pairing ------------------------------------------------------------
@@ -236,7 +253,7 @@ const PAIR_COLORS = [CHALK.yellow, CHALK.pink, CHALK.mint, CHALK.green];
 function beat4(ctx, p) {
   const objs = ctx.objects();
   const L = ctx.chalk(60);
-  title(L, 'Cộng lại', 250, g(p, 'title'), { size: 104, color: CHALK.yellow });
+  title(L, TEXT.addUp, 250, g(p, 'title'), { size: 104, color: CHALK.yellow });
   const parts = [];
   // each number takes its pair's colour once the pair's arc has landed on it
   const pairOf = (i) => PAIRS.findIndex(([a, b]) => a === i || b === i);
@@ -260,7 +277,7 @@ function beat4(ctx, p) {
   PAIRS.forEach((_, k) => { if (k) nines.push({ s: '+', t: clamp01(nt * 4 - k) }); nines.push({ s: '9', color: PAIR_COLORS[k], t: clamp01(nt * 4 - k) }); });
   eq(L, nines, CX, 960, { size: 120 });
   eq(L, ['9', { sym: 'times' }, '4', '=', { s: str(TOTAL), color: CHALK.yellow }], CX, 1160, { size: 140, t: g(p, 'mul') });
-  const xa = eq(L, ['Có', { s: str(TOTAL), color: CHALK.yellow, size: 170, pad: 40 }, 'cách'], CX + 20, 1430, { size: 130, t: g(p, 'ans'), gap: 0.5 });
+  const xa = eq(L, [TEXT.so, { s: str(TOTAL), color: CHALK.yellow, size: 170, pad: 40 }, TEXT.ways], CX + 20, 1430, { size: 130, t: g(p, 'ans'), gap: 0.5 });
   L.loop(xa[1], 1375, 105, 100, { color: CHALK.yellow, width: 8, t: g(p, 'loop'), seed: 71 });
   const sp = g(p, 'spark');
   if (sp > 0) sparks(L, xa[1], 1375, 125, 170, sp, { seed: 75 });
