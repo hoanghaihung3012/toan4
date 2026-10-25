@@ -20,6 +20,17 @@ console.assert(OPTIONS.filter(([, v]) => Number(v) === rule(N)).map(([k]) => k).
 const QUIZ = 10;
 console.assert(rule(QUIZ) === 51 && sticks(QUIZ) === 51, 'figure 10: 51 sticks');
 
+// --- board text (the English variant lessons/que_diem_en replaces these) --------------
+export const TEXT = {
+  title: 'Câu 7',
+  fig: 'Hình',
+  sticks: 'que',
+  shared: 'dùng chung',
+  yourTurn: 'Đến lượt bạn!',
+};
+// how the board text fits: longer words in a variant shift or shrink here, not in the layout
+export const FIT = { titleUnderline: 190, labelShift: 0, wordSize: 80 };
+
 // --- small helpers ---------------------------------------------------------------------
 // draw a figure; each stick gets its own pose from fn(stick, i) -> {u, kind, hop}
 function figure(objs, list, fn) {
@@ -53,8 +64,8 @@ const HOOK_STICKS = houseSticks(HOOK.x0, HOOK.yb, HOOK.L, HOOK.n);
 
 function hookChalk(L, p) {
   const T = THEME.layout.title;
-  L.text('Câu 7', T.x, T.y, { size: T.size, t: g(p, 'title') });
-  L.line([T.x, T.y + 22], [T.x + 190, T.y + 22], { width: T.underlineWidth, t: g(p, 'title'), seed: 5 });
+  L.text(TEXT.title, T.x, T.y, { size: T.size, t: g(p, 'title') });
+  L.line([T.x, T.y + 22], [T.x + FIT.titleUnderline, T.y + 22], { width: T.underlineWidth, t: g(p, 'title'), seed: 5 });
   // trailing dots: the row goes on
   const dots = clamp01(g(p, 'houses') * 1.3 - 0.3);
   [0, 1, 2].forEach((i) => {
@@ -68,12 +79,12 @@ function hookChalk(L, p) {
     L.line([150, HOOK.countY - 60], [930, HOOK.countY + 14], { color: CHALK.red, width: 16, t: clamp01(x * 2), seed: 21 });
     L.line([150, HOOK.countY + 14], [930, HOOK.countY - 60], { color: CHALK.red, width: 16, t: clamp01(x * 2 - 1), seed: 22 });
   }
-  L.text('Hình 99', 540, HOOK.tagY, { size: 150, align: 'center', t: g(p, 'tag') });
+  L.text(`${TEXT.fig} 99`, 540, HOOK.tagY, { size: 150, align: 'center', t: g(p, 'tag') });
   const q = g(p, 'q');
   const tip = g(p, 'tip');
   const bump = tip > 0 && tip < 1 ? 0.25 * Math.sin(Math.PI * tip) : 0;
   popText(L, '?', 400, HOOK.qY + 90, q, { size: 330, color: CHALK.yellow, scale: 1 + bump });
-  popText(L, 'que', 650, HOOK.qY + 30, clamp01(q * 1.6 - 0.4), { size: 120 });
+  popText(L, TEXT.sticks, 650, HOOK.qY + 30, clamp01(q * 1.6 - 0.4), { size: 120 });
   sparks(L, 400, HOOK.qY - 30, 200, 250, tip, { seed: 30 });
 }
 
@@ -93,7 +104,7 @@ const COUNT_KEYS = ['s1', 's2', 's3', 's4', 's5', 's6'];
 // where the count number of each stick of figure 1 is written (outside the house)
 const COUNT_AT = [[-56, 20], [0, 76], [60, 20], [0, 76], [-52, -24], [52, -24]];
 
-function totalPos(r) { return [C.labelX, C.yb[r] - 60]; }
+function totalPos(r) { return [C.labelX + FIT.labelShift, C.yb[r] - 60]; }
 
 function countBoard(ctx, beat, p) {
   const S = state(ORDER, beat, p);
@@ -103,7 +114,7 @@ function countBoard(ctx, beat, p) {
 
   ROWS.forEach((list, r) => {
     const b = beats[r];
-    L.text(`Hình ${r + 1}`, C.labelX, C.yb[r] - houseHeight(C.L) + 90, { size: 80, t: S(b, 'label') });
+    L.text(`${TEXT.fig} ${r + 1}`, C.labelX + FIT.labelShift, C.yb[r] - houseHeight(C.L) + 90, { size: 80, t: S(b, 'label') });
     if (r === 0) {
       // figure 1: builds, then every stick hops while its number is said
       const build = S(b, 'house');
@@ -126,7 +137,7 @@ function countBoard(ctx, beat, p) {
       if (r === 1) {
         const w = S(b, 'wall');
         L.loop(C.x0 + C.L, C.yb[r] - C.L / 2, 38, C.L / 2 + 34, { color: CHALK.yellow, width: 10, t: w, seed: 140 });
-        L.text('dùng chung', C.x0 + C.L, C.yb[r] + 92, { size: 64, color: CHALK.yellow, align: 'center', t: clamp01(w * 2 - 0.6) });
+        L.text(TEXT.shared, C.x0 + C.L, C.yb[r] + 92, { size: 64, color: CHALK.yellow, align: 'center', t: clamp01(w * 2 - 0.6) });
       }
       // +5 arc from the previous total to this one
       const v = S(b, 'plus');
@@ -141,8 +152,8 @@ function countBoard(ctx, beat, p) {
     }
     const tot = S(b, 'total');
     const [tx, ty] = totalPos(r);
-    row(L, [{ s: String(TOTALS[r]), color: CHALK.yellow, size: 110 }, 'que'], tx, ty,
-      { size: 80, align: 'left', t: clamp01(tot * 2), seed: 170 + r });
+    row(L, [{ s: String(TOTALS[r]), color: CHALK.yellow, size: 110 }, TEXT.sticks], tx, ty,
+      { size: FIT.wordSize, align: 'left', t: clamp01(tot * 2), seed: 170 + r });
     burst(L, tx + 40, ty - 36, 90, clamp01(tot * 1.6 - 0.6), { n: 8, seed: 180 + r });
   });
 }
@@ -181,12 +192,12 @@ function ruleBoard(ctx, beat, p) {
   popText(L, '1', R.x0 - 95, R.yb - R.L / 2 + 40, clamp01(wall * 2 - 0.5), { size: 130, color: CHALK.yellow });
 
   // Hình 3: 1 + 5 × 3 = 16  ✓
-  const xs = row(L, ['Hình 3:', { s: '1', color: CHALK.yellow }, '+', { s: '5', color: CHALK.mint }, { sym: 'times' }, '3', '=',
+  const xs = row(L, [`${TEXT.fig} 3:`, { s: '1', color: CHALK.yellow }, '+', { s: '5', color: CHALK.mint }, { sym: 'times' }, '3', '=',
     { s: '16', color: CHALK.yellow }], 520, R.eqY, { size: 84, t: S('beat5', 'eq'), seed: 220, gap: 0.3 });
   mark(L, true, xs[7] + 110, R.eqY - 30, S('beat5', 'ok'), { size: 66, seed: 230 });
 
   // Hình 99: 1 + 5 × 99 / = 1 + 495 / = 496 que
-  row(L, ['Hình 99:', { s: '1', color: CHALK.yellow }, '+', { s: '5', color: CHALK.mint }, { sym: 'times' }, '99'], 540, R.rows[0],
+  row(L, [`${TEXT.fig} 99:`, { s: '1', color: CHALK.yellow }, '+', { s: '5', color: CHALK.mint }, { sym: 'times' }, '99'], 540, R.rows[0],
     { size: 92, t: S('beat6', 'eq'), seed: 240, gap: 0.3 });
   // "Cộng 1": the 1 pulses yellow
   const c1 = S('beat6', 'plus1');
@@ -194,7 +205,7 @@ function ruleBoard(ctx, beat, p) {
   row(L, ['=', { s: '1', color: c1 > 0 ? CHALK.yellow : CHALK.white, size: 92 * k1 }, '+', '495'], 540, R.rows[1],
     { size: 92, t: S('beat6', 'mul'), seed: 250, gap: 0.3 });
   const res = S('beat6', 'res');
-  const rx = row(L, ['=', { s: '496', color: CHALK.yellow, size: 124 }, 'que'], 540, R.rows[2],
+  const rx = row(L, ['=', { s: '496', color: CHALK.yellow, size: 124 }, TEXT.sticks], 540, R.rows[2],
     { size: 92, t: clamp01(res * 2), seed: 260, gap: 0.3 });
   L.loop(rx[1], R.rows[2] - 42, 120, 70, { color: CHALK.yellow, width: 7, t: clamp01(res * 1.6 - 0.6), seed: 270 });
 
@@ -226,8 +237,8 @@ function quizBoard(ctx, p) {
   const h = g(p, 'houses');
   figure(objs, Q_STICKS, (s) => ({ u: clamp01((h * (QUIZ + 2) - s.house) / 2.2) }));
   const L = ctx.chalk(60);
-  L.text('Đến lượt bạn!', 540, Q.labelY, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'label') });
-  L.text('Hình 10', 540, Q.tagY, { size: 110, align: 'center', t: clamp01(h * 1.5 - 0.5) });
+  L.text(TEXT.yourTurn, 540, Q.labelY, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'label') });
+  L.text(`${TEXT.fig} 10`, 540, Q.tagY, { size: 110, align: 'center', t: clamp01(h * 1.5 - 0.5) });
   return L;
 }
 
@@ -235,7 +246,7 @@ function beat7(ctx, p) {
   const L = quizBoard(ctx, p);
   const q = g(p, 'q');
   popText(L, '?', 430, Q.qY + 90, q, { size: 300, color: CHALK.yellow });
-  popText(L, 'que', 640, Q.qY + 30, clamp01(q * 1.6 - 0.4), { size: 110 });
+  popText(L, TEXT.sticks, 640, Q.qY + 30, clamp01(q * 1.6 - 0.4), { size: 110 });
   // countdown 3, 2, 1 inside a chalk timer ring that runs down; gone at the key pose
   const c = g(p, 'count');
   if (c > 0 && c < 1) {
@@ -261,14 +272,14 @@ function beat8(ctx, p) {
   const k = outScale(1, clamp01(a * 4));
   if (k > 0) {
     L.text('?', 430, Q.qY + 90, { size: 300, color: CHALK.yellow, align: 'center', scale: k });
-    L.text('que', 640, Q.qY + 30, { size: 110, align: 'center', scale: k });
+    L.text(TEXT.sticks, 640, Q.qY + 30, { size: 110, align: 'center', scale: k });
   }
   const xs = row(L, [{ s: '1', color: CHALK.yellow }, '+', { s: '5', color: CHALK.mint }, { sym: 'times' }, '10', '=',
     { s: '51', color: CHALK.yellow, size: 140 }], 520, Q.qY + 40, { size: 104, t: clamp01(a * 1.35 - 0.3), seed: 320, gap: 0.3 });
   const lp = g(p, 'loop');
   L.loop(xs[6], Q.qY - 8, 105, 92, { color: CHALK.yellow, width: 8, t: clamp01(lp * 1.4), seed: 330 });
   sparks(L, xs[6], Q.qY - 8, 135, 170, clamp01(lp * 1.5 - 0.5), { n: 8, seed: 335 });
-  popText(L, 'que', xs[6], Q.qY + 190, clamp01(lp * 2 - 0.6), { size: 84 });
+  popText(L, TEXT.sticks, xs[6], Q.qY + 190, clamp01(lp * 2 - 0.6), { size: 84 });
 }
 
 export const scenes = { beat1, beat2, beat3, beat4, beat5, beat6, beat7, beat8 };
