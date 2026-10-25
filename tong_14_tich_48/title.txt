@@ -1,0 +1,1 @@
+Tìm hiệu hai số có tổng 14, tích 48
