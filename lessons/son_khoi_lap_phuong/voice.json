@@ -1,0 +1,134 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs son_khoi_lap_phuong. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "son_khoi_lap_phuong",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.5, "tail": 0.4,
+   "lines": [
+    { "id": "L1", "text": "Sơn hết khối hình này, kể cả mặt đáy." },
+    { "id": "L2", "text": "Sẽ sơn được bao nhiêu ô vuông?" }
+   ],
+   "windows": {
+    "build": ["beat^", 2.2, "raw", 0.05],
+    "bottom": ["L1.mặt", 0.9, "raw"],
+    "q": ["L2.bao", 0.8, "raw"],
+    "word": ["L2.ô", 0.8]
+   }
+  },
+  {
+   "id": "beat2", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L3", "text": "Đừng đếm từng khối. Hãy nhìn từ 6 phía:" },
+    { "id": "L4", "text": "trên, dưới, trước, sau, trái, phải." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.0, "raw"],
+    "nums": ["L3^", 0.9, "raw"],
+    "cross": ["L3.khối", 0.6, "raw"],
+    "six": ["L3.6", 0.8, "raw"],
+    "a1": ["L4.trên", 0.6, "raw"],
+    "a2": ["L4.dưới", 0.6, "raw"],
+    "a3": ["L4.trước", 0.6, "raw"],
+    "a4": ["L4.sau", 0.6, "raw"],
+    "a5": ["L4.trái", 0.6, "raw"],
+    "a6": ["L4.phải", 0.6, "raw"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 0.3, "tail": 0.3,
+   "lines": [
+    { "id": "L5", "text": "Nhìn từ trên xuống, có 8 ô." },
+    { "id": "L6", "text": "Nhìn từ dưới lên, mặt đáy cũng có 8 ô." }
+   ],
+   "windows": {
+    "paint": ["L5^", "L5.8", "raw"],
+    "gridA": ["L5.8", 0.9, "raw"],
+    "countA": ["L5.8", 0.7, "raw"],
+    "gridB": ["L6.dưới", 0.9, "raw"],
+    "countB": ["L6.8", 0.7, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.3, "tail": 0.3,
+   "lines": [
+    { "id": "L7", "text": "Nhìn từ phía trước: 3, 3, 2, 1. Có 9 ô." },
+    { "id": "L8", "text": "Phía sau cũng có 9 ô." }
+   ],
+   "windows": {
+    "paint": ["L7^", "L7.trước>", "raw"],
+    "gridA": ["L7.3", "L7.1>", "raw"],
+    "c1": ["L7.3", 0.5, "raw"],
+    "c2": ["L7.3#2", 0.5, "raw"],
+    "c3": ["L7.2", 0.5, "raw"],
+    "c4": ["L7.1", 0.5, "raw"],
+    "countA": ["L7.9", 0.7, "raw"],
+    "gridB": ["L8^", 0.9, "raw"],
+    "countB": ["L8.9", 0.7, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L9", "text": "Nhìn từ bên phải: 1 và 3, có 4 ô." },
+    { "id": "L10", "text": "Bên trái cũng có 4 ô." }
+   ],
+   "windows": {
+    "paint": ["L9^", "L9.phải>", "raw"],
+    "gridA": ["L9.1", "L9.3>", "raw"],
+    "c1": ["L9.1", 0.5, "raw"],
+    "c2": ["L9.3", 0.5, "raw"],
+    "countA": ["L9.4", 0.7, "raw"],
+    "gridB": ["L10^", 0.9, "raw"],
+    "countB": ["L10.4", 0.7, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "lead": 0.3, "tail": 0.6,
+   "lines": [
+    { "id": "L11", "text": "Cộng lại nhé: 8 cộng 8 bằng 16." },
+    { "id": "L12", "text": "9 cộng 9 bằng 18. 4 cộng 4 bằng 8." },
+    { "id": "L13", "text": "16 cộng 18 cộng 8, bằng 42 ô vuông!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.4, "raw"],
+    "e1": ["L11.8", "L11.16>"],
+    "h1": ["L11.8", 0.8, "raw"],
+    "e2": ["L12^", "L12.18>"],
+    "h2": ["L12^", 0.8, "raw"],
+    "e3": ["L12.4", "L12.8>"],
+    "h3": ["L12.4", 0.8, "raw"],
+    "sum": ["L13^", "L13.42>"],
+    "loop": ["L13.42", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat7", "prev": "beat6", "lead": 1.05, "tail": 0.2,
+   "lines": [
+    { "id": "L14", "text": "Đến lượt bạn: nếu không sơn mặt đáy thì được bao nhiêu ô?" },
+    { "id": "L15", "text": "Bình luận nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "label": ["L14^", 0.8],
+    "model": ["L14^", 0.9, "raw"],
+    "no": ["L14.không", 1.0, "raw"],
+    "q": ["L14.bao", 0.8, "raw"],
+    "count": ["L15$", 2.4, "raw", 0.15]
+   }
+  },
+  {
+   "id": "beat8", "lead": 0.3, "tail": 1.2,
+   "lines": [
+    { "id": "L16", "text": "Đáp án: 42 trừ 8, bằng 34 ô!" }
+   ],
+   "windows": {
+    "eq": ["L16.42", "L16.34>"],
+    "loop": ["L16.34", 0.9, "raw"]
+   }
+  }
+ ]
+}
