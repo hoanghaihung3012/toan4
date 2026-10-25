@@ -32,3 +32,9 @@ Length 74.17 s (Vietnamese 70.70 s), 5 beats, 20 voice lines (en-US-AvaNeural, +
 - "B takes:" and "ways" headers in beat 3 are small on a phone.
 - ~1.5 s still at the start of beat 2 before the first apple flies.
 - The 2/4/1 → 0/7/0 move is quick.
+
+## Final MP4 (`final/2026-10-25/apples_in_baskets.mp4`)
+- 74.167 s, 1080×1920 at 30 fps, H.264 + AAC 48 kHz stereo, −16.0 LUFS, true peak −2.0 dBFS.
+- Silences are the same as in the WAV (thinking dots, wipes, the countdown).
+- `freezedetect=n=0.001:d=4`: no freeze.
+- Published without a separate preview approval (standing rule for English versions); preview: https://hoanghaihung3012.github.io/toan4/xep_tao_vao_ro_en/
