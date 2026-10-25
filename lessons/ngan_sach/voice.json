@@ -1,0 +1,95 @@
+{
+  "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs ngan_sach. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+  "scene": "ngan_sach",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+8%",
+  "fps": 30,
+  "gap": 0.3,
+  "beats": [
+    { "id": "beat1", "lead": 0.3, "tail": 2.0,
+      "lines": [
+        { "id": "L1", "text": "Hai ngăn sách có tất cả 160 cuốn." },
+        { "id": "L2", "gap": 0.35, "text": "Chuyển 15 cuốn từ ngăn thứ nhất sang ngăn thứ hai," },
+        { "id": "L3", "gap": 0.2, "text": "thì ngăn thứ nhất vẫn nhiều hơn ngăn thứ hai 8 cuốn." },
+        { "id": "L4", "gap": 0.35, "text": "Hỏi lúc đầu ngăn thứ nhất có bao nhiêu cuốn sách?" }
+      ],
+      "windows": {
+        "title": ["beat^", 1.0],
+        "books": ["L1.Hai", "L1.160", "raw"],
+        "total": ["L1.160", "L1$"],
+        "move":  ["L2.Chuyển", "L2$", "raw"],
+        "diff":  ["L3.vẫn", "L3$"],
+        "ask":   ["L4^", "L4$"],
+        "dots":  ["L4$", 1.7, "raw", 0.2]
+      }
+    },
+    { "id": "beat2", "prev": "beat1", "lead": 1.1, "tail": 0.7,
+      "lines": [
+        { "id": "L5", "text": "Chuyển sách qua lại, tổng vẫn là 160 cuốn." },
+        { "id": "L6", "gap": 0.3, "text": "Thêm 8 cuốn vào ngăn thứ hai, hai ngăn sẽ bằng nhau." },
+        { "id": "L7", "gap": 0.3, "text": "160 cộng 8 bằng 168. 168 chia 2 bằng 84." },
+        { "id": "L8", "gap": 0.35, "text": "Sau khi chuyển, ngăn thứ nhất có 84 cuốn." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "setup": ["beat^", 1.0, "raw", 0.6],
+        "total": ["L5.tổng", "L5$"],
+        "ghost": ["L6.Thêm", 1.2, "raw"],
+        "equal": ["L6.hai#2", "L6$"],
+        "e1":    ["L7^", "L7.168>"],
+        "e2":    ["L7.168#2", "L7$"],
+        "n1":    ["L8.84", 0.8, "raw"]
+      }
+    },
+    { "id": "beat3", "prev": "beat2", "lead": 0.9, "tail": 0.8,
+      "lines": [
+        { "id": "L9", "text": "Lúc đầu, ngăn thứ nhất còn có 15 cuốn đã chuyển đi." },
+        { "id": "L10", "gap": 0.35, "text": "84 cộng 15 bằng 99." },
+        { "id": "L11", "gap": 0.4, "text": "Vậy lúc đầu ngăn thứ nhất có 99 cuốn sách." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "setup": ["beat^", 0.8, "raw", 0.5],
+        "hl":    ["L9^", 0.7],
+        "back":  ["L9.15", "L9$", "raw"],
+        "e1":    ["L10^", "L10$"],
+        "ans":   ["L11.99", "L11$"],
+        "loop":  ["L11.99", 0.7, "out", 0.1],
+        "spark": ["L11$", 0.9, "raw"]
+      }
+    },
+    { "id": "beat4", "prev": "beat3", "lead": 0.9, "tail": 0.8,
+      "lines": [
+        { "id": "L12", "text": "Thử lại: ngăn thứ hai có 160 trừ 99, bằng 61 cuốn." },
+        { "id": "L13", "gap": 0.3, "text": "Chuyển 15 cuốn, còn 84 và 76." },
+        { "id": "L14", "gap": 0.3, "text": "84 trừ 76 bằng 8. Đúng rồi!" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "setup": ["beat^", 0.8, "raw", 0.5],
+        "c1":    ["L12.160", "L12.61>"],
+        "move":  ["L13.Chuyển", "L13$", "raw"],
+        "c2":    ["L14^", "L14.8>"],
+        "ok":    ["L14.Đúng", 0.8, "raw"]
+      }
+    },
+    { "id": "beat5", "prev": "beat4", "lead": 0.9, "tail": 3.4,
+      "lines": [
+        { "id": "L15", "text": "Đến lượt bạn: hai ngăn có 120 cuốn." },
+        { "id": "L16", "gap": 0.3, "text": "Chuyển 10 cuốn từ ngăn thứ nhất sang ngăn thứ hai, ngăn thứ nhất vẫn hơn 6 cuốn." },
+        { "id": "L17", "gap": 0.3, "text": "Lúc đầu ngăn thứ nhất có bao nhiêu cuốn? Bình luận đáp án nhé!" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["L15^", 0.9],
+        "books": ["L15.hai", "L15$", "raw"],
+        "total": ["L15.120", "L15$"],
+        "move":  ["L16.Chuyển", "L16.hai>", "raw"],
+        "diff":  ["L16.vẫn", "L16$"],
+        "ask":   ["L17^", "L17.cuốn>"],
+        "cmt":   ["L17.Bình", "L17$"],
+        "count": ["L17$", 3.0, "raw", 0.1]
+      }
+    }
+  ]
+}
