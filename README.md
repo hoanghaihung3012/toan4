@@ -43,6 +43,7 @@ npm run preview
 
 npm run voice -- trung_binh_cong
 npm run sync -- trung_binh_cong
+npm run pages -- trung_binh_cong   # review on a phone: https://hoanghaihung3012.github.io/toan4/trung_binh_cong/
 npm run keyposes -- --lesson trung_binh_cong
 npm run sheet -- --lesson trung_binh_cong --every 0.5
 npm run export -- --lesson trung_binh_cong

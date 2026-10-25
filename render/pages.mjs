@@ -1,0 +1,109 @@
+// Publish a lesson's HTML preview (with voiceover) to GitHub Pages, for review on a phone.
+// Copies the shared player + the lesson into the gh-pages branch under <lesson>/, rebuilds the
+// index page that lists every published lesson, then commits and pushes gh-pages.
+//
+//   node render/pages.mjs <lesson> [--no-push]
+//   -> https://<owner>.github.io/<repo>/<lesson>/
+//
+// One-time setup by the repo owner: Settings -> Pages -> Deploy from a branch -> gh-pages, / (root).
+// The repo must be public (or on a paid plan) for Pages to serve it.
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { parseArgs } from './browser.mjs';
+
+const args = parseArgs(process.argv.slice(2));
+const lesson = args._[0];
+if (!lesson) throw new Error('usage: node render/pages.mjs <lesson> [--no-push]');
+const src = path.resolve('lessons', lesson);
+const timing = JSON.parse(fs.readFileSync(path.join(src, 'timing.json'), 'utf8'));
+if (!timing.audio || timing.draft) throw new Error(`${lesson}: run "npm run voice -- ${lesson}" first (no voiced timing)`);
+
+const git = (...a) => execFileSync('git', a, { encoding: 'utf8' }).trim();
+const sh = (cwd, ...a) => execFileSync('git', ['-C', cwd, ...a], { stdio: 'inherit' });
+
+// --- 1. a worktree on gh-pages (created as an orphan branch the first time) ---------------------
+const work = fs.mkdtempSync(path.join(os.tmpdir(), 'gh-pages-'));
+let remote = true;
+try { git('fetch', '-q', 'origin', 'gh-pages'); } catch { remote = false; }
+if (remote) git('worktree', 'add', '-B', 'gh-pages', work, 'origin/gh-pages');
+else git('worktree', 'add', '--orphan', '-B', 'gh-pages', work);
+
+try {
+  // --- 2. the lesson: shared player, fonts, lesson code, timing, voice as MP3 -------------------
+  const out = path.join(work, lesson);
+  fs.rmSync(out, { recursive: true, force: true });
+  fs.mkdirSync(path.join(out, 'lessons', lesson, 'audio'), { recursive: true });
+  fs.cpSync('shared/web', path.join(out, 'shared/web'), { recursive: true });
+  fs.cpSync('shared/fonts', path.join(out, 'shared/fonts'), { recursive: true });
+  for (const f of fs.readdirSync(src).filter((f) => f.endsWith('.js'))) {
+    fs.copyFileSync(path.join(src, f), path.join(out, 'lessons', lesson, f));
+  }
+  // MP3 keeps the page light on a phone; the player reads timing.audio relative to timing.json
+  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', path.join(src, timing.audio),
+    '-c:a', 'libmp3lame', '-b:a', '160k', path.join(out, 'lessons', lesson, 'audio/voice.mp3')]);
+  fs.writeFileSync(path.join(out, 'lessons', lesson, 'timing.json'),
+    `${JSON.stringify({ ...timing, audio: './audio/voice.mp3' }, null, 1)}\n`);
+
+  // the player defaults to /lessons/<name>/timing.json from the site root; Pages serves under /<repo>/
+  const player = path.join(out, 'shared/web/js/player.js');
+  const code = fs.readFileSync(player, 'utf8');
+  const def = /`\/lessons\/\$\{encodeURIComponent\(lesson\)\}\/timing\.json`/;
+  if (!def.test(code)) throw new Error('player.js: default timing URL changed, update render/pages.mjs');
+  fs.writeFileSync(player, code.replace(def, `'lessons/${lesson}/timing.json'`));
+
+  const title = (fs.readFileSync(path.join(src, 'story.md'), 'utf8').match(/^#\s+(.+)$/m)?.[1] || lesson)
+    .split(/\s+[—-]\s+/)[0];
+  const page = fs.readFileSync('shared/web/index.html', 'utf8')
+    .replace(/<title>.*<\/title>/, `<title>${title}</title>`)
+    .replace(/(href|src)="(css|js)\//g, '$1="shared/web/$2/')
+    .replace('</head>', '  <style>#controls{display:flex;gap:10px;align-items:center;padding:8px 16px}'
+      + '#controls button{font-size:18px;min-width:44px;min-height:36px}#controls input{flex:1;min-width:0}</style>\n</head>');
+  fs.writeFileSync(path.join(out, 'index.html'), page);
+  fs.writeFileSync(path.join(out, 'title.txt'), `${title}\n`);
+
+  // --- 3. the index of every published lesson --------------------------------------------------
+  const items = fs.readdirSync(work, { withFileTypes: true })
+    .filter((d) => d.isDirectory() && fs.existsSync(path.join(work, d.name, 'index.html')))
+    .map((d) => {
+      const t = fs.existsSync(path.join(work, d.name, 'title.txt'))
+        ? fs.readFileSync(path.join(work, d.name, 'title.txt'), 'utf8').trim() : d.name;
+      return `  <li><a href="${d.name}/">${t}</a></li>`;
+    }).sort();
+  fs.writeFileSync(path.join(work, 'index.html'), `<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bản xem trước bài giảng</title>
+<style>
+  :root { --bg: #1d3b30; --fg: #f1efe6; --link: #f2d36b; color-scheme: dark; }
+  body { background: var(--bg); color: var(--fg); font: 18px/1.6 system-ui, sans-serif; margin: 0;
+    padding-block: 32px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  a { color: var(--link); }
+</style>
+</head>
+<body>
+<h1>Bản xem trước bài giảng</h1>
+<ul>
+${items.join('\n')}
+</ul>
+</body>
+</html>
+`);
+  fs.writeFileSync(path.join(work, '.nojekyll'), '');
+
+  // --- 4. commit + push --------------------------------------------------------------------------
+  sh(work, 'add', '-A');
+  const changed = execFileSync('git', ['-C', work, 'status', '--porcelain'], { encoding: 'utf8' }).trim();
+  if (changed) {
+    sh(work, 'commit', '-q', '-m', `Publish HTML preview: ${lesson}`);
+    if (!args['no-push']) sh(work, 'push', '-q', '-u', 'origin', 'gh-pages');
+  }
+  const m = git('remote', 'get-url', 'origin').match(/([^/:]+)\/([^/]+?)(\.git)?\/?$/);
+  const url = m ? `https://${m[1].toLowerCase()}.github.io/${m[2]}/${lesson}/` : `<pages site>/${lesson}/`;
+  console.log(changed ? `published ${lesson}: ${url}` : `no change for ${lesson}: ${url}`);
+} finally {
+  git('worktree', 'remove', '--force', work);
+}

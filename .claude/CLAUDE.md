@@ -21,9 +21,9 @@ Verification loops (do not skip any):
 
 Approval: one review of the running HTML preview.
 1. Complete facts, story, storyboard, scenes, audio and timing without asking for intermediate approval. Run all applicable verification loops before presenting the preview.
-2. Start the HTML preview in the browser with working voiceover and playback controls. Show the preview link, contact sheet and critique, then wait for my approval. Show the work, not just a description of it.
-3. If I request changes, fix them, rerun the affected verification loops (always including sync), and return to the same preview review. Do not add separate approval gates for story, style, key poses or audio.
-4. Export the final MP4 only after preview approval, then complete the final technical checks. No separate final-video approval is required. Update the reusable skill only when explicitly requested.
+2. Publish the HTML preview to GitHub Pages with `npm run pages -- <lesson>` (working voiceover and playback controls, opens on a phone at `https://hoanghaihung3012.github.io/toan4/<lesson>/`). Show that Pages link, contact sheet and critique, then wait for my approval. Show the work, not just a description of it.
+3. If I request changes, fix them, rerun the affected verification loops (always including sync), republish with `npm run pages -- <lesson>` and return to the same preview review. Do not add separate approval gates for story, style, key poses or audio.
+4. Export the final MP4 as soon as I approve the Pages preview, then complete the final technical checks. No separate final-video approval is required. Update the reusable skill only when explicitly requested.
 
 Git workflow for each new lesson:
 1. Create a new branch named `lesson/<lesson-name>` from the latest `develop` before starting lesson work. Keep any unrelated uncommitted changes intact.

@@ -170,10 +170,10 @@ Do **not** stop for approval on facts, story, storyboard, key poses or audio. Wo
    5. **Director's review:** watch every sheet, write a brutal critique (dead holds while the voice talks are the usual top issue), fix the top 3, then rebuild timing and sheets and review again.
    - Write it all to `lessons/<lesson>/critique.md`, including what is still weak, as the user's call.
 5. **The one approval: the running HTML.**
-   - Start the preview (`preview_start` + navigate to `web/index.html?timing=/timing/<scene>.json`) so the user can press ▶ and hear the voice.
-   - Show the user: the preview link, the final contact sheets, the key-pose sheet, the WAV, and a short summary of `critique.md` (length, what was fixed, what is still weak). Then wait.
-   - Changes the user asks for: fix, re-run the loops they touch (sync always), show again.
-6. **After approval: export the MP4. Done.**
+   - **Publish it to GitHub Pages** (user's rule, 2026-10-25) so the user can review on a phone: `npm run pages -- <lesson>` (`render/pages.mjs`). It copies the shared player, fonts, the lesson's `.js` files and timing, converts the voice to MP3, writes `<lesson>/index.html` on the `gh-pages` branch, rebuilds the index of all published lessons and pushes. The link is `https://hoanghaihung3012.github.io/toan4/<lesson>/` (Pages serves `gh-pages`, `/ (root)`; the repo is public). Pages takes 1–2 minutes to update after a push.
+   - Show the user: the Pages link, the final contact sheets, the key-pose sheet, the WAV, and a short summary of `critique.md` (length, what was fixed, what is still weak). Then wait.
+   - Changes the user asks for: fix, re-run the loops they touch (sync always), republish with `npm run pages -- <lesson>`, show the same link again.
+6. **After approval of the Pages preview: export the MP4 right away. Done.**
    - Run `capture.mjs --out out/<lesson>_video.mp4` in the background (≈470 s for 84 s), then mux:
      `ffmpeg -i out/<lesson>_video.mp4 -i audio/<lesson>/voice.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -ar 48000 -ac 2 -shortest -movflags +faststart out/<lesson>.mp4`.
    - Technical check: duration, stereo, true peak, `silencedetect` and `freezedetect=n=0.001:d=4`. Report a freeze honestly even when it is only a small cue drawing.
