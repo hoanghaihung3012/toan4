@@ -13,3 +13,7 @@ Bản tiếng Anh dùng lại cảnh của `son_khoi_lap_phuong` (đã duyệt).
 6. **Director's review:**
    - Đã sửa: (1) "bottom" đè mũi tên; (2) câu L6 ban đầu nói "the base" trong khi bảng ghi "bottom", đổi thành "From the bottom, there are also 8 squares" cho khớp chữ; (3) "no paint" → "not painted".
    - Còn yếu (giữ nguyên vì bố cục bản Việt đã duyệt, anh quyết): câu hỏi ở móc câu chưa có chữ "paint" trên bảng (cọ sơn tới 13,5 s mới xuất hiện); "1 2 3 4 bị gạch" hơi khó hiểu khi tắt tiếng; trong lưới 6 hình, nhãn "front"/"right" nằm giữa hai hàng.
+
+## Preview + final MP4
+- Pages: https://hoanghaihung3012.github.io/toan4/son_khoi_lap_phuong_en/ (link đã gửi nhóm Zalo một lần).
+- `final/2026-10-25/paint_the_cubes.mp4`: 56,10 s, 1683 khung, 1080×1920 @ 30 fps H.264, AAC 48 kHz stereo, true peak −1,5 dBFS. silencedetect (> 1,2 s): 42,0–43,9 (lau bảng), 48,2–51,5 (đếm ngược), đều cố ý. freezedetect (n = 0.001, d = 4 s): không có.
