@@ -1,0 +1,97 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs ai_an_banh. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "ai_an_banh",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.4, "tail": 0.3,
+   "lines": [
+    { "id": "L1", "text": "Ai đã ăn chiếc bánh?" },
+    { "id": "L2", "text": "Chỉ có 1 bạn nói thật, 3 bạn kia nói dối." },
+    { "id": "L3", "text": "Alex: Ben đã ăn bánh." },
+    { "id": "L4", "text": "Ben: Dan đã ăn bánh." },
+    { "id": "L5", "text": "Cindy: Tớ không ăn bánh." },
+    { "id": "L6", "text": "Dan: Ben đang nói dối đấy." }
+   ],
+   "windows": {
+    "title": ["beat^", 0.8],
+    "cake": ["L1.bánh", 0.9, "raw"],
+    "rule": ["L2^", "L2$"],
+    "rA": ["L3^", "L3$", "raw"],
+    "rB": ["L4^", "L4$", "raw"],
+    "rC": ["L5^", "L5$", "raw"],
+    "rD": ["L6^", "L6$", "raw"],
+    "dots": ["L6$", 2.4, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "lead": 0.4, "tail": 0.3,
+   "lines": [
+    { "id": "L7", "text": "Để ý Ben và Dan." },
+    { "id": "L8", "text": "Dan nói Ben nói dối, nên 2 câu này ngược nhau: 1 câu đúng, 1 câu sai." },
+    { "id": "L9", "text": "Vậy bạn nói thật là Ben hoặc Dan." }
+   ],
+   "windows": {
+    "lb": ["L7.Ben", 0.8, "raw"],
+    "ld": ["L7.Dan", 0.8, "raw"],
+    "neg": ["L8.Ben", 0.9],
+    "vs": ["L8.ngược", 1.0, "raw"],
+    "one": ["L8.1", "L8$", "raw"],
+    "link": ["L9^", "L9$"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 0.3, "tail": 0.4,
+   "lines": [
+    { "id": "L10", "text": "Còn Alex và Cindy đều nói dối." },
+    { "id": "L11", "text": "Cindy nói dối, nên câu: tớ không ăn bánh, là sai." },
+    { "id": "L12", "text": "Vậy Cindy đã ăn bánh!" }
+   ],
+   "windows": {
+    "back": ["L10^", 0.6, "raw"],
+    "sA": ["L10.Alex", 0.9, "raw"],
+    "sC": ["L10.Cindy", 0.9, "raw"],
+    "strike": ["L11.không", 0.6, "raw"],
+    "fly": ["L12^", 1.3, "raw"],
+    "ans": ["L12.Cindy", "L12$"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.3, "tail": 0.6,
+   "lines": [
+    { "id": "L13", "text": "Thử lại nhé!" },
+    { "id": "L14", "text": "Alex sai, Ben sai, Cindy sai." },
+    { "id": "L15", "text": "Chỉ Dan nói thật." },
+    { "id": "L16", "text": "Đúng 1 bạn nói thật!" }
+   ],
+   "windows": {
+    "pA": ["L14.Alex", 0.8, "raw"],
+    "sB": ["L14.Ben", 0.9, "raw"],
+    "pC": ["L14.Cindy", 0.8, "raw"],
+    "sD": ["L15.Dan", 0.9, "raw"],
+    "pD": ["L15.thật", 0.8, "raw"],
+    "ok": ["L16.1", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "prev": "beat4", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L17", "text": "Đến lượt bạn: nếu chỉ có 1 bạn nói dối thì sao?" },
+    { "id": "L18", "text": "Ai đã ăn bánh? Bình luận nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L17^", 0.8],
+    "rows": ["L17^", 1.6, "raw"],
+    "cake": ["L17^", 0.9, "raw", 0.3],
+    "rule": ["L17.chỉ", "L17.dối>"],
+    "ask": ["L18^", 0.9, "raw"],
+    "cmt": ["L18.Bình", 0.9],
+    "count": ["L18$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}
