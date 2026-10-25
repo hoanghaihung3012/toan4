@@ -177,7 +177,8 @@ Do **not** stop for approval on facts, story, storyboard, key poses or audio. Wo
    - Run `capture.mjs --out out/<lesson>_video.mp4` in the background (≈470 s for 84 s), then mux:
      `ffmpeg -i out/<lesson>_video.mp4 -i audio/<lesson>/voice.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 192k -ar 48000 -ac 2 -shortest -movflags +faststart out/<lesson>.mp4`.
    - Technical check: duration, stereo, true peak, `silencedetect` and `freezedetect=n=0.001:d=4`. Report a freeze honestly even when it is only a small cue drawing.
-   - Hand over `out/<lesson>.mp4`. Nothing else is required.
+   - Hand over `out/<lesson>.mp4`.
+   - **Commit the final MP4, and only that file** (user's rule, 2026-10-25). `out/` stays ignored, so force-add the one muxed file: `git add -f lessons/<lesson>/out/<lesson>.mp4` (per-lesson layout) or `git add -f out/<lesson>.mp4`. Never commit the video-only capture, key poses, sheets or stills. Commit it with the lesson on the lesson branch so it is in the PR.
 
 **Only when the user asks to update this skill:** move reusable helpers from the lesson scene into the engine (`parts.js`) and diff the key poses (mean 0); copy changed engine files into `template/`; smoke-test the template in a scratch copy (symlink `node_modules` and `.venv`, run `voice.mjs example`, `synccheck.mjs example`, then a `capture --stills` call).
 
