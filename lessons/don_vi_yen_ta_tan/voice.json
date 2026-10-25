@@ -1,0 +1,153 @@
+{
+  "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs don_vi_yen_ta_tan. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+  "scene": "don_vi_yen_ta_tan",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+8%",
+  "fps": 30,
+  "gap": 0.3,
+  "beats": [
+    { "id": "beat1", "lead": 0.3, "tail": 1.6,
+      "lines": [
+        { "id": "L1", "text": "Con gà nặng 2, con bò nặng 2, con voi cũng nặng 2." },
+        { "id": "L2", "gap": 0.35, "text": "Sao lại thế được?" }
+      ],
+      "windows": {
+        "a0":   ["L1.gà", 0.8, "raw", -0.15],
+        "t0":   ["L1.2", 0.6, "raw"],
+        "a1":   ["L1.bò", 0.8, "raw", -0.15],
+        "t1":   ["L1.2#2", 0.6, "raw"],
+        "a2":   ["L1.voi", 0.9, "raw", -0.15],
+        "t2":   ["L1.2#3", 0.6, "raw"],
+        "ask":  ["beat^", 0.9, "out", 0.1],
+        "q":    ["L2^", "L2$", "raw"],
+        "dots": ["L2$", 1.4, "raw", 0.1]
+      }
+    },
+    { "id": "beat2", "lead": 0.2, "tail": 0.6,
+      "lines": [
+        { "id": "L3", "text": "Vì đơn vị khác nhau: gà 2 ki-lô-gam, bò 2 tạ, voi 2 tấn." },
+        { "id": "L4", "gap": 0.35, "text": "Cùng tìm hiểu yến, tạ, tấn nhé!" }
+      ],
+      "windows": {
+        "why":   ["L3^", "L3.nhau>", "raw"],
+        "u0":    ["L3.gà", 0.7, "raw", 0.2],
+        "u1":    ["L3.bò", 0.7, "raw", 0.2],
+        "u2":    ["L3.voi", 0.7, "raw", 0.2],
+        "title": ["L4.yến", "L4.tấn>"]
+      }
+    },
+    { "id": "beat3", "prev": "beat2", "lead": 1.1, "tail": 0.5,
+      "lines": [
+        { "id": "L5", "text": "10 quả cân 1 ki-lô-gam ở bên này." },
+        { "id": "L6", "gap": 0.3, "text": "Bên kia là 1 yến." },
+        { "id": "L7", "gap": 0.2, "text": "Cân thăng bằng!" },
+        { "id": "L8", "gap": 0.3, "text": "Vậy 1 yến bằng 10 ki-lô-gam." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "scale": ["beat^", 0.8, "raw", 0.9],
+        "small": ["L5^", "L5$", "raw"],
+        "lbl1":  ["L5$", 0.6, "out", -0.3],
+        "big":   ["L6.1", 0.9, "raw", -0.2],
+        "lbl2":  ["L6$", 0.5, "out", -0.1],
+        "level": ["L7^", 0.9, "raw", -0.2],
+        "eq":    ["L8^", "L8$"],
+        "loop":  ["L8$", 0.6, "out", -0.1]
+      }
+    },
+    { "id": "beat4", "prev": "beat3", "lead": 1.1, "tail": 0.5,
+      "lines": [
+        { "id": "L9", "text": "Giờ là 10 yến." },
+        { "id": "L10", "gap": 0.3, "text": "Bên kia, 1 tạ." },
+        { "id": "L11", "gap": 0.2, "text": "Thăng bằng!" },
+        { "id": "L12", "gap": 0.3, "text": "1 tạ bằng 10 yến, tức là 100 ki-lô-gam." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "scale": ["beat^", 0.8, "raw", 0.9],
+        "small": ["L9^", "L9$", "raw", 0.1],
+        "lbl1":  ["L9$", 0.6, "out", -0.2],
+        "big":   ["L10.1", 0.9, "raw", -0.2],
+        "lbl2":  ["L10$", 0.5, "out", -0.1],
+        "level": ["L11^", 0.9, "raw", -0.2],
+        "eq":    ["L12^", "L12.yến>"],
+        "eq2":   ["L12.tức", "L12$"],
+        "loop":  ["L12$", 0.6, "out", -0.1]
+      }
+    },
+    { "id": "beat5", "prev": "beat4", "lead": 1.1, "tail": 0.5,
+      "lines": [
+        { "id": "L13", "text": "10 tạ thì sao?" },
+        { "id": "L14", "gap": 0.3, "text": "Đúng bằng 1 tấn!" },
+        { "id": "L15", "gap": 0.3, "text": "1 tấn bằng 10 tạ, tức là 1000 ki-lô-gam." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "scale": ["beat^", 0.8, "raw", 0.9],
+        "small": ["L13^", "L13$", "raw", 0.1],
+        "lbl1":  ["L13$", 0.6, "out", -0.2],
+        "big":   ["L14.1", 0.9, "raw", -0.35],
+        "lbl2":  ["L14$", 0.5, "out", -0.1],
+        "level": ["L14.1", 0.9, "raw", 0.45],
+        "eq":    ["L15^", "L15.tạ>"],
+        "eq2":   ["L15.tức", "L15$"],
+        "loop":  ["L15$", 0.6, "out", -0.1]
+      }
+    },
+    { "id": "beat6", "prev": "beat5", "lead": 1.1, "tail": 0.6,
+      "lines": [
+        { "id": "L16", "text": "Ki-lô-gam, yến, tạ, tấn: mỗi bậc gấp 10 lần." },
+        { "id": "L17", "gap": 0.35, "text": "Đổi từ lớn sang bé, mỗi bậc nhân 10." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "stair": ["beat^", 0.9, "raw", 0.8],
+        "w0":    ["L16^", 0.7, "raw", -0.1],
+        "w1":    ["L16.yến", 0.7, "raw", -0.1],
+        "w2":    ["L16.tạ", 0.7, "raw", -0.1],
+        "w3":    ["L16.tấn", 0.7, "raw", -0.1],
+        "x10":   ["L16.mỗi", "L16$", "raw"],
+        "rule":  ["L17^", "L17$"]
+      }
+    },
+    { "id": "beat7", "prev": "beat6", "lead": 1.1, "tail": 0.8,
+      "lines": [
+        { "id": "L18", "text": "5 yến bằng bao nhiêu ki-lô-gam?" },
+        { "id": "L19", "gap": 0.25, "text": "5 nhân 10, bằng 50 ki-lô-gam." },
+        { "id": "L20", "gap": 0.4, "text": "3 tấn bằng mấy tạ?" },
+        { "id": "L21", "gap": 0.25, "text": "30 tạ." },
+        { "id": "L22", "gap": 0.4, "text": "Còn 2 tấn 85 ki-lô-gam?" },
+        { "id": "L23", "gap": 0.25, "text": "2 tấn là 2000 ki-lô-gam, thêm 85, được 2085 ki-lô-gam." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "q1":   ["L18^", "L18$"],
+        "h1":   ["L19^", "L19.10>"],
+        "a1":   ["L19.50", 0.7, "raw", -0.1],
+        "ok1":  ["L19$", 0.8, "raw"],
+        "q2":   ["L20^", "L20$"],
+        "a2":   ["L21^", 0.7, "raw", -0.1],
+        "h2":   ["L21^", "L21$", "out", 0.1],
+        "ok2":  ["L21$", 0.8, "raw"],
+        "q3":   ["L22^", "L22$"],
+        "h3a":  ["L23^", "L23.ki-lô-gam>"],
+        "h3b":  ["L23.thêm", "L23.85>"],
+        "a3":   ["L23.2085", 0.7, "raw", -0.1],
+        "ok3":  ["L23$", 0.8, "raw"]
+      }
+    },
+    { "id": "beat8", "prev": "beat7", "lead": 1.1, "tail": 0.3,
+      "lines": [
+        { "id": "L24", "text": "Đến lượt bạn: 4 tạ 60 ki-lô-gam bằng bao nhiêu ki-lô-gam?" },
+        { "id": "L25", "gap": 0.35, "text": "Bình luận đáp án nhé!" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["L24^", "L24.bạn>"],
+        "ask":   ["L24.4", "L24$"],
+        "cmt":   ["L25^", "L25$"],
+        "count": ["L25$", 3.0, "raw", 0.3]
+      }
+    }
+  ]
+}
