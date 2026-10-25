@@ -1,0 +1,82 @@
+[
+ {
+  "text": "Dan",
+  "start": 0.1,
+  "end": 0.394791
+ },
+ {
+  "text": "says",
+  "start": 0.406583,
+  "end": 0.630624
+ },
+ {
+  "text": "Ben",
+  "start": 0.642458,
+  "end": 0.842916
+ },
+ {
+  "text": "is",
+  "start": 0.854708,
+  "end": 0.972624
+ },
+ {
+  "text": "lying",
+  "start": 0.984416,
+  "end": 1.397166
+ },
+ {
+  "text": "so",
+  "start": 1.4915,
+  "end": 1.621208
+ },
+ {
+  "text": "their",
+  "start": 1.633,
+  "end": 1.786291
+ },
+ {
+  "text": "sentences",
+  "start": 1.798125,
+  "end": 2.340583
+ },
+ {
+  "text": "are",
+  "start": 2.352375,
+  "end": 2.470291
+ },
+ {
+  "text": "opposites",
+  "start": 2.482083,
+  "end": 3.012749
+ },
+ {
+  "text": "one",
+  "start": 3.3665,
+  "end": 3.555166
+ },
+ {
+  "text": "is",
+  "start": 3.567,
+  "end": 3.696708
+ },
+ {
+  "text": "true",
+  "start": 3.7085,
+  "end": 4.0505
+ },
+ {
+  "text": "one",
+  "start": 4.274541,
+  "end": 4.404249
+ },
+ {
+  "text": "is",
+  "start": 4.416041,
+  "end": 4.533957
+ },
+ {
+  "text": "false",
+  "start": 4.54575,
+  "end": 5.088208
+ }
+]
