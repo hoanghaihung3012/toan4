@@ -41,3 +41,6 @@ Also: sun sparks over "1000" replaced by a burst that flies off, results right-a
 - Row D (18 + 181 + 81) is dense: 9 glyphs at 120 px digit height so the row fits next to "= 280".
 - 17.5–20.5 s: row A is done and only the loop around the 8 is drawn while the voice explains (~3 s).
 - The lower ~320 px stay empty by design (TikTok caption area, `THEME.safeArea`).
+
+## Final MP4 (after preview approval)
+`final/2026-10-25/dat_guong.mp4`: 53.50 s, 1080×1920 @ 30 fps H.264, AAC 48 kHz stereo, −16.0 LUFS, true peak −2.6 dBFS. silencedetect (> 1.2 s): 8.3–11.9 s only (3-2-1 countdown). freezedetect (n = 0.001, d = 4 s): 17.3–22.3 s and 25.7–29.8 s. In both, only small chalk marks change (the loop round the 8 and "= 181"; the loop round "81" and "= 1881" + the red cross), so they count as weak holds (see "Still weak").
