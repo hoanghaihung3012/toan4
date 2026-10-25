@@ -27,6 +27,46 @@ console.assert(B_DIFF === 28 && B_PARTS === 2 && B_KID_THEN === 14 && B_YEARS ==
 const B_MOM_THEN = B.mom + B_YEARS;
 console.assert(B_MOM_THEN === 42 && B_MOM_THEN === B.ratio * (B.kid + B_YEARS), 'B: check');
 
+// every word on the board; English (lessons/tinh_tuoi_en) overrides these. {n} = a number.
+export const TEXT = {
+  title: 'Tính tuổi',
+  now: 'Nay:',
+  dad: 'Bố',
+  kid: 'Con',
+  mom: 'Mẹ',
+  yearsAgoColon: '{n} năm trước:',
+  dadNow: 'Nay bố',
+  goBack: 'Lùi về {n} năm trước',
+  totalThen: 'Tổng khi đó:',
+  div: ':',
+  yearsAgo: '{n} năm trước',
+  parts: '{n} phần',
+  kidC: 'Con:',
+  dadC: 'Bố:',
+  dadNowC: 'Nay bố:',
+  check: 'Thử:',
+  titleB: 'Sau mấy năm?',
+  momC: 'Mẹ:',
+  age: 'tuổi',
+  in: 'Sau',
+  yearsLater: 'năm nữa:',
+  howMuchOlder: 'Mẹ hơn con bao nhiêu?',
+  after: 'Sau {n} năm',
+  after1: 'Sau {n} năm',
+  sameGap: 'Hiệu không đổi!',
+  whenTimes: 'Khi mẹ gấp {n} lần con',
+  years: '{n} năm',
+  tips: 'Nhớ 2 mẹo',
+  tip1a: '1. Mỗi năm, ai cũng',
+  tip1b: 'thêm 1 tuổi',
+  tip2a: '2. Hiệu số tuổi',
+  tip2b: 'không bao giờ đổi',
+  comment: 'Thấy hay thì bình luận nhé!',
+};
+// layout tweaks for longer translations (defaults = the Vietnamese layout)
+export const FIT = { stampSize: 116, tipsUnderline: 260, tip1Plus: 800, r1Size: 128, nameScale: 1 };
+const f = (s, n) => s.replace('{n}', String(n));
+
 const str = String;
 const CX = 552; // centre of the safe content box (70..1035)
 const DAD = CHALK.white;
@@ -114,12 +154,12 @@ const title = (L, s, y, t, { size = 104, color = CHALK.white } = {}) =>
 // --- beat 1: problem A --------------------------------------------------------------------
 function beat1(ctx, p) {
   const L = ctx.chalk(60);
-  title(L, 'Tính tuổi', 280, g(p, 'title'), { size: 116, color: CHALK.yellow });
+  title(L, TEXT.title, 280, g(p, 'title'), { size: 116, color: CHALK.yellow });
   L.line([CX - 230, 312], [CX + 230, 312], { width: 5, t: easeOutCubic(g(p, 'title')), seed: 3, color: CHALK.yellow });
-  eq(L, [{ s: 'Nay:', color: CHALK.pink }, 'Bố', '+', { s: 'Con', color: KID }, '=', { s: str(A.sum), color: CHALK.yellow }], CX, 560, { size: 128, t: g(p, 'r1') });
-  L.text(`${A.back} năm trước:`, CX, 820, { size: 104, color: CHALK.pink, align: 'center', t: g(p, 'r2a') });
-  eq(L, ['Bố', '=', str(A.ratio), { sym: 'times' }, { s: 'Con', color: KID }], CX, 1010, { size: 136, t: g(p, 'r2b') });
-  const xs = eq(L, ['Nay bố', '=', { s: '   ', pad: 0 }], CX, 1280, { size: 120, t: g(p, 'ask') });
+  eq(L, [{ s: TEXT.now, color: CHALK.pink }, TEXT.dad, '+', { s: TEXT.kid, color: KID }, '=', { s: str(A.sum), color: CHALK.yellow }], CX, 560, { size: FIT.r1Size, t: g(p, 'r1') });
+  L.text(f(TEXT.yearsAgoColon, A.back), CX, 820, { size: 104, color: CHALK.pink, align: 'center', t: g(p, 'r2a') });
+  eq(L, [TEXT.dad, '=', str(A.ratio), { sym: 'times' }, { s: TEXT.kid, color: KID }], CX, 1010, { size: 136, t: g(p, 'r2b') });
+  const xs = eq(L, [TEXT.dadNow, '=', { s: '   ', pad: 0 }], CX, 1280, { size: 120, t: g(p, 'ask') });
   qMark(L, xs[2], 1285, g(p, 'q'), 150);
   const d = g(p, 'dots');
   thinkingDots(L, CX, 1470, d < 1 ? d : 0, { r: 16, gap: 80 });
@@ -153,18 +193,18 @@ function cutPiece(objs, L, x, cy, u, label, kind, seed) {
 function beat2(ctx, p) {
   const objs = ctx.objects();
   const L = ctx.chalk(60);
-  title(L, `Lùi về ${A.back} năm trước`, 270, g(p, 'title'), { size: 92, color: CHALK.pink });
+  title(L, f(TEXT.goBack, A.back), 270, g(p, 'title'), { size: 92, color: CHALK.pink });
   const b = g(p, 'bars');
-  const rows = [[ROW2.dad, A_DAD_NOW, 'Bố', DAD, 'int', 'cut1'], [ROW2.kid, A_SON_NOW, 'Con', KID, 'dec', 'cut2']];
+  const rows = [[ROW2.dad, A_DAD_NOW, TEXT.dad, DAD, 'int', 'cut1'], [ROW2.kid, A_SON_NOW, TEXT.kid, KID, 'dec', 'cut2']];
   rows.forEach(([y, age, name, color, kind, ck], i) => {
     const u = stagger(b, i, 2, 0.7);
-    L.text(name, X2 - 26, y + 34, { size: 96, color, align: 'right', t: clamp01(u * 2) });
+    L.text(name, X2 - 26, y + 34, { size: 96 * FIT.nameScale, color, align: 'right', t: clamp01(u * 2) });
     const grow = spring(u, 2.6, 5.5);
     const body = (age - A.back) * K2;
     if (u > 0) seg(objs, X2, y, body * Math.max(0, grow), ROW2.h, kind, '', { sy: 1 + 0.08 * Math.sin(Math.PI * u) });
     if (u > 0.55) cutPiece(objs, L, X2 + body + 6, y, g(p, ck), str(A.back), kind, 40 + i);
   });
-  L.text('Tổng khi đó:', CX, 1060, { size: 92, color: CHALK.white, align: 'center', t: g(p, 'lbl') });
+  L.text(f(TEXT.totalThen, A.back), CX, 1060, { size: 92, color: CHALK.white, align: 'center', t: g(p, 'lbl') });
   const xs = eq(L, [str(A.sum), { sym: 'minus' }, { s: str(A.back), color: CHALK.pink }, { sym: 'minus' },
     { s: str(A.back), color: CHALK.pink }, { s: '=', pad: 30 }, { s: str(A_SUM_THEN), color: CHALK.yellow }], CX, 1290,
   { size: 150, t: g(p, 'eq') });
@@ -176,7 +216,7 @@ function beat2(ctx, p) {
 function diagram(objs, L, rows, { x0, unit, h, pk, label, fillT }) {
   rows.forEach((r) => {
     const u = g(pk, r.key);
-    L.text(r.name, x0 - 26, r.y + 32, { size: 92, color: r.color, align: 'right', t: clamp01(u * 3) });
+    L.text(r.name, x0 - 26, r.y + 32, { size: 92 * FIT.nameScale, color: r.color, align: 'right', t: clamp01(u * 3) });
     for (let i = 0; i < r.n; i++) {
       const ui = stagger(u, i, r.n, 0.55);
       const fi = stagger(fillT, i + (r.offset || 0), r.total || r.n, 0.5);
@@ -191,28 +231,28 @@ const D3 = { x0: 235, unit: 150, h: 140, kid: 450, dad: 640 };
 function beat3(ctx, p) {
   const objs = ctx.objects();
   const L = ctx.chalk(60);
-  title(L, `${A.back} năm trước`, 250, g(p, 'title'), { size: 96, color: CHALK.pink });
+  title(L, f(TEXT.yearsAgo, A.back), 250, g(p, 'title'), { size: 96, color: CHALK.pink });
   const fill = g(p, 'fill');
   diagram(objs, L, [
-    { key: 'con', name: 'Con', color: KID, kind: 'dec', n: 1, y: D3.kid, offset: 0, total: 5 },
-    { key: 'bo', name: 'Bố', color: DAD, kind: 'int', n: A.ratio, y: D3.dad, offset: 1, total: 5 },
+    { key: 'con', name: TEXT.kid, color: KID, kind: 'dec', n: 1, y: D3.kid, offset: 0, total: 5 },
+    { key: 'bo', name: TEXT.dad, color: DAD, kind: 'int', n: A.ratio, y: D3.dad, offset: 1, total: 5 },
   ], { x0: D3.x0, unit: D3.unit, h: D3.h, pk: p, label: str(A_SON_THEN), fillT: fill });
   const bx = D3.x0 + A.ratio * D3.unit + 24;
   const br = g(p, 'brace');
   braceV(L, bx, D3.kid - 70, D3.dad + 70, easeOutCubic(clamp01(br * 1.6)), { seed: 5 });
   popLabel(L, str(A_SUM_THEN), bx + 104, (D3.kid + D3.dad) / 2 + 36, clamp01(br * 2 - 0.6), { size: 110 });
 
-  eq(L, ['1', '+', str(A.ratio), '=', { s: `${A_PARTS} phần`, color: CHALK.yellow }], CX, 860, { size: 112, t: g(p, 's1') });
-  eq(L, [{ s: 'Con:', color: KID }, str(A_SUM_THEN), ':', str(A_PARTS), '=', { s: str(A_SON_THEN), color: CHALK.yellow }], CX, 1020,
+  eq(L, ['1', '+', str(A.ratio), '=', { s: f(TEXT.parts, A_PARTS), color: CHALK.yellow }], CX, 860, { size: 112, t: g(p, 's1') });
+  eq(L, [{ s: TEXT.kidC, color: KID }, str(A_SUM_THEN), TEXT.div, str(A_PARTS), '=', { s: str(A_SON_THEN), color: CHALK.yellow }], CX, 1020,
     { size: 112, t: g(p, 's2') });
-  eq(L, ['Bố:', str(A_SON_THEN), { sym: 'times' }, str(A.ratio), '=', { s: str(A_DAD_THEN), color: CHALK.yellow }], CX, 1180,
+  eq(L, [TEXT.dadC, str(A_SON_THEN), { sym: 'times' }, str(A.ratio), '=', { s: str(A_DAD_THEN), color: CHALK.yellow }], CX, 1180,
     { size: 112, t: g(p, 's3') });
-  const xs = eq(L, ['Nay bố:', str(A_DAD_THEN), '+', str(A.back), { s: '=', pad: 56 }, { s: str(A_DAD_NOW), color: CHALK.yellow, size: 130 }],
+  const xs = eq(L, [TEXT.dadNowC, str(A_DAD_THEN), '+', str(A.back), { s: '=', pad: 56 }, { s: str(A_DAD_NOW), color: CHALK.yellow, size: 130 }],
     CX, 1350, { size: 112, t: g(p, 's4') });
   L.loop(xs[5], 1306, 90, 86, { color: CHALK.yellow, width: 7, t: g(p, 'loop'), seed: 91 });
   const sp = g(p, 'spark');
   if (sp > 0) sparks(L, xs[5], 1306, 110, 150, sp, { seed: 95 });
-  const xk = eq(L, [{ s: 'Thử:', color: CHALK.pink }, str(A_DAD_NOW), '+', str(A_SON_NOW), '=', str(A.sum)], CX - 50, 1530,
+  const xk = eq(L, [{ s: TEXT.check, color: CHALK.pink }, str(A_DAD_NOW), '+', str(A_SON_NOW), '=', str(A.sum)], CX - 50, 1530,
     { size: 96, t: g(p, 's5') });
   mark(L, true, xk[5] + 120, 1495, g(p, 'ok'), { size: 72, seed: 97 });
 }
@@ -220,12 +260,12 @@ function beat3(ctx, p) {
 // --- beat 4: problem B --------------------------------------------------------------------
 function beat4(ctx, p) {
   const L = ctx.chalk(60);
-  title(L, 'Sau mấy năm?', 280, g(p, 'title'), { size: 116, color: CHALK.yellow });
-  eq(L, ['Mẹ:', { s: str(B.mom), color: CHALK.yellow }, 'tuổi'], CX, 560, { size: 130, t: g(p, 'r1') });
-  eq(L, [{ s: 'Con:', color: KID }, { s: str(B.kid), color: CHALK.yellow }, 'tuổi'], CX, 750, { size: 130, t: g(p, 'r2') });
-  const xs = eq(L, [{ s: 'Sau', color: CHALK.pink }, { s: '   ' }, { s: 'năm nữa:', color: CHALK.pink }], CX, 1000, { size: 104, t: g(p, 'r3a') });
+  title(L, TEXT.titleB, 280, g(p, 'title'), { size: 116, color: CHALK.yellow });
+  eq(L, [TEXT.momC, { s: str(B.mom), color: CHALK.yellow }, TEXT.age], CX, 560, { size: 130, t: g(p, 'r1') });
+  eq(L, [{ s: TEXT.kidC, color: KID }, { s: str(B.kid), color: CHALK.yellow }, TEXT.age], CX, 750, { size: 130, t: g(p, 'r2') });
+  const xs = eq(L, [{ s: TEXT.in, color: CHALK.pink }, { s: '   ' }, { s: TEXT.yearsLater, color: CHALK.pink }], CX, 1000, { size: 104, t: g(p, 'r3a') });
   qMark(L, xs[1], 1004, g(p, 'q'), 130);
-  eq(L, ['Mẹ', '=', str(B.ratio), { sym: 'times' }, { s: 'Con', color: KID }], CX, 1190, { size: 136, t: g(p, 'r3b') });
+  eq(L, [TEXT.mom, '=', str(B.ratio), { sym: 'times' }, { s: TEXT.kid, color: KID }], CX, 1190, { size: 136, t: g(p, 'r3b') });
   const d = g(p, 'dots');
   thinkingDots(L, CX, 1420, d < 1 ? d : 0, { r: 16, gap: 80 });
 }
@@ -239,7 +279,7 @@ const GROW = 3; // years shown growing (illustration only)
 function beat5(ctx, p) {
   const objs = ctx.objects();
   const L = ctx.chalk(60);
-  title(L, 'Mẹ hơn con bao nhiêu?', 260, g(p, 'title'), { size: 88 });
+  title(L, TEXT.howMuchOlder, 260, g(p, 'title'), { size: 88 });
   const b = g(p, 'bars');
   const gr = g(p, 'grow');
   // GROW steps; each step springs the bars one year longer and bumps the numbers
@@ -251,10 +291,10 @@ function beat5(ctx, p) {
     if (u > 0 && u < 1) bump = u;
   }
   const whole = Math.min(GROW, Math.floor(gr * GROW + 1e-6));
-  const rows = [[ROW5.mom, B.mom, 'Mẹ', DAD, 'int'], [ROW5.kid, B.kid, 'Con', KID, 'dec']];
+  const rows = [[ROW5.mom, B.mom, TEXT.mom, DAD, 'int'], [ROW5.kid, B.kid, TEXT.kid, KID, 'dec']];
   rows.forEach(([y, age, name, color, kind], i) => {
     const u = stagger(b, i, 2, 0.7);
-    L.text(name, X5 - 26, y + 34, { size: 96, color, align: 'right', t: clamp01(u * 2) });
+    L.text(name, X5 - 26, y + 34, { size: 96 * FIT.nameScale, color, align: 'right', t: clamp01(u * 2) });
     const w = (age + years) * K5 * Math.max(0, spring(u, 2.6, 5.5));
     const sq = 1 + 0.1 * Math.sin(Math.PI * bump);
     if (u > 0) seg(objs, X5, y, w, ROW5.h, kind, str(age + whole), { sy: sq, size: 72 });
@@ -276,12 +316,13 @@ function beat5(ctx, p) {
     { size: 150, t: g(p, 'eq') });
   if (gr > 0) {
     const step = clamp01(gr * GROW - Math.max(0, Math.ceil(gr * GROW) - 1));
-    popLabel(L, `Sau ${Math.max(1, Math.ceil(gr * GROW - 1e-6))} năm`, CX, 1520, 1, { size: 104, color: CHALK.green, pulse: step < 1 ? step : 0 });
+    const yn = Math.max(1, Math.ceil(gr * GROW - 1e-6));
+    popLabel(L, f(yn === 1 ? TEXT.after1 : TEXT.after, yn), CX, 1520, 1, { size: 104, color: CHALK.green, pulse: step < 1 ? step : 0 });
   }
   const st = g(p, 'stamp');
   if (st > 0) {
     const k = spring(st, 3, 6);
-    L.text('Hiệu không đổi!', CX, 1300, { size: 116, color: CHALK.yellow, align: 'center', scale: k, t: clamp01(st * 2.5) });
+    L.text(TEXT.sameGap, CX, 1300, { size: FIT.stampSize, color: CHALK.yellow, align: 'center', scale: k, t: clamp01(st * 2.5) });
     L.line([CX - 360, 1338], [CX + 360, 1338], { color: CHALK.yellow, width: 6, t: clamp01(st * 2 - 0.8), seed: 13 });
   }
 }
@@ -291,10 +332,10 @@ const D6 = { x0: 250, unit: 200, h: 140, mom: 540, kid: 720, brace: 446 };
 function beat6(ctx, p) {
   const objs = ctx.objects();
   const L = ctx.chalk(60);
-  title(L, `Khi mẹ gấp ${B.ratio} lần con`, 230, g(p, 'title'), { size: 84, color: CHALK.pink });
+  title(L, f(TEXT.whenTimes, B.ratio), 230, g(p, 'title'), { size: 84, color: CHALK.pink });
   diagram(objs, L, [
-    { key: 'me', name: 'Mẹ', color: DAD, kind: 'int', n: B.ratio, y: D6.mom, offset: 1, total: 4 },
-    { key: 'con', name: 'Con', color: KID, kind: 'dec', n: 1, y: D6.kid, offset: 0, total: 4 },
+    { key: 'me', name: TEXT.mom, color: DAD, kind: 'int', n: B.ratio, y: D6.mom, offset: 1, total: 4 },
+    { key: 'con', name: TEXT.kid, color: KID, kind: 'dec', n: 1, y: D6.kid, offset: 0, total: 4 },
   ], { x0: D6.x0, unit: D6.unit, h: D6.h, pk: p, label: str(B_KID_THEN), fillT: g(p, 'fill') });
   const br = g(p, 'brace');
   const bx0 = D6.x0 + D6.unit;
@@ -303,14 +344,14 @@ function beat6(ctx, p) {
   popLabel(L, str(B_DIFF), (bx0 + bx1) / 2, D6.brace - 48, clamp01(br * 2 - 0.6), { size: 110 });
   if (br > 0) L.dashed([bx0, D6.kid - D6.h / 2], [bx0, D6.brace], { color: CHALK.yellow, t: clamp01(br * 2) });
 
-  eq(L, [str(B.ratio), { sym: 'minus' }, '1', '=', { s: `${B_PARTS} phần`, color: CHALK.yellow }], CX, 905, { size: 108, t: g(p, 's1') });
-  eq(L, [{ s: 'Con:', color: KID }, str(B_DIFF), ':', str(B_PARTS), '=', { s: str(B_KID_THEN), color: CHALK.yellow }], CX, 1060,
+  eq(L, [str(B.ratio), { sym: 'minus' }, '1', '=', { s: f(TEXT.parts, B_PARTS), color: CHALK.yellow }], CX, 905, { size: 108, t: g(p, 's1') });
+  eq(L, [{ s: TEXT.kidC, color: KID }, str(B_DIFF), TEXT.div, str(B_PARTS), '=', { s: str(B_KID_THEN), color: CHALK.yellow }], CX, 1060,
     { size: 108, t: g(p, 's2') });
-  const ans = `${B_YEARS} năm`;
+  const ans = f(TEXT.years, B_YEARS);
   const xs = eq(L, [str(B_KID_THEN), { sym: 'minus' }, str(B.kid), { s: '=', pad: 40 }, { s: ans, color: CHALK.yellow, size: 124 }],
     CX - 20, 1210, { size: 108, t: g(p, 's3') });
   L.loop(xs[4], 1170, measure(ans, 124) / 2 + 44, 82, { color: CHALK.yellow, width: 7, t: g(p, 'loop'), seed: 99 });
-  eq(L, [{ s: 'Mẹ:', color: CHALK.pink }, str(B.mom), '+', str(B_YEARS), '=', { s: str(B_MOM_THEN), color: CHALK.yellow }], CX, 1390,
+  eq(L, [{ s: TEXT.momC, color: CHALK.pink }, str(B.mom), '+', str(B_YEARS), '=', { s: str(B_MOM_THEN), color: CHALK.yellow }], CX, 1390,
     { size: 96, t: g(p, 's4') });
   const xc = eq(L, [{ s: str(B_MOM_THEN), color: CHALK.yellow }, '=', str(B.ratio), { sym: 'times' }, str(B_KID_THEN)], CX - 50, 1540,
     { size: 96, t: g(p, 's5') });
@@ -320,17 +361,17 @@ function beat6(ctx, p) {
 // --- beat 7: the two tips -----------------------------------------------------------------
 function beat7(ctx, p) {
   const L = ctx.chalk(60);
-  title(L, 'Nhớ 2 mẹo', 300, g(p, 'title'), { size: 124, color: CHALK.yellow });
-  L.line([CX - 260, 336], [CX + 260, 336], { width: 5, t: easeOutCubic(g(p, 'title')), seed: 3, color: CHALK.yellow });
+  title(L, TEXT.tips, 300, g(p, 'title'), { size: 124, color: CHALK.yellow });
+  L.line([CX - FIT.tipsUnderline, 336], [CX + FIT.tipsUnderline, 336], { width: 5, t: easeOutCubic(g(p, 'title')), seed: 3, color: CHALK.yellow });
   const t1 = g(p, 't1');
-  L.text('1. Mỗi năm, ai cũng', 130, 580, { size: 92, t: clamp01(t1 * 1.8) });
-  L.text('thêm 1 tuổi', 200, 700, { size: 92, color: CHALK.green, t: clamp01(t1 * 1.8 - 0.8) });
-  popLabel(L, '+1', 800, 690, g(p, 'm1'), { size: 110, color: CHALK.green });
+  L.text(TEXT.tip1a, 130, 580, { size: 92, t: clamp01(t1 * 1.8) });
+  L.text(TEXT.tip1b, 200, 700, { size: 92, color: CHALK.green, t: clamp01(t1 * 1.8 - 0.8) });
+  popLabel(L, '+1', FIT.tip1Plus, 690, g(p, 'm1'), { size: 110, color: CHALK.green });
   const t2 = g(p, 't2');
-  L.text('2. Hiệu số tuổi', 130, 940, { size: 92, t: clamp01(t2 * 1.8) });
-  L.text('không bao giờ đổi', 200, 1060, { size: 92, color: CHALK.yellow, t: clamp01(t2 * 1.8 - 0.8) });
+  L.text(TEXT.tip2a, 130, 940, { size: 92, t: clamp01(t2 * 1.8) });
+  L.text(TEXT.tip2b, 200, 1060, { size: 92, color: CHALK.yellow, t: clamp01(t2 * 1.8 - 0.8) });
   mark(L, true, 960, 1020, g(p, 'm2'), { size: 76, seed: 131 });
-  L.text('Thấy hay thì bình luận nhé!', CX, 1380, { size: 80, color: CHALK.pink, align: 'center', t: g(p, 'cmt') });
+  L.text(TEXT.comment, CX, 1380, { size: 80, color: CHALK.pink, align: 'center', t: g(p, 'cmt') });
 }
 
 void lerp; void hopY; void hopSquash;
