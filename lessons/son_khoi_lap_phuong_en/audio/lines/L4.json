@@ -1,0 +1,32 @@
+[
+ {
+  "text": "top",
+  "start": 0.1,
+  "end": 0.453791
+ },
+ {
+  "text": "bottom",
+  "start": 0.607083,
+  "end": 1.102374
+ },
+ {
+  "text": "front",
+  "start": 1.35,
+  "end": 1.739166
+ },
+ {
+  "text": "back",
+  "start": 1.975,
+  "end": 2.328791
+ },
+ {
+  "text": "left",
+  "start": 2.517458,
+  "end": 2.906624
+ },
+ {
+  "text": "right",
+  "start": 2.942,
+  "end": 3.213208
+ }
+]

@@ -29,6 +29,14 @@ const FRONT = Array.from({ length: 4 }, (_, x) => new Set(CUBES.filter((c) => c[
 const RIGHT = Array.from({ length: 2 }, (_, y) => new Set(CUBES.filter((c) => c[1] === y).map((c) => c[2])).size);
 console.assert(FRONT.join() === '3,3,2,1' && RIGHT.join() === '1,3', 'front 3,3,2,1; right 1,3');
 
+// every word written on the board; an English version overrides these (lessons/son_khoi_lap_phuong_en)
+export const TEXT = {
+  top: 'trên', bottom: 'dưới', front: 'trước', back: 'sau', right: 'phải', left: 'trái',
+  base: 'mặt đáy', squares: 'ô vuông', yourTurn: 'Đến lượt bạn!', noPaint: 'không sơn', unknown: '? ô',
+};
+// layout nudges for longer words (default: the Vietnamese layout); labelDx shifts an arrow's label by its word key
+export const FIT = { labelDx: {} };
+
 const PAINT = { top: 'rgb(242, 116, 150)', front: 'rgb(96, 166, 236)', right: 'rgb(104, 200, 120)' };
 const INK = { top: CHALK.pink, front: CHALK.blue, right: CHALK.green };
 
@@ -37,9 +45,9 @@ const M = cubeView(315, 640, 100);
 const C = 56; // flat-view square
 // rows: [left slot, right slot]; each slot {label, heights, side (paint key)}
 const ROWS = [
-  { base: 1060, slots: [{ label: 'trên', h: [2, 2, 2, 2] }, { label: 'dưới', h: [2, 2, 2, 2] }], side: 'top', n: V.top },
-  { base: 1320, slots: [{ label: 'trước', h: FRONT }, { label: 'sau', h: [...FRONT].reverse() }], side: 'front', n: V.front },
-  { base: 1580, slots: [{ label: 'phải', h: RIGHT }, { label: 'trái', h: [...RIGHT].reverse() }], side: 'right', n: V.right },
+  { base: 1060, slots: [{ label: 'top', h: [2, 2, 2, 2] }, { label: 'bottom', h: [2, 2, 2, 2] }], side: 'top', n: V.top },
+  { base: 1320, slots: [{ label: 'front', h: FRONT }, { label: 'back', h: [...FRONT].reverse() }], side: 'front', n: V.front },
+  { base: 1580, slots: [{ label: 'right', h: RIGHT }, { label: 'left', h: [...RIGHT].reverse() }], side: 'right', n: V.right },
 ];
 const SLOT_X = [250, 720]; // centre x of the left / right flat view
 const gridLeft = (slot, h) => SLOT_X[slot] - (h.length * C) / 2;
@@ -47,12 +55,12 @@ const gridTop = (r) => r.base - Math.max(...r.slots[0].h) * C;
 
 // six arrows from the six sides, in the order they are said; colour = the pair's paint
 const ARROWS = [
-  { from: [565, 150], to: [565, 262], lab: [630, 200], side: 'top', word: 'trên' },
-  { from: [520, 790], to: [520, 678], lab: [600, 790], side: 'top', word: 'dưới' },
-  { from: [195, 800], to: [292, 703], lab: [140, 850], side: 'front', word: 'trước' },
-  { from: [935, 215], to: [838, 312], lab: [940, 190], side: 'front', word: 'sau' },
-  { from: [120, 545], to: [285, 545], lab: [200, 510], side: 'right', word: 'trái' },
-  { from: [990, 505], to: [820, 505], lab: [905, 470], side: 'right', word: 'phải' },
+  { from: [565, 150], to: [565, 262], lab: [630, 200], side: 'top', word: 'top' },
+  { from: [520, 790], to: [520, 678], lab: [600, 790], side: 'top', word: 'bottom' },
+  { from: [195, 800], to: [292, 703], lab: [140, 850], side: 'front', word: 'front' },
+  { from: [935, 215], to: [838, 312], lab: [940, 190], side: 'front', word: 'back' },
+  { from: [120, 545], to: [285, 545], lab: [200, 510], side: 'right', word: 'left' },
+  { from: [990, 505], to: [820, 505], lab: [905, 470], side: 'right', word: 'right' },
 ];
 
 // beat order of the shared board
@@ -131,7 +139,7 @@ function arrows(L, S) {
     const k = u < 0.2 ? -0.1 * Math.sin((Math.PI * u) / 0.2) : easeInOut((u - 0.2) / 0.8);
     const to = [a.from[0] + (a.to[0] - a.from[0]) * Math.max(0.05, k), a.from[1] + (a.to[1] - a.from[1]) * Math.max(0.05, k)];
     L.arrow(a.from, to, { color, width: 9, t: clamp01(u * 1.4), seed: 600 + i, head: 30 });
-    popLabel(L, a.word, a.lab[0], a.lab[1], u, { size: 68, color });
+    popLabel(L, TEXT[a.word], a.lab[0] + (FIT.labelDx[a.word] || 0), a.lab[1], u, { size: 68, color });
   });
 }
 
@@ -146,7 +154,7 @@ function worksheet(objs, L, S) {
     r.slots.forEach((s, si) => {
       const x0 = gridLeft(si, s.h);
       const lu = S('beat2', said[ri * 2 + si]);
-      popLabel(L, s.label, SLOT_X[si], gridTop(r) - 26, lu, { size: 68, color: INK[r.side] });
+      popLabel(L, TEXT[s.label], SLOT_X[si], gridTop(r) - 26, lu, { size: 68, color: INK[r.side] });
       const gu = S(b, si ? 'gridB' : 'gridA');
       const hy = hop < 1 ? -hopY(hop, 30) : 0;
       flatGrid(svg, s.h, x0, r.base + 0, C, { color: PAINT[r.side], u: gu, hop: -hy });
@@ -175,12 +183,12 @@ function hookLower(ctx, p) {
   const t = clamp01(g(p, 'build') * 1.3 - 0.3);
   for (let r = 0; r <= 2; r++) L.line([HOOK.gx, HOOK.gy - r * HOOK.c + hp], [HOOK.gx + 4 * HOOK.c, HOOK.gy - r * HOOK.c + hp], { t, seed: 20 + r });
   for (let c = 0; c <= 4; c++) L.line([HOOK.gx + c * HOOK.c, HOOK.gy + hp], [HOOK.gx + c * HOOK.c, HOOK.gy - 2 * HOOK.c + hp], { t, seed: 30 + c });
-  L.text('mặt đáy', 540, HOOK.labY, { size: 60, align: 'center', color: CHALK.pink, t: clamp01(bt * 2) });
+  L.text(TEXT.base, 540, HOOK.labY, { size: 60, align: 'center', color: CHALK.pink, t: clamp01(bt * 2) });
   L.loop(540, HOOK.gy - HOOK.c + hp, 175, 95, { color: CHALK.yellow, width: 7, t: clamp01(bt * 1.4 - 0.2), seed: 40 });
   const q = g(p, 'q');
   popLabel(L, '?', 540, HOOK.qY, q, { size: 280 });
   burst(L, 540, HOOK.qY - 90, 150, clamp01(q * 1.5 - 0.4), { seed: 45 });
-  L.text('ô vuông', 540, HOOK.wordY, { size: 96, align: 'center', t: g(p, 'word') });
+  L.text(TEXT.squares, 540, HOOK.wordY, { size: 96, align: 'center', t: g(p, 'word') });
 }
 
 function beat1(ctx, p) {
@@ -259,17 +267,17 @@ function quizBoard(ctx, p) {
   const no = g(p, 'no');
   flatGrid(svgLayer(objs), [2, 2, 2, 2], Q.gx, Q.gy, Q.c, { color: PAINT.top, u: clamp01(m * 1.5 - 0.3) });
   const L = ctx.chalk(60);
-  L.text('Đến lượt bạn!', 540, Q.labY, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'label') });
-  L.text('mặt đáy', 540, Q.gy - 2 * Q.c - 26, { size: 68, color: CHALK.pink, align: 'center', t: clamp01(m * 1.5 - 0.5) });
+  L.text(TEXT.yourTurn, 540, Q.labY, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'label') });
+  L.text(TEXT.base, 540, Q.gy - 2 * Q.c - 26, { size: 68, color: CHALK.pink, align: 'center', t: clamp01(m * 1.5 - 0.5) });
   L.line([Q.gx - 20, Q.gy - 2 * Q.c - 10], [Q.gx + 4 * Q.c + 20, Q.gy + 10], { color: CHALK.red, width: 14, t: clamp01(no * 2), seed: 810 });
   L.line([Q.gx + 4 * Q.c + 20, Q.gy - 2 * Q.c - 10], [Q.gx - 20, Q.gy + 10], { color: CHALK.red, width: 14, t: clamp01(no * 2 - 1), seed: 811 });
-  L.text('không sơn', 540, Q.noY + 12, { size: 84, color: CHALK.red, align: 'center', t: clamp01(no * 2 - 0.6) });
+  L.text(TEXT.noPaint, 540, Q.noY + 12, { size: 84, color: CHALK.red, align: 'center', t: clamp01(no * 2 - 0.6) });
   return L;
 }
 
 function beat7(ctx, p) {
   const L = quizBoard(ctx, p);
-  popLabel(L, '? ô', 540, Q.qY, g(p, 'q'), { size: 160 });
+  popLabel(L, TEXT.unknown, 540, Q.qY, g(p, 'q'), { size: 160 });
   const c = g(p, 'count');
   if (c > 0 && c < 1) {
     const [cx, cy, r] = [540, Q.countY, 95];
@@ -286,13 +294,13 @@ function beat8(ctx, p) {
   const L = quizBoard(ctx, {});
   const e = g(p, 'eq');
   const k = outScale(1, clamp01(e * 3));
-  if (k > 0) L.text('? ô', 540, Q.qY, { size: 160, color: CHALK.yellow, align: 'center', scale: k });
+  if (k > 0) L.text(TEXT.unknown, 540, Q.qY, { size: 160, color: CHALK.yellow, align: 'center', scale: k });
   const xs = row(L, ['42', { sym: 'minus' }, '8', '=', { s: '34', color: CHALK.yellow, size: 140 }], 540, Q.eqY + 40,
     { size: 110, t: clamp01(e * 1.4 - 0.3), seed: 850, gap: 0.7 });
   const lp = g(p, 'loop');
   L.loop(xs[4], Q.eqY, 86, 84, { color: CHALK.yellow, width: 9, t: clamp01(lp * 1.4), seed: 860 });
   sparks(L, xs[4], Q.eqY, 125, 165, clamp01(lp * 1.5 - 0.5), { seed: 865 });
-  L.text('ô vuông', 540, Q.countY, { size: 104, align: 'center', t: clamp01(lp * 2 - 0.5) });
+  L.text(TEXT.squares, 540, Q.countY, { size: 104, align: 'center', t: clamp01(lp * 2 - 0.5) });
 }
 
 export const scenes = { beat1, beat2, beat3, beat4, beat5, beat6, beat7, beat8 };
