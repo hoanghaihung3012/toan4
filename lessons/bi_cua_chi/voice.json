@@ -1,0 +1,95 @@
+{
+  "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs bi_cua_chi. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+  "scene": "bi_cua_chi",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+8%",
+  "fps": 30,
+  "gap": 0.3,
+  "beats": [
+    { "id": "beat1", "lead": 0.3, "tail": 2.0,
+      "lines": [
+        { "id": "L1", "text": "An có 20 viên bi, Bình có 24 viên bi." },
+        { "id": "L2", "gap": 0.35, "text": "Chi có nhiều hơn trung bình cộng của cả ba bạn 4 viên." },
+        { "id": "L3", "gap": 0.35, "text": "Hỏi Chi có bao nhiêu viên bi?" }
+      ],
+      "windows": {
+        "title": ["beat^", 1.0],
+        "an":    ["L1.An", "L1.bi>", "raw"],
+        "binh":  ["L1.Bình", "L1.bi#2>", "raw"],
+        "chi":   ["L2.Chi", 0.8, "raw"],
+        "rule":  ["L2.trung", "L2$"],
+        "ask":   ["L3^", "L3$"],
+        "dots":  ["L3$", 1.7, "raw", 0.2]
+      }
+    },
+    { "id": "beat2", "prev": "beat1", "lead": 1.1, "tail": 0.7,
+      "lines": [
+        { "id": "L4", "text": "Trung bình cộng là số bi mỗi bạn có, nếu chia đều." },
+        { "id": "L5", "gap": 0.3, "text": "Chi hơn mức trung bình 4 viên." },
+        { "id": "L6", "gap": 0.3, "text": "Chi đưa 4 viên đó sang, ba bạn sẽ bằng nhau." },
+        { "id": "L7", "gap": 0.35, "text": "Vậy bi của An, Bình và 4 viên đó bằng 2 lần trung bình cộng." }
+      ],
+      "windows": {
+        "wipe":   ["beat^", 1.2, "raw"],
+        "setup":  ["beat^", 1.0, "raw", 0.6],
+        "line":   ["L4^", "L4$"],
+        "extra":  ["L5.4", 0.9, "raw", -0.1],
+        "give":   ["L6.đưa", 1.5, "raw"],
+        "equal":  ["L6.ba", "L6$"],
+        "two":    ["L7.2", "L7$"]
+      }
+    },
+    { "id": "beat3", "prev": "beat2", "lead": 0.9, "tail": 0.8,
+      "lines": [
+        { "id": "L8", "text": "20 cộng 24 cộng 4 bằng 48." },
+        { "id": "L9", "gap": 0.35, "text": "48 chia 2 bằng 24, đó là trung bình cộng." },
+        { "id": "L10", "gap": 0.4, "text": "Chi có 24 cộng 4, bằng 28 viên bi." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "setup": ["beat^", 0.8, "raw", 0.5],
+        "e1":    ["L8^", "L8$"],
+        "e2":    ["L9^", "L9.24>"],
+        "tbc":   ["L9.đó", "L9$"],
+        "fill":  ["L10.24", "L10.4>", "raw"],
+        "e3":    ["L10^", "L10$"],
+        "loop":  ["L10.28", 0.7, "out", 0.1],
+        "spark": ["L10$", 0.9, "raw"]
+      }
+    },
+    { "id": "beat4", "prev": "beat3", "lead": 0.9, "tail": 0.8,
+      "lines": [
+        { "id": "L11", "text": "Thử lại: 20 cộng 24 cộng 28 bằng 72." },
+        { "id": "L12", "gap": 0.3, "text": "72 chia 3 bằng 24. Đúng rồi!" },
+        { "id": "L13", "gap": 0.4, "text": "Chi đưa 4 viên cho An, ba bạn đều có 24 viên." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "setup": ["beat^", 0.8, "raw", 0.5],
+        "c1":    ["L11.20", "L11$"],
+        "c2":    ["L12^", "L12.24>"],
+        "ok":    ["L12.Đúng", 0.8, "raw"],
+        "give":  ["L13.đưa", 1.5, "raw"],
+        "same":  ["L13.ba", "L13$"]
+      }
+    },
+    { "id": "beat5", "prev": "beat4", "lead": 0.9, "tail": 3.4,
+      "lines": [
+        { "id": "L14", "text": "Đến lượt bạn: An 30 viên, Bình 26 viên." },
+        { "id": "L15", "gap": 0.3, "text": "Chi hơn trung bình cộng 2 viên. Chi có bao nhiêu viên?" },
+        { "id": "L16", "gap": 0.3, "text": "Bình luận đáp án nhé!" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["L14^", 0.9],
+        "an":    ["L14.An", "L14.viên>", "raw"],
+        "binh":  ["L14.Bình", "L14.viên#2>", "raw"],
+        "chi":   ["L15.Chi", 0.8, "raw"],
+        "rule":  ["L15.hơn", "L15.viên>"],
+        "ask":   ["L15.Chi#2", "L15$"],
+        "cmt":   ["L16^", "L16$"],
+        "count": ["L16$", 3.0, "raw", 0.1]
+      }
+    }
+  ]
+}
