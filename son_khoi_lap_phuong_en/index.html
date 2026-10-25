@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Paint the cubes: how many squares? (bản tiếng Anh)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="shared/web/css/board.css">
+  <style>#controls{display:flex;gap:10px;align-items:center;padding:8px 16px}#controls button{font-size:18px;min-width:44px;min-height:36px}#controls input{flex:1;min-width:0}</style>
+</head>
+<body>
+  <!-- chalk/grain filters, fonts and CSS variables are generated from web/theme.js -->
+  <div id="stage"></div>
+
+  <div id="controls">
+    <button id="play">▶</button>
+    <input id="scrub" type="range" min="0" max="1000" value="0">
+    <span id="time">0.00 s</span>
+    <span id="beat"></span>
+  </div>
+
+  <script type="module" src="shared/web/js/player.js"></script>
+</body>
+</html>
