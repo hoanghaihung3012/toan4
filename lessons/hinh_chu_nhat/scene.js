@@ -22,6 +22,19 @@ console.assert(OPTIONS.filter(([, v]) => Number(v) === cellsOf(N)).map(([k]) => 
 const QUIZ = 10;
 console.assert(cellsOf(QUIZ) === 55 && 11 * 5 === 55, 'figure 10: 11 x 5 = 55');
 
+// every word on the board (lessons/hinh_chu_nhat_en overrides it); read at render time
+export const TEXT = {
+  title: 'Câu 8',
+  fig: 'Hình',
+  rects: 'hình chữ nhật',
+  oneRect: '= 1 hình chữ nhật',
+  shape: 'hình',
+  yourTurn: 'Đến lượt bạn!',
+  pairs: 'cặp',
+};
+// layout that depends on the length of the words (Vietnamese values)
+export const FIT = { titleUnderline: 190, hookLabelSize: 66, tagSize: 110, tagX: 470 };
+
 // --- cells ------------------------------------------------------------------------------
 // one wooden cell (a small rectangle) centred at (x, y), w x h on the board
 function cell(objs, x, y, w, h, kind = 'int', { scale = 1, squash = 1 } = {}) {
@@ -72,17 +85,17 @@ const HOOK = { w: 120, h: 66, base: 660, x0: [102, 282, 582], labY: 760, tagY: 9
 
 function hookChalk(L, p) {
   const T = THEME.layout.title;
-  L.text('Câu 8', T.x, T.y, { size: T.size, t: g(p, 'title') });
-  L.line([T.x, T.y + 22], [T.x + 190, T.y + 22], { width: T.underlineWidth, t: g(p, 'title'), seed: 5 });
+  L.text(TEXT.title, T.x, T.y, { size: T.size, t: g(p, 'title') });
+  L.line([T.x, T.y + 22], [T.x + FIT.titleUnderline, T.y + 22], { width: T.underlineWidth, t: g(p, 'title'), seed: 5 });
   const f = g(p, 'figs');
   [1, 2, 3].forEach((n, i) => {
-    L.text(`Hình ${n}`, HOOK.x0[i] + (n * HOOK.w) / 2, HOOK.labY, { size: 66, align: 'center', t: clamp01(f * 4 - i * 1.1 - 0.8) });
+    L.text(`${TEXT.fig} ${n}`, HOOK.x0[i] + (n * HOOK.w) / 2, HOOK.labY, { size: FIT.hookLabelSize, align: 'center', t: clamp01(f * 4 - i * 1.1 - 0.8) });
   });
-  L.text('Hình 6', 552, HOOK.tagY, { size: 140, align: 'center', t: g(p, 'tag') });
+  L.text(`${TEXT.fig} 6`, 552, HOOK.tagY, { size: 140, align: 'center', t: g(p, 'tag') });
   const q = g(p, 'q');
   popLabel(L, '?', 552, HOOK.qY + 60, q, { size: 300 });
   burst(L, 552, HOOK.qY - 40, 150, clamp01(q * 1.5 - 0.4), { seed: 30 });
-  L.text('hình chữ nhật', 552, HOOK.wordY, { size: 90, align: 'center', t: clamp01(q * 1.6 - 0.4) });
+  L.text(TEXT.rects, 552, HOOK.wordY, { size: 90, align: 'center', t: clamp01(q * 1.6 - 0.4) });
 }
 
 function beat1(ctx, p) {
@@ -127,9 +140,9 @@ function countBoard(ctx, beat, p) {
       popLabel(L, String(len), C.x0 + len * C.w + 40, y, S(b, keys[r]), { size: 68 });
     });
     const ty = top(n) + 46;
-    L.text(`Hình ${n}`, C.labX, ty, { size: 76, t: n === 1 ? S(b, 'fig1') : clamp01(build * 2) });
+    L.text(`${TEXT.fig} ${n}`, C.labX, ty, { size: 76, t: n === 1 ? S(b, 'fig1') : clamp01(build * 2) });
     const sumKey = n === 1 ? 'c1' : `sum${n}`;
-    const parts = n === 1 ? [{ s: '1', color: CHALK.yellow }, 'hình']
+    const parts = n === 1 ? [{ s: '1', color: CHALK.yellow }, TEXT.shape]
       : [...rows(n).flatMap((len, i) => (i ? ['+', String(len)] : [String(len)])), '=', { s: String(cellsOf(n)), color: CHALK.yellow, size: 92 }];
     row(L, parts, C.labX, ty + 96, { size: 70, align: 'left', t: S(b, sumKey), seed: 100 + n * 10, gap: 0.26 });
   });
@@ -141,7 +154,7 @@ function countBoard(ctx, beat, p) {
   const note = S('beat2', 'note');
   const k = outScale(1, S('beat2', 'fig1'));
   if (note > 0 && k > 0) {
-    L.text('= 1 hình chữ nhật', C.x0 + C.w + 40, y + 24, { size: 72, color: CHALK.yellow, t: note, scale: k });
+    L.text(TEXT.oneRect, C.x0 + C.w + 40, y + 24, { size: 72, color: CHALK.yellow, t: note, scale: k });
   }
 }
 const beat2 = (ctx, p) => countBoard(ctx, 'beat2', p);
@@ -171,7 +184,7 @@ function sumBoard(ctx, beat, p) {
   NUMS.forEach((len, r) => {
     popLabel(L, String(len), H6.x0 + len * H6.w + 38, H6.base - (r + 0.5) * H6.h + 22, S('beat4', ROW_KEYS[r]), { size: 64 });
   });
-  L.text('Hình 6', H6.labX, H6.labY, { size: 84, t: S('beat4', 'label') });
+  L.text(`${TEXT.fig} 6`, H6.labX, H6.labY, { size: 84, t: S('beat4', 'label') });
 
   // number blocks 6 5 4 3 2 1 drop in, then fly into pairs that make 7
   const tl = S('beat5', 'tiles');
@@ -224,8 +237,8 @@ function quizBoard(ctx, p) {
   const f = g(p, 'fig');
   figure(objs, QUIZ, Q.x0, Q.base, Q.w, Q.h, (q) => ({ u: clamp01(f * 2 - q.r * 0.1 - q.c * 0.02) }));
   const L = ctx.chalk(60);
-  L.text('Đến lượt bạn!', 552, Q.labY, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'label') });
-  const xs = row(L, ['Hình 10', '='], 470, Q.tagY, { size: 110, t: clamp01(f * 1.5 - 0.5), seed: 400, gap: 0.3 });
+  L.text(TEXT.yourTurn, 552, Q.labY, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'label') });
+  const xs = row(L, [`${TEXT.fig} 10`, '='], FIT.tagX, Q.tagY, { size: FIT.tagSize, t: clamp01(f * 1.5 - 0.5), seed: 400, gap: 0.3 });
   return { L, qx: xs[1] + 150 };
 }
 
@@ -259,7 +272,7 @@ function beat8(ctx, p) {
     return [xs[0] + (xs[6] - xs[0]) * u, Q.sumY + 30 + 60 * Math.sin(Math.PI * u)];
   });
   if (pr > 0) L.poly(pts, { color: CHALK.mint, width: 6, seed: 415, amp: 0.6 });
-  popLabel(L, '11 (5 cặp)', (xs[0] + xs[6]) / 2, Q.sumY + 165, clamp01(pr * 2 - 0.8), { size: 72, color: CHALK.mint });
+  popLabel(L, `11 (5 ${TEXT.pairs})`, (xs[0] + xs[6]) / 2, Q.sumY + 165, clamp01(pr * 2 - 0.8), { size: 72, color: CHALK.mint });
   const ex = row(L, ['=', '11', { sym: 'times' }, '5', '=', { s: '55', color: CHALK.yellow, size: 140 }], 552, Q.eqY + 150,
     { size: 104, t: g(p, 'eq'), seed: 420, gap: 0.3 });
   const lp = g(p, 'loop');

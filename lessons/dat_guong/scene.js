@@ -8,6 +8,11 @@ import { row as chalkRow, flight } from '../../shared/web/js/parts.js';
 import { layout, mirrored, centroid, woodSvg, woodBar, glass } from './segments.js';
 import { g, sparks, burst, mark, hopY } from '../que_diem/fx.js';
 
+// on-board words (an English version overrides them: lessons/dat_guong_en/scene.js)
+export const TEXT = { title: 'Đặt gương ở đâu?', largest: 'lớn nhất,', notOver: 'không quá' };
+// layout values that depend on the words' length
+export const FIT = { titleUnderline: 470 };
+
 // --- facts (story.md F1–F3, D1–D6), checked -----------------------------------------
 const SHOWN = '18+18'; // F1: the display
 const SYM = { 1: '1', 8: '8', '+': '+' }; // D1: each glyph looks the same in a mirror
@@ -152,7 +157,7 @@ function topBoard(svg, L, S) {
   // condition: largest, not over 1000
   const cond = S('beat1', 'cond');
   const lim = bump(S('beat6', 'lim'), 0.3);
-  chalkRow(L, ['lớn nhất,', 'không quá', { s: '1000', color: CHALK.yellow, size: 64 * lim }], 540, TOP.condY, { size: 64, t: cond, seed: 60, gap: 0.3 });
+  chalkRow(L, [TEXT.largest, TEXT.notOver, { s: '1000', color: CHALK.yellow, size: 64 * lim }], 540, TOP.condY, { size: 64, t: cond, seed: 60, gap: 0.3 });
 }
 
 // --- the four rows: what the eye sees for each place ---------------------------------------
@@ -271,8 +276,8 @@ function board(ctx, beat, p) {
   const L = ctx.chalk(60);
   const T = THEME.layout.title;
   const tt = S('beat1', 'title');
-  L.text('Đặt gương ở đâu?', T.x, T.y, { size: T.size, t: tt });
-  L.line([T.x, T.y + 22], [T.x + 470, T.y + 22], { width: T.underlineWidth, t: tt, seed: 5 });
+  L.text(TEXT.title, T.x, T.y, { size: T.size, t: tt });
+  L.line([T.x, T.y + 22], [T.x + FIT.titleUnderline, T.y + 22], { width: T.underlineWidth, t: tt, seed: 5 });
   topBoard(svg, L, S);
   KEYS.forEach((k, i) => rowBoard(svg, L, S, k, i));
   rowMarks(L, S);

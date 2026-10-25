@@ -1,0 +1,143 @@
+{
+  "_note": "English voiceover for the tinh_tuoi scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs tinh_tuoi_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+  "scene": "tinh_tuoi",
+  "lang": "en",
+  "final": "age_puzzles",
+  "voice": "en-US-AvaNeural",
+  "rate": "+12%",
+  "fps": 30,
+  "gap": 0.3,
+  "beats": [
+    { "id": "beat1", "lead": 0.3, "tail": 2.2,
+      "lines": [
+        { "id": "L1", "text": "Right now, a dad and his child's ages add up to 48." },
+        { "id": "L2", "text": "4 years ago, Dad was 4 times as old as the child." },
+        { "id": "L3", "gap": 0.35, "text": "How old is Dad now?" }
+      ],
+      "windows": {
+        "title": ["beat^", 1.0],
+        "r1":    ["L1^", "L1.48>"],
+        "r2a":   ["L2^", "L2.ago>"],
+        "r2b":   ["L2.dad", "L2$"],
+        "ask":   ["L3^", "L3.dad>"],
+        "q":     ["L3.now", 0.7, "raw"],
+        "dots":  ["L3$", 1.9, "raw", 0.2]
+      } },
+    { "id": "beat2", "prev": "beat1", "lead": 1.1, "tail": 0.6,
+      "lines": [
+        { "id": "L4", "text": "4 years ago, Dad loses 4 years," },
+        { "id": "L5", "gap": 0.2, "text": "and the child loses 4 too." },
+        { "id": "L6", "gap": 0.35, "text": "So the total then was 48 minus 4 minus 4, which makes 40." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "bars":  ["beat^", 1.0, "raw", 0.9],
+        "title": ["L4^", "L4.ago>"],
+        "cut1":  ["L4.loses", 1.1, "raw", -0.1],
+        "cut2":  ["L5.loses", 1.1, "raw", -0.1],
+        "lbl":   ["L6^", "L6.then>"],
+        "eq":    ["L6.48", "L6.40>"],
+        "loop":  ["L6.40", 0.7, "out", 0.15]
+      } },
+    { "id": "beat3", "prev": "beat2", "lead": 1.1, "tail": 0.8,
+      "lines": [
+        { "id": "L7", "text": "4 years ago: the child is 1 part, Dad is 4 parts." },
+        { "id": "L8", "text": "That is 5 parts, which makes 40." },
+        { "id": "L9", "text": "One part is 40 divided by 5, which makes 8." },
+        { "id": "L10", "gap": 0.2, "text": "That was the child's age then." },
+        { "id": "L11", "text": "Dad was 8 times 4, which makes 32." },
+        { "id": "L12", "gap": 0.35, "text": "So now Dad is 32 plus 4, which makes 36!" },
+        { "id": "L31", "gap": 0.45, "text": "Check: the child is now 12, and 36 plus 12 makes 48. Correct!" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["L7^", "L7.ago>"],
+        "con":   ["L7.child", 0.8, "raw", -0.05],
+        "bo":    ["L7.dad", 1.1, "raw", -0.05],
+        "s1":    ["L8^", "L8.parts>"],
+        "brace": ["L8.which", "L8.40>"],
+        "s2":    ["L9^", "L9.8>"],
+        "fill":  ["L10^", "L10$", "raw"],
+        "s3":    ["L11^", "L11.32>"],
+        "s4":    ["L12.now", "L12.36>"],
+        "loop":  ["L12.36", 0.7, "out", 0.15],
+        "spark": ["L12$", 0.9, "raw"],
+        "s5":    ["L31.36", "L31.48>"],
+        "ok":    ["L31.correct", 0.8, "raw"]
+      } },
+    { "id": "beat4", "prev": "beat3", "lead": 1.1, "tail": 2.2,
+      "lines": [
+        { "id": "L13", "text": "Now, Mom is 35 and her daughter is 7." },
+        { "id": "L14", "gap": 0.35, "text": "In how many years" },
+        { "id": "L15", "gap": 0.15, "text": "will Mom be 3 times as old as her daughter?" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["beat^", 0.9, "out", 1.0],
+        "r1":    ["L13.mom", "L13.35>"],
+        "r2":    ["L13.her", "L13.7>"],
+        "r3a":   ["L14^", "L14.years>"],
+        "q":     ["L14.many", 0.7, "raw"],
+        "r3b":   ["L15^", "L15$"],
+        "dots":  ["L15$", 1.9, "raw", 0.2]
+      } },
+    { "id": "beat5", "prev": "beat4", "lead": 1.1, "tail": 0.8,
+      "lines": [
+        { "id": "L16", "text": "Mom is older by 35 minus 7, which makes 28." },
+        { "id": "L17", "gap": 0.35, "text": "Every year, Mom gets 1 year older, and so does her daughter." },
+        { "id": "L18", "text": "So Mom is still older by 28." },
+        { "id": "L19", "gap": 0.35, "text": "The age gap never changes!" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["beat^", 0.9, "out", 1.0],
+        "bars":  ["L16^", 0.9, "raw", -0.3],
+        "eq":    ["L16.35", "L16.28>"],
+        "gap":   ["L16.which", "L16.28>", "raw"],
+        "grow":  ["L17^", "L18.still", "raw"],
+        "keep":  ["L18.still", "L18.28>", "raw"],
+        "stamp": ["L19^", "L19$", "raw"]
+      } },
+    { "id": "beat6", "prev": "beat5", "lead": 1.1, "tail": 1.2,
+      "lines": [
+        { "id": "L20", "text": "When Mom is 3 times her daughter's age:" },
+        { "id": "L21", "gap": 0.2, "text": "the daughter is 1 part, Mom is 3 parts." },
+        { "id": "L22", "text": "Mom has 2 parts more: the gap of 28." },
+        { "id": "L23", "text": "One part is 28 divided by 2, which makes 14." },
+        { "id": "L24", "gap": 0.2, "text": "Then the daughter is 14." },
+        { "id": "L25", "gap": 0.35, "text": "So 14 minus 7 makes 7 years from now!" },
+        { "id": "L26", "gap": 0.45, "text": "Check: Mom will be 35 plus 7, that is 42, exactly 3 times 14." }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["L20^", "L20$"],
+        "con":   ["L21.daughter", 0.8, "raw", -0.05],
+        "me":    ["L21.mom", 1.1, "raw", -0.05],
+        "s1":    ["L22^", "L22.parts>"],
+        "brace": ["L22.the", "L22.28>"],
+        "s2":    ["L23^", "L23.14>"],
+        "fill":  ["L24^", "L24$", "raw"],
+        "s3":    ["L25.14", "L25.from>"],
+        "loop":  ["L25.from", 0.7, "out", -0.1],
+        "s4":    ["L26.mom", "L26.42>"],
+        "s5":    ["L26.exactly", "L26.14>"],
+        "ok":    ["L26.14", 0.8, "raw", 0.3]
+      } },
+    { "id": "beat7", "prev": "beat6", "lead": 1.1, "tail": 1.4,
+      "lines": [
+        { "id": "L27", "text": "Remember 2 tips!" },
+        { "id": "L28", "gap": 0.35, "text": "One: every year, everyone is 1 year older." },
+        { "id": "L29", "gap": 0.35, "text": "Two: the age gap never changes." },
+        { "id": "L30", "gap": 0.45, "text": "If you liked it, leave a comment!" }
+      ],
+      "windows": {
+        "wipe":  ["beat^", 1.2, "raw"],
+        "title": ["L27^", "L27$"],
+        "t1":    ["L28^", "L28$"],
+        "m1":    ["L28.is", 1.0, "raw"],
+        "t2":    ["L29^", "L29$"],
+        "m2":    ["L29.never", 1.0, "raw"],
+        "cmt":   ["L30^", "L30$"]
+      } }
+  ]
+}
