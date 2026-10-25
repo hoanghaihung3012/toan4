@@ -9,24 +9,24 @@ import { g, burst, mark, hopY, thinkingDots, countdown, popLabel } from '../../s
 import { propSvg, cake, nameTag, stamp, impact } from './props.js';
 
 // --- facts (story.md F1–F3), checked by trying every eater -----------------------------------
-const KIDS = ['Alex', 'Ben', 'Cindy', 'Dan'];
-const QUOTES = ['“Ben đã ăn bánh.”', '“Dan đã ăn bánh.”', '“Tớ không ăn bánh.”', '“Ben đang nói dối đấy.”'];
-// what each kid says, as a test of "who ate" (Dan's sentence is: Ben's sentence is false)
+const KIDS = ['An', 'Bảo', 'Chi', 'Dũng'];
+const QUOTES = ['“Bảo đã ăn bánh.”', '“Dũng đã ăn bánh.”', '“Tớ không ăn bánh.”', '“Bảo đang nói dối đấy.”'];
+// what each kid says, as a test of "who ate" (Dũng's sentence is: Bảo's sentence is false)
 const says = [
-  (e) => e === 'Ben',
-  (e) => e === 'Dan',
-  (e) => e !== 'Cindy',
-  (e) => !(e === 'Dan'),
+  (e) => e === 'Bảo',
+  (e) => e === 'Dũng',
+  (e) => e !== 'Chi',
+  (e) => !(e === 'Dũng'),
 ];
 const truths = (e) => says.map((f) => f(e));
 const count = (e, v) => truths(e).filter((x) => x === v).length;
 const ANSWER = KIDS.filter((e) => count(e, true) === 1);
-console.assert(ANSWER.length === 1 && ANSWER[0] === 'Cindy', 'only 1 truth: Cindy ate (unique)');
-console.assert(truths('Cindy').join() === 'false,false,false,true', 'Alex, Ben, Cindy lie; Dan tells the truth');
-console.assert(KIDS.every((e) => truths(e)[1] !== truths(e)[3]), 'Ben and Dan always disagree: exactly one is true');
+console.assert(ANSWER.length === 1 && ANSWER[0] === 'Chi', 'only 1 truth: Chi ate (unique)');
+console.assert(truths('Chi').join() === 'false,false,false,true', 'An, Bảo, Chi lie; Dũng tells the truth');
+console.assert(KIDS.every((e) => truths(e)[1] !== truths(e)[3]), 'Bảo and Dũng always disagree: exactly one is true');
 // practice problem (answer not shown): only 1 kid lies
 const CH = KIDS.filter((e) => count(e, false) === 1);
-console.assert(CH.length === 1 && CH[0] === 'Ben', 'challenge: only 1 lie -> Ben ate (not shown)');
+console.assert(CH.length === 1 && CH[0] === 'Bảo', 'challenge: only 1 lie -> Bảo ate (not shown)');
 
 // --- layout ----------------------------------------------------------------------------------
 const T = THEME.layout.title;
@@ -80,14 +80,14 @@ function mainBoard(ctx, beat, p) {
     [St('beat4', 'pA'), St('beat4', 'pB'), St('beat4', 'pC'), St('beat4', 'pD')]);
   thinkingDots(L, 540, 1200, St('beat1', 'dots'), { gap: 80, r: 16 });
 
-  // beat 2: Ben and Dan disagree -> exactly one of them tells the truth
+  // beat 2: Bảo and Dũng disagree -> exactly one of them tells the truth
   const loopRow = (i, t, seed) => {
     const l = TAG_X - 98, r = qEnd[i] + 16;
     L.loop((l + r) / 2, ROWS[i] + 2, (r - l) / 2 + 12, 70, { color: CHALK.yellow, width: 6, t, seed });
   };
   loopRow(1, St('beat2', 'lb'), 20);
   loopRow(3, St('beat2', 'ld'), 21);
-  // Dan's sentence is about Ben's: a two-headed bracket joins them (stamps cover it later)
+  // Dũng's sentence is about Bảo's: a two-headed bracket joins them (stamps cover it later)
   const vs = St('beat2', 'vs');
   const bx = 66, b0 = ROWS[1], b1 = ROWS[3];
   L.poly([[TAG_X - 112, b0], [bx, b0 + 26], [bx, b1 - 26], [TAG_X - 112, b1]], { color: CHALK.yellow, width: 8, t: vs, seed: 26, amp: 0.8 });
@@ -97,19 +97,19 @@ function mainBoard(ctx, beat, p) {
     const a = Math.atan2(-26 * dir, TAG_X - 112 - bx);
     [-1, 1].forEach((sg) => L.line(p, [p[0] - 28 * Math.cos(a + sg * 0.5), p[1] - 28 * Math.sin(a + sg * 0.5)], { color: CHALK.yellow, width: 8, t: ht, seed: 27 + sg }));
   }
-  // "dối" in Dan's quote points at Ben: underline it
-  const dX = QX + measure('“Ben đang nói ', QS), dW = measure('dối', QS);
+  // "dối" in Dũng's quote points at Bảo: underline it
+  const dX = QX + measure('“Bảo đang nói ', QS), dW = measure('dối', QS);
   L.line([dX, ROWS[3] + 36], [dX + dW, ROWS[3] + 36], { color: CHALK.red, width: 7, t: St('beat2', 'neg'), seed: 22 });
-  const bW = measure('“Ben', QS) - measure('“', QS), bX = QX + measure('“', QS);
+  const bW = measure('“Bảo', QS) - measure('“', QS), bX = QX + measure('“', QS);
   L.line([bX, ROWS[3] + 36], [bX + bW, ROWS[3] + 36], { color: CHALK.yellow, width: 7, t: St('beat2', 'neg'), seed: 23 });
   row(L, ['1 câu', { s: 'đúng,', color: CHALK.green }, '1 câu', { s: 'sai', color: CHALK.red }], 540, ONE_Y,
     { size: 64, t: St('beat2', 'one'), seed: 25, gap: 0.25 });
-  row(L, [{ s: 'Ben', color: CHALK.yellow }, 'hoặc', { s: 'Dan', color: CHALK.yellow }, 'nói thật'], 540, LINK_Y,
+  row(L, [{ s: 'Bảo', color: CHALK.yellow }, 'hoặc', { s: 'Dũng', color: CHALK.yellow }, 'nói thật'], 540, LINK_Y,
     { size: 72, t: St('beat2', 'link'), seed: 30, gap: 0.3 });
 
-  // beat 3: Alex and Cindy lie; Cindy's "không" is false -> Cindy ate
+  // beat 3: An and Chi lie; Chi's "không" is false -> Chi ate
   const sA = St('beat3', 'sA'), sC = St('beat3', 'sC');
-  // back to the rule: only 1 truth-teller, and it is Ben or Dan
+  // back to the rule: only 1 truth-teller, and it is Bảo or Dũng
   const back = St('beat3', 'back');
   L.line([ruleX[0] - 70, RULE_Y + 22], [ruleX[3] + 70, RULE_Y + 22], { color: CHALK.yellow, width: 7, t: back, seed: 35 });
   const kX = QX + measure('“Tớ ', QS), kW = measure('không', QS);
@@ -118,10 +118,10 @@ function mainBoard(ctx, beat, p) {
   L.line([kX - 8, ROWS[2] - 12], [kX + kW + 8, ROWS[2] - 4], { color: CHALK.red, width: 9, t: clamp01(strike * 2 - 1), seed: 40 });
   const fly = St('beat3', 'fly');
   const ans = St('beat3', 'ans');
-  const ax = row(L, [{ s: 'Cindy', color: CHALK.yellow }, 'đã ăn bánh!'], 470, ANS_Y, { size: 80, t: ans, seed: 50, gap: 0.5 });
-  L.loop(ax[0], ANS_Y - 26, 130, 66, { color: CHALK.yellow, width: 7, t: clamp01(ans * 2 - 1), seed: 51 });
+  const ax = row(L, [{ s: 'Chi', color: CHALK.yellow }, 'đã ăn bánh!'], 470, ANS_Y, { size: 80, t: ans, seed: 50, gap: 0.5 });
+  L.loop(ax[0], ANS_Y - 26, measure('Chi', 80) / 2 + 40, 66, { color: CHALK.yellow, width: 7, t: clamp01(ans * 2 - 1), seed: 51 });
 
-  // beat 4: check, Ben lies and Dan tells the truth: exactly 1 truth
+  // beat 4: check, Bảo lies and Dũng tells the truth: exactly 1 truth
   const sB = St('beat4', 'sB'), sD = St('beat4', 'sD');
   const ok = St('beat4', 'ok');
   L.loop(ruleX[1], RULE_Y - 26, 50, 62, { color: CHALK.yellow, width: 7, t: ok, seed: 60 });
