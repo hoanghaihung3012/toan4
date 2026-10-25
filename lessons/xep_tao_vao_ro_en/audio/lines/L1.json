@@ -1,0 +1,47 @@
+[
+ {
+  "text": "There",
+  "start": 0.1,
+  "end": 0.304541
+ },
+ {
+  "text": "are",
+  "start": 0.315916,
+  "end": 0.395457
+ },
+ {
+  "text": "7",
+  "start": 0.406833,
+  "end": 0.724999
+ },
+ {
+  "text": "identical",
+  "start": 0.736375,
+  "end": 1.259083
+ },
+ {
+  "text": "apples",
+  "start": 1.270458,
+  "end": 1.690916
+ },
+ {
+  "text": "and",
+  "start": 1.713625,
+  "end": 1.906791
+ },
+ {
+  "text": "3",
+  "start": 1.929541,
+  "end": 2.156832
+ },
+ {
+  "text": "different",
+  "start": 2.168166,
+  "end": 2.418166
+ },
+ {
+  "text": "baskets",
+  "start": 2.429541,
+  "end": 3.031832
+ }
+]
