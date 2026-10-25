@@ -27,7 +27,7 @@ Chưa sửa: vì sao 2 tấn = 2000 kg (dòng 1 tấn = 1000 kg đã bị lau �
 Không có dữ kiện nào ngoài bảng này. Cân đĩa và quả cân là hình minh hoạ, không mang số liệu riêng.
 
 ## 5. Kỹ thuật (WAV giọng đọc)
-48 kHz stereo, 75,033 s, true peak −3,5 dBFS. Khoảng lặng > 1,2 s: 5,2–7,4 s (3 chấm suy nghĩ, có chủ ý), các chỗ chuyển cảnh có khăn lau (~1,9–2,4 s); 71,4–75,0 s (đếm ngược 3-2-1, có chủ ý). MP4 sẽ kiểm tra lại sau khi xuất.
+48 kHz stereo, 75,033 s, true peak −3,5 dBFS. Khoảng lặng > 1,2 s: 5,2–7,4 s (3 chấm suy nghĩ, có chủ ý), các chỗ chuyển cảnh có khăn lau (~1,9–2,4 s); 71,4–75,0 s (đếm ngược 3-2-1, có chủ ý). MP4 `final/2026-10-25/don_vi_yen_ta_tan.mp4`: 1080×1920, 75,03 s, AAC 48 kHz stereo, true peak −3,5 dBFS, freezedetect (4 s) không có đoạn đứng hình, các khoảng lặng như trên.
 
 ## 6. Đạo diễn tự chấm (xem 2 lượt)
 Lượt 1, ba lỗi nặng nhất (đã sửa):
