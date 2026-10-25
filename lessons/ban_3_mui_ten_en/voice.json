@@ -1,0 +1,388 @@
+{
+ "_note": "English voiceover for the ban_3_mui_ten scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs ban_3_mui_ten_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+ "scene": "ban_3_mui_ten",
+ "lang": "en",
+ "voice": "en-US-AvaNeural",
+ "rate": "+10%",
+ "final": "three_arrows",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1",
+   "lead": 0.2,
+   "tail": 0.5,
+   "lines": [
+    {
+     "id": "L1",
+     "text": "Gloria shoots 3 arrows, and all 3 hit the target."
+    },
+    {
+     "id": "L2",
+     "text": "For example: 5 plus 3 plus 1 makes 9 points."
+    },
+    {
+     "id": "L3",
+     "text": "How many different total scores can she get?"
+    }
+   ],
+   "windows": {
+    "lab": [
+     "L1.3",
+     0.7,
+     "raw"
+    ],
+    "f1": [
+     "beat^",
+     1.0,
+     "raw",
+     0.1
+    ],
+    "f2": [
+     "beat^",
+     1.0,
+     "raw",
+     0.75
+    ],
+    "f3": [
+     "beat^",
+     1.0,
+     "raw",
+     1.4
+    ],
+    "ex": [
+     "L2.5",
+     "L2.9>"
+    ],
+    "q": [
+     "L3^",
+     0.8,
+     "raw"
+    ],
+    "qt": [
+     "L3.different",
+     "L3$"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "lead": 0.3,
+   "tail": 0.3,
+   "lines": [
+    {
+     "id": "L4",
+     "text": "Lowest: all 3 arrows hit ring 1."
+    },
+    {
+     "id": "L5",
+     "text": "1 plus 1 plus 1 makes 3."
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.0,
+     "raw"
+    ],
+    "down": [
+     "L4.all",
+     "L4.1>",
+     "raw"
+    ],
+    "r0": [
+     "L5^",
+     "L5$"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "lead": 0.3,
+   "tail": 0.4,
+   "lines": [
+    {
+     "id": "L6",
+     "text": "Move 1 arrow one ring in: the total goes up 2."
+    },
+    {
+     "id": "L7",
+     "gap": 0.5,
+     "text": "Now 5."
+    },
+    {
+     "id": "L8",
+     "gap": 0.5,
+     "text": "Then 7."
+    },
+    {
+     "id": "L9",
+     "gap": 0.5,
+     "text": "9."
+    },
+    {
+     "id": "L10",
+     "gap": 0.5,
+     "text": "11."
+    },
+    {
+     "id": "L11",
+     "gap": 0.5,
+     "text": "13."
+    },
+    {
+     "id": "L12",
+     "gap": 0.5,
+     "text": "Highest: 5 plus 5 plus 5 makes 15."
+    }
+   ],
+   "windows": {
+    "h1": [
+     "L6^",
+     1.0,
+     "raw"
+    ],
+    "r1": [
+     "L6.total",
+     "L6$"
+    ],
+    "p1": [
+     "L6.2",
+     0.6,
+     "raw"
+    ],
+    "k1": [
+     "L7.5",
+     0.7,
+     "raw"
+    ],
+    "h2": [
+     "L8^",
+     0.6,
+     "raw",
+     -0.6
+    ],
+    "r2": [
+     "L8^",
+     "L8$"
+    ],
+    "p2": [
+     "L8.7",
+     0.5,
+     "raw"
+    ],
+    "h3": [
+     "L9^",
+     0.6,
+     "raw",
+     -0.6
+    ],
+    "r3": [
+     "L9^",
+     "L9$"
+    ],
+    "p3": [
+     "L9^",
+     0.5,
+     "raw"
+    ],
+    "h4": [
+     "L10^",
+     0.6,
+     "raw",
+     -0.6
+    ],
+    "r4": [
+     "L10^",
+     "L10$"
+    ],
+    "p4": [
+     "L10^",
+     0.5,
+     "raw"
+    ],
+    "h5": [
+     "L11^",
+     0.6,
+     "raw",
+     -0.6
+    ],
+    "r5": [
+     "L11^",
+     "L11$"
+    ],
+    "p5": [
+     "L11^",
+     0.5,
+     "raw"
+    ],
+    "h6": [
+     "L12^",
+     0.9,
+     "raw"
+    ],
+    "r6": [
+     "L12.5",
+     "L12.15>"
+    ],
+    "p6": [
+     "L12.15",
+     0.6,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat4",
+   "lead": 0.4,
+   "tail": 0.6,
+   "lines": [
+    {
+     "id": "L13",
+     "text": "What about 1 plus 1 plus 5?"
+    },
+    {
+     "id": "L14",
+     "text": "It makes 7 too. A repeat!"
+    }
+   ],
+   "windows": {
+    "dup": [
+     "L13^",
+     0.9,
+     "raw"
+    ],
+    "chk": [
+     "L13.1",
+     "L13.5>"
+    ],
+    "chk2": [
+     "L14.makes",
+     "L14.7>"
+    ],
+    "same": [
+     "L14.7",
+     0.8,
+     "raw"
+    ],
+    "tr": [
+     "L14.repeat",
+     0.7,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat5",
+   "lead": 0.9,
+   "tail": 0.8,
+   "lines": [
+    {
+     "id": "L15",
+     "text": "From 3 to 15, adding 2 each time."
+    },
+    {
+     "id": "L16",
+     "text": "So there are 7 different totals!"
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.0,
+     "raw"
+    ],
+    "count": [
+     "L15.3",
+     "L15$",
+     "raw"
+    ],
+    "seven": [
+     "L16.7",
+     0.9,
+     "raw"
+    ],
+    "words": [
+     "L16.different",
+     "L16$"
+    ]
+   }
+  },
+  {
+   "id": "beat6",
+   "prev": "beat5",
+   "lead": 1.05,
+   "tail": 0.2,
+   "lines": [
+    {
+     "id": "L17",
+     "text": "Your turn: if she shoots 4 arrows, how many totals can she get?"
+    },
+    {
+     "id": "L18",
+     "text": "Comment below!"
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "title": [
+     "L17^",
+     0.8
+    ],
+    "board": [
+     "L17^",
+     0.8,
+     "raw"
+    ],
+    "shots": [
+     "L17.shoots",
+     1.6,
+     "raw"
+    ],
+    "lab": [
+     "L17.4",
+     0.8,
+     "raw"
+    ],
+    "q": [
+     "L17.how",
+     0.8,
+     "raw"
+    ],
+    "count": [
+     "L18$",
+     2.4,
+     "raw",
+     0.15
+    ]
+   }
+  },
+  {
+   "id": "beat7",
+   "lead": 0.3,
+   "tail": 1.2,
+   "lines": [
+    {
+     "id": "L19",
+     "text": "Answer: from 4 to 20, adding 2 each time, there are 9 totals!"
+    }
+   ],
+   "windows": {
+    "nums": [
+     "L19.4",
+     "L19.time>",
+     "raw"
+    ],
+    "nine": [
+     "L19.9",
+     0.9,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

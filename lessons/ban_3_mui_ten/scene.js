@@ -27,6 +27,18 @@ console.assert(sum([5, 3, 1]) === 9 && sum([1, 1, 5]) === 7 && sum([1, 3, 3]) ==
 const T4 = totalsOf(4);
 console.assert(T4.join() === '4,6,8,10,12,14,16,18,20' && T4.length === 9, 'challenge, 4 arrows: 9 totals');
 
+// every word written on the board (the English version lessons/ban_3_mui_ten_en overrides these);
+// read at render time, never copied into a module-level constant
+export const TEXT = {
+  arrows3: '3 mũi tên',
+  totals: 'tổng điểm khác nhau',
+  repeat: 'trùng!',
+  yourTurn: 'Đến lượt bạn!',
+  arrows4: '4 mũi tên',
+  qTotals: '? tổng',
+  total: 'tổng',
+};
+
 const NUMC = { 1: CHALK.white, 3: CHALK.blue, 5: CHALK.red }; // chalk colour = ring colour
 
 // --- the target and the three arrows (beats 1–5 share one board) ------------------------------
@@ -183,7 +195,7 @@ function hookLower(ctx, p) {
   const q = g(p, 'q');
   popLabel(L, '?', 150, HOOK.qY + 20, q, { size: 170 });
   burst(L, 150, HOOK.qY - 40, 110, clamp01(q * 1.5 - 0.4), { seed: 25 });
-  L.text('tổng điểm khác nhau', 240, HOOK.qY, { size: 76, t: g(p, 'qt') });
+  L.text(TEXT.totals, 240, HOOK.qY, { size: 76, t: g(p, 'qt') });
 }
 
 function beat1(ctx, p) {
@@ -199,7 +211,7 @@ function beat1(ctx, p) {
 // "3 mũi tên" in the empty top-left: popped on "3 mũi tên", gone when the check row needs the room
 function arrowsLabel(L, S) {
   const k = outScale(S('beat1', 'lab'), S('beat4', 'dup'));
-  if (k > 0) L.text('3 mũi tên', 270, 330, { size: 84, align: 'center', scale: k });
+  if (k > 0) L.text(TEXT.arrows3, 270, 330, { size: 84, align: 'center', scale: k });
 }
 
 // --- beats 2–5: one board ------------------------------------------------------------------------
@@ -231,7 +243,7 @@ function dupCheck(L, S) {
   const s = S('beat4', 'same');
   L.loop(CHK.cols[6], CHK.y - 29, 48, 54, { color: CHALK.yellow, width: 7, t: clamp01(s * 1.4), seed: 510 });
   const tr = S('beat4', 'tr');
-  popLabel(L, 'trùng!', 280, CHK.y + 140, tr, { size: 100, color: CHALK.red });
+  popLabel(L, TEXT.repeat, 280, CHK.y + 140, tr, { size: 100, color: CHALK.red });
 }
 
 // beat 5: count the totals 1..7 (badges on the left), then the big 7 where the target was
@@ -249,7 +261,7 @@ function answer(L, p) {
   popLabel(L, '7', 540, 470, s, { size: 280 });
   L.loop(540, 380, 130, 140, { color: CHALK.yellow, width: 9, t: clamp01(s * 1.4 - 0.2), seed: 640 });
   sparks(L, 540, 380, 160, 200, clamp01(s * 1.5 - 0.5), { seed: 650 });
-  L.text('tổng điểm khác nhau', 540, 700, { size: 80, align: 'center', t: g(p, 'words') });
+  L.text(TEXT.totals, 540, 700, { size: 80, align: 'center', t: g(p, 'words') });
 }
 
 const beat2 = (ctx, p) => board(ctx, 'beat2', p);
@@ -285,15 +297,15 @@ function quizBoard(ctx, p) {
   const top = svgLayer(objs);
   poses.forEach((ps) => ps && arrowSprite(top, ps.x + (ps.flying ? 0 : shake), ps.y, ps.ang, { stretch: ps.stretch, flying: ps.flying }));
   const L = ctx.chalk(60);
-  L.text('Đến lượt bạn!', 540, Q.titleY, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'title') });
+  L.text(TEXT.yourTurn, 540, Q.titleY, { size: 100, color: CHALK.yellow, align: 'center', t: g(p, 'title') });
   const lab = g(p, 'lab');
-  popLabel(L, '4 mũi tên', 540, Q.labY, lab, { size: 88, color: CHALK.white });
+  popLabel(L, TEXT.arrows4, 540, Q.labY, lab, { size: 88, color: CHALK.white });
   return L;
 }
 
 function beat6(ctx, p) {
   const L = quizBoard(ctx, p);
-  popLabel(L, '? tổng', 540, Q.qY, g(p, 'q'), { size: 150 });
+  popLabel(L, TEXT.qTotals, 540, Q.qY, g(p, 'q'), { size: 150 });
   const c = g(p, 'count');
   if (c > 0 && c < 1) {
     const [cx, cy, r] = [540, Q.countY, 95];
@@ -310,7 +322,7 @@ function beat7(ctx, p) {
   const L = quizBoard(ctx, {});
   const n = g(p, 'nums');
   const k = outScale(1, clamp01(n * 4));
-  if (k > 0) L.text('? tổng', 540, Q.qY, { size: 150, color: CHALK.yellow, align: 'center', scale: k });
+  if (k > 0) L.text(TEXT.qTotals, 540, Q.qY, { size: 150, color: CHALK.yellow, align: 'center', scale: k });
   // 4, 6, ..., 20 pop in one by one as they are counted
   const xs = row(L, T4.map(String), 540, Q.qY - 10, { size: 80, t: 0, gap: 0.42 });
   T4.forEach((v, i) => {
@@ -318,7 +330,7 @@ function beat7(ctx, p) {
     if (u > 0) L.text(String(v), xs[i], Q.qY - 10, { size: 80, color: CHALK.white, align: 'center', scale: spring(u, 3, 6) });
   });
   const s = g(p, 'nine');
-  const xs2 = row(L, [{ s: '9', color: CHALK.yellow, size: 150 }, 'tổng'], 540, Q.countY + 40, { size: 110, t: clamp01(s * 1.5), gap: 1.6 });
+  const xs2 = row(L, [{ s: '9', color: CHALK.yellow, size: 150 }, TEXT.total], 540, Q.countY + 40, { size: 110, t: clamp01(s * 1.5), gap: 1.6 });
   L.loop(xs2[0], Q.countY - 10, 80, 84, { color: CHALK.yellow, width: 9, t: clamp01(s * 1.4 - 0.2), seed: 860 });
   sparks(L, xs2[0], Q.countY - 10, 112, 150, clamp01(s * 1.5 - 0.5), { seed: 865 });
 }
