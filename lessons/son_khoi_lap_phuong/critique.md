@@ -26,4 +26,7 @@ Length 54.07 s · 8 beats · voice vi-VN-HoaiMyNeural, rate +8 %. No question nu
 
 ## Preview
 Running HTML preview with voiceover: https://claude.ai/artifact/YazL3D2uRoXEeYiwJiGhor (copy of `shared/web` + this lesson; audio as MP3 for the page host).
-The final MP4 is exported only after approval.
+Approved by the user on 2026-10-25.
+
+## Final MP4 (after preview approval)
+`lessons/son_khoi_lap_phuong/out/son_khoi_lap_phuong.mp4` (committed): 54.07 s, 1622 frames, 1080×1920 @ 30 fps H.264, AAC 48 kHz stereo, −16.0 LUFS, true peak −3.1 dBFS. silencedetect (> 1.2 s): 40.6–42.4, 46.5–49.8, 52.8–54.1, all the eraser, the countdown or the end tail. freezedetect (n = 0.001, d = 4 s): no freeze.
