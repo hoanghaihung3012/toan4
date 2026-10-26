@@ -6,6 +6,8 @@
 //   <lesson folder>/timing.json       what the player reads
 //
 //   node render/voice.mjs trung_binh_cong [--force]
+//   node render/voice.mjs giai_de/scene2              one scene of a long lesson; the lesson name alone
+//                                                     builds every scene (each its own audio + timing)
 //   node render/voice.mjs trung_binh_cong --estimate   (no TTS: guessed word times, draft timing,
 //                                                       no audio; for building scenes offline only)
 import { execFileSync } from 'node:child_process';
@@ -14,10 +16,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from './browser.mjs';
 import { lessonDir } from './paths.mjs';
+import { perScene } from './long.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
 if (!lesson) throw new Error('usage: node render/voice.mjs <lesson> [--force]');
+if (perScene(lesson, process.argv[1], process.argv.slice(3))) process.exit();
 const dir = lessonDir(lesson);
 const spec = JSON.parse(fs.readFileSync(`${dir}/voice.json`, 'utf8'));
 const outDir = `${dir}/audio`;

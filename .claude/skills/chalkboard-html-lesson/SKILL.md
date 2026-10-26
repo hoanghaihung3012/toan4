@@ -1,6 +1,6 @@
 ---
 name: chalkboard-html-lesson
-description: Make a 9:16 (TikTok) primary-school math lesson video on the approved chalkboard - full-bleed green board, chalk drawn in SVG, wooden tiles and bars, felt eraser - from sourced facts to final MP4. Holds the engine + style (one config, web/theme.js), the Edge TTS voiceover pipeline that builds timing.json from word times, the verification loops, the HTML preview on GitHub Pages and the MP4 export with no approval wait. Lesson scenes live in each project. Review runs live in the browser; MP4 export happens once at the end.
+description: Make a 9:16 (TikTok) primary-school math lesson video, or a long 16:9 YouTube video split into one scene per problem (own HTML page and own MP4 per scene, stitched preview), on the approved chalkboard - full-bleed green board, chalk drawn in SVG, wooden tiles and bars, felt eraser - from sourced facts to final MP4. Holds the engine + style (one config, web/theme.js), the Edge TTS voiceover pipeline that builds timing.json from word times, the verification loops, the HTML preview on GitHub Pages and the MP4 export with no approval wait. Lesson scenes live in each project. Review runs live in the browser; MP4 export happens once at the end.
 ---
 
 # Chalkboard style + engine (HTML/CSS/JS)
@@ -10,6 +10,7 @@ This skill holds the **style, the engine and the process**: the board background
 - **Engine:** `template/`. Copy it into the project; do not rebuild it.
 - **Layout (user's rule, 2026-10-26):** `lessons/` and `final/` share one tree, day → format → language → content: `lessons/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<lesson>/` and `final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>.mp4`. The day is when the clip is made (Vietnam time), the format is what was asked for (`shorts`, 9:16, unless a long video was requested), the language is the voiceover's. Below, **`<lesson dir>`** means that lesson folder. Create it with `npm run new -- <lesson> [--lang en] [--format long]` (`render/paths.mjs`). Lesson names stay unique, so every command takes just the name and finds the folder itself.
 - **Look:** `references/board.png` is the empty board as it renders from the template.
+- **Long videos (16:9 YouTube, e.g. solving an exam):** one scene per problem, each with its own HTML page and its own MP4 (`scene1.mp4`, `scene2.mp4`, …); the lesson's preview page plays the scene pages one after another. See **Long videos** below.
 - **Process:** no approval wait (user's rule, 2026-10-26); the verification loops, Pages preview, MP4 and PR are under **Workflow** below. A finished example is the tuduy1 lesson "Tìm số trung bình cộng" (`lessons/2026-10-25/shorts/vi/trung_binh_cong/`: story.md, voice.json, critique.md; scene `web/js/scenes/tbc.js`).
 
 ## Project rules (from .claude/CLAUDE.md, non-negotiable)
@@ -185,6 +186,42 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
    - Edge TTS English also merges **"Figure 99" / "figure 10"** into ONE word boundary: anchor on the line start or the word before, never on the number after "figure".
    - When an English word is longer and collides with the drawn layout, add a small `FIT` export next to `TEXT` in the Vietnamese scene (offsets/sizes that default to the Vietnamese values) and override it in the wrapper; the Vietnamese key-pose diff must stay 0.000 (example: `lessons/que_diem_en/`).
 7. The talk with the user stays in Vietnamese. Only the clip is English.
+
+## Long videos: one scene per problem (16:9 YouTube, user's rule 2026-10-26)
+A long video (the user asks for "clip long", "video dài", YouTube 16:9, or solving a whole exam, "giải đề") is **split into scenes, one per problem**. Every scene is a lesson of its own: its own voice.json, timing.json, scene.js, audio, its own HTML page and its own MP4. The lesson's own `index.html` is the stitched preview: it loads the scene pages and plays them in order on one timeline. A change to one problem re-voices, re-checks and re-exports only that scene.
+
+```text
+lessons/<YYYY-MM-DD>/long/<en|vi>/<lesson>/
+  scenes.json        { "title": "Giải đề …", "final"?: "<name>", "scenes": [{ "id": "scene1", "title": "Bài 1. …" }, …] }
+  index.html         stitched preview (generated; shared/web/js/playlist.js)
+  story.md critique.md
+  problems.js …      helpers the scenes share (statements, facts, writing), imported as ../problems.js
+  scene1/            voice.json  scene.js  timing.json  audio/  index.html (generated: this scene alone)
+  scene2/ …
+final/<YYYY-MM-DD>/long/<en|vi>/<name>/scene1.mp4, scene2.mp4, …   one MP4 per scene
+final/<YYYY-MM-DD>/long/<en|vi>/<name>.mp4                         only with --join (all scenes end to end)
+```
+
+1. **Create:** `npm run new -- <lesson> --scenes <N>` (format `long` is implied) writes `scenes.json`, `scene1..N/` with a starter `voice.json` (`"profile": "landscape"`, 1920×1080) and `scene.js`, and the HTML pages. Then edit `scenes.json`: one entry per problem in play order, titles as on the exam ("Bài 1. Số nhà và chữ số"); the opening can share scene 1 with problem 1, a closing summary gets its own last scene ("Tổng kết"). After adding, removing or renaming a scene, run `npm run scenes -- <lesson>`: it creates the missing scene folders and rewrites every `index.html` (never edit those by hand).
+2. **A scene is written exactly like a Short** (beats, windows, anchors, `TEXT`, facts asserted in code), only on the 1920×1080 stage. Beat and line ids are local to the scene (each scene can start at `beat1` / `L1`). Each problem scene **shows the statement first** (đề written in chalk as the voice reads it, e.g. letter by letter on the line's window), holds it ≈3 s, then wipes to the solution beats. Never show the answer on the statement board.
+3. **Cuts between scenes are eraser wipes**: scene k > 1 opens on scene k−1's last board. Its `scene.js` imports the previous scene and registers that board, its first beat sets `"prev": "from_prev"` and a `wipe` window (the starter files already do this; point `from_prev` at the previous scene's **last** beat):
+   ```js
+   import { scenes as previous } from '../scene1/scene.js';
+   export const scenes = { from_prev: previous.summary1, beat1(ctx, p) { /* … */ } };
+   ```
+   `npm run scenes -- <lesson> --seams` renders the last frame of each scene and the first frame of the next and diffs them: every seam must be mean 0.000, so the joined video and the stitched preview show no jump.
+4. **Commands** take the lesson name (every scene, in order) or `<lesson>/<scene>` (one scene):
+   - `npm run voice -- <lesson>` / `npm run voice -- <lesson>/scene2`;
+   - `npm run sync -- <lesson>` (must report 0 off for every scene);
+   - `npm run keyposes -- --lesson <lesson>` (each scene's `out/keyposes/`);
+   - `npm run sheet -- --lesson <lesson>/scene2 --every 0.5` (sheets are per scene);
+   - preview: `npm run preview`, then `http://localhost:8123/lessons/<lesson>/` (all scenes stitched, chapter list, "mở riêng" opens one scene) or `http://localhost:8123/lessons/<lesson>/scene2/` (one scene with its own controls). The stitched page owns the clock and the voiceover (one `<audio>`) and calls each scene page's `renderFrame` (`?embed=1`), so the scene pages stay the one source.
+5. **Verification loops run per scene**, plus the whole: key poses per scene; one fresh sound-off reader per scene (it reads only that scene's sheets: the statement, the steps and the answer must come through); sync for every scene; the fact table per problem in story.md; technical checks per scene MP4; the director's review per scene, then once across the stitched preview (seams at mean 0, pacing between scenes, no scene much slower than the others).
+6. **Pages:** `npm run pages -- <lesson>` publishes every scene page and the stitched preview: `https://hoanghaihung3012.github.io/toan4/<lesson>/` plays all scenes in order (Zalo gets this one link, as for a Short).
+7. **MP4s:** `npm run final -- <lesson> --jobs 2` exports every scene, 2 at a time (capture is ≈5–6× real time), each muxed with its own voice to `final/<YYYY-MM-DD>/long/<lang>/<name>/<scene>.mp4` (`<name>` is `scenes.json` `final`, else the lesson name). After a change, re-export only the touched scenes: `--scene scene2,scene3` (or `npm run final -- <lesson>/scene2`). `--join` also writes `final/<YYYY-MM-DD>/long/<lang>/<name>.mp4`, the scenes end to end (`ffmpeg` concat, no re-encode; `--scene none --join` only joins). Technical check on each scene MP4 (duration = its timing, stereo 48 kHz, true peak < −1 dBFS, silencedetect, freezedetect) and, when joined, the total = the sum of the scenes. Commit the scene MP4s; make and commit the joined file when the user wants one file for the upload. Long videos are never uploaded automatically.
+8. Everything else (facts, sources, names, no approval wait, Pages, PR, Zalo, report) is the same as for a Short.
+
+Before this rule (2026-10-26 morning) `lessons/2026-10-26/long/vi/giai_de_tran_dai_nghia/` was made as one 472 s timeline with one MP4; it still plays as a plain lesson. Split it into scenes only when the user asks.
 
 ## Workflow: straight through, no approval wait (user's rule, 2026-10-26)
 Do **not** stop for approval anywhere (facts, story, storyboard, key poses, audio, preview or MP4). Work straight through steps 1–4, self-checking each one, then publish the preview (step 5), export the MP4 and open the PR (step 6), and only then send the preview link and say it is done (step 7). (Until 2026-10-26 the user approved the Pages preview before the MP4; that wait is gone.)

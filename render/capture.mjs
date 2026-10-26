@@ -6,13 +6,26 @@
 //   node render/capture.mjs --stills 5.9,11.9 --dir out/stills   (PNG at given times)
 //   node render/capture.mjs --keyposes --dir out/html_keyposes   (frame before each beat end)
 //
-// Options: --lesson <name>  --timing <path>  --scene <module path>  --chrome <path>  --crf 18  --fps 30
-import { spawn } from 'node:child_process';
+//   node render/capture.mjs --keyposes --lesson giai_de   (long lesson: each scene's out/keyposes)
+//
+// Options: --lesson <name | lesson/scene>  --timing <path>  --scene <module path>  --chrome <path>
+//          --crf 18  --fps 30
+import { execFileSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { openPlayer, parseArgs } from './browser.mjs';
+import { listScenes } from './paths.mjs';
 
 const args = parseArgs(process.argv.slice(2));
+// a long lesson has no timeline of its own: key poses per scene, anything else names one scene
+if (args.lesson && !String(args.lesson).includes('/') && !args.timing && listScenes(args.lesson).length) {
+  if (!args.keyposes || args.dir) throw new Error(`${args.lesson} is a long lesson: use --lesson ${args.lesson}/<scene>`);
+  for (const s of listScenes(args.lesson)) {
+    execFileSync(process.execPath, [process.argv[1], '--keyposes', '--lesson', s.ref,
+      ...(args.chrome ? ['--chrome', args.chrome] : [])], { stdio: 'inherit' });
+  }
+  process.exit();
+}
 const player = await openPlayer({ lesson: args.lesson, timingPath: args.timing, scene: args.scene, chrome: args.chrome });
 const { timing, shot } = player;
 const fps = Number(args.fps || player.fps);

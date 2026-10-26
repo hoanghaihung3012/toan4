@@ -1,5 +1,6 @@
 // Tiny static server for the project root (ES modules and fetch need http://, not file://).
 // node render/serve.mjs [port]  -> preview at http://localhost:<port>/shared/web/index.html?lesson=<name>
+//   a long lesson: http://localhost:<port>/lessons/<name>/ (all scenes), /lessons/<name>/<scene>/ (one)
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -13,7 +14,7 @@ const TYPES = {
   '.svg': 'image/svg+xml', '.wav': 'audio/wav', '.mp3': 'audio/mpeg',
 };
 
-export function startServer(port = 0) {
+export function startServer(port = 0, root = ROOT) {
   const server = http.createServer((req, res) => {
     const url = decodeURIComponent(new URL(req.url, 'http://x').pathname);
     // short form /lessons/<name>/... -> the lesson's dated folder lessons/<date>/<format>/<lang>/<name>/...
@@ -26,8 +27,10 @@ export function startServer(port = 0) {
         return;
       }
     }
-    const file = path.join(ROOT, url);
-    if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+    let file = path.join(root, url);
+    // a folder with an index.html (a long lesson's stitched preview, a scene page) serves that page
+    if (url.endsWith('/') && fs.existsSync(path.join(file, 'index.html'))) file = path.join(file, 'index.html');
+    if (!file.startsWith(root) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
       res.writeHead(404).end('not found');
       return;
     }

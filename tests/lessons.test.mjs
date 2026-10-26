@@ -3,9 +3,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { openPlayer } from '../render/browser.mjs';
-import { listLessons } from '../render/paths.mjs';
+import { listLessons, listScenes } from '../render/paths.mjs';
 
-for (const { name: lesson, dir } of listLessons()) {
+// a long lesson is tested scene by scene (each scene is a lesson of its own)
+const players = listLessons().flatMap((l) => {
+  const scenes = listScenes(l.name);
+  return scenes.length ? scenes.map((s) => ({ name: s.ref, dir: s.dir })) : [l];
+});
+
+for (const { name: lesson, dir } of players) {
   test(`${lesson}: capture, preview, and lesson-local assets`, async () => {
     const player = await openPlayer({ lesson });
     try {
