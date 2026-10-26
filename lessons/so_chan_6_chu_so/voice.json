@@ -1,0 +1,129 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs so_chan_6_chu_so. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "./scene.js",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+10%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.2, "tail": 1.7,
+   "lines": [
+    { "id": "L1", "text": "Có bao nhiêu số có 6 chữ số khác nhau, và là số chẵn?" },
+    { "id": "L2", "text": "Ví dụ: 123456 là số chẵn, các chữ số đều khác nhau." },
+    { "id": "L3", "text": "Nhưng chữ số 0 không được đứng đầu." },
+    { "id": "L4", "text": "Vậy có tất cả bao nhiêu số như thế?" }
+   ],
+   "windows": {
+    "tray": ["beat^", 2.2, "raw", 0.1],
+    "slots": ["L1.6", 1.0, "raw"],
+    "c1": ["L1.6", "L1.nhau>"],
+    "c2": ["L1.là", "L1.chẵn>"],
+    "q": ["L1.chẵn", 0.8, "raw"],
+    "ex1": ["L2.123456", "L2$", "raw"],
+    "ex2": ["L3^", "L3$", "raw"],
+    "ask": ["L4^", 0.9, "raw"],
+    "dots": ["L4$", 1.6, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "lead": 1.0, "tail": 0.5,
+   "lines": [
+    { "id": "L5", "text": "Số chẵn thì hàng đơn vị là 0, 2, 4, 6 hoặc 8." },
+    { "id": "L6", "text": "Hàng đầu thì không được là 0." },
+    { "id": "L7", "text": "Chữ số 0 dính đến cả hai điều kiện, nên ta chia làm 2 trường hợp." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "r1": ["L5.hàng", "L5.8>"],
+    "ev": ["L5.0", "L5.8>", "raw"],
+    "lastL": ["L5.chẵn", 0.8, "raw"],
+    "r2": ["L6^", "L6$"],
+    "firstL": ["L6.0", 0.8, "raw"],
+    "z0": ["L7.0", 1.0, "raw"],
+    "split": ["L7.chia", 0.8, "raw"],
+    "box1": ["L7.2", 1.0, "raw"],
+    "box2": ["L7.trường", 1.0, "raw"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L8", "text": "Trường hợp 1: hàng đơn vị là 0." },
+    { "id": "L9", "text": "Hàng đầu còn 9 chữ số, có 9 cách." },
+    { "id": "L10", "text": "Các hàng còn lại có 8, 7, 6 và 5 cách." },
+    { "id": "L11", "text": "9 nhân 8 nhân 7 nhân 6 nhân 5 bằng 15120 số." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "b": ["L8^", "L8$"],
+    "z": ["L8.0", 1.0, "raw"],
+    "k5": ["L8.0", 0.7, "raw", 0.6],
+    "k0": ["L9.9#2", 0.7, "raw"],
+    "note": ["L9^", "L9.số>"],
+    "k1": ["L10.8", 0.6, "raw"],
+    "k2": ["L10.7", 0.6, "raw"],
+    "k3": ["L10.6", 0.6, "raw"],
+    "k4": ["L10.5", 0.6, "raw"],
+    "eq": ["L11^", "L11.5>"],
+    "res": ["L11.bằng", "L11.15120>"],
+    "ans": ["L11.15120", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L12", "text": "Trường hợp 2: hàng đơn vị là 2, 4, 6 hoặc 8, có 4 cách." },
+    { "id": "L13", "text": "Hàng đầu phải khác 0 và khác chữ số hàng đơn vị, nên có 8 cách." },
+    { "id": "L14", "text": "Các hàng còn lại có 8, 7, 6 và 5 cách." },
+    { "id": "L15", "text": "8 nhân 8 nhân 7 nhân 6 nhân 5 nhân 4 bằng 53760 số." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "b": ["L12^", "L12.8>"],
+    "ev2": ["L12.2#2", "L12.8>", "raw"],
+    "k5": ["L12.cách", 0.7, "raw"],
+    "note": ["L13.khác", "L13.vị>"],
+    "k0": ["L13.8", 0.7, "raw"],
+    "k1": ["L14.8", 0.6, "raw"],
+    "k2": ["L14.7", 0.6, "raw"],
+    "k3": ["L14.6", 0.6, "raw"],
+    "k4": ["L14.5", 0.6, "raw"],
+    "eq": ["L15^", "L15.4>"],
+    "res": ["L15.bằng", "L15.53760>"],
+    "ans": ["L15.53760", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L16", "text": "Cộng 2 trường hợp: 15120 cộng 53760 bằng 68880." },
+    { "id": "L17", "text": "Có tất cả 68880 số chẵn!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "a1": ["L16.15120", 0.9, "raw"],
+    "a2": ["L16.53760", 0.9, "raw"],
+    "sum": ["L16.bằng", "L16.68880>", "raw"],
+    "ans": ["L17.68880", 1.0, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "prev": "beat5", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L18", "text": "Đến lượt bạn: có bao nhiêu số có 6 chữ số khác nhau và là số lẻ?" },
+    { "id": "L19", "text": "Bình luận đáp án nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L18^", 0.8],
+    "tray": ["L18^", 1.6, "raw"],
+    "c1": ["L18.6", "L18.nhau>"],
+    "c2": ["L18.là", "L18.lẻ>"],
+    "ask": ["L18$", 0.9, "raw"],
+    "cmt": ["L19.Bình", 0.9],
+    "count": ["L19$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}
