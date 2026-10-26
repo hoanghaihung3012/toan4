@@ -56,6 +56,40 @@ Scene imports are relative: the shared engine is `../../../../../shared/web/js/`
 lesson's timing uses `"scene": "./scene.js"` and, when voiced, `"audio": "./audio/voice.wav"`,
 both relative to that timing file. No central scene registry is needed for new lessons.
 
+## Long videos: one scene per problem
+
+A long video (16:9, 1920×1080, for YouTube) is split into scenes, one per problem. Each scene is
+a lesson of its own with its own page and its own MP4; the lesson's page plays them in order.
+
+```text
+lessons/<date>/long/<lang>/<lesson>/
+  scenes.json      { "title", "final"?, "scenes": [{ "id": "scene1", "title": "Bài 1. …" }, …] }
+  index.html       stitched preview: plays scene1, scene2, … on one timeline (generated)
+  story.md, critique.md, helpers shared by the scenes (problems.js, …)
+  scene1/          voice.json, scene.js, timing.json, audio/, index.html (this scene alone, generated)
+final/<date>/long/<lang>/<name>/scene1.mp4, scene2.mp4, …
+final/<date>/long/<lang>/<name>.mp4          only with --join
+```
+
+```sh
+npm run new -- giai_de --scenes 3        # long lesson with scene1..scene3 (format long implied)
+npm run scenes -- giai_de                # after editing scenes.json: add missing scenes, rewrite pages
+npm run scenes -- giai_de --seams        # last frame of each scene vs first frame of the next
+npm run voice -- giai_de                 # every scene; giai_de/scene2 for one
+npm run sync -- giai_de
+npm run keyposes -- --lesson giai_de     # each scene's out/keyposes
+npm run sheet -- --lesson giai_de/scene2 --every 0.5
+npm run final -- giai_de --jobs 2        # scene1.mp4, scene2.mp4, … ; --scene scene2 re-exports one
+npm run final -- giai_de --scene none --join   # join the exported scenes into giai_de.mp4
+npm run pages -- giai_de                 # https://hoanghaihung3012.github.io/toan4/giai_de/
+```
+
+Preview: `http://localhost:8123/lessons/giai_de/` (all scenes) and
+`http://localhost:8123/lessons/giai_de/scene2/` (one scene). Scene k > 1 opens by wiping scene
+k−1's last board (`"prev": "from_prev"`), so the cut between scenes is an eraser wipe. The stitched
+page (`shared/web/js/playlist.js`) loads every scene page with `?embed=1`, owns the clock and the
+voiceover, and calls each scene's `renderFrame`.
+
 ## Reusable Chapters
 
 The cake lesson now exports `createScenes({ text, layout })` as well as the default
@@ -83,6 +117,8 @@ const production = composeChapters([
   returned offsets, export `production.scenes` from the production scene module, and write
   `production.timing` as its timing file. Existing voice/sync tools still operate on individual
   chapters; combined narration and cue generation need a separate orchestration step.
+
+Long videos use scenes (above), not this composer: each scene keeps its own audio, timing and MP4.
 
 Use chapter-local verification plus a whole-production continuity and audio check. The
 composer introduces no automatic board wipe between chapters: author transitions explicitly.

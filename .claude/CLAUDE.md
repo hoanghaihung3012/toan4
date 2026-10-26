@@ -10,6 +10,7 @@ Rules:
 - Sound generates free using Edge TTS
 - Generate source code in the folder, split files then we can reuse, split scenes if needed
 - Video format 9:16 to upload to tiktok
+- Long videos (16:9 YouTube, e.g. solving an exam): one scene per problem, each with its own HTML page and its own MP4 (scene1.mp4, scene2.mp4, ...); the lesson's preview page plays the scene pages in sequence (see the chalkboard-html-lesson skill, "Long videos").
 - Language: Vietnamese by default when no language is named. An English version reuses the existing Vietnamese lesson (story, scenes, assets) as `lessons/<YYYY-MM-DD>/<long|shorts>/en/<lesson>_en/` with its own voice and board text; never build it from scratch (see the chalkboard-html-lesson skill, "Language versions").
 
 Verification loops (do not skip any):

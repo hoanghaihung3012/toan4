@@ -97,3 +97,7 @@ html, body {
 #controls input[type=range] { flex: 1; }
 #controls button { font: inherit; padding: 4px 10px; }
 body.capture #controls { display: none; }
+
+/* embedded in the stitched preview of a long lesson (?embed=1) */
+body.embed { overflow: hidden; }
+body.embed #controls { display: none; }
