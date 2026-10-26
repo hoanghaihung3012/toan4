@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.mjs",
+    "new": "node render/paths.mjs new",
     "preview": "node render/serve.mjs 8123",
     "sheet": "node render/inspect.mjs sheet",
     "diff": "node render/inspect.mjs diff",

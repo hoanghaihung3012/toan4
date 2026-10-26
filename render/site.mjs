@@ -1,10 +1,11 @@
 // Small lesson facts shared by the publishing scripts (pages.mjs, youtube.mjs).
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
+import { lessonDir } from './paths.mjs';
 
 // story.md heading, cut at " — " (the preview page title and the Zalo message use it)
 export function lessonTitle(lesson) {
-  return (fs.readFileSync(`lessons/${lesson}/story.md`, 'utf8').match(/^#\s+(.+)$/m)?.[1] || lesson)
+  return (fs.readFileSync(`${lessonDir(lesson)}/story.md`, 'utf8').match(/^#\s+(.+)$/m)?.[1] || lesson)
     .split(/\s+[—-]\s+/)[0];
 }
 

@@ -17,13 +17,15 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { parseArgs } from './browser.mjs';
+import { lessonDir } from './paths.mjs';
 import { lessonTitle, pagesSite } from './site.mjs';
 import { sendZalo } from './zalo.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
 if (!lesson) throw new Error('usage: node render/pages.mjs <lesson> [--no-push]');
-const src = path.resolve('lessons', lesson);
+const rel = lessonDir(lesson); // lessons/<date>/<format>/<lang>/<lesson>
+const src = path.resolve(rel);
 const timing = JSON.parse(fs.readFileSync(path.join(src, 'timing.json'), 'utf8'));
 if (!timing.audio || timing.draft) throw new Error(`${lesson}: run "npm run voice -- ${lesson}" first (no voiced timing)`);
 
@@ -44,35 +46,41 @@ try {
   // --- 2. the lesson: shared player, fonts, lesson code, timing, voice as MP3 -------------------
   const out = path.join(work, lesson);
   fs.rmSync(out, { recursive: true, force: true });
-  fs.mkdirSync(path.join(out, 'lessons', lesson, 'audio'), { recursive: true });
+  // the lesson keeps its lessons/<date>/<format>/<lang>/<lesson>/ path inside the page, so its
+  // relative imports of shared/web and of other lessons resolve as they do in the repo
+  const dst = path.join(out, rel);
+  fs.mkdirSync(path.join(dst, 'audio'), { recursive: true });
   fs.cpSync('shared/web', path.join(out, 'shared/web'), { recursive: true });
   fs.cpSync('shared/fonts', path.join(out, 'shared/fonts'), { recursive: true });
   // the lesson's .js files, plus those of any lesson they import (a language variant such as
   // day_so_tiep_theo_en imports the scenes of day_so_tiep_theo)
   const copied = new Set();
-  const copyLesson = (name) => {
-    if (copied.has(name)) return;
-    copied.add(name);
-    const dir = path.resolve('lessons', name);
-    fs.mkdirSync(path.join(out, 'lessons', name), { recursive: true });
+  const copyLesson = (dir) => {
+    if (copied.has(dir)) return;
+    copied.add(dir);
+    fs.mkdirSync(path.join(out, dir), { recursive: true });
     for (const f of fs.readdirSync(dir).filter((f) => f.endsWith('.js'))) {
-      fs.copyFileSync(path.join(dir, f), path.join(out, 'lessons', name, f));
-      for (const [, dep] of fs.readFileSync(path.join(dir, f), 'utf8').matchAll(/from\s+'\.\.\/([^/.][^/]*)\//g)) copyLesson(dep);
+      fs.copyFileSync(path.join(dir, f), path.join(out, dir, f));
+      for (const [, spec] of fs.readFileSync(path.join(dir, f), 'utf8').matchAll(/from\s+'(\.\.?\/[^']+)'/g)) {
+        const dep = path.relative('.', path.resolve(dir, spec)).split(path.sep);
+        if (dep[0] === 'lessons' && dep.length > 5) copyLesson(dep.slice(0, 5).join(path.sep));
+      }
     }
   };
-  copyLesson(lesson);
+  copyLesson(rel);
   // MP3 keeps the page light on a phone; the player reads timing.audio relative to timing.json
   execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', path.join(src, timing.audio),
-    '-c:a', 'libmp3lame', '-b:a', '160k', path.join(out, 'lessons', lesson, 'audio/voice.mp3')]);
-  fs.writeFileSync(path.join(out, 'lessons', lesson, 'timing.json'),
+    '-c:a', 'libmp3lame', '-b:a', '160k', path.join(dst, 'audio/voice.mp3')]);
+  fs.writeFileSync(path.join(dst, 'timing.json'),
     `${JSON.stringify({ ...timing, audio: './audio/voice.mp3' }, null, 1)}\n`);
 
-  // the player defaults to /lessons/<name>/timing.json from the site root; Pages serves under /<repo>/
+  // the player defaults to /lessons/<name>/timing.json from the site root (redirected by serve.mjs);
+  // Pages serves under /<repo>/<lesson>/ with no redirect, so point it at the lesson's real path
   const player = path.join(out, 'shared/web/js/player.js');
   const code = fs.readFileSync(player, 'utf8');
   const def = /`\/lessons\/\$\{encodeURIComponent\(lesson\)\}\/timing\.json`/;
   if (!def.test(code)) throw new Error('player.js: default timing URL changed, update render/pages.mjs');
-  fs.writeFileSync(player, code.replace(def, `'lessons/${lesson}/timing.json'`));
+  fs.writeFileSync(player, code.replace(def, `'${rel.split(path.sep).join('/')}/timing.json'`));
 
   const title = lessonTitle(lesson);
   const lang = JSON.parse(fs.readFileSync(path.join(src, 'voice.json'), 'utf8')).lang || 'vi';

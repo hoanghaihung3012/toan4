@@ -1,14 +1,16 @@
-// Sync check (verification loop 3): every word-anchored window in lessons/<lesson>/timing.json must
-// start within 1 frame of its anchor word in lessons/<lesson>/audio/cues.json.
+// Sync check (verification loop 3): every word-anchored window in <lesson folder>/timing.json must
+// start within 1 frame of its anchor word in <lesson folder>/audio/cues.json.
 //
 //   node render/synccheck.mjs <lesson>
 import fs from 'node:fs';
+import { lessonDir } from './paths.mjs';
 
 const lesson = process.argv[2];
 if (!lesson) throw new Error('usage: node render/synccheck.mjs <lesson>');
-const spec = JSON.parse(fs.readFileSync(`lessons/${lesson}/voice.json`, 'utf8'));
-const timing = JSON.parse(fs.readFileSync(`lessons/${lesson}/timing.json`, 'utf8'));
-const cues = JSON.parse(fs.readFileSync(`lessons/${lesson}/audio/cues.json`, 'utf8'));
+const dir = lessonDir(lesson);
+const spec = JSON.parse(fs.readFileSync(`${dir}/voice.json`, 'utf8'));
+const timing = JSON.parse(fs.readFileSync(`${dir}/timing.json`, 'utf8'));
+const cues = JSON.parse(fs.readFileSync(`${dir}/audio/cues.json`, 'utf8'));
 const lines = Object.fromEntries(cues.map((l) => [l.id, l]));
 const norm = (s) => s.normalize('NFC').toLowerCase().replace(/[.,!?:;]/g, '');
 const frame = 1 / spec.fps;

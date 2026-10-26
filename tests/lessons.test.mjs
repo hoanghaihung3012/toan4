@@ -3,12 +3,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { openPlayer } from '../render/browser.mjs';
+import { listLessons } from '../render/paths.mjs';
 
-for (const lesson of fs.readdirSync('lessons')) {
+for (const { name: lesson, dir } of listLessons()) {
   test(`${lesson}: capture, preview, and lesson-local assets`, async () => {
     const player = await openPlayer({ lesson });
     try {
-      assert.equal(player.outDir, path.join('lessons', lesson, 'out'));
+      assert.equal(player.outDir, path.join(dir, 'out'));
       const errors = [];
       player.page.on('pageerror', (error) => errors.push(error.message));
       for (const beat of player.timing.beats) {
@@ -28,13 +29,13 @@ for (const lesson of fs.readdirSync('lessons')) {
       assert.equal(await player.page.$$eval('#scrub', (elements) => elements.length), 1);
       assert.deepEqual(await player.page.evaluate(() => window.timing), player.timing);
       if (player.timing.audio) {
-        const audioUrl = new URL(player.timing.audio, new URL(`/lessons/${lesson}/timing.json`, previewUrl));
+        const audioUrl = new URL(player.timing.audio, new URL(`/${dir}/timing.json`, previewUrl));
         const response = await fetch(audioUrl, { headers: { Range: 'bytes=0-43' } });
         assert.equal(response.status, 206);
         const header = Buffer.from(await response.arrayBuffer());
         assert.equal(header.toString('ascii', 0, 4), 'RIFF');
         assert.equal(header.toString('ascii', 8, 12), 'WAVE');
-        const spec = JSON.parse(fs.readFileSync(`lessons/${lesson}/voice.json`, 'utf8'));
+        const spec = JSON.parse(fs.readFileSync(`${dir}/voice.json`, 'utf8'));
         assert.deepEqual(spec.beats.map((beat) => beat.id), player.timing.beats.map((beat) => beat.id));
       }
       assert.deepEqual(errors, []);

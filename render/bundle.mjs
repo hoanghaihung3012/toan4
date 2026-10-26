@@ -1,17 +1,18 @@
 // One self-contained HTML preview of a lesson (player + scene + timing + fonts + voiceover
 // inlined), for sharing the preview as a single page. Same player as `npm run preview`.
 //
-//   node render/bundle.mjs <lesson> [--out lessons/<lesson>/out/preview.html]
+//   node render/bundle.mjs <lesson> [--out <lesson folder>/out/preview.html]
 import fs from 'node:fs';
 import path from 'node:path';
 import * as esbuild from 'esbuild';
 import { parseArgs } from './browser.mjs';
+import { lessonDir } from './paths.mjs';
 import { THEME } from '../shared/web/theme.js';
 
 const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
 if (!lesson) throw new Error('usage: node render/bundle.mjs <lesson> [--out file]');
-const dir = path.resolve('lessons', lesson);
+const dir = path.resolve(lessonDir(lesson));
 const timing = JSON.parse(fs.readFileSync(path.join(dir, 'timing.json'), 'utf8'));
 const b64 = (f) => fs.readFileSync(f).toString('base64');
 if (timing.audio) timing.audio = `data:audio/wav;base64,${b64(path.join(dir, timing.audio))}`;
@@ -25,7 +26,7 @@ const inline = {
     build.onResolve({ filter: /^lesson-scene$/ }, () => ({ path: path.join(dir, timing.scene || './scene.js') }));
     build.onLoad({ filter: /shared[\\/]web[\\/]js[\\/](player|theme_apply)\.js$/ }, (a) => {
       let s = fs.readFileSync(a.path, 'utf8');
-      s = s.replace('await (await fetch(timingUrl)).json()', 'window.__TIMING__')
+      s = s.replace('await fetch(timingUrl)', '({ json: async () => window.__TIMING__, url: location.href })')
         .replace('await import(sceneUrl)', "await import('lesson-scene')")
         .replace(/const FONT_DIR = .*\n/, '')
         .replace('new URL(f.file, FONT_DIR)', 'window.__FONTS__[f.file]');

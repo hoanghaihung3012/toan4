@@ -2,7 +2,7 @@
 // resumable upload). render/final.mjs calls it right after the MP4 is written; it can also be run
 // by hand for a clip exported earlier:
 //
-//   node render/youtube.mjs <lesson> [--file final/<date>/<name>.mp4] [--privacy private|unlisted|public]
+//   node render/youtube.mjs <lesson> [--file final/<date>/<format>/<lang>/<name>.mp4] [--privacy private|unlisted|public]
 //                                    [--dry-run] [--force] [--no-zalo]
 //
 // Only English lessons (voice.json "lang": "en") are uploaded: the Vietnamese channel stays manual
@@ -15,8 +15,8 @@
 // lines (no new claims), or from an optional voice.json "youtube": { title, description, tags,
 // playlist }. After the upload the Short goes into the channel's playlist "Math" (created if
 // missing), then one Zalo message carries the preview link and the Short (user's rule,
-// 2026-10-26). final/<date>/<name>.youtube.json records each finished step, so nothing is
-// uploaded or sent twice (--force uploads again).
+// 2026-10-26). final/<date>/<format>/<lang>/<name>.youtube.json records each finished step, so
+// nothing is uploaded or sent twice (--force uploads again).
 //
 // Credentials come only from the environment (cloud-environment secrets), never committed or
 // printed: YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TOKEN (from render/youtube_auth.mjs, scope
@@ -27,6 +27,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from './browser.mjs';
+import { latestFinal, lessonDir } from './paths.mjs';
 import { lessonTitle, pagesSite } from './site.mjs';
 import { sendZalo } from './zalo.mjs';
 
@@ -46,9 +47,9 @@ function clip(s, max) {
 
 // -> { title, description, tags, lang } for a lesson; pure (reads files only)
 export function buildMetadata(lesson) {
-  const voice = JSON.parse(fs.readFileSync(`lessons/${lesson}/voice.json`, 'utf8'));
+  const voice = JSON.parse(fs.readFileSync(`${lessonDir(lesson)}/voice.json`, 'utf8'));
   const yt = voice.youtube || {};
-  const story = fs.readFileSync(`lessons/${lesson}/story.md`, 'utf8');
+  const story = fs.readFileSync(`${lessonDir(lesson)}/story.md`, 'utf8');
   // "# Figure 99: how many matchsticks? (bản tiếng Anh)" -> "Figure 99: how many matchsticks?"
   const heading = (story.match(/^#\s+(.+)$/m)?.[1] || lesson).replace(/\s*\([^)]*\)\s*$/, '');
   const lines = voice.beats.flatMap((b) => b.lines.map((l) => l.text));
@@ -131,9 +132,9 @@ function findOrCreatePlaylist(title, token) {
 
 // The whole English publish, step by step: 1) upload the Short, 2) add it to the playlist
 // (voice.json youtube.playlist, default "Math"), 3) one Zalo message with the preview link and the
-// Short (user's rule, 2026-10-26). Each finished step is kept in final/<date>/<name>.youtube.json,
-// so a re-run only does the steps still missing and never uploads or messages twice (--force
-// uploads again). -> { ok, record, recordFile, notes } | { ok: false, skipped?, reason }; never
+// Short (user's rule, 2026-10-26). Each finished step is kept in
+// final/<date>/<format>/<lang>/<name>.youtube.json, so a re-run only does the steps still missing
+// and never uploads or messages twice (--force uploads again). -> { ok, record, recordFile, notes } | { ok: false, skipped?, reason }; never
 // throws, so a final export never fails on it. The tokens never reach the returned text.
 export function publishShort(lesson, { file, privacy, dryRun = false, force = false, zalo = true } = {}) {
   const secrets = [...SECRETS, 'ZALO_BOT_TOKEN'].map((k) => process.env[k]).filter((v) => v?.length >= 8);
@@ -216,14 +217,6 @@ export function publishShort(lesson, { file, privacy, dryRun = false, force = fa
   } catch (e) {
     return { ok: false, reason: redact(e.stderr || e.message) };
   }
-}
-
-// newest final/<date>/<name>.mp4
-function latestFinal(name) {
-  if (!fs.existsSync('final')) return null;
-  const days = fs.readdirSync('final').filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)).sort().reverse();
-  for (const d of days) if (fs.existsSync(`final/${d}/${name}.mp4`)) return `final/${d}/${name}.mp4`;
-  return null;
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

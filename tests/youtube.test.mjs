@@ -3,10 +3,12 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { listLessons } from '../render/paths.mjs';
 import { buildMetadata, publishShort } from '../render/youtube.mjs';
 
-const lessons = fs.readdirSync('lessons').filter((l) => fs.existsSync(`lessons/${l}/voice.json`) && fs.existsSync(`lessons/${l}/story.md`));
-const english = lessons.filter((l) => JSON.parse(fs.readFileSync(`lessons/${l}/voice.json`, 'utf8')).lang === 'en');
+const all = listLessons().filter((l) => fs.existsSync(`${l.dir}/voice.json`) && fs.existsSync(`${l.dir}/story.md`));
+const lessons = all.map((l) => l.name);
+const english = all.filter((l) => JSON.parse(fs.readFileSync(`${l.dir}/voice.json`, 'utf8')).lang === 'en').map((l) => l.name);
 
 for (const lesson of english) {
   test(`${lesson}: YouTube Short metadata fits the API limits`, () => {
