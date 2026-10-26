@@ -91,14 +91,16 @@ function upload(file, meta, privacy, token) {
     status: { privacyStatus: privacy, selfDeclaredMadeForKids: false, embeddable: true },
   };
   const size = fs.statSync(file).size;
-  const headers = execFileSync('curl', ['-sS', '--max-time', '60', '-D', '-', '-o', '/dev/null', '-X', 'POST',
+  const headers = execFileSync('curl', ['-sS', '--max-time', '60', '-D', '-', '-X', 'POST',
     'https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status',
     '-H', `Authorization: Bearer ${token}`, '-H', 'Content-Type: application/json; charset=UTF-8',
     '-H', `X-Upload-Content-Length: ${size}`, '-H', 'X-Upload-Content-Type: video/mp4',
     '--data-binary', '@-'], { input: JSON.stringify(resource), encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] });
-  const status = headers.match(/^HTTP\/\S+ (\d+)/m)?.[1];
+  // the proxy's "200 Connection Established" comes first: the last status line is YouTube's
+  const status = [...headers.matchAll(/^HTTP\/\S+ (\d+)/gm)].pop()?.[1];
   const session = headers.match(/^location:\s*(\S+)/im)?.[1];
-  if (!session) throw new Error(`upload session not created (HTTP ${status || '?'})`);
+  const reason = headers.match(/"message":\s*"([^"]+)"/)?.[1];
+  if (!session) throw new Error(`upload session not created (HTTP ${status || '?'}${reason ? `: ${reason}` : ''})`);
   const video = curlJson(['--max-time', '900', '-T', file, session, '-H', `Authorization: Bearer ${token}`,
     '-H', 'Content-Type: video/mp4']);
   if (!video.id) throw new Error(`upload failed: ${video.error?.message || JSON.stringify(video).slice(0, 200)}`);
