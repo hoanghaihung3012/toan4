@@ -35,7 +35,9 @@ console.assert(CASE2 === 8 * 8 * 7 * 6 * 5 * 4 && CASE2 === 53760, 'ones 2/4/6/8
 console.assert(EVEN === CASE1 + CASE2 && EVEN === 68880, '15120 + 53760 = 68880');
 console.assert(ODD === 67200 && EVEN + ODD === 9 * 9 * 8 * 7 * 6 * 5, 'challenge: odd 67200 (not shown)');
 console.assert(10 - 2 === 8, 'first digit: not 0, not the ones digit');
-const fmt = (n) => String(n).replace(/\B(?=(\d{3})+$)/g, ' ');
+// thousands separator (an English version sets ',')
+export const NUM = { sep: ' ' };
+const fmt = (n) => String(n).replace(/\B(?=(\d{3})+$)/g, NUM.sep);
 console.assert(fmt(68880) === '68 880' && fmt(123456) === '123 456', 'thousands spacing');
 
 // on-board words (an English version overrides these)
@@ -118,7 +120,7 @@ function header(ctx, S, hide) {
 function lower1(ctx, k) {
   const L = ctx.chalk(60);
   const ex1 = k('ex1'), ex2 = k('ex2');
-  const s1 = fmt(123456), s2 = '012 346';
+  const s1 = fmt(123456), s2 = `012${NUM.sep}346`;
   L.text(s1, 430, 915, { size: 108, align: 'center', t: clamp01(ex1 * 2.5) });
   mark(L, true, 770, 880, clamp01(ex1 * 2.5 - 1), { size: 76, seed: 100 });
   L.text(s2, 430, 1080, { size: 108, align: 'center', t: clamp01(ex2 * 2.5) });
@@ -167,7 +169,7 @@ function counts(L, ns, k, seed, minus) {
     if (u <= 0) return;
     const s = spring(u, 3, 6);
     L.text(String(n), SX[i], COUNT_Y, { size: 86, color: CHALK.yellow, align: 'center', scale: s });
-    L.text(TEXT.ways, SX[i], COUNT_Y + 54, { size: 46, align: 'center', t: clamp01(u * 2 - 0.6) });
+    L.text(n === 1 && TEXT.way ? TEXT.way : TEXT.ways, SX[i], COUNT_Y + 54, { size: 46, align: 'center', t: clamp01(u * 2 - 0.6) });
     burst(L, SX[i], COUNT_Y - 30, 60, clamp01(u * 1.4 - 0.3), { seed: seed + i * 3, n: 6 });
     // each next place has one digit fewer left: a small "−1" hop from the previous count
     if (minus.includes(i)) {
