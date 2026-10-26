@@ -16,10 +16,14 @@ const SCOPE = 'https://www.googleapis.com/auth/youtube.upload';
 const { YT_CLIENT_ID: clientId, YT_CLIENT_SECRET: clientSecret } = process.env;
 if (!clientId || !clientSecret) throw new Error('set YT_CLIENT_ID and YT_CLIENT_SECRET first');
 
+let port;
+let done = false;
 const server = http.createServer(async (req, res) => {
-  const url = new URL(req.url, `http://127.0.0.1:${server.address().port}`);
+  const url = new URL(req.url, redirectUri());
   const code = url.searchParams.get('code');
-  if (!code) { res.writeHead(400).end(url.searchParams.get('error') || 'no code'); return; }
+  // the browser also asks for /favicon.ico, sometimes after the code was already used
+  if (done || !code) { res.writeHead(done ? 204 : 400).end(done ? '' : url.searchParams.get('error') || 'no code'); return; }
+  done = true;
   const tokens = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -35,9 +39,10 @@ const server = http.createServer(async (req, res) => {
   server.close();
 });
 
-const redirectUri = () => `http://127.0.0.1:${server.address().port}`;
+const redirectUri = () => `http://127.0.0.1:${port}`;
 
 server.listen(0, '127.0.0.1', () => {
+  port = server.address().port;
   const auth = new URL('https://accounts.google.com/o/oauth2/v2/auth');
   auth.search = new URLSearchParams({
     client_id: clientId, redirect_uri: redirectUri(), response_type: 'code', scope: SCOPE,
