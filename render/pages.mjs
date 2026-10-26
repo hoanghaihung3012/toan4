@@ -4,6 +4,9 @@
 //
 //   node render/pages.mjs <lesson> [--no-push] [--no-zalo]
 //   -> https://<owner>.github.io/<repo>/<lesson>/
+//   node render/pages.mjs --shell-all [--no-push]
+//   -> re-applies the current page shell (index.html, board.css, fit.js, the player's fit) to every
+//      lesson already on gh-pages, leaving their scenes, timing and audio as published
 //
 // After a push it waits until GitHub has deployed that gh-pages commit, then sends the link to the
 // Zalo review group once per lesson (render/zalo.mjs; needs ZALO_BOT_TOKEN; record: zalo_sent.json
@@ -22,12 +25,9 @@ import { lessonTitle, pagesSite } from './site.mjs';
 import { sendZalo } from './zalo.mjs';
 
 const args = parseArgs(process.argv.slice(2));
+const shellAll = Boolean(args['shell-all']);
 const lesson = args._[0];
-if (!lesson) throw new Error('usage: node render/pages.mjs <lesson> [--no-push]');
-const rel = lessonDir(lesson); // lessons/<date>/<format>/<lang>/<lesson>
-const src = path.resolve(rel);
-const timing = JSON.parse(fs.readFileSync(path.join(src, 'timing.json'), 'utf8'));
-if (!timing.audio || timing.draft) throw new Error(`${lesson}: run "npm run voice -- ${lesson}" first (no voiced timing)`);
+if (!lesson && !shellAll) throw new Error('usage: node render/pages.mjs <lesson> [--no-push] | --shell-all');
 
 const git = (...a) => execFileSync('git', a, { encoding: 'utf8' }).trim();
 const sh = (cwd, ...a) => execFileSync('git', ['-C', cwd, ...a], { stdio: 'inherit' });
@@ -43,127 +43,170 @@ try {
   const published = fs.readdirSync(work, { withFileTypes: true })
     .filter((d) => d.isDirectory() && fs.existsSync(path.join(work, d.name, 'index.html'))).map((d) => d.name);
 
-  // --- 2. the lesson: shared player, fonts, lesson code, timing, voice as MP3 -------------------
-  const out = path.join(work, lesson);
-  fs.rmSync(out, { recursive: true, force: true });
-  // the lesson keeps its lessons/<date>/<format>/<lang>/<lesson>/ path inside the page, so its
-  // relative imports of shared/web and of other lessons resolve as they do in the repo
-  const dst = path.join(out, rel);
-  fs.mkdirSync(path.join(dst, 'audio'), { recursive: true });
-  fs.cpSync('shared/web', path.join(out, 'shared/web'), { recursive: true });
-  fs.cpSync('shared/fonts', path.join(out, 'shared/fonts'), { recursive: true });
-  // the lesson's .js files, plus those of any lesson they import (a language variant such as
-  // day_so_tiep_theo_en imports the scenes of day_so_tiep_theo)
-  const copied = new Set();
-  const copyLesson = (dir) => {
-    if (copied.has(dir)) return;
-    copied.add(dir);
-    fs.mkdirSync(path.join(out, dir), { recursive: true });
-    for (const f of fs.readdirSync(dir).filter((f) => f.endsWith('.js'))) {
-      fs.copyFileSync(path.join(dir, f), path.join(out, dir, f));
-      for (const [, spec] of fs.readFileSync(path.join(dir, f), 'utf8').matchAll(/from\s+'(\.\.?\/[^']+)'/g)) {
-        const dep = path.relative('.', path.resolve(dir, spec)).split(path.sep);
-        if (dep[0] === 'lessons' && dep.length > 5) copyLesson(dep.slice(0, 5).join(path.sep));
+  if (shellAll) {
+    for (const d of published) refreshShell(path.join(work, d));
+    commitAndPush(`Refresh preview page shell: ${published.length} lessons`);
+    console.log(`refreshed the page shell of ${published.length} lessons`);
+  } else await publish();
+
+  async function publish() {
+    const rel = lessonDir(lesson); // lessons/<date>/<format>/<lang>/<lesson>
+    const src = path.resolve(rel);
+    const timing = JSON.parse(fs.readFileSync(path.join(src, 'timing.json'), 'utf8'));
+    if (!timing.audio || timing.draft) throw new Error(`${lesson}: run "npm run voice -- ${lesson}" first (no voiced timing)`);
+
+    // --- 2. the lesson: shared player, fonts, lesson code, timing, voice as MP3 -------------------
+    const out = path.join(work, lesson);
+    fs.rmSync(out, { recursive: true, force: true });
+    // the lesson keeps its lessons/<date>/<format>/<lang>/<lesson>/ path inside the page, so its
+    // relative imports of shared/web and of other lessons resolve as they do in the repo
+    const dst = path.join(out, rel);
+    fs.mkdirSync(path.join(dst, 'audio'), { recursive: true });
+    fs.cpSync('shared/web', path.join(out, 'shared/web'), { recursive: true });
+    fs.cpSync('shared/fonts', path.join(out, 'shared/fonts'), { recursive: true });
+    // the lesson's .js files, plus those of any lesson they import (a language variant such as
+    // day_so_tiep_theo_en imports the scenes of day_so_tiep_theo)
+    const copied = new Set();
+    const copyLesson = (dir) => {
+      if (copied.has(dir)) return;
+      copied.add(dir);
+      fs.mkdirSync(path.join(out, dir), { recursive: true });
+      for (const f of fs.readdirSync(dir).filter((f) => f.endsWith('.js'))) {
+        fs.copyFileSync(path.join(dir, f), path.join(out, dir, f));
+        for (const [, spec] of fs.readFileSync(path.join(dir, f), 'utf8').matchAll(/from\s+'(\.\.?\/[^']+)'/g)) {
+          const dep = path.relative('.', path.resolve(dir, spec)).split(path.sep);
+          if (dep[0] === 'lessons' && dep.length > 5) copyLesson(dep.slice(0, 5).join(path.sep));
+        }
       }
-    }
-  };
-  copyLesson(rel);
-  // MP3 keeps the page light on a phone; the player reads timing.audio relative to timing.json
-  execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', path.join(src, timing.audio),
-    '-c:a', 'libmp3lame', '-b:a', '160k', path.join(dst, 'audio/voice.mp3')]);
-  fs.writeFileSync(path.join(dst, 'timing.json'),
-    `${JSON.stringify({ ...timing, audio: './audio/voice.mp3' }, null, 1)}\n`);
+    };
+    copyLesson(rel);
+    // MP3 keeps the page light on a phone; the player reads timing.audio relative to timing.json
+    execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', path.join(src, timing.audio),
+      '-c:a', 'libmp3lame', '-b:a', '160k', path.join(dst, 'audio/voice.mp3')]);
+    fs.writeFileSync(path.join(dst, 'timing.json'),
+      `${JSON.stringify({ ...timing, audio: './audio/voice.mp3' }, null, 1)}\n`);
 
-  // the player defaults to /lessons/<name>/timing.json from the site root (redirected by serve.mjs);
-  // Pages serves under /<repo>/<lesson>/ with no redirect, so point it at the lesson's real path
-  const player = path.join(out, 'shared/web/js/player.js');
-  const code = fs.readFileSync(player, 'utf8');
-  const def = /`\/lessons\/\$\{encodeURIComponent\(lesson\)\}\/timing\.json`/;
-  if (!def.test(code)) throw new Error('player.js: default timing URL changed, update render/pages.mjs');
-  fs.writeFileSync(player, code.replace(def, `'${rel.split(path.sep).join('/')}/timing.json'`));
+    // the player defaults to /lessons/<name>/timing.json from the site root (redirected by serve.mjs);
+    // Pages serves under /<repo>/<lesson>/ with no redirect, so point it at the lesson's real path
+    const player = path.join(out, 'shared/web/js/player.js');
+    const code = fs.readFileSync(player, 'utf8');
+    const def = /`\/lessons\/\$\{encodeURIComponent\(lesson\)\}\/timing\.json`/;
+    if (!def.test(code)) throw new Error('player.js: default timing URL changed, update render/pages.mjs');
+    fs.writeFileSync(player, code.replace(def, `'${rel.split(path.sep).join('/')}/timing.json'`));
 
-  const title = lessonTitle(lesson);
-  const lang = JSON.parse(fs.readFileSync(path.join(src, 'voice.json'), 'utf8')).lang || 'vi';
-  const page = fs.readFileSync('shared/web/index.html', 'utf8')
-    .replace(/<html lang="[^"]*">/, `<html lang="${lang}">`)
-    .replace(/<title>.*<\/title>/, `<title>${title}</title>`)
-    .replace(/(href|src)="(css|js)\//g, '$1="shared/web/$2/')
-    .replace('</head>', '  <style>#controls{display:flex;gap:10px;align-items:center;padding:8px 16px}'
-      + '#controls button{font-size:18px;min-width:44px;min-height:36px}#controls input{flex:1;min-width:0}</style>\n</head>');
-  fs.writeFileSync(path.join(out, 'index.html'), page);
-  fs.writeFileSync(path.join(out, 'title.txt'), `${title}\n`);
+    const title = lessonTitle(lesson);
+    const lang = JSON.parse(fs.readFileSync(path.join(src, 'voice.json'), 'utf8')).lang || 'vi';
+    fs.writeFileSync(path.join(out, 'index.html'), pageShell(lang, title));
+    fs.writeFileSync(path.join(out, 'title.txt'), `${title}\n`);
 
-  // --- 3. the index of every published lesson --------------------------------------------------
-  const items = fs.readdirSync(work, { withFileTypes: true })
-    .filter((d) => d.isDirectory() && fs.existsSync(path.join(work, d.name, 'index.html')))
-    .map((d) => {
-      const t = fs.existsSync(path.join(work, d.name, 'title.txt'))
-        ? fs.readFileSync(path.join(work, d.name, 'title.txt'), 'utf8').trim() : d.name;
-      return `  <li><a href="${d.name}/">${t}</a></li>`;
-    }).sort();
-  fs.writeFileSync(path.join(work, 'index.html'), `<!doctype html>
-<html lang="vi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bản xem trước bài giảng</title>
-<style>
-  :root { --bg: #1d3b30; --fg: #f1efe6; --link: #f2d36b; color-scheme: dark; }
-  body { background: var(--bg); color: var(--fg); font: 18px/1.6 system-ui, sans-serif; margin: 0;
-    padding-block: 32px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-  a { color: var(--link); }
-</style>
-</head>
-<body>
-<h1>Bản xem trước bài giảng</h1>
-<ul>
-${items.join('\n')}
-</ul>
-</body>
-</html>
-`);
-  fs.writeFileSync(path.join(work, '.nojekyll'), '');
+    // --- 3. the index of every published lesson --------------------------------------------------
+    const items = fs.readdirSync(work, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && fs.existsSync(path.join(work, d.name, 'index.html')))
+      .map((d) => {
+        const t = fs.existsSync(path.join(work, d.name, 'title.txt'))
+          ? fs.readFileSync(path.join(work, d.name, 'title.txt'), 'utf8').trim() : d.name;
+        return `  <li><a href="${d.name}/">${t}</a></li>`;
+      }).sort();
+    fs.writeFileSync(path.join(work, 'index.html'), `<!doctype html>
+  <html lang="vi">
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bản xem trước bài giảng</title>
+  <style>
+    :root { --bg: #1d3b30; --fg: #f1efe6; --link: #f2d36b; color-scheme: dark; }
+    body { background: var(--bg); color: var(--fg); font: 18px/1.6 system-ui, sans-serif; margin: 0;
+      padding-block: 32px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+    a { color: var(--link); }
+  </style>
+  </head>
+  <body>
+  <h1>Bản xem trước bài giảng</h1>
+  <ul>
+  ${items.join('\n')}
+  </ul>
+  </body>
+  </html>
+  `);
+    fs.writeFileSync(path.join(work, '.nojekyll'), '');
 
-  // --- 4. commit + push --------------------------------------------------------------------------
-  // lessons already announced on Zalo (once per clip, user's rule 2026-10-25); seeded with every
-  // lesson published before the record existed, since those links went out already
-  const sentFile = path.join(work, 'zalo_sent.json');
-  const sent = fs.existsSync(sentFile) ? JSON.parse(fs.readFileSync(sentFile, 'utf8'))
-    : Object.fromEntries(published.map((d) => [d, 'before-record']));
-  fs.writeFileSync(sentFile, `${JSON.stringify(sent, null, 1)}\n`);
-  sh(work, 'add', '-A');
-  const changed = execFileSync('git', ['-C', work, 'status', '--porcelain'], { encoding: 'utf8' }).trim();
-  if (changed) {
-    sh(work, 'commit', '-q', '-m', `Publish HTML preview: ${lesson}`);
-    if (!args['no-push']) sh(work, 'push', '-q', '-u', 'origin', 'gh-pages');
-  }
-  const site = pagesSite(lesson);
-  const url = site ? site.url : `<pages site>/${lesson}/`;
-  console.log(changed ? `published ${lesson}: ${url}` : `no change for ${lesson}: ${url}`);
+    // --- 4. commit + push --------------------------------------------------------------------------
+    // lessons already announced on Zalo (once per clip, user's rule 2026-10-25); seeded with every
+    // lesson published before the record existed, since those links went out already
+    const sentFile = path.join(work, 'zalo_sent.json');
+    const sent = fs.existsSync(sentFile) ? JSON.parse(fs.readFileSync(sentFile, 'utf8'))
+      : Object.fromEntries(published.map((d) => [d, 'before-record']));
+    fs.writeFileSync(sentFile, `${JSON.stringify(sent, null, 1)}\n`);
+    const changed = commitAndPush(`Publish HTML preview: ${lesson}`);
+    const site = pagesSite(lesson);
+    const url = site ? site.url : `<pages site>/${lesson}/`;
+    console.log(changed ? `published ${lesson}: ${url}` : `no change for ${lesson}: ${url}`);
 
-  // --- 5. Zalo: only once Pages serves this commit, and only once per lesson ----------------------
-  if (!args['no-push'] && !args['no-zalo']) {
-    if (lang === 'en') console.log('zalo: not sent here (English: npm run final sends the preview and the Short in one message)');
-    else if (sent[lesson]) console.log(`zalo: not sent (already sent for ${lesson} on ${sent[lesson]})`);
-    else if (!site) console.log('zalo: not sent (no GitHub remote to check Pages)');
-    else {
-      const sha = execFileSync('git', ['-C', work, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
-      const live = await waitForPages(site.repo, sha);
-      if (!live.ok) console.log(`zalo: not sent (${live.reason})`);
+    // --- 5. Zalo: only once Pages serves this commit, and only once per lesson ----------------------
+    if (!args['no-push'] && !args['no-zalo']) {
+      if (lang === 'en') console.log('zalo: not sent here (English: npm run final sends the preview and the Short in one message)');
+      else if (sent[lesson]) console.log(`zalo: not sent (already sent for ${lesson} on ${sent[lesson]})`);
+      else if (!site) console.log('zalo: not sent (no GitHub remote to check Pages)');
       else {
-        const r = sendZalo(`Bản xem trước: ${title}\n${url}`);
-        console.log(r.ok ? 'zalo: link sent to the review group' : `zalo: not sent (${r.reason})`);
-        if (r.ok) {
-          sent[lesson] = new Date().toISOString();
-          fs.writeFileSync(sentFile, `${JSON.stringify(sent, null, 1)}\n`);
-          sh(work, 'commit', '-q', '-m', `Record Zalo link sent: ${lesson}`, '--', 'zalo_sent.json');
-          sh(work, 'push', '-q', 'origin', 'gh-pages');
+        const sha = execFileSync('git', ['-C', work, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+        const live = await waitForPages(site.repo, sha);
+        if (!live.ok) console.log(`zalo: not sent (${live.reason})`);
+        else {
+          const r = sendZalo(`Bản xem trước: ${title}\n${url}`);
+          console.log(r.ok ? 'zalo: link sent to the review group' : `zalo: not sent (${r.reason})`);
+          if (r.ok) {
+            sent[lesson] = new Date().toISOString();
+            fs.writeFileSync(sentFile, `${JSON.stringify(sent, null, 1)}\n`);
+            sh(work, 'commit', '-q', '-m', `Record Zalo link sent: ${lesson}`, '--', 'zalo_sent.json');
+            sh(work, 'push', '-q', 'origin', 'gh-pages');
+          }
         }
       }
     }
   }
+
+  // -> true when there was something to commit
+  function commitAndPush(message) {
+    sh(work, 'add', '-A');
+    const changed = execFileSync('git', ['-C', work, 'status', '--porcelain'], { encoding: 'utf8' }).trim();
+    if (changed) {
+      sh(work, 'commit', '-q', '-m', message);
+      if (!args['no-push']) sh(work, 'push', '-q', '-u', 'origin', 'gh-pages');
+    }
+    return Boolean(changed);
+  }
 } finally {
   git('worktree', 'remove', '--force', work);
+}
+
+// The page around a published lesson's player: shared/web/index.html with the lesson's language and
+// title, and paths into the lesson's own copy of shared/web.
+function pageShell(lang, title) {
+  return fs.readFileSync('shared/web/index.html', 'utf8')
+    .replace(/<html lang="[^"]*">/, `<html lang="${lang}">`)
+    .replace(/<title>.*<\/title>/, `<title>${title}</title>`)
+    .replace(/(href|src)="(css|js)\//g, '$1="shared/web/$2/');
+}
+
+// Bring a lesson published earlier up to the current page shell (layout, controls, fit to the
+// window) without touching what it draws: its scene code, timing, audio and the rest of its
+// shared/web copy stay as published. Older players get the fit through a patch of setupPreview.
+function refreshShell(dir) {
+  const old = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+  const lang = old.match(/<html lang="([^"]*)">/)?.[1] || 'vi';
+  const title = old.match(/<title>(.*)<\/title>/)?.[1] || path.basename(dir);
+  fs.writeFileSync(path.join(dir, 'index.html'), pageShell(lang, title));
+  for (const f of ['css/board.css', 'js/fit.js']) fs.copyFileSync(`shared/web/${f}`, path.join(dir, 'shared/web', f));
+  const player = path.join(dir, 'shared/web/js/player.js');
+  let code = fs.readFileSync(player, 'utf8');
+  if (!code.includes("from './fit.js'")) {
+    const fit = /  const fit = \(\) => \{\n[^]*?\n  \};\n  fit\(\);\n  addEventListener\('resize', fit\);\n/;
+    if (!fit.test(code)) throw new Error(`${dir}: player.js has an unknown fit, update refreshShell`);
+    code = code.replace(fit, "  fitStage(stage, document.getElementById('view'), THEME.canvas.width, THEME.canvas.height);\n")
+      .replace(/(import \{[^}]*\} from '\.\/eraser\.js';\n)/, "$1import { fitStage } from './fit.js';\n");
+    if (!code.includes("from './fit.js'")) throw new Error(`${dir}: player.js imports changed, update refreshShell`);
+    fs.writeFileSync(player, code);
+  }
 }
 
 // GitHub's own "pages build and deployment" run for the pushed gh-pages commit (*.github.io itself
