@@ -14,7 +14,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from './browser.mjs';
-import { finalPath, lessonDir } from './paths.mjs';
+import { finalPath, lessonDir, lessonInfo } from './paths.mjs';
 import { publishShort } from './youtube.mjs';
 
 const args = parseArgs(process.argv.slice(2));
@@ -35,7 +35,7 @@ execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', video, '-i', `${dir}/a
   '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-ac', '2',
   '-shortest', '-movflags', '+faststart', out], { stdio: 'inherit' });
 console.log(`wrote ${out}`);
-if (!args['no-upload'] && voice.lang === 'en') {
+if (!args['no-upload'] && voice.lang === 'en' && lessonInfo(lesson).format === 'shorts') {
   const r = publishShort(lesson, { file: out });
   if (r.ok) for (const n of r.notes) console.log(`youtube: ${n}`);
   else console.log(`youtube: not uploaded (${r.reason})`);

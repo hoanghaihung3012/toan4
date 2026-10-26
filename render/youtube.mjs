@@ -27,7 +27,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from './browser.mjs';
-import { latestFinal, lessonDir } from './paths.mjs';
+import { latestFinal, lessonDir, lessonInfo } from './paths.mjs';
 import { lessonTitle, pagesSite } from './site.mjs';
 import { sendZalo } from './zalo.mjs';
 
@@ -140,6 +140,7 @@ export function publishShort(lesson, { file, privacy, dryRun = false, force = fa
   const secrets = [...SECRETS, 'ZALO_BOT_TOKEN'].map((k) => process.env[k]).filter((v) => v?.length >= 8);
   const redact = (s) => secrets.reduce((acc, v) => acc.split(v).join('<secret>'), String(s)).trim().slice(0, 300);
   try {
+    if (lessonInfo(lesson).format !== 'shorts') return { ok: false, skipped: true, reason: `${lesson} is not a Shorts lesson (long videos are not published automatically)` };
     const meta = buildMetadata(lesson);
     if (meta.lang !== 'en') return { ok: false, skipped: true, reason: `${lesson} is not an English lesson (only the English channel uploads automatically)` };
     privacy = privacy || process.env.YT_PRIVACY || 'public';

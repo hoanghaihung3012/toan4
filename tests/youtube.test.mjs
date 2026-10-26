@@ -8,7 +8,7 @@ import { buildMetadata, publishShort } from '../render/youtube.mjs';
 
 const all = listLessons().filter((l) => fs.existsSync(`${l.dir}/voice.json`) && fs.existsSync(`${l.dir}/story.md`));
 const lessons = all.map((l) => l.name);
-const english = all.filter((l) => JSON.parse(fs.readFileSync(`${l.dir}/voice.json`, 'utf8')).lang === 'en').map((l) => l.name);
+const english = all.filter((l) => l.format === 'shorts' && JSON.parse(fs.readFileSync(`${l.dir}/voice.json`, 'utf8')).lang === 'en').map((l) => l.name);
 
 for (const lesson of english) {
   test(`${lesson}: YouTube Short metadata fits the API limits`, () => {
@@ -40,5 +40,22 @@ test('only English lessons upload; missing secrets skip without failing', () => 
     assert.equal(publishShort(english[0], { file, privacy: 'friends' }).ok, false);
   } finally {
     for (const [k, v] of Object.entries(saved)) if (v !== undefined) process.env[k] = v;
+  }
+});
+
+test('long videos never enter Shorts publishing, including direct calls', () => {
+  const cwd = process.cwd();
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'yt-long-'));
+  try {
+    const dir = path.join(root, 'lessons/2026-10-26/long/en/long_example');
+    fs.mkdirSync(dir, { recursive: true });
+    process.chdir(root);
+    const result = publishShort('long_example', { dryRun: true });
+    assert.equal(result.ok, false);
+    assert.equal(result.skipped, true);
+    assert.match(result.reason, /not a Shorts lesson/);
+  } finally {
+    process.chdir(cwd);
+    fs.rmSync(root, { recursive: true, force: true });
   }
 });

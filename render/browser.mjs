@@ -6,6 +6,7 @@ import puppeteer from 'puppeteer-core';
 import { startServer } from './serve.mjs';
 import { lessonDir } from './paths.mjs';
 import { THEME } from '../shared/web/theme.js';
+import { canvasFor } from '../shared/web/profiles.js';
 
 // macOS Chrome by default; CHROME_PATH overrides it (e.g. Linux cloud sessions)
 export const CHROME_DEFAULT = process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
@@ -36,10 +37,11 @@ export async function launch(chrome = CHROME_DEFAULT) {
 export async function openPlayer({ lesson = 'decimal', timingPath, scene, chrome } = {}) {
   timingPath ||= path.join(lessonDir(lesson), 'timing.json');
   const timing = JSON.parse(fs.readFileSync(timingPath, 'utf8'));
+  const { width, height } = canvasFor(timing.profile);
   const server = await startServer(0);
   const browser = await launch(chrome);
   const page = await browser.newPage();
-  await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
+  await page.setViewport({ width, height, deviceScaleFactor: 1 });
   page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'assert') console.error('[page]', m.text()); });
   page.on('pageerror', (e) => console.error('[page error]', e.message));
   const q = new URLSearchParams({ capture: '1', timing: `/${timingPath}` });
@@ -49,9 +51,9 @@ export async function openPlayer({ lesson = 'decimal', timingPath, scene, chrome
   // scale < 1 returns a downscaled frame (contact sheets)
   const shot = async (t, scale = 1) => {
     await page.evaluate((tt) => window.renderFrame(tt), t);
-    return page.screenshot({ type: 'png', clip: { x: 0, y: 0, width: W, height: H, scale }, optimizeForSpeed: true });
+    return page.screenshot({ type: 'png', clip: { x: 0, y: 0, width, height, scale }, optimizeForSpeed: true });
   };
   const close = async () => { await browser.close(); server.close(); };
   const outDir = path.join(path.dirname(timingPath), 'out');
-  return { timing, outDir, fps: timing.fps || THEME.canvas.fps, browser, page, shot, close };
+  return { timing, outDir, width, height, fps: timing.fps || THEME.canvas.fps, browser, page, shot, close };
 }

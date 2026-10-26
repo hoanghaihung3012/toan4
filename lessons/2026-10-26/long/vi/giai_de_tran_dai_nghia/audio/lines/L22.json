@@ -1,0 +1,102 @@
+[
+ {
+  "text": "Nhân",
+  "start": 0.125,
+  "end": 0.3625
+ },
+ {
+  "text": "với",
+  "start": 0.3625,
+  "end": 0.6
+ },
+ {
+  "text": "giá",
+  "start": 0.6,
+  "end": 0.8125
+ },
+ {
+  "text": "mỗi",
+  "start": 0.8125,
+  "end": 1.0625
+ },
+ {
+  "text": "chữ",
+  "start": 1.0625,
+  "end": 1.2625
+ },
+ {
+  "text": "số",
+  "start": 1.2625,
+  "end": 1.675
+ },
+ {
+  "text": "được",
+  "start": 1.9,
+  "end": 2.0875
+ },
+ {
+  "text": "ba",
+  "start": 2.0875,
+  "end": 2.25
+ },
+ {
+  "text": "triệu",
+  "start": 2.25,
+  "end": 2.5
+ },
+ {
+  "text": "ba",
+  "start": 2.5,
+  "end": 2.675
+ },
+ {
+  "text": "trăm",
+  "start": 2.675,
+  "end": 2.9125
+ },
+ {
+  "text": "bảy",
+  "start": 2.9125,
+  "end": 3.0625
+ },
+ {
+  "text": "mươi",
+  "start": 3.0625,
+  "end": 3.2
+ },
+ {
+  "text": "lăm",
+  "start": 3.2,
+  "end": 3.4125
+ },
+ {
+  "text": "nghìn",
+  "start": 3.4125,
+  "end": 3.6125
+ },
+ {
+  "text": "đồng",
+  "start": 3.6125,
+  "end": 3.925
+ },
+ {
+  "text": "khớp",
+  "start": 4.1,
+  "end": 4.3125
+ },
+ {
+  "text": "tiền",
+  "start": 4.3125,
+  "end": 4.5625
+ },
+ {
+  "text": "đề",
+  "start": 4.5625,
+  "end": 4.75
+ },
+ {
+  "text": "cho",
+  "start": 4.75,
+  "end": 5.1
+ }
+]

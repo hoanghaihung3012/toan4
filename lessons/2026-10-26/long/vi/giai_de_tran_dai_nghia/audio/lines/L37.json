@@ -1,0 +1,132 @@
+[
+ {
+  "text": "Thẻ",
+  "start": 0.125,
+  "end": 0.275
+ },
+ {
+  "text": "ba",
+  "start": 0.275,
+  "end": 0.45
+ },
+ {
+  "text": "trăm",
+  "start": 0.45,
+  "end": 0.725
+ },
+ {
+  "text": "bốn",
+  "start": 0.725,
+  "end": 0.8875
+ },
+ {
+  "text": "mươi",
+  "start": 0.8875,
+  "end": 1.0125
+ },
+ {
+  "text": "lăm",
+  "start": 1.0125,
+  "end": 1.2375
+ },
+ {
+  "text": "tận",
+  "start": 1.2375,
+  "end": 1.4875
+ },
+ {
+  "text": "cùng",
+  "start": 1.4875,
+  "end": 1.7
+ },
+ {
+  "text": "bằng",
+  "start": 1.7,
+  "end": 1.8875
+ },
+ {
+  "text": "năm",
+  "start": 1.8875,
+  "end": 2.225
+ },
+ {
+  "text": "nên",
+  "start": 2.4625,
+  "end": 2.725
+ },
+ {
+  "text": "chỉ",
+  "start": 2.725,
+  "end": 2.925
+ },
+ {
+  "text": "ghép",
+  "start": 2.925,
+  "end": 3.15
+ },
+ {
+  "text": "được",
+  "start": 3.15,
+  "end": 3.3625
+ },
+ {
+  "text": "với",
+  "start": 3.3625,
+  "end": 3.5875
+ },
+ {
+  "text": "nhãn",
+  "start": 3.5875,
+  "end": 3.825
+ },
+ {
+  "text": "cuối",
+  "start": 3.825,
+  "end": 4.1875
+ },
+ {
+  "text": "Không",
+  "start": 5.05,
+  "end": 5.2125
+ },
+ {
+  "text": "nhãn",
+  "start": 5.2125,
+  "end": 5.425
+ },
+ {
+  "text": "nào",
+  "start": 5.425,
+  "end": 5.65
+ },
+ {
+  "text": "khác",
+  "start": 5.65,
+  "end": 5.9125
+ },
+ {
+  "text": "có",
+  "start": 5.9125,
+  "end": 6.075
+ },
+ {
+  "text": "thể",
+  "start": 6.075,
+  "end": 6.2875
+ },
+ {
+  "text": "nhận",
+  "start": 6.2875,
+  "end": 6.5625
+ },
+ {
+  "text": "thẻ",
+  "start": 6.5625,
+  "end": 6.7875
+ },
+ {
+  "text": "này",
+  "start": 6.7875,
+  "end": 7.1
+ }
+]

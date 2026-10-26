@@ -1,0 +1,127 @@
+[
+ {
+  "text": "Chỉ",
+  "start": 0.125,
+  "end": 0.2625
+ },
+ {
+  "text": "có",
+  "start": 0.2625,
+  "end": 0.4625
+ },
+ {
+  "text": "bốn",
+  "start": 0.4625,
+  "end": 0.7
+ },
+ {
+  "text": "chữ",
+  "start": 0.7,
+  "end": 0.9375
+ },
+ {
+  "text": "mà",
+  "start": 0.9375,
+  "end": 1.125
+ },
+ {
+  "text": "phải",
+  "start": 1.125,
+  "end": 1.325
+ },
+ {
+  "text": "cung",
+  "start": 1.325,
+  "end": 1.5375
+ },
+ {
+  "text": "cấp",
+  "start": 1.5375,
+  "end": 1.7125
+ },
+ {
+  "text": "đủ",
+  "start": 1.7125,
+  "end": 1.9
+ },
+ {
+  "text": "bốn",
+  "start": 1.9,
+  "end": 2.1375
+ },
+ {
+  "text": "chữ",
+  "start": 2.1375,
+  "end": 2.3125
+ },
+ {
+  "text": "số",
+  "start": 2.3125,
+  "end": 2.55
+ },
+ {
+  "text": "ấy",
+  "start": 2.55,
+  "end": 2.875
+ },
+ {
+  "text": "nên",
+  "start": 3.0875,
+  "end": 3.3
+ },
+ {
+  "text": "mỗi",
+  "start": 3.3,
+  "end": 3.4875
+ },
+ {
+  "text": "chữ",
+  "start": 3.4875,
+  "end": 3.6625
+ },
+ {
+  "text": "nhận",
+  "start": 3.6625,
+  "end": 3.9
+ },
+ {
+  "text": "một",
+  "start": 3.9,
+  "end": 4.0875
+ },
+ {
+  "text": "chữ",
+  "start": 4.0875,
+  "end": 4.2625
+ },
+ {
+  "text": "số",
+  "start": 4.2625,
+  "end": 4.525
+ },
+ {
+  "text": "khác",
+  "start": 4.525,
+  "end": 4.7375
+ },
+ {
+  "text": "nhau",
+  "start": 4.7375,
+  "end": 5.0875
+ },
+ {
+  "text": "không",
+  "start": 5.25,
+  "end": 5.4875
+ },
+ {
+  "text": "thể",
+  "start": 5.4875,
+  "end": 5.675
+ },
+ {
+  "text": "trùng",
+  "start": 5.675,
+  "end": 6.0
+ }
+]

@@ -1,8 +1,8 @@
 // English variant of lessons/ai_an_banh: the same scenes, facts and asserts, English board text
 // and the source problem's English names. Voice and timing are this folder's own (voice.json -> timing.json, audio/).
-import { scenes, TEXT, FIT } from '../../vi/ai_an_banh/scene.js';
+import { createScenes } from '../../vi/ai_an_banh/scene.js';
 
-Object.assign(TEXT, {
+const text = {
   title: 'Who ate the cake?',
   kids: ['Alex', 'Ben', 'Cindy', 'Dan'],
   quotes: ['“Ben ate the cake.”', '“Dan ate the cake.”', '“I didn’t eat it.”', '“Ben is lying.”'],
@@ -17,9 +17,9 @@ Object.assign(TEXT, {
   yourTurn: 'Your turn!',
   ask: 'Who ate it?',
   comment: 'Comment your answer!',
-});
+};
 
 // "Cindy ate the cake!" is longer than "Chi đã ăn bánh!": move it left and shrink it so it clears the landed cake
-Object.assign(FIT, { ansX: 420, ansSize: 72, ansGap: 0.75 });
+const layout = { ansX: 420, ansSize: 72, ansGap: 0.75 };
 
-export { scenes };
+export const scenes = createScenes({ text, layout });

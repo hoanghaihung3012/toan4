@@ -6,6 +6,19 @@
 // Units: px on the 1080x1920 (9:16) stage.
 // ============================================================================
 
+import { canvasFor } from './profiles.js';
+
+export function configureProfile(profile) {
+  THEME.canvas = canvasFor(profile);
+  if (profile === 'landscape') {
+    THEME.safeArea = null;
+    THEME.board.gradient.center = [960, 460];
+    THEME.board.gradient.radius = 1800;
+    THEME.board.gradient.stops = ['rgb(49, 111, 85)', 'rgb(40, 94, 72)', 'rgb(32, 78, 60)'];
+    THEME.board.vignette.alpha = 0.18;
+  }
+}
+
 export const THEME = {
   canvas: { width: 1080, height: 1920, fps: 30 },
 

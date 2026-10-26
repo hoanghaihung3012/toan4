@@ -1,0 +1,97 @@
+[
+ {
+  "text": "Bốn",
+  "start": 0.1375,
+  "end": 0.3
+ },
+ {
+  "text": "mươi",
+  "start": 0.3,
+  "end": 0.4375
+ },
+ {
+  "text": "nhân",
+  "start": 0.4375,
+  "end": 0.7375
+ },
+ {
+  "text": "hai",
+  "start": 0.7375,
+  "end": 0.9375
+ },
+ {
+  "text": "trừ",
+  "start": 0.9375,
+  "end": 1.0875
+ },
+ {
+  "text": "một",
+  "start": 1.0875,
+  "end": 1.3
+ },
+ {
+  "text": "bằng",
+  "start": 1.3,
+  "end": 1.5
+ },
+ {
+  "text": "bảy",
+  "start": 1.5,
+  "end": 1.6625
+ },
+ {
+  "text": "mươi",
+  "start": 1.6625,
+  "end": 1.825
+ },
+ {
+  "text": "chín",
+  "start": 1.825,
+  "end": 2.15
+ },
+ {
+  "text": "biển",
+  "start": 2.375,
+  "end": 2.5875
+ },
+ {
+  "text": "cuối",
+  "start": 2.5875,
+  "end": 2.8375
+ },
+ {
+  "text": "vẫn",
+  "start": 2.8375,
+  "end": 3.0375
+ },
+ {
+  "text": "chỉ",
+  "start": 3.0375,
+  "end": 3.225
+ },
+ {
+  "text": "có",
+  "start": 3.225,
+  "end": 3.45
+ },
+ {
+  "text": "đúng",
+  "start": 3.45,
+  "end": 3.65
+ },
+ {
+  "text": "hai",
+  "start": 3.65,
+  "end": 3.9
+ },
+ {
+  "text": "chữ",
+  "start": 3.9,
+  "end": 4.1125
+ },
+ {
+  "text": "số",
+  "start": 4.1125,
+  "end": 4.5
+ }
+]

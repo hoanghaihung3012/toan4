@@ -35,7 +35,7 @@ async function sheet() {
   const cols = Number(args.cols || 7);
   const rows = Number(args.rows || 4);
   const tw = Number(args.width || 216);
-  const th = Math.round((tw * H) / W);
+  const th = Math.round((tw * player.height) / player.width);
   const out = args.out || path.join(player.outDir, 'sheet');
   fs.mkdirSync(path.dirname(out), { recursive: true });
   try {
@@ -45,7 +45,7 @@ async function sheet() {
     for (let s = 0; s * perSheet < times.length; s++) {
       const chunk = times.slice(s * perSheet, (s + 1) * perSheet);
       const frames = [];
-      for (const t of chunk) frames.push({ t, src: dataUrl(await player.shot(t, tw / W)) });
+      for (const t of chunk) frames.push({ t, src: dataUrl(await player.shot(t, tw / player.width)) });
       const png = await inCanvasPage(player.browser, async ({ frames, cols, tw, th }) => {
         const label = 22;
         const rowsUsed = Math.ceil(frames.length / cols);

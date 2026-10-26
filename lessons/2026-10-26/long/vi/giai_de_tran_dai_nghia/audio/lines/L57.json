@@ -1,0 +1,102 @@
+[
+ {
+  "text": "Hai",
+  "start": 0.1125,
+  "end": 0.275
+ },
+ {
+  "text": "phần",
+  "start": 0.275,
+  "end": 0.5625
+ },
+ {
+  "text": "có",
+  "start": 0.5625,
+  "end": 0.75
+ },
+ {
+  "text": "mười",
+  "start": 0.75,
+  "end": 0.95
+ },
+ {
+  "text": "người",
+  "start": 0.95,
+  "end": 1.2625
+ },
+ {
+  "text": "thì",
+  "start": 1.2625,
+  "end": 1.4
+ },
+ {
+  "text": "một",
+  "start": 1.4,
+  "end": 1.6125
+ },
+ {
+  "text": "phần",
+  "start": 1.6125,
+  "end": 1.9
+ },
+ {
+  "text": "có",
+  "start": 1.9,
+  "end": 2.1125
+ },
+ {
+  "text": "năm",
+  "start": 2.1125,
+  "end": 2.3625
+ },
+ {
+  "text": "người",
+  "start": 2.3625,
+  "end": 2.6875
+ },
+ {
+  "text": "Ta",
+  "start": 3.5625,
+  "end": 3.725
+ },
+ {
+  "text": "lấy",
+  "start": 3.725,
+  "end": 3.975
+ },
+ {
+  "text": "mười",
+  "start": 3.975,
+  "end": 4.2125
+ },
+ {
+  "text": "chia",
+  "start": 4.2125,
+  "end": 4.4375
+ },
+ {
+  "text": "hai",
+  "start": 4.4375,
+  "end": 4.7875
+ },
+ {
+  "text": "không",
+  "start": 4.9625,
+  "end": 5.1875
+ },
+ {
+  "text": "chia",
+  "start": 5.1875,
+  "end": 5.4
+ },
+ {
+  "text": "cho",
+  "start": 5.4,
+  "end": 5.5625
+ },
+ {
+  "text": "ba",
+  "start": 5.5625,
+  "end": 5.8875
+ }
+]

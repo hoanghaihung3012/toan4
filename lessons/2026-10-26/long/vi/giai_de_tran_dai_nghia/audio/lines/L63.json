@@ -1,0 +1,117 @@
+[
+ {
+  "text": "Lần",
+  "start": 0.125,
+  "end": 0.3625
+ },
+ {
+  "text": "hai",
+  "start": 0.3625,
+  "end": 0.75
+ },
+ {
+  "text": "A",
+  "start": 0.9375,
+  "end": 1.1625
+ },
+ {
+  "text": "đang",
+  "start": 1.1625,
+  "end": 1.4375
+ },
+ {
+  "text": "có",
+  "start": 1.4375,
+  "end": 1.675
+ },
+ {
+  "text": "mười",
+  "start": 1.675,
+  "end": 1.8875
+ },
+ {
+  "text": "người",
+  "start": 1.8875,
+  "end": 2.25
+ },
+ {
+  "text": "B",
+  "start": 3.125,
+  "end": 3.275
+ },
+ {
+  "text": "chuyển",
+  "start": 3.275,
+  "end": 3.5
+ },
+ {
+  "text": "sang",
+  "start": 3.5,
+  "end": 3.775
+ },
+ {
+  "text": "A",
+  "start": 3.775,
+  "end": 3.9625
+ },
+ {
+  "text": "gấp",
+  "start": 3.9625,
+  "end": 4.15
+ },
+ {
+  "text": "ba",
+  "start": 4.15,
+  "end": 4.35
+ },
+ {
+  "text": "số",
+  "start": 4.35,
+  "end": 4.6
+ },
+ {
+  "text": "ấy",
+  "start": 4.6,
+  "end": 4.925
+ },
+ {
+  "text": "tức",
+  "start": 5.1125,
+  "end": 5.3125
+ },
+ {
+  "text": "ba",
+  "start": 5.3125,
+  "end": 5.475
+ },
+ {
+  "text": "mươi",
+  "start": 5.475,
+  "end": 5.65
+ },
+ {
+  "text": "người",
+  "start": 5.65,
+  "end": 6.025
+ },
+ {
+  "text": "không",
+  "start": 6.2,
+  "end": 6.425
+ },
+ {
+  "text": "phải",
+  "start": 6.425,
+  "end": 6.675
+ },
+ {
+  "text": "bốn",
+  "start": 6.675,
+  "end": 6.9
+ },
+ {
+  "text": "mươi",
+  "start": 6.9,
+  "end": 7.25
+ }
+]

@@ -2,11 +2,11 @@
 // window.renderFrame(t) is deterministic, so the capture script can step it frame by frame.
 // URL params: ?capture=1 (1:1 stage, no controls), ?lesson=name, ?timing=path, ?scene=module path.
 // Scene and audio paths are relative to the lesson's timing.json.
-import { ChalkLayer, resetIds, W } from './chalk.js';
+import { ChalkLayer, resetIds, refreshCanvasSize, W } from './chalk.js';
 import { clamp01, easeOutCubic, easeInOut, spring } from './ease.js';
 import { buildBoard } from './board.js';
 import { applyTheme } from './theme_apply.js';
-import { THEME } from '../theme.js';
+import { THEME, configureProfile } from '../theme.js';
 import { drawEraser, wipePose, sweptMask, sweepOff } from './eraser.js';
 
 const params = new URLSearchParams(location.search);
@@ -22,6 +22,7 @@ const root = document.createElement('div');
 root.className = 'scene';
 stage.appendChild(root);
 // keep the lesson inside the platform-safe area (THEME.safeArea); the board stays full-bleed
+function fitSafeArea() {
 if (THEME.safeArea) {
   const [l0, t0, r0, b0] = THEME.safeArea.content;
   const [l1, t1, r1, b1] = THEME.safeArea.target;
@@ -30,6 +31,7 @@ if (THEME.safeArea) {
   const ty = (t1 + b1) / 2 - k * (t0 + b0) / 2;
   root.style.transformOrigin = '0 0';
   root.style.transform = `translate(${tx}px, ${ty}px) scale(${k})`;
+}
 }
 
 // default ease-out: chalk must appear the moment it touches
@@ -85,7 +87,7 @@ function renderFrame(t) {
     root.appendChild(fx);
     scenes[beat.prev](makeCtx(old, fx), {});
     if (p.wipe > 0) {
-      const band = [120, 1800];
+      const band = [120, THEME.canvas.height - 120];
       sweepOff(old, p.wipe, band, 6, sweptMask(p.wipe, band, 6, 200, 280));
       drawEraser(fx, wipePose(p.wipe, band, 6).pose);
     }
@@ -94,10 +96,13 @@ function renderFrame(t) {
 }
 
 async function init() {
-  await applyTheme();
-  buildBoard(stage);
   const res = await fetch(timingUrl);
   timing = await res.json();
+  configureProfile(timing.profile);
+  refreshCanvasSize();
+  fitSafeArea();
+  await applyTheme();
+  buildBoard(stage);
   timingBase = res.url || new URL(timingUrl, location.href).href;
   const sceneName = params.get('scene') || timing.scene || './scene.js';
   const sceneUrl = new URL(sceneName, timingBase).href;

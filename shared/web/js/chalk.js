@@ -4,8 +4,12 @@
 import { clamp01, rng } from './ease.js';
 import { THEME } from '../theme.js';
 
-export const W = THEME.canvas.width;
-export const H = THEME.canvas.height;
+export let W = THEME.canvas.width;
+export let H = THEME.canvas.height;
+export function refreshCanvasSize() {
+  W = THEME.canvas.width;
+  H = THEME.canvas.height;
+}
 const NS = 'http://www.w3.org/2000/svg';
 const CHALK_FONT = THEME.fonts.chalk.family;
 

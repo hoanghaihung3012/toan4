@@ -1,0 +1,92 @@
+[
+ {
+  "text": "Lần",
+  "start": 0.125,
+  "end": 0.325
+ },
+ {
+  "text": "thứ",
+  "start": 0.325,
+  "end": 0.5
+ },
+ {
+  "text": "hai",
+  "start": 0.5,
+  "end": 0.875
+ },
+ {
+  "text": "B",
+  "start": 1.1,
+  "end": 1.275
+ },
+ {
+  "text": "chuyển",
+  "start": 1.275,
+  "end": 1.475
+ },
+ {
+  "text": "sang",
+  "start": 1.475,
+  "end": 1.7625
+ },
+ {
+  "text": "A",
+  "start": 1.7625,
+  "end": 1.925
+ },
+ {
+  "text": "số",
+  "start": 1.925,
+  "end": 2.15
+ },
+ {
+  "text": "người",
+  "start": 2.15,
+  "end": 2.35
+ },
+ {
+  "text": "gấp",
+  "start": 2.35,
+  "end": 2.5375
+ },
+ {
+  "text": "ba",
+  "start": 2.5375,
+  "end": 2.7625
+ },
+ {
+  "text": "lần",
+  "start": 2.7625,
+  "end": 2.9875
+ },
+ {
+  "text": "số",
+  "start": 2.9875,
+  "end": 3.2125
+ },
+ {
+  "text": "người",
+  "start": 3.2125,
+  "end": 3.45
+ },
+ {
+  "text": "đội",
+  "start": 3.45,
+  "end": 3.725
+ },
+ {
+  "text": "A",
+  "start": 3.725,
+  "end": 3.925
+ },
+ {
+  "text": "lúc",
+  "start": 3.925,
+  "end": 4.1375
+ },
+ {
+  "text": "này",
+  "start": 4.1375,
+  "end": 4.425
+ }
+]

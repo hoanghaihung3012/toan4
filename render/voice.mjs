@@ -70,6 +70,7 @@ const lines = {};
 const timing = {
   _note: `Built from the voiceover by render/voice.mjs (${dir}/voice.json). Do not edit by hand.`,
   draft: !!args.estimate, scene: './scene.js', fps: spec.fps, duration: 0,
+  ...(spec.profile ? { profile: spec.profile } : {}),
   ...(args.estimate ? {} : { audio: './audio/voice.wav' }), beats: [],
 };
 

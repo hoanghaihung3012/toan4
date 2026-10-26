@@ -1,0 +1,77 @@
+[
+ {
+  "text": "Bài",
+  "start": 0.125,
+  "end": 0.3375
+ },
+ {
+  "text": "hai",
+  "start": 0.3375,
+  "end": 0.7
+ },
+ {
+  "text": "Có",
+  "start": 1.575,
+  "end": 1.7125
+ },
+ {
+  "text": "năm",
+  "start": 1.7125,
+  "end": 1.9625
+ },
+ {
+  "text": "phòng",
+  "start": 1.9625,
+  "end": 2.1875
+ },
+ {
+  "text": "khách",
+  "start": 2.1875,
+  "end": 2.325
+ },
+ {
+  "text": "sạn",
+  "start": 2.325,
+  "end": 2.675
+ },
+ {
+  "text": "và",
+  "start": 2.675,
+  "end": 2.875
+ },
+ {
+  "text": "năm",
+  "start": 2.875,
+  "end": 3.1
+ },
+ {
+  "text": "thẻ",
+  "start": 3.1,
+  "end": 3.3
+ },
+ {
+  "text": "phòng",
+  "start": 3.3,
+  "end": 3.5375
+ },
+ {
+  "text": "như",
+  "start": 3.5375,
+  "end": 3.7125
+ },
+ {
+  "text": "hình",
+  "start": 3.7125,
+  "end": 3.9625
+ },
+ {
+  "text": "trên",
+  "start": 3.9625,
+  "end": 4.175
+ },
+ {
+  "text": "bảng",
+  "start": 4.175,
+  "end": 4.525
+ }
+]

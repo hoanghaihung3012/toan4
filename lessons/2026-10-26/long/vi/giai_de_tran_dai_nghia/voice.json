@@ -1,0 +1,1303 @@
+{
+  "_note": "Full lesson. First two beats retain the approved sample; rebuild timing with npm run voice.",
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+0%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "question",
+      "lead": 1.5,
+      "tail": 3,
+      "lines": [
+        {
+          "id": "L1",
+          "text": "Bài một. Dãy nhà A có các số nhà lẻ liên tiếp, bắt đầu từ một, cụ thể là một, ba, năm, và cứ tiếp tục như vậy."
+        },
+        {
+          "id": "L2",
+          "text": "Mỗi số nhà được làm riêng lẻ từng chữ số bằng kim loại."
+        },
+        {
+          "id": "L3",
+          "text": "Chi phí để làm mỗi chữ số kim loại là 45 nghìn đồng."
+        },
+        {
+          "id": "L4",
+          "text": "Câu a. Tính chi phí làm các chữ số từ số nhà một đến số nhà mười chín."
+        },
+        {
+          "id": "L5",
+          "text": "Câu b. Tổng chi phí của cả dãy là ba triệu ba trăm bảy mươi lăm nghìn đồng. Hỏi dãy nhà A có tất cả bao nhiêu căn nhà?"
+        }
+      ],
+      "windows": {
+        "title": [
+          "beat^",
+          0.7
+        ],
+        "read0": [
+          "L1.Dãy",
+          "L1$",
+          "raw"
+        ],
+        "read1": [
+          "L2.Mỗi",
+          "L2$",
+          "raw"
+        ],
+        "read2": [
+          "L3.Chi",
+          "L3$",
+          "raw"
+        ],
+        "ask0": [
+          "L4.Tính",
+          "L4$",
+          "raw"
+        ],
+        "ask1": [
+          "L5.Tổng",
+          "L5.đồng>",
+          "raw"
+        ],
+        "ask1line1": [
+          "L5.Hỏi",
+          "L5$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "review",
+      "prev": "question",
+      "lead": 1.6,
+      "tail": 2,
+      "lines": [
+        {
+          "id": "L6",
+          "text": "Mình giải câu a trước. Tiền tính theo từng chữ số, chứ không phải theo số căn nhà. Ta chia các biển thành hai nhóm."
+        },
+        {
+          "id": "L7",
+          "text": "Nhóm đầu gồm một, ba, năm, bảy, chín. Có năm biển, mỗi biển một chữ số. Năm nhân một bằng năm chữ số."
+        },
+        {
+          "id": "L8",
+          "text": "Nhóm sau gồm mười một, mười ba, mười lăm, mười bảy, mười chín. Năm biển, mỗi biển hai chữ số. Năm nhân hai bằng mười chữ số."
+        },
+        {
+          "id": "L9",
+          "text": "Cộng hai nhóm lại, năm cộng mười bằng mười lăm chữ số cần làm."
+        },
+        {
+          "id": "L10",
+          "text": "Mỗi chữ số giá 45 nghìn đồng. Lấy mười lăm nhân 45 nghìn."
+        },
+        {
+          "id": "L11",
+          "text": "Kết quả là 675 nghìn đồng. Đó là chi phí làm biển từ số nhà một đến số nhà mười chín."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "houses": [
+          "L6.Mình",
+          1.8,
+          "raw"
+        ],
+        "solution": [
+          "L7.Nhóm",
+          0.8
+        ],
+        "one": [
+          "L7.Năm#2",
+          1.4
+        ],
+        "two": [
+          "L8.Năm",
+          1.4
+        ],
+        "total": [
+          "L9.Cộng",
+          1.4
+        ],
+        "cost": [
+          "L10.Lấy",
+          1.4
+        ],
+        "result": [
+          "L11.Kết",
+          1.4
+        ],
+        "firstFocus": [
+          "L7.Nhóm",
+          "L7$",
+          "raw"
+        ],
+        "secondFocus": [
+          "L8.Nhóm",
+          "L8$",
+          "raw"
+        ],
+        "resultFocus": [
+          "L11.Kết",
+          "L11$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "houses3",
+      "prev": "review",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L12",
+          "text": "Câu b trả ba triệu ba trăm bảy mươi lăm nghìn đồng; cần tìm số nhà được làm biển."
+        },
+        {
+          "id": "L13",
+          "text": "Tổng tiền chia bốn mươi lăm nghìn đồng, là giá mỗi chữ số, được bảy mươi lăm chữ số."
+        },
+        {
+          "id": "L14",
+          "text": "Chú ý, bảy mươi lăm là số chữ số, chưa phải số nhà, vì các biển dài khác nhau."
+        },
+        {
+          "id": "L15",
+          "text": "Năm nhà đầu là một, ba, năm, bảy, chín; dùng năm chữ số, phải tách riêng nhóm này ra."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L12.Câu",
+          1.4
+        ],
+        "focus0": [
+          "L12^",
+          "L12$",
+          "raw"
+        ],
+        "step1": [
+          "L13.chia",
+          1.4
+        ],
+        "focus1": [
+          "L13^",
+          "L13$",
+          "raw"
+        ],
+        "step2": [
+          "L14.Chú",
+          1.4
+        ],
+        "focus2": [
+          "L14^",
+          "L14$",
+          "raw"
+        ],
+        "step3": [
+          "L15.Năm",
+          1.4
+        ],
+        "focus3": [
+          "L15^",
+          "L15$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "houses4",
+      "prev": "houses3",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L16",
+          "text": "Trừ năm chữ số của nhóm đầu khỏi bảy mươi lăm, còn bảy mươi chữ số cho nhóm sau."
+        },
+        {
+          "id": "L17",
+          "text": "Với biển hai chữ số, lấy bảy mươi chia hai, được ba mươi lăm nhà; lát nữa kiểm tra."
+        },
+        {
+          "id": "L18",
+          "text": "Cộng năm nhà đầu với ba mươi lăm nhà sau, được bốn mươi nhà đã được làm biển số."
+        },
+        {
+          "id": "L19",
+          "text": "Đáp số bốn mươi nhà; đừng nhầm số trên biển cuối với số lượng nhà trong dãy số lẻ."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L16.Trừ",
+          1.4
+        ],
+        "focus0": [
+          "L16^",
+          "L16$",
+          "raw"
+        ],
+        "step1": [
+          "L17.chia",
+          1.4
+        ],
+        "focus1": [
+          "L17^",
+          "L17$",
+          "raw"
+        ],
+        "step2": [
+          "L18.Cộng",
+          1.4
+        ],
+        "focus2": [
+          "L18^",
+          "L18$",
+          "raw"
+        ],
+        "step3": [
+          "L19.Đáp",
+          1.4
+        ],
+        "focus3": [
+          "L19^",
+          "L19$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "houses5",
+      "prev": "houses4",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L20",
+          "text": "Bốn mươi nhân hai trừ một bằng bảy mươi chín; biển cuối vẫn chỉ có đúng hai chữ số."
+        },
+        {
+          "id": "L21",
+          "text": "Kiểm tra: năm chữ số đầu cộng ba mươi lăm nhân hai, được đúng bảy mươi lăm chữ số."
+        },
+        {
+          "id": "L22",
+          "text": "Nhân với giá mỗi chữ số, được ba triệu ba trăm bảy mươi lăm nghìn đồng, khớp tiền đề cho."
+        },
+        {
+          "id": "L23",
+          "text": "Vậy câu a: sáu trăm bảy mươi lăm nghìn đồng; câu b: bốn mươi nhà, biển cuối bảy mươi chín."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L20.nhân",
+          1.4
+        ],
+        "focus0": [
+          "L20^",
+          "L20$",
+          "raw"
+        ],
+        "step1": [
+          "L21.Kiểm",
+          1.4
+        ],
+        "focus1": [
+          "L21^",
+          "L21$",
+          "raw"
+        ],
+        "step2": [
+          "L22.Nhân",
+          1.4
+        ],
+        "focus2": [
+          "L22^",
+          "L22$",
+          "raw"
+        ],
+        "step3": [
+          "L23.Vậy",
+          1.4
+        ],
+        "focus3": [
+          "L23^",
+          "L23$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "rooms_question",
+      "prev": "houses5",
+      "lead": 1.6,
+      "tail": 3,
+      "lines": [
+        {
+          "id": "L24",
+          "text": "Bài hai. Có năm phòng khách sạn và năm thẻ phòng như hình trên bảng."
+        },
+        {
+          "id": "L25",
+          "text": "Mỗi chữ trên cửa phòng đại diện cho duy nhất một chữ số trên thẻ."
+        },
+        {
+          "id": "L26",
+          "text": "Có một thẻ phòng bị mất số. Em hãy tìm số bị mất trên thẻ phòng."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "read0": [
+          "L24.Bài",
+          "L24$",
+          "raw"
+        ],
+        "read1": [
+          "L25.Mỗi",
+          "L25$",
+          "raw"
+        ],
+        "read2": [
+          "L26.Có",
+          "L26$",
+          "raw"
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ]
+      }
+    },
+    {
+      "id": "rooms1",
+      "prev": "rooms_question",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L27",
+          "text": "Ta có năm nhãn như trên bảng. Mỗi chữ luôn thay cho cùng một chữ số, dù xuất hiện ở nhãn nào."
+        },
+        {
+          "id": "L28",
+          "text": "Các thẻ đã biết là ba trăm bốn mươi lăm, bốn trăm ba mươi sáu, bốn trăm năm mươi sáu, sáu trăm bốn mươi sáu."
+        },
+        {
+          "id": "L29",
+          "text": "Còn một thẻ chưa biết số. Các thẻ đang để rời, chưa ghép với nhãn; ta cần tìm thẻ thiếu và kiểm tra cách ghép."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L27.Ta",
+          1.4
+        ],
+        "focus0": [
+          "L27^",
+          "L27$",
+          "raw"
+        ],
+        "step1": [
+          "L28.Các",
+          1.4
+        ],
+        "focus1": [
+          "L28^",
+          "L28$",
+          "raw"
+        ],
+        "step2": [
+          "L29.Còn",
+          1.4
+        ],
+        "focus2": [
+          "L29^",
+          "L29$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "rooms2",
+      "prev": "rooms1",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L30",
+          "text": "Trong các thẻ đã biết, ta thấy đủ bốn chữ số: ba, bốn, năm, sáu. Chúng đều phải do bốn chữ trên nhãn tạo ra."
+        },
+        {
+          "id": "L31",
+          "text": "Chỉ có bốn chữ mà phải cung cấp đủ bốn chữ số ấy, nên mỗi chữ nhận một chữ số khác nhau, không thể trùng."
+        },
+        {
+          "id": "L32",
+          "text": "Bây giờ chú ý chữ lặp ở nhãn đầu: chữ đầu và chữ cuối giống nhau. Bốn nhãn còn lại đều gồm ba chữ khác nhau."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L30.Trong",
+          1.4
+        ],
+        "focus0": [
+          "L30^",
+          "L30$",
+          "raw"
+        ],
+        "step1": [
+          "L31.Chỉ",
+          1.4
+        ],
+        "focus1": [
+          "L31^",
+          "L31$",
+          "raw"
+        ],
+        "step2": [
+          "L32.lặp",
+          1.4
+        ],
+        "focus2": [
+          "L32^",
+          "L32$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "rooms3",
+      "prev": "rooms2",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L33",
+          "text": "Thẻ sáu trăm bốn mươi sáu có hai chữ số sáu lặp lại. Nó chỉ có thể ghép với nhãn có chữ đầu trùng chữ cuối."
+        },
+        {
+          "id": "L34",
+          "text": "Vậy nhãn đầu mang số sáu trăm bốn mươi sáu. Chữ đầu và cuối nhận số sáu, còn chữ ở giữa nhận số bốn."
+        },
+        {
+          "id": "L35",
+          "text": "Ta đã dùng số sáu và số bốn. Hai chữ còn lại phải nhận số ba và số năm; cần xác định đúng thứ tự."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L33.lặp",
+          1.4
+        ],
+        "focus0": [
+          "L33^",
+          "L33$",
+          "raw"
+        ],
+        "step1": [
+          "L34.Vậy",
+          1.4
+        ],
+        "focus1": [
+          "L34^",
+          "L34$",
+          "raw"
+        ],
+        "step2": [
+          "L35.Ta",
+          1.4
+        ],
+        "focus2": [
+          "L35^",
+          "L35$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "rooms4",
+      "prev": "rooms3",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L36",
+          "text": "Bốn nhãn đầu đều kết thúc bằng cùng một chữ, đã biết là sáu. Vì vậy, cả bốn số ấy đều tận cùng bằng sáu."
+        },
+        {
+          "id": "L37",
+          "text": "Thẻ ba trăm bốn mươi lăm tận cùng bằng năm, nên chỉ ghép được với nhãn cuối. Không nhãn nào khác có thể nhận thẻ này."
+        },
+        {
+          "id": "L38",
+          "text": "Đọc nhãn cuối theo thứ tự chữ và số: chữ đầu nhận ba, chữ giữa nhận bốn, chữ cuối nhận năm. Vậy đủ cả bốn chữ."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L36.Bốn",
+          1.4
+        ],
+        "focus0": [
+          "L36^",
+          "L36$",
+          "raw"
+        ],
+        "step1": [
+          "L37.tận",
+          1.4
+        ],
+        "focus1": [
+          "L37^",
+          "L37$",
+          "raw"
+        ],
+        "step2": [
+          "L38.Đọc",
+          1.4
+        ],
+        "focus2": [
+          "L38^",
+          "L38$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "rooms5",
+      "prev": "rooms4",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L39",
+          "text": "Thay lần lượt năm, ba, sáu vào nhãn thứ ba, ta được năm trăm ba mươi sáu. Đây chính là thẻ thiếu cần tìm."
+        },
+        {
+          "id": "L40",
+          "text": "Kiểm tra lại: nhãn đầu là sáu trăm bốn mươi sáu; nhãn thứ hai là bốn trăm năm mươi sáu, đều đúng với các thẻ."
+        },
+        {
+          "id": "L41",
+          "text": "Nhãn thứ tư là bốn trăm ba mươi sáu, nhãn cuối là ba trăm bốn mươi lăm. Mỗi chữ đã được xác định, nên lời giải duy nhất."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L39.thiếu",
+          1.4
+        ],
+        "focus0": [
+          "L39^",
+          "L39$",
+          "raw"
+        ],
+        "step1": [
+          "L40.Kiểm",
+          1.4
+        ],
+        "focus1": [
+          "L40^",
+          "L40$",
+          "raw"
+        ],
+        "step2": [
+          "L41.Nhãn",
+          1.4
+        ],
+        "focus2": [
+          "L41^",
+          "L41$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "teams_question",
+      "prev": "rooms5",
+      "lead": 1.6,
+      "tail": 3,
+      "lines": [
+        {
+          "id": "L42",
+          "text": "Bài ba. Đội A và đội B cùng tham gia một trò chơi tập thể."
+        },
+        {
+          "id": "L43",
+          "text": "Trước khi bắt đầu, ban tổ chức cho phép hai đội đổi người với nhau."
+        },
+        {
+          "id": "L44",
+          "text": "Lần thứ nhất, một phần ba số người ở đội A chuyển sang đội B."
+        },
+        {
+          "id": "L45",
+          "text": "Lần thứ hai, B chuyển sang A số người gấp ba lần số người đội A lúc này."
+        },
+        {
+          "id": "L46",
+          "text": "Lần thứ ba, có năm người chuyển từ đội A sang đội B."
+        },
+        {
+          "id": "L47",
+          "text": "Sau ba lần đổi, đội A có ba mươi lăm người."
+        },
+        {
+          "id": "L48",
+          "text": "Hỏi lúc đầu, đội A có bao nhiêu người?"
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "read0": [
+          "L42.Bài",
+          "L42$",
+          "raw"
+        ],
+        "read1": [
+          "L43.Trước",
+          "L43$",
+          "raw"
+        ],
+        "read2": [
+          "L44.Lần",
+          "L44$",
+          "raw"
+        ],
+        "read3": [
+          "L45.Lần",
+          "L45$",
+          "raw"
+        ],
+        "read4": [
+          "L46.Lần",
+          "L46$",
+          "raw"
+        ],
+        "ask0": [
+          "L47.Sau",
+          "L47$",
+          "raw"
+        ],
+        "ask0line1": [
+          "L48.Hỏi",
+          "L48$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "teams1",
+      "prev": "teams_question",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L49",
+          "text": "Cuối cùng đội A còn ba mươi lăm người. Ta đi ngược từng lần chuyển để tìm số người ban đầu."
+        },
+        {
+          "id": "L50",
+          "text": "Lần cuối A chuyển năm người sang B. Muốn trở lại lúc trước, ta đưa năm người ấy về đội A."
+        },
+        {
+          "id": "L51",
+          "text": "Ba mươi lăm cộng năm bằng bốn mươi. Vậy ngay trước lần chuyển cuối, đội A có bốn mươi người."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L49.ngược",
+          1.4
+        ],
+        "focus0": [
+          "L49^",
+          "L49$",
+          "raw"
+        ],
+        "step1": [
+          "L50.về",
+          1.4
+        ],
+        "focus1": [
+          "L50^",
+          "L50$",
+          "raw"
+        ],
+        "step2": [
+          "L51.cộng",
+          1.4
+        ],
+        "focus2": [
+          "L51^",
+          "L51$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "teams2",
+      "prev": "teams1",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L52",
+          "text": "Xét lần chuyển thứ hai. Lấy số người đội A đang có trước khi nhận làm một phần bằng nhau."
+        },
+        {
+          "id": "L53",
+          "text": "Đội B chuyển sang A số người gấp ba lần phần ấy. A giữ phần cũ và nhận thêm ba phần."
+        },
+        {
+          "id": "L54",
+          "text": "Tổng là bốn phần, không phải ba. Bốn mươi chia bốn bằng mười người, nên không lấy bốn mươi chia ba."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L52.phần",
+          1.4
+        ],
+        "focus0": [
+          "L52^",
+          "L52$",
+          "raw"
+        ],
+        "step1": [
+          "L53.thêm",
+          1.4
+        ],
+        "focus1": [
+          "L53^",
+          "L53$",
+          "raw"
+        ],
+        "step2": [
+          "L54.bốn",
+          1.4
+        ],
+        "focus2": [
+          "L54^",
+          "L54$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "teams3",
+      "prev": "teams2",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L55",
+          "text": "Bây giờ xét lần đầu. A chuyển một phần ba số người sang B, nên A còn giữ hai phần ba."
+        },
+        {
+          "id": "L56",
+          "text": "Mười người vừa tìm được chính là số người A còn sau lần đầu, tương ứng với hai phần bằng nhau."
+        },
+        {
+          "id": "L57",
+          "text": "Hai phần có mười người thì một phần có năm người. Ta lấy mười chia hai, không chia cho ba."
+        },
+        {
+          "id": "L58",
+          "text": "Ban đầu đội A có đủ ba phần. Năm nhân ba bằng mười lăm, vậy đội A có mười lăm người."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L55.giữ",
+          1.4
+        ],
+        "focus0": [
+          "L55^",
+          "L55$",
+          "raw"
+        ],
+        "step1": [
+          "L56.hai",
+          1.4
+        ],
+        "focus1": [
+          "L56^",
+          "L56$",
+          "raw"
+        ],
+        "step2": [
+          "L57.chia",
+          1.4
+        ],
+        "focus2": [
+          "L57^",
+          "L57$",
+          "raw"
+        ],
+        "step3": [
+          "L58.nhân",
+          1.4
+        ],
+        "focus3": [
+          "L58^",
+          "L58$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "teams4",
+      "prev": "teams3",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L59",
+          "text": "Đọc lại chiều ngược: từ ba mươi lăm, cộng trả năm người để được bốn mươi người trước lần chuyển cuối."
+        },
+        {
+          "id": "L60",
+          "text": "Tiếp theo chia bốn vì A đã có một phần và nhận thêm ba phần. Ta trở về mười người."
+        },
+        {
+          "id": "L61",
+          "text": "Cuối cùng lấy mười chia hai rồi nhân ba để khôi phục ban đầu. Không cần biết tổng người đội B."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L59.ngược",
+          1.4
+        ],
+        "focus0": [
+          "L59^",
+          "L59$",
+          "raw"
+        ],
+        "step1": [
+          "L60.bốn",
+          1.4
+        ],
+        "focus1": [
+          "L60^",
+          "L60$",
+          "raw"
+        ],
+        "step2": [
+          "L61.khôi",
+          1.4
+        ],
+        "focus2": [
+          "L61^",
+          "L61$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "teams5",
+      "prev": "teams4",
+      "lead": 1.6,
+      "tail": 0.7,
+      "lines": [
+        {
+          "id": "L62",
+          "text": "Thử lại từ mười lăm người. Lần đầu A chuyển một phần ba, tức năm người, sang B và còn mười người."
+        },
+        {
+          "id": "L63",
+          "text": "Lần hai, A đang có mười người. B chuyển sang A gấp ba số ấy, tức ba mươi người, không phải bốn mươi."
+        },
+        {
+          "id": "L64",
+          "text": "Mười người sẵn có cộng ba mươi người vừa nhận bằng bốn mươi người. Đây mới là số người của A."
+        },
+        {
+          "id": "L65",
+          "text": "Lần cuối A chuyển năm người sang B, còn ba mươi lăm, đúng đề bài. Đáp số ban đầu là mười lăm người."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L62.đầu",
+          1.4
+        ],
+        "focus0": [
+          "L62^",
+          "L62$",
+          "raw"
+        ],
+        "step1": [
+          "L63.ba",
+          1.4
+        ],
+        "focus1": [
+          "L63^",
+          "L63$",
+          "raw"
+        ],
+        "step2": [
+          "L64.cộng",
+          1.4
+        ],
+        "focus2": [
+          "L64^",
+          "L64$",
+          "raw"
+        ],
+        "step3": [
+          "L65.đúng",
+          1.4
+        ],
+        "focus3": [
+          "L65^",
+          "L65$",
+          "raw"
+        ]
+      }
+    },
+    {
+      "id": "summary",
+      "prev": "teams5",
+      "lead": 1.6,
+      "tail": 2,
+      "lines": [
+        {
+          "id": "L66",
+          "text": "Tóm lại, bài một cần đếm chữ số chứ không đếm biển. Câu a có chi phí sáu trăm bảy mươi lăm nghìn đồng."
+        },
+        {
+          "id": "L67",
+          "text": "Câu b có bốn mươi căn nhà. Số bảy mươi chín chỉ là số ghi trên biển nhà cuối, không phải số lượng nhà."
+        },
+        {
+          "id": "L68",
+          "text": "Bài hai, tìm mẫu chữ lặp rồi xét chữ số tận cùng. Thẻ phòng bị mất mang số năm trăm ba mươi sáu."
+        },
+        {
+          "id": "L69",
+          "text": "Bài ba, đi ngược từng lần chuyển rồi thử lại theo chiều xuôi. Đội A ban đầu có mười lăm người."
+        }
+      ],
+      "windows": {
+        "wipe": [
+          "beat^",
+          1.2,
+          "raw"
+        ],
+        "title": [
+          "beat^",
+          0.6,
+          "out",
+          1.2
+        ],
+        "intro": [
+          "beat^",
+          1.2,
+          "raw",
+          1.5
+        ],
+        "step0": [
+          "L66.Tóm",
+          1.4
+        ],
+        "focus0": [
+          "L66^",
+          "L66$",
+          "raw"
+        ],
+        "step1": [
+          "L67.Câu",
+          1.4
+        ],
+        "focus1": [
+          "L67^",
+          "L67$",
+          "raw"
+        ],
+        "step2": [
+          "L68.Bài",
+          1.4
+        ],
+        "focus2": [
+          "L68^",
+          "L68$",
+          "raw"
+        ],
+        "step3": [
+          "L69.Bài",
+          1.4
+        ],
+        "focus3": [
+          "L69^",
+          "L69$",
+          "raw"
+        ]
+      }
+    }
+  ]
+}

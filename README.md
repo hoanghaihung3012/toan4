@@ -56,6 +56,39 @@ Scene imports are relative: the shared engine is `../../../../../shared/web/js/`
 lesson's timing uses `"scene": "./scene.js"` and, when voiced, `"audio": "./audio/voice.wav"`,
 both relative to that timing file. No central scene registry is needed for new lessons.
 
+## Reusable Chapters
+
+The cake lesson now exports `createScenes({ text, layout })` as well as the default
+Vietnamese `scenes`. Each call snapshots its configuration, including text arrays;
+English and Vietnamese instances can coexist without changing each other. Other
+lessons retain their existing exports and can migrate independently.
+
+`shared/composition/chapters.js` exports `composeChapters(chapters, options)`:
+
+```js
+const production = composeChapters([
+  { id: 'worked', scenes: createScenes(), timing: workedTiming },
+  { id: 'practice', scenes: createScenes({ text: practiceText }), timing: practiceTiming },
+], { scene: './scene.js', audio: './audio/voice.wav' });
+```
+
+- Inputs are generated chapter timing objects and scene registries, not guessed durations.
+- Output `scenes` namespaces each beat (`worked.beat1`), including previous-board references.
+- Output `timing` offsets all windows, records chapter boundaries in `sections`, and keeps
+  the existing player contract. Chapters must have matching FPS and continuous beat ranges.
+- Output `audioSegments` records each source track's offset and duration. Resolve source
+  audio URLs relative to their original chapter timing files before composing.
+- Narrated chapters require an explicit combined audio URL. This helper does not mix audio,
+  write production files, or rebuild voice cues. The caller must assemble the track at the
+  returned offsets, export `production.scenes` from the production scene module, and write
+  `production.timing` as its timing file. Existing voice/sync tools still operate on individual
+  chapters; combined narration and cue generation need a separate orchestration step.
+
+Use chapter-local verification plus a whole-production continuity and audio check. The
+composer introduces no automatic board wipe between chapters: author transitions explicitly.
+Canvas dimensions remain the shared portrait profile; landscape layout and cached chapter
+capture are separate follow-up work. Existing Shorts and dated folder paths are unchanged.
+
 ## Commands
 
 Run commands from the project root:
@@ -95,7 +128,8 @@ move with their lesson, so moving a lesson does not require synthesizing it agai
 
 ## YouTube Shorts (English channel)
 
-`npm run final -- <lesson>` publishes an English lesson (`voice.json` `"lang": "en"`) right
+`npm run final -- <lesson>` publishes an English Shorts lesson (`voice.json` `"lang": "en"`,
+folder format `shorts`) right
 after the MP4 is written: it uploads it to the English YouTube channel as a Short, adds it to the
 channel's playlist **Math** (created if missing; `voice.json` `"youtube": { "playlist" }`
 overrides it), and sends **one** Zalo message with the Pages preview link and the Short
@@ -107,6 +141,8 @@ from an optional `voice.json` `"youtube": { "title", "description", "tags" }`. T
 and a re-run only finishes the missing ones. Commit it with the MP4. Vietnamese clips keep the old
 flow (Zalo preview link from `npm run pages`, no upload). `--no-upload` skips it, and
 `npm run youtube -- <lesson> [--dry-run] [--force] [--no-zalo]` runs it by hand for an earlier export.
+Long-format lessons are never passed to automatic Shorts publishing, and direct
+`npm run youtube` calls reject them too. Long-video publishing remains manual.
 
 One-time setup (Google account that owns the English channel):
 1. Google Cloud console: create a project, enable **YouTube Data API v3**.

@@ -16,7 +16,7 @@ Bản tiếng Anh dùng lại đúng tên trong đề gốc.
 Đáp án: Cindy (bản Việt: Chi). Thử sức: chỉ 1 bạn nói dối → Ben (không hiện).
 
 ## Cách làm
-- `lessons/ai_an_banh/scene.js` export `TEXT` (mọi chữ trên bảng, gồm tên và 4 câu nói) và `FIT` (cỡ/vị trí dòng đáp án). `scene.js` ở đây import `scenes` + `TEXT` + `FIT` và ghi đè bằng tiếng Anh. Logic kiểm tra (`console.assert`) vẫn chạy trên bản gốc.
+- `../../vi/ai_an_banh/scene.js` export `createScenes({ text, layout })`. `scene.js` ở đây tạo một bộ scene riêng với chữ và bố cục tiếng Anh, không sửa cấu hình dùng chung của bản Việt. Logic kiểm tra (`console.assert`) vẫn chạy trên bản gốc.
 - "Cindy ate the cake!" dài hơn "Chi đã ăn bánh!" nên chạm bánh và vòng tròn chạm chữ "ate": bản Anh dời dòng sang trái (x 420), cỡ 72, khoảng cách 0,75 (bản Việt giữ 470 / 80 / 0,5).
 - Bản tiếng Việt không đổi: key pose trước/sau khi tách `TEXT`/`FIT` khác 0.000 trên cả 5 beat; voice/timing/audio không đụng tới.
 

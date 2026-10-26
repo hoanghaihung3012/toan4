@@ -1,0 +1,112 @@
+[
+ {
+  "text": "Ta",
+  "start": 0.15,
+  "end": 0.3375
+ },
+ {
+  "text": "có",
+  "start": 0.3375,
+  "end": 0.55
+ },
+ {
+  "text": "năm",
+  "start": 0.55,
+  "end": 0.775
+ },
+ {
+  "text": "nhãn",
+  "start": 0.775,
+  "end": 1.0625
+ },
+ {
+  "text": "như",
+  "start": 1.0625,
+  "end": 1.3125
+ },
+ {
+  "text": "trên",
+  "start": 1.3125,
+  "end": 1.5625
+ },
+ {
+  "text": "bảng",
+  "start": 1.5625,
+  "end": 1.925
+ },
+ {
+  "text": "Mỗi",
+  "start": 2.7875,
+  "end": 3.0
+ },
+ {
+  "text": "chữ",
+  "start": 3.0,
+  "end": 3.2
+ },
+ {
+  "text": "luôn",
+  "start": 3.2,
+  "end": 3.425
+ },
+ {
+  "text": "thay",
+  "start": 3.425,
+  "end": 3.65
+ },
+ {
+  "text": "cho",
+  "start": 3.65,
+  "end": 3.8
+ },
+ {
+  "text": "cùng",
+  "start": 3.8,
+  "end": 4.0125
+ },
+ {
+  "text": "một",
+  "start": 4.0125,
+  "end": 4.1875
+ },
+ {
+  "text": "chữ",
+  "start": 4.1875,
+  "end": 4.3625
+ },
+ {
+  "text": "số",
+  "start": 4.3625,
+  "end": 4.7875
+ },
+ {
+  "text": "dù",
+  "start": 4.9875,
+  "end": 5.1625
+ },
+ {
+  "text": "xuất",
+  "start": 5.1625,
+  "end": 5.3625
+ },
+ {
+  "text": "hiện",
+  "start": 5.3625,
+  "end": 5.7
+ },
+ {
+  "text": "ở",
+  "start": 5.7,
+  "end": 5.8375
+ },
+ {
+  "text": "nhãn",
+  "start": 5.8375,
+  "end": 6.075
+ },
+ {
+  "text": "nào",
+  "start": 6.075,
+  "end": 6.4125
+ }
+]
