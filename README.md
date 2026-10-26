@@ -70,8 +70,8 @@ move with their lesson, so moving a lesson does not require synthesizing it agai
 after the MP4 is written: it uploads it to the English YouTube channel as a Short, adds it to the
 channel's playlist **Math** (created if missing; `voice.json` `"youtube": { "playlist" }`
 overrides it), and sends **one** Zalo message with the Pages preview link and the Short
-(`npm run pages` sends nothing for an English lesson). The Short is private by default
-(`YT_PRIVACY` or `--privacy` overrides it), audience not made for kids, category Education.
+(`npm run pages` sends nothing for an English lesson). The Short is public by default
+(`YT_PRIVACY` or `--privacy` overrides it; a re-run switches an earlier upload to it), audience not made for kids, category Education.
 Title, description and tags come from the lesson's `story.md` heading and voiceover lines, or
 from an optional `voice.json` `"youtube": { "title", "description", "tags" }`. The upload writes
 `final/<date>/<name>.youtube.json` (video id, link, playlist, Zalo time); each step is done once,

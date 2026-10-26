@@ -3,7 +3,7 @@
 // the lesson's ignored out/). <date> is the day of the export in Vietnam time (YYYY-MM-DD);
 // --date keeps an earlier day when a lesson is re-exported. <name> is voice.json "final" when set
 // (an English variant uses its English title, e.g. "divisibility_rules"), otherwise the lesson
-// folder name. An English lesson is then published by render/youtube.mjs: a private Short on the
+// folder name. An English lesson is then published by render/youtube.mjs: a public Short on the
 // English channel, added to the playlist "Math", and one Zalo message with the preview link and
 // the Short (skipped without the secrets, never fails the export).
 //

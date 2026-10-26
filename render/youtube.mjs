@@ -7,8 +7,9 @@
 //
 // Only English lessons (voice.json "lang": "en") are uploaded: the Vietnamese channel stays manual
 // (user's rule 2026-10-25). Audience is "not made for kids" (selfDeclaredMadeForKids: false, the
-// user's choice). Default privacy is private; YT_PRIVACY or --privacy overrides it. A Google API
-// project that YouTube has not audited gets every API upload locked to private regardless.
+// user's choice). Default privacy is public (user's rule, 2026-10-26); YT_PRIVACY or --privacy
+// overrides it, and an earlier upload with another privacy is switched to it. A Google API project
+// that YouTube has not audited gets every API upload locked to private regardless.
 //
 // Title, description and tags come from the lesson itself: the story.md heading and the voiceover
 // lines (no new claims), or from an optional voice.json "youtube": { title, description, tags,
@@ -138,7 +139,7 @@ export function publishShort(lesson, { file, privacy, dryRun = false, force = fa
   try {
     const meta = buildMetadata(lesson);
     if (meta.lang !== 'en') return { ok: false, skipped: true, reason: `${lesson} is not an English lesson (only the English channel uploads automatically)` };
-    privacy = privacy || process.env.YT_PRIVACY || 'private';
+    privacy = privacy || process.env.YT_PRIVACY || 'public';
     if (!PRIVACY.includes(privacy)) return { ok: false, reason: `privacy must be one of ${PRIVACY.join(', ')}, got "${privacy}"` };
     file = file || latestFinal(meta.final);
     if (!file || !fs.existsSync(file)) return { ok: false, reason: `no final MP4 for ${lesson} (run npm run final -- ${lesson})` };
@@ -167,6 +168,22 @@ export function publishShort(lesson, { file, privacy, dryRun = false, force = fa
       save(rec);
       notes.push(`uploaded ${rec.url} (${rec.privacy})`);
     } else notes.push(`already uploaded ${rec.url}`);
+    if (rec.privacy !== privacy) {
+      if (missing.length) notes.push(`privacy: still ${rec.privacy} (${missing.join(', ')} not set)`);
+      else {
+        try {
+          // videos.update replaces the whole status part: keep the audience setting in it
+          const v = api('PUT', 'https://www.googleapis.com/youtube/v3/videos?part=status', auth(),
+            { id: rec.video_id, status: { privacyStatus: privacy, selfDeclaredMadeForKids: false, embeddable: true } });
+          rec.privacy = v.status?.privacyStatus || privacy;
+          save(rec);
+        } catch (e) {
+          notes.push(`privacy: still ${rec.privacy} (${redact(e.stderr || e.message)})`);
+        }
+      }
+    }
+    if (rec.privacy !== privacy && rec.privacy === 'private') notes.push(`privacy: YouTube keeps it private (an unaudited API project locks uploads to private): switch it to ${privacy} in YouTube Studio`);
+    else notes.push(`privacy: ${rec.privacy}`);
 
     // 2. playlist
     if (rec.playlist_id) notes.push(`already in playlist "${rec.playlist}"`);
