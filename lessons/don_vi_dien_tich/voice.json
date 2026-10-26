@@ -1,0 +1,591 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs don_vi_dien_tich. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "don_vi_dien_tich",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1",
+   "lead": 0.5,
+   "tail": 0.5,
+   "lines": [
+    {
+     "id": "L1",
+     "text": "1 mét vuông bằng bao nhiêu đề-xi-mét vuông?"
+    },
+    {
+     "id": "L2",
+     "text": "Cùng xem nhé!"
+    }
+   ],
+   "windows": {
+    "title": [
+     "beat^",
+     0.8
+    ],
+    "big": [
+     "L1^",
+     0.9,
+     "raw"
+    ],
+    "small": [
+     "L1.đề-xi-mét",
+     0.7,
+     "raw"
+    ],
+    "q": [
+     "L1.bao",
+     0.9,
+     "raw"
+    ],
+    "hops": [
+     "L2^",
+     1.0,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "prev": "beat1",
+   "lead": 1.05,
+   "tail": 0.4,
+   "lines": [
+    {
+     "id": "L3",
+     "text": "Đây là hình vuông có cạnh 1 đề-xi-mét."
+    },
+    {
+     "id": "L4",
+     "text": "Diện tích của nó là 1 đề-xi-mét vuông."
+    },
+    {
+     "id": "L5",
+     "text": "Chia mỗi cạnh thành 10 xăng-ti-mét."
+    },
+    {
+     "id": "L6",
+     "text": "Mỗi ô nhỏ là 1 xăng-ti-mét vuông. Một hàng có 10 ô, và có 10 hàng."
+    },
+    {
+     "id": "L7",
+     "text": "Vậy 1 đề-xi-mét vuông bằng 100 xăng-ti-mét vuông."
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "plate": [
+     "L3^",
+     0.8,
+     "raw"
+    ],
+    "dims": [
+     "L3.cạnh",
+     1.0
+    ],
+    "name": [
+     "L4.1",
+     0.9,
+     "raw"
+    ],
+    "ticks": [
+     "L5^",
+     0.9
+    ],
+    "grid": [
+     "L5.10",
+     1.0
+    ],
+    "cell": [
+     "L6.ô",
+     0.8,
+     "raw"
+    ],
+    "rowfill": [
+     "L6.hàng",
+     1.0,
+     "raw"
+    ],
+    "colfill": [
+     "L6.hàng#2",
+     0.9,
+     "raw"
+    ],
+    "calc": [
+     "L6.10#2",
+     0.8
+    ],
+    "eq": [
+     "L7.1",
+     "L7$"
+    ],
+    "loop": [
+     "L7.100",
+     0.8,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "prev": "beat2",
+   "lead": 1.05,
+   "tail": 0.5,
+   "lines": [
+    {
+     "id": "L8",
+     "text": "Hình vuông cạnh 1 mét có diện tích 1 mét vuông."
+    },
+    {
+     "id": "L9",
+     "text": "Nó gồm 100 ô vuông 1 đề-xi-mét vuông."
+    },
+    {
+     "id": "L10",
+     "text": "Vậy 1 mét vuông bằng 100 đề-xi-mét vuông!"
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "outline": [
+     "L8^",
+     1.0
+    ],
+    "dims": [
+     "L8.cạnh",
+     0.9
+    ],
+    "name": [
+     "L8.diện",
+     0.9,
+     "raw"
+    ],
+    "tiles": [
+     "L9^",
+     "L9$",
+     "raw"
+    ],
+    "cell": [
+     "L9.đề-xi-mét",
+     0.8,
+     "raw"
+    ],
+    "eq": [
+     "L10.1",
+     "L10$"
+    ],
+    "loop": [
+     "L10.100",
+     0.9,
+     "raw"
+    ],
+    "calc": [
+     "L9.100",
+     0.8
+    ]
+   }
+  },
+  {
+   "id": "beat4",
+   "prev": "beat3",
+   "lead": 1.05,
+   "tail": 0.5,
+   "lines": [
+    {
+     "id": "L11",
+     "text": "Còn đây là 1 xăng-ti-mét vuông. Phóng to lên nhé!"
+    },
+    {
+     "id": "L12",
+     "text": "Chia mỗi cạnh thành 10 mi-li-mét."
+    },
+    {
+     "id": "L13",
+     "text": "Mỗi ô nhỏ là hình vuông cạnh 1 mi-li-mét. Diện tích của nó là 1 mi-li-mét vuông."
+    },
+    {
+     "id": "L14",
+     "text": "1 xăng-ti-mét vuông bằng 100 mi-li-mét vuông."
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "small": [
+     "L11^",
+     0.7,
+     "raw"
+    ],
+    "lens": [
+     "L11.1",
+     0.8,
+     "raw"
+    ],
+    "zoom": [
+     "L11.phóng",
+     1.2,
+     "raw"
+    ],
+    "ticks": [
+     "L12^",
+     0.9
+    ],
+    "grid": [
+     "L12.10",
+     1.0
+    ],
+    "cell": [
+     "L13.ô",
+     0.8,
+     "raw"
+    ],
+    "name": [
+     "L13.diện",
+     0.9,
+     "raw"
+    ],
+    "eq": [
+     "L14^",
+     "L14$"
+    ],
+    "loop": [
+     "L14.100",
+     0.9,
+     "raw"
+    ],
+    "calc": [
+     "L13^",
+     0.8
+    ]
+   }
+  },
+  {
+   "id": "beat5",
+   "prev": "beat4",
+   "lead": 1.05,
+   "tail": 0.5,
+   "lines": [
+    {
+     "id": "L15",
+     "text": "Mỗi đơn vị gấp 100 lần đơn vị bé hơn tiếp liền."
+    },
+    {
+     "id": "L16",
+     "text": "Đổi từ lớn sang bé thì nhân 100. Từ bé sang lớn thì chia 100."
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "tiles": [
+     "L15^",
+     1.4,
+     "raw"
+    ],
+    "down": [
+     "L15.gấp",
+     1.4,
+     "raw"
+    ],
+    "mul": [
+     "L16.nhân",
+     1.2,
+     "raw"
+    ],
+    "up": [
+     "L16.chia",
+     1.2,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat6",
+   "prev": "beat5",
+   "lead": 1.05,
+   "tail": 0.5,
+   "lines": [
+    {
+     "id": "L17",
+     "text": "Mặt bàn học dài 12 đề-xi-mét, rộng 6 đề-xi-mét."
+    },
+    {
+     "id": "L18",
+     "text": "Diện tích là 72 đề-xi-mét vuông."
+    },
+    {
+     "id": "L19",
+     "text": "Một căn phòng lát vừa hết 150 viên gạch vuông cạnh 40 xăng-ti-mét."
+    },
+    {
+     "id": "L29",
+     "text": "Mỗi viên 1600 xăng-ti-mét vuông. 150 viên là 240000 xăng-ti-mét vuông."
+    },
+    {
+     "id": "L20",
+     "text": "Tức là nền phòng rộng 24 mét vuông."
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "desk": [
+     "L17^",
+     0.9,
+     "raw"
+    ],
+    "len": [
+     "L17.12",
+     0.8
+    ],
+    "wid": [
+     "L17.6",
+     0.8
+    ],
+    "area": [
+     "L18.72",
+     1.0,
+     "raw"
+    ],
+    "tile": [
+     "L19.gạch",
+     0.8,
+     "raw"
+    ],
+    "side": [
+     "L19.40",
+     0.8
+    ],
+    "count": [
+     "L19.150",
+     1.2,
+     "raw"
+    ],
+    "floor": [
+     "L20.24",
+     1.0,
+     "raw"
+    ],
+    "per": [
+     "L29^",
+     "L29.vuông>"
+    ],
+    "all": [
+     "L29.150",
+     "L29$"
+    ]
+   }
+  },
+  {
+   "id": "beat7",
+   "prev": "beat6",
+   "lead": 1.05,
+   "tail": 0.4,
+   "lines": [
+    {
+     "id": "L21",
+     "text": "Thử đổi nhé!"
+    },
+    {
+     "id": "L22",
+     "text": "8 đề-xi-mét vuông, nhân 100, được 800 xăng-ti-mét vuông."
+    },
+    {
+     "id": "L23",
+     "text": "500 đề-xi-mét vuông, chia 100, được 5 mét vuông."
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "title": [
+     "L21^",
+     "L21$"
+    ],
+    "r1": [
+     "L22^",
+     0.9
+    ],
+    "o1": [
+     "L22.nhân",
+     0.7,
+     "raw"
+    ],
+    "a1": [
+     "L22.800",
+     0.8,
+     "raw"
+    ],
+    "k1": [
+     "L22$",
+     0.6,
+     "raw"
+    ],
+    "r2": [
+     "L23^",
+     0.9
+    ],
+    "o2": [
+     "L23.chia",
+     0.7,
+     "raw"
+    ],
+    "a2": [
+     "L23.5",
+     0.8,
+     "raw"
+    ],
+    "k2": [
+     "L23$",
+     0.6,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat8",
+   "lead": 0.3,
+   "tail": 0.5,
+   "lines": [
+    {
+     "id": "L24",
+     "text": "800 mi-li-mét vuông, chia 100, được 8 xăng-ti-mét vuông."
+    },
+    {
+     "id": "L25",
+     "text": "2 mét vuông 30 đề-xi-mét vuông là 200 cộng 30, bằng 230 đề-xi-mét vuông."
+    }
+   ],
+   "windows": {
+    "r3": [
+     "L24^",
+     0.9
+    ],
+    "o3": [
+     "L24.chia",
+     0.7,
+     "raw"
+    ],
+    "a3": [
+     "L24.8",
+     0.8,
+     "raw"
+    ],
+    "k3": [
+     "L24$",
+     0.6,
+     "raw"
+    ],
+    "r4": [
+     "L25^",
+     1.2
+    ],
+    "o4": [
+     "L25.200",
+     1.2,
+     "raw"
+    ],
+    "a4": [
+     "L25.230",
+     0.8,
+     "raw"
+    ],
+    "k4": [
+     "L25$",
+     0.6,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat9",
+   "prev": "beat8",
+   "lead": 1.05,
+   "tail": 0.2,
+   "lines": [
+    {
+     "id": "L26",
+     "text": "Đến lượt bạn: 3 xăng-ti-mét vuông 5 mi-li-mét vuông bằng bao nhiêu mi-li-mét vuông?"
+    },
+    {
+     "id": "L27",
+     "text": "Bình luận đáp án nhé!"
+    }
+   ],
+   "windows": {
+    "wipe": [
+     "beat^",
+     1.2,
+     "raw"
+    ],
+    "label": [
+     "L26^",
+     0.8
+    ],
+    "expr": [
+     "L26.3",
+     1.4
+    ],
+    "q": [
+     "L26.bao",
+     0.8,
+     "raw"
+    ],
+    "count": [
+     "L27$",
+     2.4,
+     "raw",
+     0.15
+    ]
+   }
+  },
+  {
+   "id": "beat10",
+   "lead": 0.3,
+   "tail": 1.2,
+   "lines": [
+    {
+     "id": "L28",
+     "text": "Đáp án: 3 xăng-ti-mét vuông là 300 mi-li-mét vuông. 300 cộng 5 bằng 305 mi-li-mét vuông!"
+    }
+   ],
+   "windows": {
+    "conv": [
+     "L28.300",
+     1.0
+    ],
+    "sum": [
+     "L28.300#2",
+     "L28.305>"
+    ],
+    "loop": [
+     "L28.305",
+     0.9,
+     "raw"
+    ]
+   }
+  }
+ ]
+}
