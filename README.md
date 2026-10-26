@@ -2,34 +2,59 @@
 
 ## Layout
 
-Each lesson owns its content, scene code, timing, audio, and generated output:
+`lessons/` and `final/` share one layout: day, then format, then language, then the content.
+
+```text
+lessons/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<lesson>/
+final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>.mp4
+```
+
+- `<YYYY-MM-DD>`: the day the clip was made (Vietnam time).
+- `<long|shorts>`: the requested format; `shorts` (9:16) unless a long video was asked for.
+- `<en|vi>`: the voiceover language (`voice.json` `"lang"`, Vietnamese when unset).
 
 ```text
 lessons/
-  trung_binh_cong/
-    story.md
-    critique.md
-    voice.json
-    scene.js
-    timing.json
-    audio/
-      cues.json
-      voice.wav
-      lines/
-    out/                 # ignored render output
-  dau_hieu_chia_het/
-  decimal/               # draft scene and timing; no voiceover yet
+  2026-10-25/
+    shorts/
+      vi/
+        trung_binh_cong/
+          story.md
+          critique.md
+          voice.json
+          scene.js
+          timing.json
+          audio/
+            cues.json
+            voice.wav
+            lines/
+          out/           # ignored render output
+        dau_hieu_chia_het/
+        decimal/         # draft scene and timing; no voiceover yet
+      en/
+        dau_hieu_chia_het_en/
+final/
+  2026-10-25/
+    shorts/
+      vi/ban_3_mui_ten.mp4
+      en/divisibility_rules.mp4
 shared/
   web/                   # shared player, theme, CSS, and drawing engine
   fonts/                 # shared fonts
 render/                  # shared preview, TTS, capture, and inspection tools
-tests/                   # lesson loading and audio smoke tests
+tests/                   # layout, lesson loading and audio smoke tests
 ```
 
-Scene imports point to the shared engine in `../../shared/web/js/` and theme in
-`../../shared/web/theme.js`. A lesson's timing uses `"scene": "./scene.js"` and,
-when voiced, `"audio": "./audio/voice.wav"`, both relative to that timing file.
-No central scene registry is needed for new lessons.
+Lesson names stay unique across the tree, so every command still takes just the lesson name;
+`render/paths.mjs` finds its folder. Start a new lesson with
+`npm run new -- <lesson> [--lang en] [--format long] [--date YYYY-MM-DD]`, which creates and
+prints `lessons/<today>/shorts/vi/<lesson>/` by default.
+
+Scene imports are relative: the shared engine is `../../../../../shared/web/js/` and the theme
+`../../../../../shared/web/theme.js`; an English variant imports its Vietnamese scenes from
+`../../vi/<lesson>/scene.js` (with the date folder in the path when the two days differ). A
+lesson's timing uses `"scene": "./scene.js"` and, when voiced, `"audio": "./audio/voice.wav"`,
+both relative to that timing file. No central scene registry is needed for new lessons.
 
 ## Commands
 
@@ -40,6 +65,7 @@ npm run preview
 # http://localhost:8123/shared/web/index.html?lesson=trung_binh_cong
 # http://localhost:8123/shared/web/index.html?lesson=dau_hieu_chia_het
 # http://localhost:8123/shared/web/index.html?lesson=decimal (default)
+# /lessons/<lesson>/... redirects to the lesson's dated folder
 
 npm run voice -- trung_binh_cong
 npm run sync -- trung_binh_cong
@@ -53,15 +79,18 @@ npm test
 ```
 
 Capture and inspection default to the selected lesson's `out/` directory.
-`--timing lessons/<lesson>/timing.json`, `--dir`, and `--out` remain available
+`--timing lessons/<date>/<format>/<lang>/<lesson>/timing.json`, `--dir`, and `--out` remain available
 for explicit paths. MP4 capture still produces video only; mux it with the
 lesson's `audio/voice.wav` after preview approval.
 
 The existing root `out/` folder is retained for previous exports and comparisons.
 Both root and lesson-local `out/` folders are ignored by Git. After approval,
 `npm run final -- <lesson>` captures, muxes the voiceover and writes the one committed
-file, `final/<YYYY-MM-DD>/<lesson>.mp4` (or `final/<YYYY-MM-DD>/<name>.mp4` when `voice.json` sets `"final"`; English
-versions use an English name with no `_en`, e.g. `final/2026-10-25/divisibility_rules.mp4`); every finished MP4 lives in the repo-root `final/` folder, in a sub-folder for the day it was made (Vietnam time; `--date` keeps an earlier day on a re-export). TTS line caches
+file, `final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<lesson>.mp4`, in the same day/format/language
+folders as the lesson (or `<name>.mp4` when `voice.json` sets `"final"`; English versions use an
+English name with no `_en`, e.g. `final/2026-10-25/shorts/en/divisibility_rules.mp4`). Every
+finished MP4 lives in the repo-root `final/` folder; a re-export lands in the same folder, and
+`--date` overrides the day. TTS line caches
 move with their lesson, so moving a lesson does not require synthesizing it again.
 
 ## YouTube Shorts (English channel)
@@ -74,7 +103,7 @@ overrides it), and sends **one** Zalo message with the Pages preview link and th
 (`YT_PRIVACY` or `--privacy` overrides it; a re-run switches an earlier upload to it), audience not made for kids, category Education.
 Title, description and tags come from the lesson's `story.md` heading and voiceover lines, or
 from an optional `voice.json` `"youtube": { "title", "description", "tags" }`. The upload writes
-`final/<date>/<name>.youtube.json` (video id, link, playlist, Zalo time); each step is done once,
+`final/<date>/<format>/<lang>/<name>.youtube.json` (video id, link, playlist, Zalo time); each step is done once,
 and a re-run only finishes the missing ones. Commit it with the MP4. Vietnamese clips keep the old
 flow (Zalo preview link from `npm run pages`, no upload). `--no-upload` skips it, and
 `npm run youtube -- <lesson> [--dry-run] [--force] [--no-zalo]` runs it by hand for an earlier export.

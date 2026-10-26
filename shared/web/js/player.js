@@ -12,7 +12,9 @@ import { drawEraser, wipePose, sweptMask, sweepOff } from './eraser.js';
 const params = new URLSearchParams(location.search);
 const capture = params.has('capture');
 const lesson = params.get('lesson') || 'decimal';
+// /lessons/<name>/ is redirected by the server to lessons/<date>/<format>/<lang>/<name>/
 const timingUrl = params.get('timing') || `/lessons/${encodeURIComponent(lesson)}/timing.json`;
+let timingBase; // where timing.json really is, after any redirect
 
 const stage = document.getElementById('stage');
 if (capture) document.body.classList.add('capture');
@@ -94,9 +96,11 @@ function renderFrame(t) {
 async function init() {
   await applyTheme();
   buildBoard(stage);
-  timing = await (await fetch(timingUrl)).json();
+  const res = await fetch(timingUrl);
+  timing = await res.json();
+  timingBase = res.url || new URL(timingUrl, location.href).href;
   const sceneName = params.get('scene') || timing.scene || './scene.js';
-  const sceneUrl = new URL(sceneName, new URL(timingUrl, location.href)).href;
+  const sceneUrl = new URL(sceneName, timingBase).href;
   ({ scenes } = await import(sceneUrl));
   await document.fonts.ready;
   window.timing = timing;
@@ -119,7 +123,7 @@ function setupPreview() {
   const btn = document.getElementById('play');
   let t = 0, playing = false, last = 0;
   // voiceover (timing.audio) plays along in the preview; the player clock follows it
-  const audio = timing.audio ? new Audio(new URL(timing.audio, new URL(timingUrl, location.href)).href) : null;
+  const audio = timing.audio ? new Audio(new URL(timing.audio, timingBase).href) : null;
   const show = () => {
     beatLabel.textContent = renderFrame(t);
     label.textContent = `${t.toFixed(2)} s`;

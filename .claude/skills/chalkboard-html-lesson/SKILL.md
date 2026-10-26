@@ -5,11 +5,12 @@ description: Make a 9:16 (TikTok) primary-school math lesson video on the approv
 
 # Chalkboard style + engine (HTML/CSS/JS)
 
-This skill holds the **style, the engine and the process**: the board background, chalk, tiles, eraser and player, the config, the voiceover/timing pipeline and the review loops. It has **no lesson scenes**. Each project writes its own scenes in `web/js/scenes/<lesson>.js`, its script in `lessons/<lesson>/voice.json` and gets `timing/<scene>.json` built from the audio.
+This skill holds the **style, the engine and the process**: the board background, chalk, tiles, eraser and player, the config, the voiceover/timing pipeline and the review loops. It has **no lesson scenes**. Each project writes its own scenes in `web/js/scenes/<lesson>.js`, its script in `<lesson dir>/voice.json` and gets `timing/<scene>.json` built from the audio.
 
 - **Engine:** `template/`. Copy it into the project; do not rebuild it.
+- **Layout (user's rule, 2026-10-26):** `lessons/` and `final/` share one tree, day → format → language → content: `lessons/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<lesson>/` and `final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>.mp4`. The day is when the clip is made (Vietnam time), the format is what was asked for (`shorts`, 9:16, unless a long video was requested), the language is the voiceover's. Below, **`<lesson dir>`** means that lesson folder. Create it with `npm run new -- <lesson> [--lang en] [--format long]` (`render/paths.mjs`). Lesson names stay unique, so every command takes just the name and finds the folder itself.
 - **Look:** `references/board.png` is the empty board as it renders from the template.
-- **Process:** no approval wait (user's rule, 2026-10-26); the verification loops, Pages preview, MP4 and PR are under **Workflow** below. A finished example is the tuduy1 lesson "Tìm số trung bình cộng" (`lessons/trung_binh_cong/`: story.md, voice.json, critique.md; scene `web/js/scenes/tbc.js`).
+- **Process:** no approval wait (user's rule, 2026-10-26); the verification loops, Pages preview, MP4 and PR are under **Workflow** below. A finished example is the tuduy1 lesson "Tìm số trung bình cộng" (`lessons/2026-10-25/shorts/vi/trung_binh_cong/`: story.md, voice.json, critique.md; scene `web/js/scenes/tbc.js`).
 
 ## Project rules (from .claude/CLAUDE.md, non-negotiable)
 - **Sound off:** the video must read with the sound off. Show objects first, then chalk.
@@ -123,9 +124,9 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
                "windows": { "wipe": [6.0, 7.2, "raw"], "title": [7.3, 8.4] } } ] }
 ```
 - **Window format:** `[start_s, end_s, ease]`, where ease is `out` (the default; chalk must show the moment it touches), `spring`, `motion` (ease-in-out) or `raw` (the scene does its own anticipation, arc or stagger).
-- **Draft vs final:** before the voiceover exists, the file is a hand-made draft (`"draft": true`). Once the voiceover exists it is **built, never hand-edited**: `render/voice.mjs` writes it from `lessons/<lesson>/voice.json`.
+- **Draft vs final:** before the voiceover exists, the file is a hand-made draft (`"draft": true`). Once the voiceover exists it is **built, never hand-edited**: `render/voice.mjs` writes it from `<lesson dir>/voice.json`.
 
-### Voiceover script (`lessons/<lesson>/voice.json`)
+### Voiceover script (`<lesson dir>/voice.json`)
 ```json
 { "scene": "tbc", "voice": "vi-VN-HoaiMyNeural", "rate": "-8%", "fps": 30, "gap": 0.35,
   "beats": [ { "id": "beat2", "prev": "beat1", "lead": 1.0, "tail": 0.4,
@@ -149,20 +150,20 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
 - **Pauses:** a thinking pause is a long `tail` (≈2.4 s) on the question beat.
 
 ## Language versions (English, user's rule 2026-10-25)
-**Default is Vietnamese.** When the user does not name a language, the lesson is Vietnamese (`vi-VN-HoaiMyNeural`, Vietnamese board text). An English version ("bản tiếng Anh") **reuses** the Vietnamese lesson: same story, facts, scenes, motion and layout. Only the voiceover and the board text change. Example: `lessons/day_so_tiep_theo_en/` (reuses `lessons/day_so_tiep_theo/`).
+**Default is Vietnamese.** When the user does not name a language, the lesson is Vietnamese (`vi-VN-HoaiMyNeural`, Vietnamese board text). An English version ("bản tiếng Anh") **reuses** the Vietnamese lesson: same story, facts, scenes, motion and layout. Only the voiceover and the board text change. Example: `lessons/2026-10-25/shorts/en/day_so_tiep_theo_en/` (reuses `lessons/2026-10-25/shorts/vi/day_so_tiep_theo/`).
 
-1. **Branch** `lesson/<lesson>_en` from the latest `develop`. The variant lives in `lessons/<lesson>_en/`.
-2. **Vietnamese scene: export the board text.** If `lessons/<lesson>/scene.js` does not have it yet, move every on-board word into
+1. **Branch** `lesson/<lesson>_en` from the latest `develop`. The variant lives in `lessons/<YYYY-MM-DD>/<format>/en/<lesson>_en/` (`npm run new -- <lesson>_en --lang en`, same format as the Vietnamese one).
+2. **Vietnamese scene: export the board text.** If `<lesson dir>/scene.js` does not have it yet, move every on-board word into
    `export const TEXT = { question: 'Số tiếp theo là gì?', ... }` and read `TEXT.x` at render time (never copy it into a module-level constant).
    - Prove the Vietnamese output is unchanged: run `capture.mjs --keyposes` before and after, then `inspect.mjs diff`. The mean must be 0.000 on every beat. Do not touch its voice.json, timing or audio.
-3. **`lessons/<lesson>_en/scene.js`** is only a wrapper:
+3. **`<lesson dir of <lesson>_en>/scene.js`** is only a wrapper:
    ```js
-   import { scenes, TEXT } from '../<lesson>/scene.js';
+   import { scenes, TEXT } from '../../vi/<lesson>/scene.js'; // or '../../../../<date>/<format>/vi/<lesson>/scene.js' when the days differ
    Object.assign(TEXT, { question: 'What comes next?', /* … */ });
    export { scenes };
    ```
    Numbers, ×, =, + and digits stay as drawn. People's names are translated too: Vietnamese names in the Vietnamese lesson, English names in the English one (see **Project rules**). Keep each English string about as long as the Vietnamese one, or shorter, so the layout fits. Check this on the key poses.
-4. **`lessons/<lesson>_en/voice.json`**: copy the Vietnamese one, then set `"lang": "en"`, `"voice": "en-US-AvaNeural"`, `"rate": "+6%"` and `"final": "<english_title>"`.
+4. **`<lesson dir of <lesson>_en>/voice.json`**: copy the Vietnamese one, then set `"lang": "en"`, `"voice": "en-US-AvaNeural"`, `"rate": "+6%"` and `"final": "<english_title>"`.
    - `final` names the finished MP4 in English, snake_case, with **no `_en` suffix** (user's rule, 2026-10-25): e.g. `"divisibility_rules"`, `"what_comes_next"`. Take it from the English title in `story.md`.
    - Keep the **same beat ids, window keys, `prev`/`wipe`, lead/tail** and translate each line.
    - Re-anchor every window to the English word that carries the same meaning, e.g. `L2.gì` → `L2.next` and `L3.đừng` → `L3.don't`.
@@ -178,8 +179,8 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
    - technical;
    - director's review.
    
-   Then **no approval wait** (user's rule, 2026-10-25: the English version skips the Pages review). Publish with `npm run pages -- <lesson>_en` (`pages.mjs` copies the imported Vietnamese scene and sets `<html lang>` from `voice.json`; for an English lesson it sends **no** Zalo message), then go straight on: `npm run final -- <lesson>_en` → `final/<YYYY-MM-DD>/<english_title>.mp4` (from `voice.json` `final`), the final technical checks, and a PR to `develop`.
-   - **YouTube Shorts + Zalo (user's rule, 2026-10-26):** right after the MP4, `npm run final` runs `render/youtube.mjs` by itself: it uploads the English clip to the English YouTube channel as a **public** Short (user's rule, 2026-10-26) (audience **not** made for kids, category Education, title from the `story.md` heading + `#Shorts`, description from the voice lines), adds it to the channel's playlist **"Math"**, then sends **one** Zalo message to the review group holding both the Pages preview link and the Short link. Each step is recorded in `final/<YYYY-MM-DD>/<english_title>.youtube.json`; a re-run (`npm run youtube -- <lesson>_en`) only does the missing steps and never uploads or messages twice. Commit that `.youtube.json` with the MP4 and put the Short link in the PR. Secrets: `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN` (scope `youtube`, from `npm run youtube:auth` on the user's computer) and `ZALO_BOT_TOKEN`; never commit, print or paste them. If it prints `youtube: … not …`, say so in one line and carry on. Vietnamese lessons are never uploaded: they keep the Zalo preview link from `npm run pages`.
+   Then **no approval wait** (user's rule, 2026-10-25: the English version skips the Pages review). Publish with `npm run pages -- <lesson>_en` (`pages.mjs` copies the imported Vietnamese scene and sets `<html lang>` from `voice.json`; for an English lesson it sends **no** Zalo message), then go straight on: `npm run final -- <lesson>_en` → `final/<YYYY-MM-DD>/<format>/en/<english_title>.mp4` (from `voice.json` `final`), the final technical checks, and a PR to `develop`.
+   - **YouTube Shorts + Zalo (user's rule, 2026-10-26):** right after the MP4, `npm run final` runs `render/youtube.mjs` by itself: it uploads the English clip to the English YouTube channel as a **public** Short (user's rule, 2026-10-26) (audience **not** made for kids, category Education, title from the `story.md` heading + `#Shorts`, description from the voice lines), adds it to the channel's playlist **"Math"**, then sends **one** Zalo message to the review group holding both the Pages preview link and the Short link. Each step is recorded in `final/<YYYY-MM-DD>/<format>/en/<english_title>.youtube.json`; a re-run (`npm run youtube -- <lesson>_en`) only does the missing steps and never uploads or messages twice. Commit that `.youtube.json` with the MP4 and put the Short link in the PR. Secrets: `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN` (scope `youtube`, from `npm run youtube:auth` on the user's computer) and `ZALO_BOT_TOKEN`; never commit, print or paste them. If it prints `youtube: … not …`, say so in one line and carry on. Vietnamese lessons are never uploaded: they keep the Zalo preview link from `npm run pages`.
    - Tell the user the Pages link, the Short link, the PR and the MP4 in one message at the end. If the user later asks for changes, fix them, re-run the loops they touch (sync always), republish, re-export the MP4 and push to the same PR.
    - Edge TTS English also merges **"Figure 99" / "figure 10"** into ONE word boundary: anchor on the line start or the word before, never on the number after "figure".
    - When an English word is longer and collides with the drawn layout, add a small `FIT` export next to `TEXT` in the Vietnamese scene (offsets/sizes that default to the Vietnamese values) and override it in the wrapper; the Vietnamese key-pose diff must stay 0.000 (example: `lessons/que_diem_en/`).
@@ -190,7 +191,7 @@ Do **not** stop for approval anywhere (facts, story, storyboard, key poses, audi
 
 0. **New video → new branch from the latest `develop`** (user's rule, 2026-10-25). Before any lesson work:
    `git fetch origin develop && git checkout -b lesson/<lesson> origin/develop` (keep unrelated uncommitted changes; stash only if checkout refuses). Never start a lesson on `main`, on `develop` itself, or on another lesson's branch. Commit and push the lesson there, then open a PR with base `develop`.
-1. **Facts + story** → `lessons/<lesson>/story.md`.
+1. **Facts + story** → `<lesson dir>/story.md`.
    - Source every number (VnDoc / VietJack / SGK pages via the Browser pane).
    - Make a table of facts and sources, re-check the arithmetic, and add a scene table: board (readable with the sound off) | voice line.
    - Default tone for TikTok: a question hook in the first 2 s (answered visibly later), short spoken lines, a ✓/✗ "game show" check per example, a closing challenge with a 3-2-1 countdown that asks viewers to comment.
@@ -209,16 +210,16 @@ Do **not** stop for approval anywhere (facts, story, storyboard, key poses, audi
    3. **Sync:** `node render/synccheck.mjs <lesson>` must report 0 windows off.
    4. **Fact check:** every on-screen word and voice line goes into a table with its source. Cut anything unmatched.
    5. **Director's review:** watch every sheet, write a brutal critique (dead holds while the voice talks are the usual top issue), fix the top 3, then rebuild timing and sheets and review again.
-   - Write it all to `lessons/<lesson>/critique.md`, including what is still weak, as the user's call.
+   - Write it all to `<lesson dir>/critique.md`, including what is still weak, as the user's call.
 5. **Publish the running HTML to Pages (no Zalo yet).**
    - **Publish it to GitHub Pages** (user's rule, 2026-10-25) so the user can review on a phone: `npm run pages -- <lesson>` (`render/pages.mjs`). It copies the shared player, fonts, the lesson's `.js` files and timing, converts the voice to MP3, writes `<lesson>/index.html` on the `gh-pages` branch, rebuilds the index of all published lessons and pushes. For a Vietnamese lesson run it as `npm run pages -- <lesson> --no-zalo` here: the Zalo link goes out only at the end (step 7). The link is `https://hoanghaihung3012.github.io/toan4/<lesson>/` (Pages serves `gh-pages`, `/ (root)`; the repo is public). Pages takes 1–2 minutes to update after a push.
    - **Zalo review group** (user's rule, 2026-10-25; Vietnamese lessons only, an English lesson's one message comes from `npm run final`, see **Language versions**): sent in step 7, after the PR (user's rule, 2026-10-26), by running `npm run pages -- <lesson>` again without `--no-zalo` (nothing changed, so it pushes nothing and goes straight to the Zalo step). `npm run pages` sends it **only once GitHub has deployed the pushed gh-pages commit** (it waits for the Actions run "pages build and deployment" of that commit; `*.github.io` itself is blocked from cloud sessions) and **only once per lesson** (record: `zalo_sent.json` on `gh-pages`; a republish never sends again) (user's rule, 2026-10-25) (`render/zalo.mjs`, Zalo Bot `sendMessage` to group `zgr-7722d0d041bfa8e1f1ae`; `ZALO_CHAT_ID` overrides). The bot token is the cloud-environment secret `ZALO_BOT_TOKEN`: never commit, print or paste it. The environment must allow `bot-api.zaloplatforms.com`. If the script prints `zalo: not sent (…)`, say so in one line and carry on; the link in the thread is the fallback. Only the preview link goes to Zalo, not the PR link (user's rule, 2026-10-25). `--no-zalo` skips it.
    - Do **not** post the link in the thread yet and do **not** wait: go straight on to step 6.
 6. **Export the MP4 right away, then commit and open the PR.**
-   - Run `npm run final -- <lesson>` (`render/final.mjs`) in the background (≈470 s for 84 s). It captures `lessons/<lesson>/out/<lesson>_video.mp4`, muxes the lesson's `audio/voice.wav` (AAC 192k, 48 kHz stereo, `+faststart`) and writes **`final/<YYYY-MM-DD>/<lesson>.mp4`**, or `final/<YYYY-MM-DD>/<voice.json final>.mp4` when the lesson sets `final` (English versions: English name, no `_en`) (user's rule, 2026-10-25: every finished MP4 lives in the repo-root `final/` folder, never inside the lesson; user's rule, 2026-10-25: inside `final/`, one sub-folder per day the clip was made, `YYYY-MM-DD` in Vietnam time). The day is the export day; when a lesson is re-exported later, pass `--date <original day>` so the file stays in its first folder instead of being duplicated.
-   - Technical check on `final/<YYYY-MM-DD>/<lesson>.mp4`: duration, stereo, true peak, `silencedetect` and `freezedetect=n=0.001:d=4`. Report a freeze honestly even when it is only a small cue drawing.
-   - Hand over the file `final.mjs` printed (`final/<YYYY-MM-DD>/<lesson>.mp4`, or the English name).
-   - **Commit the final MP4, and only that file** (user's rule, 2026-10-25): `git add final/<YYYY-MM-DD>/<name>.mp4` (not ignored, no `-f`), plus its `<name>.youtube.json` for an English lesson. Never commit the video-only capture, key poses, sheets or stills. Commit it with the lesson on the lesson branch so it is in the PR.
+   - Run `npm run final -- <lesson>` (`render/final.mjs`) in the background (≈470 s for 84 s). It captures `<lesson dir>/out/<lesson>_video.mp4`, muxes the lesson's `audio/voice.wav` (AAC 192k, 48 kHz stereo, `+faststart`) and writes **`final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<lesson>.mp4`**, or `<voice.json final>.mp4` in that folder when the lesson sets `final` (English versions: English name, no `_en`) (user's rule, 2026-10-25: every finished MP4 lives in the repo-root `final/` folder, never inside the lesson; user's rule, 2026-10-26: `final/` uses the same day/format/language folders as `lessons/`). The day, format and language come from the lesson's own folder, so a re-export lands in the same place; `--date` overrides the day.
+   - Technical check on `final/<YYYY-MM-DD>/<format>/<lang>/<lesson>.mp4`: duration, stereo, true peak, `silencedetect` and `freezedetect=n=0.001:d=4`. Report a freeze honestly even when it is only a small cue drawing.
+   - Hand over the file `final.mjs` printed (`final/<YYYY-MM-DD>/<format>/<lang>/<lesson>.mp4`, or the English name).
+   - **Commit the final MP4, and only that file** (user's rule, 2026-10-25): `git add final/<YYYY-MM-DD>/<format>/<lang>/<name>.mp4` (not ignored, no `-f`), plus its `<name>.youtube.json` for an English lesson. Never commit the video-only capture, key poses, sheets or stills. Commit it with the lesson on the lesson branch so it is in the PR.
    - Push and open the PR to `develop` (summary, Pages link, verification results).
 7. **Only now: send the preview link and say it is done** (user's rule, 2026-10-26).
    - Vietnamese lesson: `npm run pages -- <lesson>` (sends the Zalo link once Pages serves it, once per lesson). An English lesson's Zalo message already went out from `npm run final`.

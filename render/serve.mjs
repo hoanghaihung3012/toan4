@@ -1,9 +1,10 @@
 // Tiny static server for the project root (ES modules and fetch need http://, not file://).
-// node render/serve.mjs [port]  -> preview at http://localhost:<port>/shared/web/index.html
+// node render/serve.mjs [port]  -> preview at http://localhost:<port>/shared/web/index.html?lesson=<name>
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { lessonDir } from './paths.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const TYPES = {
@@ -15,6 +16,16 @@ const TYPES = {
 export function startServer(port = 0) {
   const server = http.createServer((req, res) => {
     const url = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+    // short form /lessons/<name>/... -> the lesson's dated folder lessons/<date>/<format>/<lang>/<name>/...
+    const short = /^\/lessons\/([a-z0-9_]+)\/(.*)$/.exec(url);
+    if (short && !/^\d{4}-\d{2}-\d{2}$/.test(short[1])) {
+      let dir = null;
+      try { dir = lessonDir(short[1]); } catch { /* unknown lesson: 404 below */ }
+      if (dir) {
+        res.writeHead(302, { Location: `/${dir.split(path.sep).map(encodeURIComponent).join('/')}/${short[2].split('/').map(encodeURIComponent).join('/')}`, 'Cache-Control': 'no-store' }).end();
+        return;
+      }
+    }
     const file = path.join(ROOT, url);
     if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
       res.writeHead(404).end('not found');

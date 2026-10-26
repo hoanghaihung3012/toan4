@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import puppeteer from 'puppeteer-core';
 import { startServer } from './serve.mjs';
+import { lessonDir } from './paths.mjs';
 import { THEME } from '../shared/web/theme.js';
 
 // macOS Chrome by default; CHROME_PATH overrides it (e.g. Linux cloud sessions)
@@ -32,7 +33,8 @@ export async function launch(chrome = CHROME_DEFAULT) {
   });
 }
 
-export async function openPlayer({ lesson = 'decimal', timingPath = `lessons/${lesson}/timing.json`, scene, chrome } = {}) {
+export async function openPlayer({ lesson = 'decimal', timingPath, scene, chrome } = {}) {
+  timingPath ||= path.join(lessonDir(lesson), 'timing.json');
   const timing = JSON.parse(fs.readFileSync(timingPath, 'utf8'));
   const server = await startServer(0);
   const browser = await launch(chrome);
