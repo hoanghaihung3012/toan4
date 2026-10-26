@@ -84,16 +84,48 @@ html, body {
   box-shadow: inset 0 -8px 0 var(--eraser-dust);
 }
 
-/* --- preview controls (hidden in capture mode) ------------------------- */
+/* --- preview page (capture mode shows the stage 1:1 at the top left, no controls) ---------------
+   The page is exactly the visible window: #view takes what the controls leave and the stage is
+   scaled into it by js/fit.js. Nothing is wider than the phone, so mobile browsers never zoom out. */
+body:not(.capture) {
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+body:not(.capture) #view {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+body:not(.capture) #stage { position: absolute; left: 0; top: 0; }
+
 #controls {
-  position: fixed;
-  left: 0; right: 0; bottom: 0;
+  flex: none;
   display: flex;
   gap: 10px;
   align-items: center;
-  padding: 10px 14px;
+  padding: 8px max(12px, env(safe-area-inset-right, 0px)) max(8px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
   background: rgba(20, 20, 20, 0.92);
+  font-size: 16px;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
-#controls input[type=range] { flex: 1; }
-#controls button { font: inherit; padding: 4px 10px; }
+#controls button {
+  flex: none;
+  font: inherit;
+  font-size: 20px;
+  width: 56px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 8px;
+}
+#controls input[type=range] { flex: 1 1 auto; min-width: 0; height: 32px; margin: 0; }
+#controls span { flex: none; white-space: nowrap; font-variant-numeric: tabular-nums; }
+#controls #beat { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; opacity: 0.7; }
+@media (max-width: 420px) { #controls #beat { display: none; } }
 body.capture #controls { display: none; }
