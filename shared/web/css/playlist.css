@@ -12,6 +12,7 @@ html, body {
 #screen {
   position: relative;
   width: min(100vw, (100vh - 64px) * 16 / 9);
+  width: min(100vw, (100dvh - 64px) * 16 / 9); /* dvh: the phone URL bar does not hide the controls */
   aspect-ratio: 16 / 9;
   margin: 0 auto;
 }
