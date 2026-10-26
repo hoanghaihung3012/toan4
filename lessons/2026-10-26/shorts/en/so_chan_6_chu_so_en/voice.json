@@ -1,0 +1,131 @@
+{
+ "_note": "English voiceover for the so_chan_6_chu_so scenes (same beats and window keys as the Vietnamese voice.json). Built by: node render/voice.mjs so_chan_6_chu_so_en. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+ "scene": "so_chan_6_chu_so",
+ "lang": "en",
+ "final": "even_six_digit_numbers",
+ "voice": "en-US-AvaNeural",
+ "rate": "+10%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.2, "tail": 1.7,
+   "lines": [
+    { "id": "L1", "text": "How many 6-digit numbers have all different digits, and are even?" },
+    { "id": "L2", "text": "For example, 123,456 is even, and its digits are all different." },
+    { "id": "L3", "text": "But the digit 0 can't go first." },
+    { "id": "L4", "text": "So how many such numbers are there?" }
+   ],
+   "windows": {
+    "tray": ["beat^", 2.2, "raw", 0.1],
+    "slots": ["L1.6-digit", 1.0, "raw"],
+    "c1": ["L1.6-digit", "L1.different>"],
+    "c2": ["L1.are", "L1.even>"],
+    "q": ["L1.even", 0.8, "raw"],
+    "ex1": ["L2.123456", "L2$", "raw"],
+    "ex2": ["L3^", "L3$", "raw"],
+    "ask": ["L4^", 0.9, "raw"],
+    "dots": ["L4$", 1.6, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "lead": 1.0, "tail": 0.5,
+   "lines": [
+    { "id": "L5", "text": "An even number ends in 0, 2, 4, 6 or 8." },
+    { "id": "L6", "text": "The first digit can't be 0." },
+    { "id": "L7", "text": "The digit 0 is in both rules, so we split it into 2 cases." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "r1": ["L5.ends", "L5.8>"],
+    "ev": ["L5.0", "L5.8>", "raw"],
+    "lastL": ["L5.even", 0.8, "raw"],
+    "r2": ["L6^", "L6$"],
+    "firstL": ["L6.0", 0.8, "raw"],
+    "z0": ["L7.0", 1.0, "raw"],
+    "split": ["L7.split", 0.8, "raw"],
+    "box1": ["L7.2", 1.0, "raw"],
+    "box2": ["L7.cases", 1.0, "raw"]
+   }
+  },
+  {
+   "id": "beat3", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L8", "text": "Case 1: the ones digit is 0." },
+    { "id": "L9", "text": "The first digit can be 1 to 9, so 9 ways." },
+    { "id": "L10", "text": "The other places have 8, 7, 6 and 5 ways." },
+    { "id": "L11", "text": "9 times 8 times 7 times 6 times 5 makes 15,120 numbers." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "b": ["L8^", "L8$"],
+    "z": ["L8.0", 1.0, "raw"],
+    "k5": ["L8.0", 0.7, "raw", 0.6],
+    "k0": ["L9.9#2", 0.7, "raw"],
+    "note": ["L9^", "L9.9>"],
+    "k1": ["L10.8", 0.6, "raw"],
+    "k2": ["L10.7", 0.6, "raw"],
+    "k3": ["L10.6", 0.6, "raw"],
+    "k4": ["L10.5", 0.6, "raw"],
+    "eq": ["L11^", "L11.5>"],
+    "res": ["L11.makes", "L11.15120>"],
+    "ans": ["L11.15120", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L12", "text": "Case 2: the ones digit is 2, 4, 6 or 8, so 4 ways." },
+    { "id": "L13", "text": "The first digit can't be 0, or the ones digit, so 8 ways." },
+    { "id": "L14", "text": "The other places have 8, 7, 6 and 5 ways." },
+    { "id": "L15", "text": "8 times 8 times 7 times 6 times 5 times 4 makes 53,760 numbers." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "b": ["L12^", "L12.8>"],
+    "ev2": ["L12.2#2", "L12.8>", "raw"],
+    "k5": ["L12.ways", 0.7, "raw"],
+    "note": ["L13.0", "L13.digit#2>"],
+    "k0": ["L13.8", 0.7, "raw"],
+    "k1": ["L14.8", 0.6, "raw"],
+    "k2": ["L14.7", 0.6, "raw"],
+    "k3": ["L14.6", 0.6, "raw"],
+    "k4": ["L14.5", 0.6, "raw"],
+    "eq": ["L15^", "L15.4>"],
+    "res": ["L15.makes", "L15.53760>"],
+    "ans": ["L15.53760", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L16", "text": "Add the 2 cases: 15,120 plus 53,760 makes 68,880." },
+    { "id": "L17", "text": "That's 68,880 even numbers in all!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "a1": ["L16.15120", 0.9, "raw"],
+    "a2": ["L16.53760", 0.9, "raw"],
+    "sum": ["L16.makes", "L16.68880>", "raw"],
+    "ans": ["L17.68880", 1.0, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "prev": "beat5", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L18", "text": "Your turn: how many 6-digit numbers have all different digits, and are odd?" },
+    { "id": "L19", "text": "Comment your answer!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L18^", 0.8],
+    "tray": ["L18^", 1.6, "raw"],
+    "c1": ["L18.6-digit", "L18.different>"],
+    "c2": ["L18.are", "L18.odd>"],
+    "ask": ["L18$", 0.9, "raw"],
+    "cmt": ["L19.Comment", 0.9],
+    "count": ["L19$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}
