@@ -3,14 +3,15 @@
 // the lesson's ignored out/). <date> is the day of the export in Vietnam time (YYYY-MM-DD);
 // --date keeps an earlier day when a lesson is re-exported. <name> is voice.json "final" when set
 // (an English variant uses its English title, e.g. "divisibility_rules"), otherwise the lesson
-// folder name. An English lesson is then uploaded to the English YouTube channel as a private
-// Short (render/youtube.mjs; skipped without the YT_* secrets, never fails the export).
+// folder name. An English lesson is then published by render/youtube.mjs: a private Short on the
+// English channel, added to the playlist "Math", and one Zalo message with the preview link and
+// the Short (skipped without the secrets, never fails the export).
 //
 //   node render/final.mjs <lesson> [--crf 18] [--date YYYY-MM-DD] [--no-upload]
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import { parseArgs } from './browser.mjs';
-import { uploadShort } from './youtube.mjs';
+import { publishShort } from './youtube.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
@@ -32,6 +33,7 @@ execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', video, '-i', `lessons/
   '-shortest', '-movflags', '+faststart', out], { stdio: 'inherit' });
 console.log(`wrote ${out}`);
 if (!args['no-upload'] && voice.lang === 'en') {
-  const r = uploadShort(lesson, { file: out });
-  console.log(r.ok ? `youtube: uploaded ${r.url} (${r.record.privacy}); record ${r.recordFile}` : `youtube: not uploaded (${r.reason})`);
+  const r = publishShort(lesson, { file: out });
+  if (r.ok) for (const n of r.notes) console.log(`youtube: ${n}`);
+  else console.log(`youtube: not uploaded (${r.reason})`);
 }

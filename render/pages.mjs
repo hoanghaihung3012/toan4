@@ -7,7 +7,8 @@
 //
 // After a push it waits until GitHub has deployed that gh-pages commit, then sends the link to the
 // Zalo review group once per lesson (render/zalo.mjs; needs ZALO_BOT_TOKEN; record: zalo_sent.json
-// on gh-pages).
+// on gh-pages). An English lesson sends nothing here: render/youtube.mjs sends one message with
+// the preview link and the YouTube Short once the clip is uploaded (user's rule, 2026-10-26).
 //
 // One-time setup by the repo owner: Settings -> Pages -> Deploy from a branch -> gh-pages, / (root).
 // The repo must be public (or on a paid plan) for Pages to serve it.
@@ -16,6 +17,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { parseArgs } from './browser.mjs';
+import { lessonTitle, pagesSite } from './site.mjs';
 import { sendZalo } from './zalo.mjs';
 
 const args = parseArgs(process.argv.slice(2));
@@ -72,8 +74,7 @@ try {
   if (!def.test(code)) throw new Error('player.js: default timing URL changed, update render/pages.mjs');
   fs.writeFileSync(player, code.replace(def, `'lessons/${lesson}/timing.json'`));
 
-  const title = (fs.readFileSync(path.join(src, 'story.md'), 'utf8').match(/^#\s+(.+)$/m)?.[1] || lesson)
-    .split(/\s+[—-]\s+/)[0];
+  const title = lessonTitle(lesson);
   const lang = JSON.parse(fs.readFileSync(path.join(src, 'voice.json'), 'utf8')).lang || 'vi';
   const page = fs.readFileSync('shared/web/index.html', 'utf8')
     .replace(/<html lang="[^"]*">/, `<html lang="${lang}">`)
@@ -128,17 +129,18 @@ ${items.join('\n')}
     sh(work, 'commit', '-q', '-m', `Publish HTML preview: ${lesson}`);
     if (!args['no-push']) sh(work, 'push', '-q', '-u', 'origin', 'gh-pages');
   }
-  const m = git('remote', 'get-url', 'origin').match(/([^/:]+)\/([^/]+?)(\.git)?\/?$/);
-  const url = m ? `https://${m[1].toLowerCase()}.github.io/${m[2]}/${lesson}/` : `<pages site>/${lesson}/`;
+  const site = pagesSite(lesson);
+  const url = site ? site.url : `<pages site>/${lesson}/`;
   console.log(changed ? `published ${lesson}: ${url}` : `no change for ${lesson}: ${url}`);
 
   // --- 5. Zalo: only once Pages serves this commit, and only once per lesson ----------------------
   if (!args['no-push'] && !args['no-zalo']) {
-    if (sent[lesson]) console.log(`zalo: not sent (already sent for ${lesson} on ${sent[lesson]})`);
-    else if (!m) console.log('zalo: not sent (no GitHub remote to check Pages)');
+    if (lang === 'en') console.log('zalo: not sent here (English: npm run final sends the preview and the Short in one message)');
+    else if (sent[lesson]) console.log(`zalo: not sent (already sent for ${lesson} on ${sent[lesson]})`);
+    else if (!site) console.log('zalo: not sent (no GitHub remote to check Pages)');
     else {
       const sha = execFileSync('git', ['-C', work, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
-      const live = await waitForPages(`${m[1]}/${m[2]}`, sha);
+      const live = await waitForPages(site.repo, sha);
       if (!live.ok) console.log(`zalo: not sent (${live.reason})`);
       else {
         const r = sendZalo(`Bản xem trước: ${title}\n${url}`);

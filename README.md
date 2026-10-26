@@ -66,14 +66,18 @@ move with their lesson, so moving a lesson does not require synthesizing it agai
 
 ## YouTube Shorts (English channel)
 
-`npm run final -- <lesson>` uploads an English lesson (`voice.json` `"lang": "en"`) to the
-English YouTube channel as a Short right after the MP4 is written: private by default
+`npm run final -- <lesson>` publishes an English lesson (`voice.json` `"lang": "en"`) right
+after the MP4 is written: it uploads it to the English YouTube channel as a Short, adds it to the
+channel's playlist **Math** (created if missing; `voice.json` `"youtube": { "playlist" }`
+overrides it), and sends **one** Zalo message with the Pages preview link and the Short
+(`npm run pages` sends nothing for an English lesson). The Short is private by default
 (`YT_PRIVACY` or `--privacy` overrides it), audience not made for kids, category Education.
 Title, description and tags come from the lesson's `story.md` heading and voiceover lines, or
 from an optional `voice.json` `"youtube": { "title", "description", "tags" }`. The upload writes
-`final/<date>/<name>.youtube.json` (video id and link), so the same clip is never uploaded twice;
-commit it with the MP4. Vietnamese clips are not uploaded. `--no-upload` skips it, and
-`npm run youtube -- <lesson> [--dry-run] [--force]` uploads an earlier export by hand.
+`final/<date>/<name>.youtube.json` (video id, link, playlist, Zalo time); each step is done once,
+and a re-run only finishes the missing ones. Commit it with the MP4. Vietnamese clips keep the old
+flow (Zalo preview link from `npm run pages`, no upload). `--no-upload` skips it, and
+`npm run youtube -- <lesson> [--dry-run] [--force] [--no-zalo]` runs it by hand for an earlier export.
 
 One-time setup (Google account that owns the English channel):
 1. Google Cloud console: create a project, enable **YouTube Data API v3**.
@@ -81,7 +85,9 @@ One-time setup (Google account that owns the English channel):
    in "Testing" the refresh token expires after 7 days).
 3. Credentials: create an OAuth client ID of type **Desktop app**.
 4. On your own computer: set `YT_CLIENT_ID` and `YT_CLIENT_SECRET`, run `npm run youtube:auth`,
-   open the link, allow access, and copy the printed `YT_REFRESH_TOKEN`.
+   open the link, allow access, and copy the printed `YT_REFRESH_TOKEN`. The token must carry the
+   `youtube` scope (the script asks for it); a token made for `youtube.upload` only cannot use the
+   playlist, so run the script again.
 5. Save `YT_CLIENT_ID`, `YT_CLIENT_SECRET` and `YT_REFRESH_TOKEN` as cloud-environment secrets.
    Never commit them or paste them into a chat.
 

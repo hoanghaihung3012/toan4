@@ -12,7 +12,8 @@
 // otherwise Google expires the refresh token after 7 days.
 import http from 'node:http';
 
-const SCOPE = 'https://www.googleapis.com/auth/youtube.upload';
+// "youtube" covers the upload and the playlist; "youtube.upload" alone cannot add to a playlist
+const SCOPE = 'https://www.googleapis.com/auth/youtube';
 const { YT_CLIENT_ID: clientId, YT_CLIENT_SECRET: clientSecret } = process.env;
 if (!clientId || !clientSecret) throw new Error('set YT_CLIENT_ID and YT_CLIENT_SECRET first');
 
