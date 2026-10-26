@@ -12,3 +12,8 @@ English version reusing the `so_chan_6_chu_so` scenes; only board text, thousand
    - Fixed: "1 ways" grammar; terse case-2 note; checked that "= 15,120 numbers", "= 53,760 numbers" and the "68,880 numbers!" loop fit inside 1080 px (they do, with ~80 px margin).
    - Kept (same staging as the approved Vietnamese clip): small "ways" labels and "−1" hops at phone size, empty lower half during beats 1–2, the eraser wipe before "Your turn!".
    - Voice runs 88.4 s vs 78.1 s in Vietnamese: English big numbers ("fifteen thousand one hundred twenty") are long; lines are already short.
+
+## Final MP4 (`final/2026-10-26/shorts/en/even_six_digit_numbers.mp4`)
+- Duration 88.367 s (2651 frames = timing.json), 1080×1920 @ 30 fps, AAC 48 kHz **stereo**, true peak **−1.5 dBFS** (< −1).
+- `freezedetect` (3 s) flags 13.6–16.7 s (thinking dots, then the eraser), 33.3–36.6 s and 51.7–55.7 s: in both the only change is a small count ("9 ways" / "8 ways") popping in under its slot with its chalk burst, below the detector's threshold. Same small-cue case as the Vietnamese clip; voice runs throughout, no dead air.
+- YouTube upload: not done yet, the channel's daily upload limit was hit (HTTP 400 uploadLimitExceeded); retry scheduled.
