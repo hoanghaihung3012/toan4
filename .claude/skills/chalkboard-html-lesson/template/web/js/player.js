@@ -2,12 +2,13 @@
 // window.renderFrame(t) is deterministic, so the capture script can step it frame by frame.
 // URL params: ?capture=1 (1:1 stage, no controls), ?timing=path, ?scene=module name.
 // The scene module defaults to timing.json's "scene" field (web/js/scenes/<scene>.js).
-import { ChalkLayer, resetIds, W } from './chalk.js';
+import { ChalkLayer, resetIds } from './chalk.js';
 import { clamp01, easeOutCubic, easeInOut, spring } from './ease.js';
 import { buildBoard } from './board.js';
 import { applyTheme } from './theme_apply.js';
 import { THEME } from '../theme.js';
 import { drawEraser, wipePose, sweptMask, sweepOff } from './eraser.js';
+import { fitStage } from './fit.js';
 
 const params = new URLSearchParams(location.search);
 const capture = params.has('capture');
@@ -104,13 +105,7 @@ async function init() {
 }
 
 function setupPreview() {
-  const fit = () => {
-    const s = Math.min((innerHeight - 60) / THEME.canvas.height, innerWidth / W);
-    stage.style.transform = `scale(${s})`;
-    document.body.style.height = `${THEME.canvas.height * s + 60}px`;
-  };
-  fit();
-  addEventListener('resize', fit);
+  fitStage(stage, document.getElementById('view'), THEME.canvas.width, THEME.canvas.height);
   const scrub = document.getElementById('scrub');
   const label = document.getElementById('time');
   const beatLabel = document.getElementById('beat');
