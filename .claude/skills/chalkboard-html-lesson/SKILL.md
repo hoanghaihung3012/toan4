@@ -117,7 +117,7 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
   - The part that moves to level the bars is `dec` (mint), split off the tall bar, flown with `flight()` and traced with `arcArrow()`.
   - Mark the level with a yellow dashed line plus a 70 px tag at its end, circled when the voice says the average.
 - **Unknown value:** a `blank` dashed slot with a yellow "?". The answer grows into it with a spring, and the "?" shrinks away first.
-- **Thinking pause:** 3 yellow chalk dots (radius ≥ 13) popping in one by one in a 2–3 s silent tail after the question.
+- **Thinking pause:** 3 yellow chalk dots (radius ≥ 13) popping in one by one in a 2–3 s silent tail after the question (5 s in long videos).
 - **Never let the board hold still for more than ~3 s while the voice talks.** Cue a circle, a colour change or a tag on a word in that line.
 
 ## Timing (`timing/<scene>.json`)
@@ -151,7 +151,7 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
   - the beat ends `tail` s after its last word, or 0.3 s after its last window, whichever is later.
 - **Spoken vs written:** write numbers as digits in the text; the voice reads them correctly. Say "chia" and "nhân" in words, while the board shows ":" and a drawn ×.
 - **Reusable transition sound:** a beat may define `"sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L12^", "offset": -0.5 }]` (`at` is any anchor, `offset` in seconds; anchor it to the intro line so the chime lands just before the text is written). `render/voice.mjs` generates this local chalk-swipe + two-note chime and mixes it into `audio/voice.wav`, so it works in previews and exports without a separate playback path. Use the `solutionIntro(L, text, t)` helper for the matching animated chalk intertitle; the text is a caller-supplied value, not fixed engine copy.
-- **Pauses:** a thinking pause is a long `tail` (≈2.4 s) on the question beat.
+- **Pauses:** a thinking pause is a long `tail` (≈2.4 s) on the question beat. In a **long video** (user's rule, 2026-10-30) the pause is **≈5 s**: `"tail": 5.0` on the question beat and the thinking-dots window `["<last question line>$", 4.8, "raw"]`, before the "Sau đây là cách giải." transition beat.
 
 ## Language versions (English, user's rule 2026-10-25)
 **Default is Vietnamese.** When the user does not name a language, the lesson is Vietnamese (`vi-VN-HoaiMyNeural`, Vietnamese board text). An English version ("bản tiếng Anh") **reuses** the Vietnamese lesson: same story, facts, scenes, motion and layout. Only the voiceover and the board text change. Example: `lessons/2026-10-25/shorts/en/day_so_tiep_theo_en/` (reuses `lessons/2026-10-25/shorts/vi/day_so_tiep_theo/`).
@@ -207,7 +207,7 @@ final/<YYYY-MM-DD>/long/<en|vi>/<name>/youtube.txt                 manual upload
 ```
 
 1. **Create:** `npm run new -- <lesson> --scenes <N>` (format `long` is implied) writes `scenes.json`, `scene1..N/` with a starter `voice.json` (`"profile": "landscape"`, 1920×1080) and `scene.js`, and the HTML pages. Then edit `scenes.json`: one entry per problem in play order, titles as on the exam ("Bài 1. Số nhà và chữ số"); the opening can share scene 1 with problem 1, a closing summary gets its own last scene ("Tổng kết"). After adding, removing or renaming a scene, run `npm run scenes -- <lesson>`: it creates the missing scene folders and rewrites every `index.html` (never edit those by hand).
-2. **A scene is written exactly like a Short** (beats, windows, anchors, `TEXT`, facts asserted in code), only on the 1920×1080 stage. Beat and line ids are local to the scene (each scene can start at `beat1` / `L1`). Preserve the supplied problem statement verbatim: show the complete statement first (written in chalk as the voice reads it, e.g. letter by letter on the line's window), hold it ≈3 s, then use a separate transition beat saying **"Sau đây là cách giải."** before wiping to the solution beats. Never show the answer on the statement or transition board.
+2. **A scene is written exactly like a Short** (beats, windows, anchors, `TEXT`, facts asserted in code), only on the 1920×1080 stage. Beat and line ids are local to the scene (each scene can start at `beat1` / `L1`). Preserve the supplied problem statement verbatim: show the complete statement first (written in chalk as the voice reads it, e.g. letter by letter on the line's window), then give the viewer a **≈5 s silent thinking pause** (user's rule, 2026-10-30: question beat `tail` 5.0, thinking dots over ≈4.8 s), then use a separate transition beat saying **"Sau đây là cách giải."** before wiping to the solution beats. Never show the answer on the statement or transition board.
 3. **Cuts between scenes are eraser wipes**: scene k > 1 opens on scene k−1's last board. Its `scene.js` imports the previous scene and registers that board, its first beat sets `"prev": "from_prev"` and a `wipe` window (the starter files already do this; point `from_prev` at the previous scene's **last** beat):
    ```js
    import { scenes as previous } from '../scene1/scene.js';

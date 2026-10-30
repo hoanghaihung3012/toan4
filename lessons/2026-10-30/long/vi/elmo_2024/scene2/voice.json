@@ -1,0 +1,63 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 42." },
+        { "id": "L1", "text": "Khi tạo các số có 2 chữ số bằng 4 thẻ số được hiển thị dưới đây," },
+        { "id": "L2", "text": "hỏi có thể tạo ra bao nhiêu số có 2 chữ số khác nhau?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "cards": ["L1.bằng", "L1$", "raw"],
+        "question1": ["L1^", "L1$", "raw"],
+        "question2": ["L2^", "L2$", "raw"],
+        "think": ["L2$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L4", "text": "Ta chọn thẻ làm chữ số hàng chục: có 4 cách." },
+        { "id": "L5", "text": "Mỗi thẻ chỉ dùng một lần, nên chữ số hàng đơn vị chọn từ 3 thẻ còn lại: có 3 cách." },
+        { "id": "L6", "text": "Chẳng hạn hàng chục là 1 thì được các số 12, 13 và 14." },
+        { "id": "L7", "text": "Vậy có 4 nhân 3, bằng 12 số khác nhau." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "tens": ["L4^", "L4.có", "raw"],
+        "tensCount": ["L4.có", 0.7, "raw"],
+        "units": ["L5^", "L5.có", "raw"],
+        "unitsCount": ["L5.có", 0.7, "raw"],
+        "example": ["L6.thì", "L6$", "raw"],
+        "answer": ["L7^", "L7$", "raw"],
+        "circle": ["L7$", 0.7, "raw"]
+      }
+    }
+  ]
+}
