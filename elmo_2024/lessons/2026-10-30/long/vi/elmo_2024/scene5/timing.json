@@ -1,0 +1,125 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-30/long/vi/elmo_2024/scene5/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 41.4,
+ "profile": "landscape",
+ "audio": "./audio/voice.mp3",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 11.333,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.296,
+     "raw"
+    ],
+    "q": [
+     2.78,
+     6.229,
+     "raw"
+    ],
+    "fig": [
+     4.811,
+     6.229,
+     "raw"
+    ],
+    "think": [
+     6.229,
+     11.029,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 11.333,
+   "end": 14.567,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     11.333,
+     12.533,
+     "raw"
+    ],
+    "phrase": [
+     12.667,
+     13.978,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 14.567,
+   "end": 41.4,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     14.567,
+     15.767,
+     "raw"
+    ],
+    "heading": [
+     15.901,
+     17.103,
+     "raw"
+    ],
+    "r1": [
+     17.575,
+     20.808,
+     "raw"
+    ],
+    "c1": [
+     22.274,
+     22.974,
+     "raw"
+    ],
+    "r2": [
+     23.48,
+     25.355,
+     "raw"
+    ],
+    "c2": [
+     27.662,
+     28.362,
+     "raw"
+    ],
+    "r3": [
+     28.844,
+     31.546,
+     "raw"
+    ],
+    "cross": [
+     33.169,
+     34.369,
+     "raw"
+    ],
+    "c3": [
+     34.815,
+     35.515,
+     "raw"
+    ],
+    "answer": [
+     36.213,
+     39.398,
+     "raw"
+    ],
+    "circle": [
+     39.398,
+     40.098,
+     "raw"
+    ]
+   }
+  }
+ ]
+}
