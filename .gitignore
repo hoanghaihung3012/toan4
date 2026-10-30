@@ -6,6 +6,7 @@ out/
 dist/
 build/
 coverage/
+final/**/scene[0-9]*.mp4
 
 __pycache__/
 *.py[cod]

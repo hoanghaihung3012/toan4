@@ -4,7 +4,28 @@
 //   arcArrow() yellow chalk arc with a head, drawn on with v
 //   flight()   arc move with anticipation dip and landing squash -> {x, y, squash, v}
 import { CHALK, measure } from './chalk.js';
-import { clamp01, easeInOut, arcPoint, landSquash } from './ease.js';
+import { clamp01, easeInOut, easeOutCubic, arcPoint, landSquash, spring } from './ease.js';
+
+// A reusable chalkboard intertitle. Pass its copy and a 0..1 timing progress value.
+export function solutionIntro(L, text, t, { x = 960, y = 590, size = 82 } = {}) {
+  t = clamp01(t);
+  const write = easeOutCubic(clamp01((t - 0.12) / 0.58));
+  const settle = spring(clamp01((t - 0.12) / 0.62), 3.2, 6);
+  const underline = easeOutCubic(clamp01((t - 0.04) / 0.44));
+  L.text(text, x, y, { size, color: CHALK.white, align: 'center', t: write, scale: settle });
+  const half = 310 * underline;
+  if (half > 0) {
+    L.line([x - half, y + 42], [x + half, y + 42],
+      { color: CHALK.yellow, width: 7, t: underline, seed: 431 });
+    const glint = clamp01((t - 0.42) / 0.32);
+    if (glint > 0) {
+      L.line([x + half, y + 42], [x + half + 34, y + 8],
+        { color: CHALK.yellow, width: 6, t: glint, seed: 432 });
+      L.line([x + half, y + 42], [x + half + 35, y + 72],
+        { color: CHALK.yellow, width: 6, t: glint, seed: 433 });
+    }
+  }
+}
 
 // A chalk row of parts: a string, {s, color, size} or a drawn symbol {sym: 'times' | 'minus'}
 // (Pangolin's × and − read badly on a phone). Writes on left to right with t.

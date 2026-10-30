@@ -9,7 +9,7 @@
 //   node render/capture.mjs --keyposes --lesson giai_de   (long lesson: each scene's out/keyposes)
 //
 // Options: --lesson <name | lesson/scene>  --timing <path>  --scene <module path>  --chrome <path>
-//          --crf 18  --fps 30
+//          --crf 18  --preset medium  --image png|jpeg  --image-quality 96  --fps 30
 import { execFileSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -51,12 +51,14 @@ try {
     fs.mkdirSync(path.dirname(out), { recursive: true });
     const f0 = Math.round(Number(args.from || 0) * fps);
     const f1 = Math.round(Number(args.to || timing.duration) * fps);
+    const imageType = args.image === 'jpeg' ? 'jpeg' : 'png';
+    const inputCodec = imageType === 'jpeg' ? 'mjpeg' : 'png';
     const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(fps),
-      '-c:v', 'png', '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', String(args.crf || 18),
+      '-c:v', inputCodec, '-i', '-', '-c:v', 'libx264', '-preset', String(args.preset || 'medium'), '-crf', String(args.crf || 18),
       '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out], { stdio: ['pipe', 'inherit', 'inherit'] });
     const t0 = Date.now();
     for (let f = f0; f < f1; f++) {
-      const buf = await shot(f / fps);
+      const buf = await shot(f / fps, 1, { type: imageType, quality: Number(args['image-quality'] || 96) });
       if (!ff.stdin.write(buf)) await new Promise((r) => ff.stdin.once('drain', r));
       if ((f - f0) % fps === 0) process.stdout.write(`\rframe ${f - f0 + 1}/${f1 - f0}  ${((Date.now() - t0) / 1000).toFixed(0)}s`);
     }

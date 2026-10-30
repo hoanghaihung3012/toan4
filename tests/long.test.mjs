@@ -13,7 +13,7 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'long-lesson-'));
 fs.symlinkSync(path.join(REPO, 'shared'), path.join(tmp, 'shared'));
 const repoCwd = process.cwd();
 process.chdir(tmp); // paths.mjs resolves lessons/ and final/ from the working folder
-const { finalPath, lessonDir, lessonInfo, listScenes } = await import('../render/paths.mjs');
+const { finalPath, latestFinal, lessonDir, lessonInfo, listScenes } = await import('../render/paths.mjs');
 const { createScenes, perScene } = await import('../render/long.mjs');
 const { newLessonDir } = await import('../render/paths.mjs');
 
@@ -35,7 +35,10 @@ test('a long lesson has one folder, one page and one MP4 path per scene', () => 
   assert.equal(lessonDir('demo_long/scene2'), path.join(dir, 'scene2'));
   assert.equal(lessonInfo('demo_long/scene2').scene, 'scene2');
   assert.equal(finalPath('demo_long/scene2'), path.join('final', '2026-01-02', 'long', 'vi', 'demo_long', 'scene2.mp4'));
-  assert.equal(finalPath('demo_long'), path.join('final', '2026-01-02', 'long', 'vi', 'demo_long.mp4'));
+  assert.equal(finalPath('demo_long'), path.join('final', '2026-01-02', 'long', 'vi', 'demo_long', 'demo_long.mp4'));
+  fs.mkdirSync(path.dirname(finalPath('demo_long')), { recursive: true });
+  fs.writeFileSync(finalPath('demo_long'), 'joined');
+  assert.equal(latestFinal('demo_long'), finalPath('demo_long'));
   assert.throws(() => lessonDir('demo_long/scene9'), /not in/);
   for (const s of listScenes('demo_long')) {
     for (const f of ['voice.json', 'scene.js', 'timing.json', 'index.html']) assert.ok(fs.existsSync(path.join(s.dir, f)), `${s.ref}/${f}`);

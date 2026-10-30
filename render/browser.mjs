@@ -49,9 +49,11 @@ export async function openPlayer({ lesson = 'decimal', timingPath, scene, chrome
   await page.goto(`http://127.0.0.1:${server.address().port}/shared/web/index.html?${q}`, { waitUntil: 'networkidle0' });
   await page.evaluate(() => window.ready);
   // scale < 1 returns a downscaled frame (contact sheets)
-  const shot = async (t, scale = 1) => {
+  const shot = async (t, scale = 1, image = {}) => {
     await page.evaluate((tt) => window.renderFrame(tt), t);
-    return page.screenshot({ type: 'png', clip: { x: 0, y: 0, width, height, scale }, optimizeForSpeed: true });
+    const type = image.type === 'jpeg' ? 'jpeg' : 'png';
+    return page.screenshot({ type, ...(type === 'jpeg' ? { quality: image.quality ?? 96 } : {}),
+      clip: { x: 0, y: 0, width, height, scale }, optimizeForSpeed: true });
   };
   const close = async () => { await browser.close(); server.close(); };
   const outDir = path.join(path.dirname(timingPath), 'out');

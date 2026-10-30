@@ -1,0 +1,74 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 2.3,
+      "lines": [
+        { "id": "L0", "text": "Câu 35." },
+        { "id": "L1", "text": "Sam bắn 3 mũi tên và cả 3 mũi đều trúng vào bảng tính điểm như hình dưới đây." },
+        { "id": "L2", "text": "Nếu tổng số điểm của Sam nhỏ hơn 20, thì có bao nhiêu cách tính tổng điểm khác nhau có thể xảy ra?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "question1": ["L1^", "L1$", "raw"],
+        "question2": ["L2^", "L2$", "raw"],
+        "target": ["L1.bảng", "L1$", "raw"],
+        "slots": ["L1.3", 1.0, "raw"],
+        "limit": ["L2.nhỏ", 1.0, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L4", "text": "Mỗi mũi tên ghi 3, 5, 7 hoặc 10 điểm. Tổng nhỏ nhất là 3 cộng 3 cộng 3, bằng 9, nên ta xét các tổng từ 9 đến 19." },
+        { "id": "L5", "text": "Nếu không mũi nào trúng vòng 10, tổng ba số lẻ luôn là số lẻ: 9, 11, 13, 15, 17 và 19." },
+        { "id": "L6", "text": "Nếu đúng một mũi trúng vòng 10, ta cộng 10 với hai số lẻ nhỏ hơn 10, được 16 và 18." },
+        { "id": "L7", "text": "Từ hai mũi trở lên trúng vòng 10 thì tổng ít nhất là 23, nên bị loại." },
+        { "id": "L8", "text": "Còn các tổng 10, 12 và 14 thì không thể xảy ra." },
+        { "id": "L9", "text": "Vậy có 8 tổng điểm khác nhau." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L4^", 1.2, "raw"],
+        "slots": ["L4.nên", "L4$", "raw"],
+        "leg1": ["L5^", 0.8, "raw"],
+        "t9": ["L5.9", 0.6, "raw"],
+        "t11": ["L5.11", 0.6, "raw"],
+        "t13": ["L5.13", 0.6, "raw"],
+        "t15": ["L5.15", 0.6, "raw"],
+        "t17": ["L5.17", 0.6, "raw"],
+        "t19": ["L5.19", 0.6, "raw"],
+        "leg2": ["L6^", 0.8, "raw"],
+        "t16": ["L6.16", 0.6, "raw"],
+        "t18": ["L6.18", 0.6, "raw"],
+        "leg3": ["L7^", 0.8, "raw"],
+        "none": ["L8^", "L8$", "raw"],
+        "answer": ["L9^", "L9$", "raw"]
+      }
+    }
+  ]
+}

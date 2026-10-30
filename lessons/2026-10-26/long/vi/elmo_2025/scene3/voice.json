@@ -1,0 +1,92 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 33." },
+        { "id": "L1", "text": "Emily mất 2 phút để cắt một khúc gỗ thành 4 phần." },
+        { "id": "L2", "text": "Hỏi tổng cộng cô ấy mất bao nhiêu phút để cắt 30 khúc gỗ, mỗi khúc thành 3 phần, với cùng một tốc độ?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "question1": ["L1^", "L1$", "raw"],
+        "question2": ["L2^", "L2$", "raw"],
+        "logSample": ["L1.thành", "L1$", "raw"],
+        "logNew": ["L2.30", "L2$", "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L4", "text": "Cắt một khúc gỗ thành 4 phần chỉ cần 3 nhát." },
+        { "id": "L5", "text": "Vậy 3 nhát cắt mất 2 phút." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L4^", 1.2, "raw"],
+        "cuts": ["L4.chỉ", "L4$", "raw"],
+        "time": ["L5^", "L5$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L6", "text": "Mỗi khúc gỗ cắt thành 3 phần, nên chỉ cần 2 nhát." },
+        { "id": "L7", "text": "Ba mươi khúc gỗ cần 30 nhân 2, bằng 60 nhát cắt." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L6^", 1.2, "raw"],
+        "cuts": ["L6.chỉ", "L6$", "raw"],
+        "grid": ["L7^", "L7.30", "raw"],
+        "formula": ["L7.30", "L7$", "raw"]
+      }
+    },
+    {
+      "id": "beat4",
+      "prev": "beat3",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L8", "text": "Cứ 3 nhát cắt thì mất 2 phút. Vậy 60 nhát chia thành 20 nhóm, mỗi nhóm 3 nhát." },
+        { "id": "L9", "text": "Mỗi nhóm mất 2 phút, nên 20 nhóm mất 20 nhân 2, bằng 40 phút." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L8^", 1.4, "raw"],
+        "groups": ["L8.vậy", "L8.mỗi", "raw"],
+        "groupText": ["L8.chia", "L8$", "raw"],
+        "minutes": ["L9^", "L9.nên", "raw"],
+        "answer": ["L9.bằng", "L9$", "raw"]
+      }
+    }
+  ]
+}

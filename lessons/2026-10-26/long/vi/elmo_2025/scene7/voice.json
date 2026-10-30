@@ -1,0 +1,78 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 2.3,
+      "lines": [
+        { "id": "L0", "text": "Câu 37." },
+        { "id": "L1", "text": "Dựa theo quy luật của các hình bên dưới, thì hình thứ năm sẽ có bao nhiêu chấm?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "question1": ["L1^", "L1.dưới", "raw"],
+        "question2": ["L1.thì", "L1$", "raw"],
+        "houses": ["L1.bên", "L1$", "raw"],
+        "think": ["L1$", 2.1, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L2^", "offset": -0.5 }],
+      "lines": [{ "id": "L2", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L2^", "L2$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L3", "text": "Mỗi hình có 7 điểm cố định: đỉnh mái, bốn góc vuông và hai đầu tay." },
+        { "id": "L4", "text": "Hình có 8 cạnh. Sang hình thứ hai, mỗi cạnh có thêm đúng 1 chấm." },
+        { "id": "L5", "text": "Sang hình thứ ba, mỗi cạnh lại thêm 1 chấm nữa." },
+        { "id": "L6", "text": "Đếm chấm: hình thứ nhất có 7, hình thứ hai có 15, hình thứ ba có 23." },
+        { "id": "L7", "text": "Mỗi lần tăng thêm 8 chấm, vì có 8 cạnh." },
+        { "id": "L8", "text": "Vậy hình thứ tư có 23 cộng 8, bằng 31 chấm." },
+        { "id": "L9", "text": "Hình thứ năm có 31 cộng 8, bằng 39 chấm." },
+        { "id": "L10", "text": "Vẽ thử hình thứ tư và hình thứ năm ra rồi đếm, được đúng 31 và 39 chấm." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L3^", 1.2, "raw"],
+        "h1": ["L3^", "L3.đỉnh", "raw"],
+        "h2": ["L3.đỉnh", "L3.góc", "raw"],
+        "h3": ["L3.góc", "L3$", "raw"],
+        "extra2": ["L4.sang", "L4$", "raw"],
+        "extra3": ["L5^", "L5$", "raw"],
+        "c1": ["L6.7", 0.6, "raw"],
+        "c2": ["L6.15", 0.6, "raw"],
+        "c3": ["L6.23", 0.6, "raw"],
+        "slots": ["L6.23", 0.8, "raw"],
+        "a1": ["L7^", 1.0, "raw"],
+        "a2": ["L7.vì", 1.0, "raw"],
+        "a3": ["L8^", 1.0, "raw"],
+        "c4": ["L8.31", 0.6, "raw"],
+        "a4": ["L9^", 1.0, "raw"],
+        "c5": ["L9.39", 0.6, "raw"],
+        "draw": ["L10^", "L10.được", "raw"],
+        "circle": ["L10.39", 0.8],
+        "answer": ["L10.39", "L10$", "raw"]
+      }
+    }
+  ]
+}
