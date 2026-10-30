@@ -155,13 +155,4 @@ export const scenes = {
     });
     popLabel(L, `Đáp án: ${MATCHES[0]}`, 960, 1010, g(p, 'answer'), { size: 76, color: YELLOW });
   },
-
-  outro(ctx, p) {
-    const L = ctx.chalk(60);
-    L.text('Cảm ơn các bạn đã theo dõi!', 960, 340,
-      { size: 76, align: 'center', color: YELLOW, t: g(p, 'thanks') });
-    L.text('Học cùng Phượng', 960, 500, { size: 94, align: 'center', t: g(p, 'follow') });
-    L.text('Hãy theo dõi kênh Học cùng Phượng', 960, 650, { size: 64, align: 'center', t: g(p, 'follow') });
-    L.text('để đón xem những video tiếp theo.', 960, 750, { size: 60, align: 'center', t: g(p, 'follow') });
-  },
 };

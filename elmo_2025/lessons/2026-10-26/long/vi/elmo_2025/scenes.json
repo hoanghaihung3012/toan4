@@ -1,5 +1,5 @@
 {
-  "title": "ELMO 2025: Giải câu 31-38",
+  "title": "ELMO 2025: Giải câu 31-40",
   "scenes": [
     {
       "id": "scene1",
@@ -32,6 +32,14 @@
     {
       "id": "scene8",
       "title": "Câu 38 - So sánh diện tích"
+    },
+    {
+      "id": "scene9",
+      "title": "Câu 39 - Quy luật biến đổi hình"
+    },
+    {
+      "id": "scene10",
+      "title": "Câu 40 - Mê cung số"
     }
   ]
 }
