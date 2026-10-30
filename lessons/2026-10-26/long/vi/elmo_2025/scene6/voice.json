@@ -1,0 +1,76 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 2.2,
+      "lines": [
+        { "id": "L0", "text": "Câu 36." },
+        { "id": "L1", "text": "Đặt các số 7, 12, 14 và 19 vào các vòng tròn trống sao cho tổng các số trên đường ngang bằng với tổng các số trên đường dọc." },
+        { "id": "L2", "text": "Hỏi tổng các số trên đường ngang là bao nhiêu?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "question1": ["L1^", "L1.vòng", "raw"],
+        "question2": ["L1.vòng", "L1.dọc", "raw"],
+        "question3": ["L1.dọc", "L1$", "raw"],
+        "question4": ["L2^", "L2$", "raw"],
+        "t7": ["L1.7", 0.6, "raw"],
+        "t12": ["L1.12", 0.6, "raw"],
+        "t14": ["L1.14", 0.6, "raw"],
+        "t19": ["L1.19", 0.6, "raw"],
+        "cross": ["L1.vòng", "L1.sao", "raw"],
+        "center": ["L1.vòng", "L1.sao", "raw"],
+        "hlH": ["L1.ngang", 0.8, "raw"],
+        "hlV": ["L1.dọc", 0.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L4", "text": "Đường ngang và đường dọc cùng đi qua số 25 ở tâm." },
+        { "id": "L5", "text": "Nên hai tổng bằng nhau khi hai cặp đầu mút có tổng bằng nhau." },
+        { "id": "L6", "text": "Cộng cả bốn số: 7 cộng 12 cộng 14 cộng 19 bằng 52." },
+        { "id": "L7", "text": "Chia đôi, mỗi cặp có tổng là 26." },
+        { "id": "L8", "text": "Chỉ có 7 và 19, cùng 12 và 14, mỗi cặp cộng lại bằng 26." },
+        { "id": "L9", "text": "Mỗi đường có một cặp 26 và số 25 ở tâm, nên tổng là 26 cộng 25, bằng 51." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "same": ["L4^", "L4$", "raw"],
+        "hlH": ["L4.ngang", 0.8, "raw"],
+        "hlV": ["L4.dọc", 0.8, "raw"],
+        "equal": ["L5^", "L5$", "raw"],
+        "tiles": ["L6^", "L6.bằng", "raw"],
+        "total": ["L6^", "L6$", "raw"],
+        "half": ["L7^", "L7$", "raw"],
+        "pairs": ["L8^", "L8$", "raw"],
+        "fly": ["L8^", "L8$", "raw"],
+        "answer": ["L9.nên", "L9$", "raw"]
+      }
+    }
+  ]
+}

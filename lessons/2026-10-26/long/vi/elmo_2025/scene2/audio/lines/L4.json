@@ -1,0 +1,52 @@
+[
+ {
+  "text": "Tổng",
+  "start": 0.1375,
+  "end": 0.3
+ },
+ {
+  "text": "số",
+  "start": 0.3,
+  "end": 0.525
+ },
+ {
+  "text": "khối",
+  "start": 0.525,
+  "end": 0.8375
+ },
+ {
+  "text": "của",
+  "start": 0.8375,
+  "end": 1.05
+ },
+ {
+  "text": "hai",
+  "start": 1.05,
+  "end": 1.275
+ },
+ {
+  "text": "nhóm",
+  "start": 1.275,
+  "end": 1.525
+ },
+ {
+  "text": "đó",
+  "start": 1.525,
+  "end": 1.75
+ },
+ {
+  "text": "là",
+  "start": 1.75,
+  "end": 2.0
+ },
+ {
+  "text": "bao",
+  "start": 2.0,
+  "end": 2.2125
+ },
+ {
+  "text": "nhiêu",
+  "start": 2.2125,
+  "end": 2.525
+ }
+]

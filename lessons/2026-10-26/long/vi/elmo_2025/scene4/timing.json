@@ -1,0 +1,178 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-26/long/vi/elmo_2025/scene4/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 79.833,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 18.467,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.296,
+     "raw"
+    ],
+    "question1": [
+     2.768,
+     5.532,
+     "raw"
+    ],
+    "question2": [
+     6.016,
+     11.353,
+     "raw"
+    ],
+    "question3": [
+     11.825,
+     16.452,
+     "raw"
+    ],
+    "grid": [
+     2.768,
+     5.532,
+     "raw"
+    ],
+    "sums": [
+     6.016,
+     11.353,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 18.467,
+   "end": 21.7,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     18.467,
+     19.667,
+     "raw"
+    ],
+    "phrase": [
+     19.801,
+     21.111,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 21.7,
+   "end": 40.633,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     21.7,
+     22.9,
+     "raw"
+    ],
+    "heading": [
+     23.022,
+     24.222,
+     "raw"
+    ],
+    "tiles": [
+     23.022,
+     26.363,
+     "raw"
+    ],
+    "sumLine": [
+     26.363,
+     28.07,
+     "raw"
+    ],
+    "rowsSum": [
+     28.554,
+     32.977,
+     "raw"
+    ],
+    "eq1": [
+     33.462,
+     36.296,
+     "raw"
+    ],
+    "eq2": [
+     36.296,
+     38.291,
+     "raw"
+    ],
+    "answer": [
+     38.291,
+     39.421,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "start": 40.633,
+   "end": 79.833,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     40.633,
+     41.833,
+     "raw"
+    ],
+    "heading": [
+     41.955,
+     43.155,
+     "raw"
+    ],
+    "sums": [
+     41.955,
+     49.634,
+     "raw"
+    ],
+    "s1": [
+     50.094,
+     54.132,
+     "raw"
+    ],
+    "s2": [
+     54.616,
+     58.559,
+     "raw"
+    ],
+    "s3": [
+     59.043,
+     63.009,
+     "raw"
+    ],
+    "s4": [
+     63.469,
+     67.4,
+     "raw"
+    ],
+    "s5": [
+     67.86,
+     71.79,
+     "raw"
+    ],
+    "check": [
+     72.274,
+     77.2,
+     "raw"
+    ],
+    "answer": [
+     77.2,
+     78.438,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

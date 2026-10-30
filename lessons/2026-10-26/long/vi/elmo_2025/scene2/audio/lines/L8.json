@@ -1,0 +1,67 @@
+[
+ {
+  "text": "Nhóm",
+  "start": 0.125,
+  "end": 0.3125
+ },
+ {
+  "text": "C",
+  "start": 0.3125,
+  "end": 0.575
+ },
+ {
+  "text": "có",
+  "start": 0.575,
+  "end": 0.725
+ },
+ {
+  "text": "năm",
+  "start": 0.725,
+  "end": 0.9625
+ },
+ {
+  "text": "khối",
+  "start": 0.9625,
+  "end": 1.1625
+ },
+ {
+  "text": "dưới",
+  "start": 1.1625,
+  "end": 1.45
+ },
+ {
+  "text": "và",
+  "start": 1.45,
+  "end": 1.7
+ },
+ {
+  "text": "ba",
+  "start": 1.7,
+  "end": 1.9
+ },
+ {
+  "text": "khối",
+  "start": 1.9,
+  "end": 2.1
+ },
+ {
+  "text": "trên",
+  "start": 2.1,
+  "end": 2.4625
+ },
+ {
+  "text": "tổng",
+  "start": 2.65,
+  "end": 2.875
+ },
+ {
+  "text": "cộng",
+  "start": 2.875,
+  "end": 3.0875
+ },
+ {
+  "text": "tám",
+  "start": 3.0875,
+  "end": 3.425
+ }
+]

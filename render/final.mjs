@@ -9,7 +9,7 @@
 // Zalo message with the preview link and the Short (skipped without the secrets, never fails the
 // export).
 //
-//   node render/final.mjs <lesson> [--crf 18] [--date YYYY-MM-DD] [--no-upload]
+//   node render/final.mjs <lesson> [--crf 18] [--date YYYY-MM-DD] [--image jpeg|png] [--image-quality 96] [--no-upload]
 //
 // A long lesson (scenes.json) gets one MP4 per scene, final/<date>/long/<lang>/<name>/<scene>.mp4
 // (scene1.mp4, scene2.mp4, ...), where <name> is scenes.json "final" or the lesson name:
@@ -30,7 +30,13 @@ const lesson = args._[0];
 if (!lesson) throw new Error('usage: node render/final.mjs <lesson>');
 if (args.date && !/^\d{4}-\d{2}-\d{2}$/.test(args.date)) throw new Error(`--date must be YYYY-MM-DD, got "${args.date}"`);
 const dir = lessonDir(lesson);
-const pass = [...(args.crf ? ['--crf', String(args.crf)] : []), ...(args.date ? ['--date', args.date] : [])];
+const image = args.image || 'jpeg';
+const imageQuality = args['image-quality'] || 96;
+const pass = [
+  ...(args.crf ? ['--crf', String(args.crf)] : []),
+  ...(args.date ? ['--date', String(args.date)] : []),
+  '--image', String(image), '--image-quality', String(imageQuality),
+];
 
 if (!lesson.includes('/') && listScenes(lesson).length) {
   // --- long lesson: every scene (or --scene ...) as its own MP4, a few at a time -----------------
@@ -78,8 +84,12 @@ const voice = JSON.parse(fs.readFileSync(`${dir}/voice.json`, 'utf8'));
 const name = info.scene ? sceneFinalName(info.name) : voice.final || lesson;
 if (!/^[a-z0-9_]+$/.test(name)) throw new Error(`${lesson}: voice.json "final" must be snake_case, got "${name}"`);
 const out = finalPath(lesson, { name, date: args.date });
+const capturePass = [
+  ...(args.crf ? ['--crf', String(args.crf)] : []),
+  '--image', String(image), '--image-quality', String(imageQuality),
+];
 
-execFileSync('node', ['render/capture.mjs', '--lesson', lesson, '--out', video, ...(args.crf ? ['--crf', String(args.crf)] : [])],
+execFileSync('node', ['render/capture.mjs', '--lesson', lesson, '--out', video, ...capturePass],
   { stdio: 'inherit' });
 fs.mkdirSync(path.dirname(out), { recursive: true });
 execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', video, '-i', `${dir}/audio/voice.wav`,

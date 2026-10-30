@@ -1,0 +1,97 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 3.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 38." },
+        { "id": "L1", "text": "Hình nào có diện tích bằng với hình ví dụ?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "question": ["L1^", "L1$", "raw"],
+        "ex": ["L1.ví", "L1$", "raw"],
+        "opts": ["L1$", 2.4, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L2^", "offset": -0.5 }],
+      "lines": [{ "id": "L2", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L2^", "L2$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L3", "text": "Ta đếm chấm trên lưới. Chấm nằm trên viền hình gọi là B, chấm nằm bên trong gọi là I." },
+        { "id": "L4", "text": "Hình ví dụ có 8 chấm trên viền." },
+        { "id": "L5", "text": "Và 6 chấm bên trong." },
+        { "id": "L6", "text": "Diện tích bằng I cộng B chia 2, rồi trừ 1." },
+        { "id": "L7", "text": "Vậy hình ví dụ có diện tích 6 cộng 4 trừ 1, bằng 9." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L3^", 1.2, "raw"],
+        "bText": ["L3.chấm#2", "L3.chấm#3", "raw"],
+        "iText": ["L3.chấm#3", "L3$", "raw"],
+        "cb": ["L4^", "L4$", "raw"],
+        "ci": ["L5^", "L5$", "raw"],
+        "formula": ["L6^", "L6$", "raw"],
+        "calc": ["L7^", "L7.bằng", "raw"],
+        "result": ["L7.bằng", "L7$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.4,
+      "lines": [
+        { "id": "L8", "text": "Hình A có 12 chấm trên viền và 7 chấm bên trong, nên diện tích là 7 cộng 6 trừ 1, bằng 12. Không bằng 9." },
+        { "id": "L9", "text": "Hình B có 8 chấm trên viền và 5 chấm bên trong, nên diện tích là 5 cộng 4 trừ 1, bằng 8. Không bằng 9." },
+        { "id": "L10", "text": "Hình C có 14 chấm trên viền và 2 chấm bên trong, nên diện tích là 2 cộng 7 trừ 1, bằng 8. Cũng không bằng 9." },
+        { "id": "L11", "text": "Hình D có 6 chấm trên viền và 7 chấm bên trong, nên diện tích là 7 cộng 3 trừ 1, bằng 9. Bằng hình ví dụ!" },
+        { "id": "L12", "text": "Vậy đáp án là D." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "ref": ["L8^", 1.0, "raw"],
+        "cbA": ["L8^", "L8.và", "raw"],
+        "ciA": ["L8.và", "L8.nên", "raw"],
+        "txA": ["L8.nên", "L8$", "raw"],
+        "mkA": ["L8$", 0.7, "raw", -0.8],
+        "cbB": ["L9^", "L9.và", "raw"],
+        "ciB": ["L9.và", "L9.nên", "raw"],
+        "txB": ["L9.nên", "L9$", "raw"],
+        "mkB": ["L9$", 0.7, "raw", -0.8],
+        "cbC": ["L10^", "L10.và", "raw"],
+        "ciC": ["L10.và", "L10.nên", "raw"],
+        "txC": ["L10.nên", "L10$", "raw"],
+        "mkC": ["L10$", 0.7, "raw", -0.8],
+        "cbD": ["L11^", "L11.và", "raw"],
+        "ciD": ["L11.và", "L11.nên", "raw"],
+        "txD": ["L11.nên", "L11$", "raw"],
+        "mkD": ["L11$", 0.7, "raw", -0.8],
+        "answer": ["L12^", "L12$", "raw"]
+      }
+    }
+  ]
+}

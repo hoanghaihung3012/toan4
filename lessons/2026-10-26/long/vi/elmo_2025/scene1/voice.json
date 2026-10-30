@@ -1,0 +1,134 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "opening",
+      "lead": 0.5,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L19", "text": "Xin chào các bạn. Chào mừng các bạn đến với kênh Học cùng Phượng." },
+        { "id": "L20", "text": "Hôm nay chúng ta cùng giải đề thi ELMO năm 2025." }
+      ],
+      "windows": {
+        "welcome": ["L19^", "L19$", "raw"],
+        "channel": ["L19.Học", "L19$", "raw"],
+        "title": ["L20^", "L20$", "raw"]
+      }
+    },
+    {
+      "id": "beat1",
+      "prev": "opening",
+      "lead": 0.5,
+      "tail": 2.5,
+      "lines": [
+        { "id": "L0", "text": "Câu 31." },
+        { "id": "L1", "text": "Bằng cách sử dụng một vài trong các thẻ sau đây," },
+        { "id": "L2", "text": "bạn có thể tạo ra bao nhiêu phép tính khác nhau?" },
+        { "id": "L3", "text": "(Lưu ý: Bạn không được đặt hai thẻ số liền kề nhau" },
+        { "id": "L4", "text": "mà không có thẻ phép toán ở giữa. Trong mỗi phép tính," },
+        { "id": "L5", "text": "mỗi thẻ chỉ được sử dụng một lần..)" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "cards": ["L1.vài", "L2.bao", "raw"],
+        "question1": ["L1^", "L1$", "raw"],
+        "question2": ["L2^", "L2$", "raw"],
+        "question3": ["L3^", "L3$", "raw"],
+        "question4": ["L4^", "L4$", "raw"],
+        "question5": ["L5^", "L5$", "raw"],
+        "think": ["L5$", 2.3, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L6^", "offset": -0.5 }],
+      "lines": [{ "id": "L6", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L6^", "L6$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L7", "text": "Giữa hai thẻ số luôn phải có một thẻ phép toán." },
+        { "id": "L8", "text": "Hai số thì cần 1 thẻ phép toán, ba số thì cần cả 2 thẻ." },
+        { "id": "L9", "text": "Chỉ có đúng 2 thẻ phép toán, nên 4 số thì không đủ: cần tới 3 thẻ." },
+        { "id": "L10", "text": "Vậy chỉ có hai trường hợp: dùng 2 số, hoặc dùng 3 số." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L7^", 1.4, "raw"],
+        "rowAn": ["L7^", "L7$", "raw"],
+        "rowBn": ["L7^", "L7$", "raw"],
+        "rowCn": ["L7^", "L7$", "raw"],
+        "rowAo": ["L8^", "L8.ba", "raw"],
+        "tickA": ["L8.ba", 0.6, "raw", -0.4],
+        "rowBo": ["L8.ba", "L8$", "raw"],
+        "tickB": ["L8$", 0.6, "raw", -0.5],
+        "rowCo": ["L9^", "L9.nên", "raw"],
+        "noteC": ["L9.cần", "L9$", "raw"],
+        "crossC": ["L9.3", 0.8, "raw"],
+        "verdict": ["L10^", "L10$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L11", "text": "Dùng hai số: có 6 cặp số khác nhau." },
+        { "id": "L12", "text": "Mỗi cặp, ta cộng hoặc nhân: được 12 phép tính." },
+        { "id": "L13", "text": "Nhưng 1 cộng 7 và 2 nhân 4 đều bằng 8, nên chỉ có 11 kết quả khác nhau." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L11^", 0.9],
+        "pairs": ["L11.có", "L11$", "raw"],
+        "plus": ["L12.cộng", "L12.hoặc", "raw"],
+        "times": ["L12.nhân", "L12.được", "raw"],
+        "count12": ["L12.12", 0.7, "raw"],
+        "dupeA": ["L13.1", 0.7],
+        "dupeB": ["L13.2", 0.7],
+        "strip": ["L13.nên", "L13.kết", "raw"],
+        "counter": ["L13.11", 0.7, "raw"]
+      }
+    },
+    {
+      "id": "beat4",
+      "prev": "beat3",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L14", "text": "Dùng ba số: hai số được nhân với nhau trước, rồi cộng với số còn lại." },
+        { "id": "L15", "text": "Có 4 cách chọn số đứng riêng, mỗi cách có 3 cặp để nhân, tức là 12 phép tính." },
+        { "id": "L16", "text": "Ba số cho 7 kết quả khác nhau." },
+        { "id": "L17", "text": "Trong đó 6, 9 và 11 đã có từ trước. Chỉ thêm 4 kết quả mới: 15, 18, 29 và 30." },
+        { "id": "L18", "text": "Vậy có 11 cộng 4, bằng 15 kết quả khác nhau." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L14^", 0.9],
+        "strip": ["L14^", 1.6, "raw"],
+        "singles": ["L14.hai", "L14$", "raw"],
+        "exprs": ["L15^", "L15$", "raw"],
+        "recolor": ["L17^", 0.8, "raw"],
+        "fly": ["L17.chỉ", "L17$", "raw"],
+        "answer": ["L18^", "L18$", "raw"]
+      }
+    }
+  ]
+}
