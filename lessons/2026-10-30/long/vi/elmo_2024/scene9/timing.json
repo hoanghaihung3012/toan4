@@ -1,0 +1,130 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-30/long/vi/elmo_2024/scene9/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 43.867,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 19.933,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.308,
+     "raw"
+    ],
+    "q1": [
+     2.78,
+     4.991,
+     "raw"
+    ],
+    "q2": [
+     5.451,
+     7.543,
+     "raw"
+    ],
+    "cal": [
+     2.78,
+     4.018,
+     "raw"
+    ],
+    "ink": [
+     4.018,
+     4.991,
+     "raw"
+    ],
+    "opts": [
+     8.015,
+     14.84,
+     "raw"
+    ],
+    "think": [
+     14.84,
+     19.64,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 19.933,
+   "end": 23.167,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     19.933,
+     21.133,
+     "raw"
+    ],
+    "phrase": [
+     21.267,
+     22.578,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 23.167,
+   "end": 43.867,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     23.167,
+     24.367,
+     "raw"
+    ],
+    "title": [
+     24.489,
+     25.763,
+     "raw"
+    ],
+    "first": [
+     24.489,
+     25.189,
+     "raw"
+    ],
+    "wed": [
+     25.21,
+     25.91,
+     "raw"
+    ],
+    "weds": [
+     27.858,
+     30.79,
+     "raw"
+    ],
+    "days": [
+     32.741,
+     33.541,
+     "raw"
+    ],
+    "d30": [
+     34.904,
+     36.719,
+     "raw"
+    ],
+    "d31": [
+     36.719,
+     38.366,
+     "raw"
+    ],
+    "pick": [
+     41.097,
+     41.997,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

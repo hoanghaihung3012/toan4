@@ -1,0 +1,65 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 45." },
+        { "id": "L1", "text": "Tổng số hình tứ giác bạn có thể tìm thấy trong hình dưới đây là bao nhiêu?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q": ["L1^", "L1$", "raw"],
+        "fig": ["L1.trong", "L1$", "raw"],
+        "think": ["L1$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L2^", "offset": -0.5 }],
+      "lines": [{ "id": "L2", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L2^", "L2$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L3", "text": "Ta đếm theo ba nhóm." },
+        { "id": "L4", "text": "Nhóm một là hình chữ nhật gồm 1, 2 hoặc 3 ô liền nhau, có 3 cộng 2 cộng 1, bằng 6 hình." },
+        { "id": "L5", "text": "Nhóm hai là phần nằm trên đường chéo, cũng gồm 1, 2 hoặc 3 ô liền nhau, có 6 hình." },
+        { "id": "L6", "text": "Nhóm ba là phần nằm dưới đường chéo. Phần dưới của ô cuối cùng là hình tam giác, nên không tính, chỉ còn 3 hình." },
+        { "id": "L7", "text": "Vậy có 6 cộng 6 cộng 3, bằng 15 hình tứ giác." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L3^", "L3$", "raw"],
+        "r1": ["L4^", "L4.có", "raw"],
+        "c1": ["L4.bằng", 0.7, "raw"],
+        "r2": ["L5^", "L5.cũng", "raw"],
+        "c2": ["L5.có", 0.7, "raw"],
+        "r3": ["L6^", "L6.phần#2", "raw"],
+        "cross": ["L6.tam", 1.2, "raw"],
+        "c3": ["L6.chỉ", 0.7, "raw"],
+        "answer": ["L7^", "L7$", "raw"],
+        "circle": ["L7$", 0.7, "raw"]
+      }
+    }
+  ]
+}

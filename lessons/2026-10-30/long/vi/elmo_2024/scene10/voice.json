@@ -1,0 +1,92 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 50." },
+        { "id": "L1", "text": "A, B, C và D biểu thị cho 4 sợi dây có độ dài khác nhau." },
+        { "id": "L2", "text": "Độ dài của các sợi dây được so sánh trong các câu sau." },
+        { "id": "L3", "text": "Dây A bằng một nửa tổng độ dài của dây B và dây C." },
+        { "id": "L4", "text": "Hai lần độ dài của dây D bằng ba lần độ dài của dây C." },
+        { "id": "L5", "text": "Một nửa độ dài của dây D bằng độ dài của dây B." },
+        { "id": "L6", "text": "Hỏi sợi dây nào dài thứ hai trong số các sợi dây A, B, C và D?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "q3": ["L3^", "L3$", "raw"],
+        "q4": ["L4^", "L4$", "raw"],
+        "q5": ["L5^", "L5$", "raw"],
+        "q6": ["L6^", "L6$", "raw"],
+        "opts": ["L6.các", "L6$", "raw"],
+        "think": ["L6$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L7^", "offset": -0.5 }],
+      "lines": [{ "id": "L7", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L7^", "L7$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L8", "text": "Ta chọn dây D dài 12 phần." },
+        { "id": "L9", "text": "Hai lần D là 24 phần, bằng ba lần C, nên C dài 24 chia 3, bằng 8 phần." },
+        { "id": "L10", "text": "Một nửa D là 6 phần, bằng B, nên B dài 6 phần." },
+        { "id": "L11", "text": "A bằng một nửa tổng của B và C, mà 6 cộng 8 là 14, một nửa là 7, nên A dài 7 phần." },
+        { "id": "L12", "text": "Xếp từ dài đến ngắn, ta có D, C, A rồi B." },
+        { "id": "L13", "text": "Vậy sợi dây dài thứ hai là dây C." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "d": ["L8^", "L8$", "raw"],
+        "c": ["L9^", "L9.nên", "raw"],
+        "ceq": ["L9.nên", "L9$", "raw"],
+        "b": ["L10^", "L10.nên", "raw"],
+        "beq": ["L10.nên", "L10$", "raw"],
+        "a": ["L11^", "L11.nên", "raw"],
+        "aeq": ["L11.nên", "L11$", "raw"],
+        "rank": ["L12^", "L12$", "raw"],
+        "pick": ["L13^", 0.8, "raw"],
+        "answer": ["L13^", "L13$", "raw"],
+        "circle": ["L13$", 0.7, "raw"]
+      }
+    },
+    {
+      "id": "outro",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L14", "text": "Cảm ơn các bạn đã xem video." },
+        { "id": "L15", "text": "Hãy đăng ký kênh Học cùng Phượng để đón xem những video tiếp theo." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "thanks": ["L14^", "L14$", "raw"],
+        "subscribe": ["L15^", "L15$", "raw"]
+      }
+    }
+  ]
+}

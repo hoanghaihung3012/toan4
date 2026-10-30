@@ -1,0 +1,78 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 44." },
+        { "id": "L1", "text": "Các hình dưới đây tuân theo quy tắc tăng dần của các viên đá đen và trắng." },
+        { "id": "L2", "text": "Hỏi trong hình thứ sáu, số viên đá trắng nhiều hơn số viên đá đen là bao nhiêu?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "figs": ["L1.các", "L1$", "raw"],
+        "think": ["L2$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L4", "text": "Mỗi hình thêm một lớp viên đá hình chữ L bao quanh hình trước." },
+        { "id": "L5", "text": "Các lớp mới có 1, 3, 5, 7, 9, rồi 11 viên đá." },
+        { "id": "L6", "text": "Lớp lẻ là đá đen, lớp chẵn là đá trắng." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L4^", 1.0, "raw"],
+        "figs": ["L4.thêm", "L4$", "raw"],
+        "counts": ["L5^", "L5$", "raw"],
+        "legend": ["L6^", "L6$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L7", "text": "Hình thứ sáu có đá đen ở các lớp 1, 3 và 5, tức là 1 cộng 5 cộng 9, bằng 15 viên." },
+        { "id": "L8", "text": "Đá trắng ở các lớp 2, 4 và 6, tức là 3 cộng 7 cộng 11, bằng 21 viên." },
+        { "id": "L9", "text": "Vậy đá trắng nhiều hơn đá đen 21 trừ 15, bằng 6 viên." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "fig": ["beat^", 1.4, "raw"],
+        "black": ["L7^", "L7$", "raw"],
+        "white": ["L8^", "L8$", "raw"],
+        "answer": ["L9^", "L9$", "raw"],
+        "circle": ["L9$", 0.7, "raw"]
+      }
+    }
+  ]
+}
