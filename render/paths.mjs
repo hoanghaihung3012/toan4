@@ -1,7 +1,7 @@
 // Where lessons and finished clips live. lessons/ and final/ share one layout (user's rule, 2026-10-26):
 //
 //   lessons/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<lesson>/   story, voice, timing, audio, scene code
-//   final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>.mp4     the finished clip (+ <name>.youtube.json)
+//   final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>/<name>.mp4   finished clip + upload metadata
 //
 // <YYYY-MM-DD> is the day the clip was made (Vietnam time), <long|shorts> the requested format
 // (9:16 Shorts unless a long video was asked for), <en|vi> the voiceover language. Lesson names
@@ -13,8 +13,8 @@
 //   lessons/<date>/long/<lang>/<lesson>/index.html          stitched preview (plays every scene)
 //   lessons/<date>/long/<lang>/<lesson>/<scene>/            voice.json, timing.json, scene.js, audio/,
 //                                                           index.html (that scene on its own)
-//   final/<date>/long/<lang>/<name>/<scene>.mp4             one MP4 per scene (scene1.mp4, ...)
-//   final/<date>/long/<lang>/<name>.mp4                     the scenes joined (npm run final -- --join)
+//   final/<date>/long/<lang>/<name>/<scene>.mp4             one MP4 per scene (temporary)
+//   final/<date>/long/<lang>/<name>/<name>.mp4              the scenes joined (npm run final -- --join)
 //
 // A scene is addressed as "<lesson>/<scene>" (e.g. giai_de/scene2) wherever a lesson name is taken.
 //
@@ -94,18 +94,24 @@ export function lessonInfo(lesson) {
   return { date, format, lang, name, dir, ...(scene ? { scene } : {}) };
 }
 
-// final/<date>/<format>/<lang>/<name>.mp4 for a lesson, final/<date>/<format>/<lang>/<name>/<scene>.mp4
-// for one scene of a long lesson; date defaults to the lesson's own day
+// final/<date>/<format>/<lang>/<name>/<name>.mp4 for a clip, or
+// final/<date>/long/<lang>/<name>/<scene>.mp4 for one scene; date defaults to the lesson's own day
 export function finalPath(lesson, { name, date } = {}) {
   const info = lessonInfo(lesson);
   const at = path.join(FINAL, date || info.date, info.format, info.lang);
-  return info.scene ? path.join(at, name || info.name, `${info.scene}.mp4`) : path.join(at, `${name || info.name}.mp4`);
+  const clip = name || info.name;
+  return path.join(at, clip, `${info.scene || clip}.mp4`);
 }
 
-// newest final/<date>/<format>/<lang>/<name>.mp4, or null
+// newest grouped final clip, with support for older flat paths
 export function latestFinal(name) {
-  const hits = walk(FINAL, (at) => (fs.existsSync(path.join(at, `${name}.mp4`)) ? [name] : []));
-  return hits.length ? path.join(hits[hits.length - 1].dir + '.mp4') : null;
+  const hits = walk(FINAL, (at) => (
+    fs.existsSync(path.join(at, name, `${name}.mp4`)) || fs.existsSync(path.join(at, `${name}.mp4`)) ? [name] : []
+  ));
+  if (!hits.length) return null;
+  const dir = hits[hits.length - 1].dir;
+  const grouped = path.join(dir, `${name}.mp4`);
+  return fs.existsSync(grouped) ? grouped : `${dir}.mp4`;
 }
 
 // today in Vietnam time (en-CA formats as YYYY-MM-DD)

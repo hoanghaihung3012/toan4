@@ -2,7 +2,7 @@
 // resumable upload). render/final.mjs calls it right after the MP4 is written; it can also be run
 // by hand for a clip exported earlier:
 //
-//   node render/youtube.mjs <lesson> [--file final/<date>/<format>/<lang>/<name>.mp4] [--privacy private|unlisted|public]
+//   node render/youtube.mjs <lesson> [--file final/<date>/<format>/<lang>/<name>/<name>.mp4] [--privacy private|unlisted|public]
 //                                    [--dry-run] [--force] [--no-zalo]
 //
 // Only English lessons (voice.json "lang": "en") are uploaded: the Vietnamese channel stays manual
@@ -15,7 +15,7 @@
 // lines (no new claims), or from an optional voice.json "youtube": { title, description, tags,
 // playlist }. After the upload the Short goes into the channel's playlist "Math" (created if
 // missing), then one Zalo message carries the preview link and the Short (user's rule,
-// 2026-10-26). final/<date>/<format>/<lang>/<name>.youtube.json records each finished step, so
+// 2026-10-26). final/<date>/<format>/<lang>/<name>/<name>.youtube.json records each finished step, so
 // nothing is uploaded or sent twice (--force uploads again).
 //
 // Credentials come only from the environment (cloud-environment secrets), never committed or
@@ -133,7 +133,7 @@ function findOrCreatePlaylist(title, token) {
 // The whole English publish, step by step: 1) upload the Short, 2) add it to the playlist
 // (voice.json youtube.playlist, default "Math"), 3) one Zalo message with the preview link and the
 // Short (user's rule, 2026-10-26). Each finished step is kept in
-// final/<date>/<format>/<lang>/<name>.youtube.json, so a re-run only does the steps still missing
+// final/<date>/<format>/<lang>/<name>/<name>.youtube.json, so a re-run only does the steps still missing
 // and never uploads or messages twice (--force uploads again). -> { ok, record, recordFile, notes } | { ok: false, skipped?, reason }; never
 // throws, so a final export never fails on it. The tokens never reach the returned text.
 export function publishShort(lesson, { file, privacy, dryRun = false, force = false, zalo = true } = {}) {

@@ -40,7 +40,11 @@ test('every final clip sits in the same date/format/lang as its lesson', () => {
     const voice = path.join(l.dir, 'voice.json');
     const name = fs.existsSync(voice) ? JSON.parse(fs.readFileSync(voice, 'utf8')).final || l.name : l.name;
     const clip = latestFinal(name);
-    if (clip) assert.equal(clip, finalPath(l.name, { name }), l.dir);
+    if (clip) {
+      const grouped = finalPath(l.name, { name });
+      const legacy = path.join('final', l.date, l.format, l.lang, `${name}.mp4`);
+      assert.ok(clip === grouped || clip === legacy, `${clip} is outside the expected final folder`);
+    }
   }
 });
 
