@@ -1,0 +1,174 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-26/long/vi/elmo_2025/scene7/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 48.767,
+ "profile": "landscape",
+ "audio": "./audio/voice.mp3",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 9.1,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.308,
+     "raw"
+    ],
+    "question1": [
+     2.78,
+     4.318,
+     "raw"
+    ],
+    "question2": [
+     4.871,
+     6.686,
+     "raw"
+    ],
+    "houses": [
+     4.138,
+     6.686,
+     "raw"
+    ],
+    "think": [
+     6.686,
+     8.786,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 9.1,
+   "end": 12.333,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     9.1,
+     10.3,
+     "raw"
+    ],
+    "phrase": [
+     10.434,
+     11.744,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 12.333,
+   "end": 48.767,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     12.333,
+     13.533,
+     "raw"
+    ],
+    "heading": [
+     13.655,
+     14.855,
+     "raw"
+    ],
+    "h1": [
+     13.655,
+     15.374,
+     "raw"
+    ],
+    "h2": [
+     15.374,
+     16.384,
+     "raw"
+    ],
+    "h3": [
+     16.384,
+     17.802,
+     "raw"
+    ],
+    "extra2": [
+     20.195,
+     22.876,
+     "raw"
+    ],
+    "extra3": [
+     23.348,
+     26.076,
+     "raw"
+    ],
+    "c1": [
+     27.978,
+     28.578,
+     "raw"
+    ],
+    "c2": [
+     29.373,
+     29.973,
+     "raw"
+    ],
+    "c3": [
+     30.923,
+     31.523,
+     "raw"
+    ],
+    "slots": [
+     30.923,
+     31.723,
+     "raw"
+    ],
+    "a1": [
+     32.032,
+     33.032,
+     "raw"
+    ],
+    "a2": [
+     33.643,
+     34.643,
+     "raw"
+    ],
+    "a3": [
+     35.101,
+     36.101,
+     "raw"
+    ],
+    "c4": [
+     37.733,
+     38.333,
+     "raw"
+    ],
+    "a4": [
+     39.034,
+     40.034,
+     "raw"
+    ],
+    "c5": [
+     41.45,
+     42.05,
+     "raw"
+    ],
+    "draw": [
+     42.764,
+     45.588,
+     "raw"
+    ],
+    "circle": [
+     46.766,
+     47.566
+    ],
+    "answer": [
+     46.766,
+     47.571,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

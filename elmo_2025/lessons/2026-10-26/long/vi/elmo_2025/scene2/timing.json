@@ -1,0 +1,90 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-26/long/vi/elmo_2025/scene2/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 30.8,
+ "profile": "landscape",
+ "audio": "./audio/voice.mp3",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 13.4,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     0.638,
+     1.675,
+     "raw"
+    ],
+    "question1": [
+     2.15,
+     7.225,
+     "raw"
+    ],
+    "question2": [
+     7.7,
+     10.888,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 13.4,
+   "end": 16.7,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     13.4,
+     14.6,
+     "raw"
+    ],
+    "phrase": [
+     14.737,
+     16.1,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 16.7,
+   "end": 30.8,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     16.7,
+     17.9,
+     "raw"
+    ],
+    "method": [
+     18.037,
+     20.237,
+     "raw"
+    ],
+    "extremes": [
+     20.713,
+     24.375,
+     "raw"
+    ],
+    "source": [
+     24.85,
+     29.513,
+     "raw"
+    ],
+    "answer": [
+     28.8,
+     29.513,
+     "spring"
+    ]
+   }
+  }
+ ]
+}
