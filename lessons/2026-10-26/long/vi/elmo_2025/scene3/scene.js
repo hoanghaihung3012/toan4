@@ -69,7 +69,7 @@ const miniX = (i) => 960 + ((i % GRID_COLS) - (GRID_COLS - 1) / 2) * 170;
 const miniY = (i) => 560 + Math.floor(i / GRID_COLS) * 62;
 
 export const scenes = {
-  from_prev: previous.beat2,
+  from_prev: previous.beat6,
 
   beat1(ctx, p) {
     const objs = ctx.objects();

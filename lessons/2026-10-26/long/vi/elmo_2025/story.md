@@ -2,7 +2,7 @@
 
 Mười scene, mỗi scene một câu.
 
-**Còn treo: câu 32.** Đáp án chính thức (xem nguồn câu 37) là **20**, không phải 14 như scene2 đang dựng (A=8, B=7, C=8, D=6). Scene2 chưa làm lại vì cần ảnh câu 32 gốc để đếm lại số khối.
+**Câu 32 (đã làm lại từ ảnh đề `questions/32.png`):** scene2 vẽ lại bốn nhóm bằng phấn từ bảng chiều cao đọc trên hình 3D và hình "Mặt trên", đếm từng cột (kể cả khối bị che) rồi cộng: A = 12, B = 8, C = 10, D = 11. Nhiều nhất A (12), ít nhất B (8), tổng 20, trùng đáp án chính thức.
 
 **Mở đầu:** "Xin chào các bạn. Chào mừng các bạn đến với kênh Học cùng Phượng. Hôm nay chúng ta cùng giải đề thi ELMO năm 2025." Trước mỗi đề, đọc số câu trước.
 
@@ -15,7 +15,7 @@ Mười scene, mỗi scene một câu.
 | Câu | Dữ kiện | Kiểm tra | Nguồn |
 |---|---|---|---|
 | 31 | Thẻ 1, 2, 4, 7, +, ×; mỗi thẻ dùng tối đa một lần; hai thẻ số không đứng cạnh nhau | n thẻ số cần n-1 thẻ phép toán, chỉ có 2 thẻ phép toán nên dùng 2 hoặc 3 số. Hai số: 6 cặp × 2 phép = 12 phép tính, 11 kết quả (1+7 và 2×4 cùng bằng 8). Ba số: 4 cách chọn số đứng riêng × 3 cặp nhân = 12 phép tính, 7 kết quả (6, 9, 11, 15, 18, 29, 30); mới: 15, 18, 29, 30. Tổng 11 + 4 = 15. | Ảnh câu 31 do người dùng cung cấp; đáp án 15 khớp đáp án chính thức (xem câu 37). Đếm "kết quả khác nhau", đúng với đáp án chính thức. |
-| 32 | Bốn nhóm khối A-D | Đáp án chính thức là 20. Không nêu số từng nhóm vì hình trong viewer đề trực tuyến không trích xuất đủ rõ để đếm lại. | Đáp án chính thức "2025 Answer MO" (ELMO khối 4, câu 32, [Scribd](https://www.scribd.com/document/1042285241/2025-Answer-MO)); đề gốc khối 4, [Scribd](https://www.scribd.com/document/1068475626/2025-Elmo-Official-Test-Paper-g4). |
+| 32 | Bốn nhóm khối A-D: số khối 12, 8, 10, 11; nhiều nhất A, ít nhất B; 12 + 8 = 20 | Chiều cao từng cột đọc từ ảnh đề (`questions/32.png`): A = 2+1+1+3+3+1+1, B = 1+1+1+2+3, C = 1+1+3+1+3+1, D = 1+1+2+2+3+2. Khối bị che (3, 0, 2, 3) và các tổng được kiểm bằng `console.assert` trong scene2; kết quả 20 khớp đáp án chính thức. Nhãn A-D do video đặt để gọi tên nhóm. | Đáp án chính thức "2025 Answer MO" (ELMO khối 4, câu 32, [Scribd](https://www.scribd.com/document/1042285241/2025-Answer-MO)); đề gốc khối 4, [Scribd](https://www.scribd.com/document/1068475626/2025-Elmo-Official-Test-Paper-g4). |
 | 33 | 4 phần mất 2 phút; cắt 30 khúc, mỗi khúc 3 phần, cùng tốc độ | 4 phần cần 3 nhát nên 3 nhát = 2 phút. 3 phần cần 2 nhát; 30 × 2 = 60 nhát; 60 : 3 = 20 nhóm; 20 × 2 = 40 phút. Kiểm chéo: 60 × 2/3 = 40. | Ảnh câu 33; đáp án 40 khớp đáp án chính thức. |
 | 34 | Bảng 3×3 dùng 1-9 đúng một lần; ô cho sẵn 7, 6 (hàng trên), 8 (giữa), 4 (góc dưới trái); tổng hàng 2a, a+1, a; tổng cột a+1, 2a, a | Tổng 1..9 = 45 = 2a + (a+1) + a = 4a + 1 nên a = 11. Hàng tổng 22, 12, 11; cột 12, 22, 11. Điền lần lượt 9, 1, 5, 2, 3 (mỗi bước chỉ còn một ô trống); cột 3: 6+3+2 = 11. | Ảnh câu 34; đáp án 11 khớp đáp án chính thức. |
 | 35 | Bia 10, 7, 5, 3; ba mũi (được lặp vùng); tổng < 20 | Liệt kê mọi bộ ba: không có vòng 10 cho 9, 11, 13, 15, 17, 19; đúng một vòng 10 cho 16, 18; hai vòng 10 trở lên tổng ít nhất 10+10+3 = 23. 10, 12, 14 không thể có. Có 8 tổng. | Ảnh câu 35; đáp án 8 khớp đáp án chính thức. |

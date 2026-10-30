@@ -1,62 +1,27 @@
 [
  {
-  "text": "Nhóm",
-  "start": 0.125,
-  "end": 0.325
+  "text": "Sau",
+  "start": 0.134125,
+  "end": 0.350458
  },
  {
-  "text": "nào",
-  "start": 0.325,
-  "end": 0.5875
+  "text": "đây",
+  "start": 0.3505,
+  "end": 0.578833
  },
  {
-  "text": "có",
-  "start": 0.5875,
-  "end": 0.7875
+  "text": "là",
+  "start": 0.578833,
+  "end": 0.831249
  },
  {
-  "text": "nhiều",
-  "start": 0.7875,
-  "end": 1.0375
+  "text": "cách",
+  "start": 0.83125,
+  "end": 1.059625
  },
  {
-  "text": "khối",
-  "start": 1.0375,
-  "end": 1.2625
- },
- {
-  "text": "nhất",
-  "start": 1.2625,
-  "end": 1.525
- },
- {
-  "text": "nhóm",
-  "start": 1.75,
-  "end": 1.975
- },
- {
-  "text": "nào",
-  "start": 1.975,
-  "end": 2.225
- },
- {
-  "text": "có",
-  "start": 2.225,
-  "end": 2.4625
- },
- {
-  "text": "ít",
-  "start": 2.4625,
-  "end": 2.6375
- },
- {
-  "text": "khối",
-  "start": 2.6375,
-  "end": 2.85
- },
- {
-  "text": "nhất",
-  "start": 2.85,
-  "end": 3.1
+  "text": "giải",
+  "start": 1.059625,
+  "end": 1.44425
  }
 ]
