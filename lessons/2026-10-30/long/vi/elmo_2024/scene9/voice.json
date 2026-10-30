@@ -1,0 +1,67 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 49." },
+        { "id": "L1", "text": "Một phần của lịch tháng 5 bị mực che phủ." },
+        { "id": "L2", "text": "Hỏi thứ nào là ngày cuối cùng của tháng?" },
+        { "id": "L3", "text": "A, thứ Tư. B, thứ Năm. C, thứ Sáu. D, thứ Bảy." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "cal": ["L1^", "L1.bị", "raw"],
+        "ink": ["L1.bị", "L1$", "raw"],
+        "opts": ["L3^", "L3$", "raw"],
+        "think": ["L3$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L4^", "offset": -0.5 }],
+      "lines": [{ "id": "L4", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L4^", "L4$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L5", "text": "Ngày 1 là thứ Tư." },
+        { "id": "L6", "text": "Mỗi tuần có 7 ngày, nên các ngày 8, 15, 22 và 29 cũng là thứ Tư." },
+        { "id": "L7", "text": "Tháng 5 có 31 ngày, nên sau ngày 29 là ngày 30, thứ Năm, rồi ngày 31, thứ Sáu." },
+        { "id": "L8", "text": "Vậy ngày cuối cùng của tháng là thứ Sáu, đáp án C." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L5^", "L5$", "raw"],
+        "first": ["L5^", 0.7, "raw"],
+        "wed": ["L5.thứ", 0.7, "raw"],
+        "weds": ["L6.các", "L6.cũng", "raw"],
+        "days": ["L7.31", 0.8, "raw"],
+        "d30": ["L7.là", "L7.rồi", "raw"],
+        "d31": ["L7.rồi", "L7$", "raw"],
+        "pick": ["L8.đáp", 0.9, "raw"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 48." },
+        { "id": "L1", "text": "Kết quả nào sau đây không phải là kết quả của việc" },
+        { "id": "L2", "text": "xoay hình đã cho theo hướng mũi tên?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "cards": ["L1^", "L2$", "raw"],
+        "think": ["L2$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L4", "text": "Mũi tên cho biết ta xoay hình một phần tư vòng theo chiều kim đồng hồ." },
+        { "id": "L5", "text": "Hình A: vòng tròn ở ô trên bên trái, xoay xong sang ô trên bên phải. Đúng." },
+        { "id": "L6", "text": "Hình C: hai ô tô màu ở góc trên bên trái và góc dưới bên phải, xoay xong sang góc trên bên phải và góc dưới bên trái. Đúng." },
+        { "id": "L7", "text": "Hình D: hình vuông ở ô dưới bên trái, xoay xong lên ô trên bên trái. Đúng." },
+        { "id": "L8", "text": "Còn lại hình B, ta xem kỹ hơn." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "rule": ["L4^", "L4$", "raw"],
+        "a": ["L5.đúng", 0.7, "raw"],
+        "c": ["L6.đúng", 0.7, "raw"],
+        "d": ["L7.đúng", 0.7, "raw"],
+        "b": ["L8^", 0.9, "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L9", "text": "Tam giác ở ô trên bên phải, xoay một phần tư vòng theo chiều kim đồng hồ, sẽ xuống ô dưới bên phải và quay đỉnh sang phải." },
+        { "id": "L10", "text": "Hình B vẫn quay đỉnh lên trên, nên không phải là kết quả của phép xoay." },
+        { "id": "L11", "text": "Vậy đáp án là B." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "g1": ["L9^", 1.2, "raw"],
+        "turn": ["L9.xoay", 1.0, "raw"],
+        "g2": ["L9.sẽ", "L9$", "raw"],
+        "g3": ["L10^", 1.2, "raw"],
+        "cross": ["L10.nên", 0.8, "raw"],
+        "answer": ["L11^", "L11$", "raw"],
+        "circle": ["L11$", 0.7, "raw"]
+      }
+    }
+  ]
+}
