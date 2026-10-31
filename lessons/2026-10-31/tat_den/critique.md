@@ -15,3 +15,6 @@
 ## Checks
 - Sync: 27 word-anchored windows, 0 more than 1 frame off.
 - Facts: every number on screen is in the problem (6, 9, 7, 2) or follows from it (6+7+1 = 14, 14+1 = 15). The challenge answer (4) is not shown. scene.js asserts 14, 15 and 4 by brute force.
+
+## Pass 3 (final MP4 technical check)
+- freezedetect found a 4.7 s hold at 34.9–39.6 s, while the "?" sock waits. Fixed: the white column, then the grey column, hop in a wave on "đã hết" (`pw`, `pg` now 1.2 s). The re-render has no freeze ≥ 4 s; the longest hold is 3.4 s.
