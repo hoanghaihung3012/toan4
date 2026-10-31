@@ -1,0 +1,57 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-31/long/vi/outro_kenh/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 5.7,
+ "profile": "landscape",
+ "audio": "./audio/voice.mp3",
+ "beats": [
+  {
+   "id": "outro",
+   "start": 0,
+   "end": 5.7,
+   "windows": {
+    "idle": [
+     0,
+     3.908,
+     "raw"
+    ],
+    "bell": [
+     0.15,
+     1.35,
+     "raw"
+    ],
+    "thanks": [
+     0.391,
+     1.572,
+     "raw"
+    ],
+    "subscribe": [
+     2.163,
+     2.879,
+     "raw"
+    ],
+    "name1": [
+     2.679,
+     3.679,
+     "raw"
+    ],
+    "name2": [
+     2.914,
+     3.914,
+     "raw"
+    ],
+    "name3": [
+     3.098,
+     4.348,
+     "raw"
+    ],
+    "underline": [
+     3.734,
+     4.634
+    ]
+   }
+  }
+ ]
+}
