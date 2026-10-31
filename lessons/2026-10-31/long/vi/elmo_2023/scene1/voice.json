@@ -1,0 +1,111 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "opening",
+      "lead": 0.5,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L1", "text": "Xin chào các bạn. Chào mừng các bạn đến với kênh Học cùng Phượng." },
+        { "id": "L2", "text": "Hôm nay chúng ta cùng giải đề thi ELMO năm 2023." }
+      ],
+      "windows": {
+        "welcome": ["L1^", "L1$", "raw"],
+        "channel": ["L1.Học", "L1$", "raw"],
+        "title": ["L2^", "L2$", "raw"]
+      }
+    },
+    {
+      "id": "beat1",
+      "prev": "opening",
+      "lead": 0.5,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L3", "text": "Câu 41." },
+        { "id": "L4", "text": "Khi tổng các số trên mỗi đường" },
+        { "id": "L5", "text": "bằng 32, hãy tìm các số đúng" },
+        { "id": "L6", "text": "sẽ điền vào A và B." },
+        { "id": "L7", "text": "Giá trị của A trừ B là bao nhiêu?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L3^", "L3$", "raw"],
+        "q1": ["L4^", "L4$", "raw"],
+        "q2": ["L5^", "L5$", "raw"],
+        "q3": ["L6^", "L6$", "raw"],
+        "q4": ["L7^", "L7$", "raw"],
+        "figure": ["L4^", "L6$", "raw"],
+        "think": ["L7$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L8^", "offset": -0.5 }],
+      "lines": [{ "id": "L8", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L8^", "L8$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L9", "text": "Đường nằm ngang gồm ba số 12, B và 9, cộng lại bằng 32." },
+        { "id": "L10", "text": "Vậy B bằng 32 trừ 12 trừ 9, bằng 11." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "figure": ["beat^", 1.4, "raw"],
+        "frame": ["L9^", 0.8, "raw"],
+        "eq1": ["L9^", "L9$", "raw"],
+        "eq2": ["L10^", "L10$", "raw"],
+        "b11": ["L10$", 0.7, "raw", -0.8]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L11", "text": "Đường thẳng đứng gồm A, B và 5, cộng lại bằng 32." },
+        { "id": "L12", "text": "Vì B bằng 11 nên A bằng 32 trừ 11 trừ 5, bằng 16." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "figure": ["beat^", 1.4, "raw"],
+        "frame": ["L11^", 0.8, "raw"],
+        "eq1": ["L11^", "L11$", "raw"],
+        "eq2": ["L12^", "L12$", "raw"],
+        "a16": ["L12$", 0.7, "raw", -0.8]
+      }
+    },
+    {
+      "id": "beat4",
+      "prev": "beat3",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L13", "text": "Vậy A bằng 16 và B bằng 11." },
+        { "id": "L14", "text": "A trừ B bằng 16 trừ 11, bằng 5." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "figure": ["beat^", 1.4, "raw"],
+        "answer": ["L14^", "L14$", "raw"],
+        "circle": ["L14$", 0.7, "raw"]
+      }
+    }
+  ]
+}

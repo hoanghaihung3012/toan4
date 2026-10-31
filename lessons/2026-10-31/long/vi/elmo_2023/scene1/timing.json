@@ -1,0 +1,203 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-31/long/vi/elmo_2023/scene1/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 59.467,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "opening",
+   "start": 0,
+   "end": 10.2,
+   "windows": {
+    "welcome": [
+     0.622,
+     4.743,
+     "raw"
+    ],
+    "channel": [
+     3.986,
+     4.743,
+     "raw"
+    ],
+    "title": [
+     5.215,
+     9.193,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat1",
+   "start": 10.2,
+   "end": 26.267,
+   "prev": "opening",
+   "windows": {
+    "wipe": [
+     10.2,
+     11.4,
+     "raw"
+    ],
+    "title": [
+     10.834,
+     11.772,
+     "raw"
+    ],
+    "q1": [
+     12.244,
+     13.818,
+     "raw"
+    ],
+    "q2": [
+     14.302,
+     16.526,
+     "raw"
+    ],
+    "q3": [
+     17.01,
+     18.645,
+     "raw"
+    ],
+    "q4": [
+     19.117,
+     21.16,
+     "raw"
+    ],
+    "figure": [
+     12.244,
+     18.645,
+     "raw"
+    ],
+    "think": [
+     21.16,
+     25.96,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 26.267,
+   "end": 29.5,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     26.267,
+     27.467,
+     "raw"
+    ],
+    "phrase": [
+     27.601,
+     28.911,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 29.5,
+   "end": 39.9,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     29.5,
+     30.7,
+     "raw"
+    ],
+    "figure": [
+     29.5,
+     30.9,
+     "raw"
+    ],
+    "frame": [
+     30.822,
+     31.622,
+     "raw"
+    ],
+    "eq1": [
+     30.822,
+     34.993,
+     "raw"
+    ],
+    "eq2": [
+     35.477,
+     38.698,
+     "raw"
+    ],
+    "b11": [
+     37.898,
+     38.598,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "start": 39.9,
+   "end": 50.667,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     39.9,
+     41.1,
+     "raw"
+    ],
+    "figure": [
+     39.9,
+     41.3,
+     "raw"
+    ],
+    "frame": [
+     41.222,
+     42.022,
+     "raw"
+    ],
+    "eq1": [
+     41.222,
+     44.888,
+     "raw"
+    ],
+    "eq2": [
+     45.36,
+     49.483,
+     "raw"
+    ],
+    "a16": [
+     48.683,
+     49.383,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat4",
+   "start": 50.667,
+   "end": 59.467,
+   "prev": "beat3",
+   "windows": {
+    "wipe": [
+     50.667,
+     51.867,
+     "raw"
+    ],
+    "figure": [
+     50.667,
+     52.067,
+     "raw"
+    ],
+    "answer": [
+     54.745,
+     57.461,
+     "raw"
+    ],
+    "circle": [
+     57.461,
+     58.161,
+     "raw"
+    ]
+   }
+  }
+ ]
+}
