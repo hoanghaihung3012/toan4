@@ -1,7 +1,7 @@
 // Câu 41. Tổng các số trên mỗi đường bằng 32; tìm A và B, tính A - B.
 import { CHALK } from '../../../../../../shared/web/js/chalk.js';
 import { clamp01, pop, stagger } from '../../../../../../shared/web/js/ease.js';
-import { g, thinkingDots } from '../../../../../../shared/web/js/fx.js';
+import { g, thinkingDots, burst } from '../../../../../../shared/web/js/fx.js';
 import { row, solutionIntro } from '../../../../../../shared/web/js/parts.js';
 
 const INTRO_TEXT = 'Sau đây là cách giải';
@@ -19,6 +19,12 @@ console.assert(A - B === 5, 'Câu 41: đáp số A - B = 5');
 
 const WHITE = CHALK.white;
 const YELLOW = CHALK.yellow;
+// A hồng, B xanh: mỗi ẩn giữ một màu từ đề đến đáp số
+const PINK = CHALK.pink;
+const BLUE = CHALK.blue;
+const NAME_COLOR = { A: PINK, B: BLUE };
+const pa = { s: 'A', color: PINK };
+const pb = { s: 'B', color: BLUE };
 
 // --- hình chữ thập: 5 vòng tròn nối bằng hai đường ------------------------------------
 // ô: [tên, dx, dy]
@@ -58,8 +64,11 @@ function cross(L, cx, cy, d, r, size, { appear = 1, reveal = {} } = {}) {
       L.line([cx + sx * r * u, cy + sy * r * u], [x - sx * r * u, y - sy * r * u],
         { color: WHITE, width: 6, t: clamp01(appear * 2), seed: 10 + i });
     }
-    ring(L, x, y, r * u, WHITE, 20 + i);
-    L.text(label, x, y + size * 0.34, { size, align: 'center', color: known ? YELLOW : WHITE, scale: u * q });
+    ring(L, x, y, r * u, known ? YELLOW : NAME_COLOR[name] || WHITE, 20 + i);
+    L.text(label, x, y + size * 0.34, {
+      size, align: 'center', color: known ? YELLOW : NAME_COLOR[name] || WHITE, scale: u * q,
+    });
+    if (known && k < 1) burst(L, x, y, r * 1.2, k, { seed: 60 + i });
   });
 }
 
@@ -88,8 +97,9 @@ export const scenes = {
     L.text('41. Tổng trên mỗi đường', 960, 150, { size: 72, align: 'center', t: g(p, 'title') });
     L.text('Khi tổng các số trên mỗi đường', 90, 380, { size: 62, t: g(p, 'q1') });
     L.text('bằng 32, hãy tìm các số đúng', 90, 490, { size: 62, t: g(p, 'q2') });
-    L.text('sẽ điền vào A và B.', 90, 600, { size: 62, t: g(p, 'q3') });
-    row(L, ['Giá trị của A', { sym: 'minus' }, 'B là bao nhiêu?'], 90, 710,
+    row(L, ['sẽ điền vào', pa, 'và', { s: 'B.', color: BLUE }], 90, 600,
+      { size: 62, align: 'left', t: g(p, 'q3'), seed: 3 });
+    row(L, ['Giá trị của', pa, { sym: 'minus' }, pb, 'là bao nhiêu?'], 90, 710,
       { size: 62, align: 'left', gap: 0.3, t: g(p, 'q4'), seed: 4 });
     cross(L, Q.cx, Q.cy, Q.d, Q.r, Q.size, { appear: g(p, 'figure') });
     thinkingDots(L, 700, 920, g(p, 'think'));
@@ -104,9 +114,9 @@ export const scenes = {
     const L = ctx.chalk(60);
     frameLine(L, S.cx, S.cy, S.d, S.r, true, g(p, 'frame'));
     cross(L, S.cx, S.cy, S.d, S.r, S.size, { appear: g(p, 'figure'), reveal: { B: g(p, 'b11') > 0 ? g(p, 'b11') : 0 } });
-    row(L, [String(LEFT), '+', 'B', '+', String(RIGHT), '=', String(SUM)], EQ_X, 380,
+    row(L, [String(LEFT), '+', pb, '+', String(RIGHT), '=', String(SUM)], EQ_X, 380,
       { size: 70, t: g(p, 'eq1'), seed: 1 });
-    row(L, ['B', '=', String(SUM), { sym: 'minus' }, String(LEFT), { sym: 'minus' }, String(RIGHT), '=',
+    row(L, [pb, '=', String(SUM), { sym: 'minus' }, String(LEFT), { sym: 'minus' }, String(RIGHT), '=',
       { s: String(B), color: YELLOW }], EQ_X, 560, { size: 70, t: g(p, 'eq2'), seed: 2 });
   },
 
@@ -117,9 +127,10 @@ export const scenes = {
     cross(L, S.cx, S.cy, S.d, S.r, S.size, {
       appear: g(p, 'figure'), reveal: { B: 1, A: g(p, 'a16') > 0 ? g(p, 'a16') : 0 },
     });
-    row(L, ['A', '+', String(B), '+', String(BOTTOM), '=', String(SUM)], EQ_X, 380,
+    row(L, [pa, '+', { s: String(B), color: BLUE }, '+', String(BOTTOM), '=', String(SUM)], EQ_X, 380,
       { size: 70, t: g(p, 'eq1'), seed: 1 });
-    row(L, ['A', '=', String(SUM), { sym: 'minus' }, String(B), { sym: 'minus' }, String(BOTTOM), '=',
+    row(L, [pa, '=', String(SUM), { sym: 'minus' }, { s: String(B), color: BLUE }, { sym: 'minus' },
+      String(BOTTOM), '=',
       { s: String(A), color: YELLOW }], EQ_X, 560, { size: 70, t: g(p, 'eq2'), seed: 2 });
   },
 
@@ -128,9 +139,10 @@ export const scenes = {
     const L = ctx.chalk(60);
     cross(L, S.cx, S.cy, S.d, S.r, S.size, { appear: g(p, 'figure'), reveal: { A: 1, B: 1 } });
     const xs = row(L, [
-      'A', { sym: 'minus' }, 'B', '=', String(A), { sym: 'minus' }, String(B), '=',
-      { s: String(A - B), color: YELLOW },
-    ], EQ_X, 560, { size: 80, t: g(p, 'answer'), gap: 0.6, seed: 9 });
+      pa, { sym: 'minus' }, pb, '=', { s: String(A), color: PINK }, { sym: 'minus' },
+      { s: String(B), color: BLUE }, '=', { s: String(A - B), color: YELLOW },
+    ], 1300, 560, { size: 80, t: g(p, 'answer'), gap: 0.5, seed: 9 });
     L.loop(xs[8] + 4, 560 - 30, 54, 62, { color: YELLOW, width: 7, t: g(p, 'circle'), seed: 12 });
+    burst(L, xs[8] + 4, 560 - 30, 80, g(p, 'burst'), { n: 10, seed: 70 });
   },
 };
