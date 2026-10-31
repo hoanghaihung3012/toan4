@@ -78,15 +78,16 @@ function stateOf(order, beat, p) {
 const ORDER = ['beat3', 'beat4', 'beat5'];
 
 // a horizontal wooden bar from x0 to x1 that grows from `from` ('l' | 'r') with a spring
-function hbar(objs, L, x0, x1, cy, h, kind, u, label, from = 'l', lx = (x0 + x1) / 2) {
+function hbar(objs, L, x0, x1, cy, h, kind, u, label, from = 'l', lx = (x0 + x1) / 2, hop = 0) {
   if (u <= 0) return;
   const k = spring(clamp01(u), 3.2, 6);
   const w = (x1 - x0) * k;
   if (w < 24) return;
   const cx = from === 'l' ? x0 + w / 2 : x1 - w / 2;
-  const squash = 1 + 0.12 * Math.sin(Math.PI * clamp01(u * 1.4));
-  bar(objs, cx, cy + h, h, kind, w, squash);
-  if (label) L.text(label, lx, cy + h / 2 + 19, { size: 54, color: INK, align: 'center', t: clamp01((u - 0.45) / 0.4) });
+  const squash = (1 + 0.12 * Math.sin(Math.PI * clamp01(u * 1.4))) * hopSquash(hop);
+  const dy = hopY(hop, 34);
+  bar(objs, cx, cy + h + dy, h, kind, w, squash);
+  if (label) L.text(label, lx, cy + h / 2 + 19 + dy, { size: 54, color: INK, align: 'center', t: clamp01((u - 0.45) / 0.4) });
 }
 
 // --- beat 1: the problem, written word by word as it is read -----------------------------------
@@ -135,7 +136,7 @@ function beat2(ctx, p) {
 
 // --- beats 3–5: one board ------------------------------------------------------------------------
 // the class bar, the 6 who like neither, 42 − 6 = 36 (beat 3); hop6 makes the 6-piece hop (beat 5)
-function upper(ctx, S, hop6) {
+function upper(ctx, S, hop6, hop36 = 0) {
   const L0 = ctx.chalk(60);
   const tt = S('beat3', 'title');
   const xs = row(L0, [TEXT.cls, { s: String(CLASS), color: COL.cls }, TEXT.unit], T.x, T.y, { size: T.size, t: tt, align: 'left', gap: 0.3 });
@@ -145,7 +146,7 @@ function upper(ctx, S, hop6) {
   const objs = ctx.objects();
   const L = ctx.chalk(60);
   const c = S('beat3', 'cls');
-  hbar(objs, L, X0, X36, CLS_Y - BAR_H / 2, BAR_H, 'int', c, '');
+  hbar(objs, L, X0, X36, CLS_Y - BAR_H / 2, BAR_H, 'int', c, '', 'l', X0, hop36);
   // the 6-piece: a dashed slot that steps off to the right (anticipation, arc, landing squash)
   const six = S('beat3', 'six');
   const home = [(X36 + X42) / 2, CLS_Y + BAR_H / 2];
@@ -167,15 +168,15 @@ function upper(ctx, S, hop6) {
   row(L, [{ s: String(ANY), color: CHALK.yellow }, TEXT.unit, TEXT.atLeast], 540, ATL_Y, { size: 58, t: S('beat3', 'atl'), seed: 50, gap: 0.28 });
 }
 // the two subject bars and the overlap (beat 4); pulse11 makes the overlap "11" pulse (beat 5)
-function middle(ctx, S, pulse11) {
+function middle(ctx, S, pulse11, hopT = 0, hopA = 0) {
   const objs = ctx.objects();
   const L = ctx.chalk(60);
   const tm = S('beat4', 'toan'), te = S('beat4', 'anh');
   // the two subject bars live inside the 36: dashed guides down from its ends
   for (const x of [X0, X36]) L.dashed([x, Q_Y - 30], [x, ENG_Y + MID_H / 2 + 14], { color: CHALK.white, width: 4, t: easeOutCubic(clamp01(tm * 1.5)) });
   L.text(TEXT.math, X0, MATH_Y - MID_H / 2 - 18, { size: 60, color: COL.math, t: clamp01(tm * 2) });
-  hbar(objs, L, X0, MATH_R, MATH_Y - MID_H / 2, MID_H, 'int', tm, String(MATH), 'l', (X0 + ENG_L) / 2);
-  hbar(objs, L, ENG_L, X36, ENG_Y - MID_H / 2, MID_H, 'dec', te, String(ENG), 'r', (MATH_R + X36) / 2);
+  hbar(objs, L, X0, MATH_R, MATH_Y - MID_H / 2, MID_H, 'int', tm, String(MATH), 'l', (X0 + ENG_L) / 2, hopT);
+  hbar(objs, L, ENG_L, X36, ENG_Y - MID_H / 2, MID_H, 'dec', te, String(ENG), 'r', (MATH_R + X36) / 2, hopA);
   L.text(TEXT.eng, X36, ENG_Y + MID_H / 2 + 78, { size: 60, color: COL.eng, align: 'right', t: clamp01(te * 2 - 0.4) });
   // the overlap: dashed edges, a yellow box, "?" that gives way to 11
   const o = S('beat4', 'ovl');
@@ -235,8 +236,11 @@ function board(ctx, beat, p) {
   const S = stateOf(ORDER, beat, p);
   const k = (key) => g(p, key);
   const in5 = beat === 'beat5';
-  upper(ctx, S, in5 ? k('p6') : 0);
-  middle(ctx, S, in5 ? k('p11') : 0);
+  // hops tie each number in the equations to its bar (no dead holds while the voice talks)
+  const hp = (key) => (key in p && p[key] < 1 ? p[key] : 0);
+  const in4 = beat === 'beat4';
+  upper(ctx, S, in5 ? k('p6') : 0, in4 ? Math.max(hp('h36'), hp('h36b')) : in5 ? hp('h42') : 0);
+  middle(ctx, S, in5 ? k('p11') : 0, in4 || in5 ? hp('hT') : 0, in4 || in5 ? hp('hA') : 0);
   if (beat === 'beat5') {
     bandWipe(ctx, k('wipe'), LOW, (c) => equations(c, () => 1), 3);
     check(ctx, k);
