@@ -4,6 +4,7 @@
 // Phones: follows the URL bar showing/hiding, rotation and split screen, so the controls never fall
 // off screen and the page never grows wider than the phone (which made mobile browsers zoom out).
 export function fitStage(stage, box, width, height) {
+  box ||= document.body; // a page written before #view existed
   const fit = () => {
     const { width: bw, height: bh } = box.getBoundingClientRect();
     if (!bw || !bh) return;

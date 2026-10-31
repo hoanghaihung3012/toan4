@@ -129,3 +129,7 @@ body:not(.capture) #stage { position: absolute; left: 0; top: 0; }
 #controls #beat { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; opacity: 0.7; }
 @media (max-width: 420px) { #controls #beat { display: none; } }
 body.capture #controls { display: none; }
+
+/* embedded in the stitched preview of a long lesson (?embed=1) */
+body.embed { overflow: hidden; }
+body.embed #controls { display: none; }
