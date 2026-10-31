@@ -1,0 +1,99 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs bong_cung_mau. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "./scene.js",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.3, "tail": 2.6,
+   "lines": [
+    { "id": "L1", "text": "Trong một chiếc hộp kín có 10 quả bóng đỏ," },
+    { "id": "L2", "text": "8 quả bóng xanh dương và 4 quả bóng xanh lá." },
+    { "id": "L3", "text": "Hỏi cần lấy ra ngẫu nhiên ít nhất bao nhiêu quả bóng để chắc chắn có được 5 quả bóng cùng màu?" }
+   ],
+   "windows": {
+    "q1": ["L1^", "L1$", "raw"],
+    "q2": ["L2^", "L2$", "raw"],
+    "q3": ["L3^", "L3$", "raw"],
+    "box": ["L1.hộp", 0.8, "raw"],
+    "red": ["L1.10", 1.4, "raw"],
+    "blue": ["L2.8", 1.2, "raw"],
+    "green": ["L2.4", 1.0, "raw"],
+    "lid": ["L3.ngẫu", 0.9, "raw"],
+    "five": ["L3.5", 1.0, "raw"],
+    "dots": ["L3$", 2.4, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.1, "tail": 0.6,
+   "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L4^", "offset": -0.5 }],
+   "lines": [
+    { "id": "L4", "text": "Sau đây là cách giải." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "phrase": ["L4^", "L4$", "raw"]
+   }
+  },
+  {
+   "id": "beat3", "prev": "beat2", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L5", "text": "Hãy nghĩ đến trường hợp xui nhất:" },
+    { "id": "L6", "text": "lấy mãi mà vẫn chưa có 5 quả cùng màu." },
+    { "id": "L7", "text": "Bóng đỏ lấy 4 quả, bóng xanh dương cũng lấy 4 quả." },
+    { "id": "L8", "text": "Bóng xanh lá chỉ có 4 quả, lấy hết vẫn chưa đủ 5." },
+    { "id": "L9", "text": "4 cộng 4 cộng 4 bằng 12 quả, vẫn chưa có 5 quả cùng màu." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L5^", "L5$"],
+    "tubes": ["L5.xui", 1.2, "raw"],
+    "line5": ["L6.5", 1.0, "raw"],
+    "r": ["L7.đỏ", "L7.4>", "raw"],
+    "b": ["L7.dương", "L7$", "raw"],
+    "g": ["L8^", "L8.4>", "raw"],
+    "het": ["L8.hết", 0.8, "raw"],
+    "eq": ["L9^", "L9.12>"],
+    "no": ["L9.vẫn", "L9$"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.4, "tail": 0.9,
+   "lines": [
+    { "id": "L10", "text": "Lấy thêm 1 quả nữa: quả thứ 13." },
+    { "id": "L11", "text": "Bóng xanh lá đã hết, nên quả này là đỏ hoặc xanh dương." },
+    { "id": "L12", "text": "Màu nào thì cũng đủ 5 quả cùng màu!" },
+    { "id": "L13", "text": "12 cộng 1 bằng 13. Vậy cần lấy ra ít nhất 13 quả bóng." }
+   ],
+   "windows": {
+    "q13": ["L10^", 1.0, "raw"],
+    "t13": ["L10.13", 0.8, "raw"],
+    "x13": ["L11.xanh", 0.8, "raw"],
+    "toR": ["L11.đỏ", 1.0, "raw"],
+    "toB": ["L11.dương", 1.0, "raw"],
+    "ok": ["L12^", 1.0, "raw"],
+    "wipe": ["L12.5", 1.0, "raw"],
+    "eq2": ["L13^", "L13.13>"],
+    "ans": ["L13.Vậy", "L13$"],
+    "loop": ["L13.13#2", 1.0, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "prev": "beat4", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L14", "text": "Đến lượt bạn: cần lấy ra ít nhất bao nhiêu quả để chắc chắn có 3 quả bóng cùng màu?" },
+    { "id": "L15", "text": "Bình luận đáp án nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L14^", 0.8],
+    "balls": ["L14.lấy", 1.4, "raw"],
+    "ask": ["L14.chắc", "L14$"],
+    "cmt": ["L15.Bình", 0.9],
+    "count": ["L15$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}
