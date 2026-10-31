@@ -57,7 +57,11 @@ const timing = {
 
 for (const beat of spec.beats) {
   const start = cursor;
-  let t = start + (beat.lead ?? 0.5);
+  // a wiped beat shows nothing new until the eraser is done: lead and every window wait for it
+  const wipeWin = beat.prev && beat.windows?.wipe;
+  const wipeEnd = wipeWin && wipeWin[0] === 'beat^' && typeof wipeWin[1] === 'number'
+    ? start + wipeWin[1] + (wipeWin[3] || 0) : null;
+  let t = start + Math.max(beat.lead ?? 0.5, wipeEnd === null ? 0 : wipeEnd - start);
   beat.lines.forEach((line, i) => {
     if (i > 0) t += line.gap ?? spec.gap;
     const { mp3, words } = synth(line);
@@ -84,8 +88,12 @@ for (const beat of spec.beats) {
   const windows = {};
   let lastEnd = t;
   for (const [k, [anchor, dur, ease = 'out', offset = 0]] of Object.entries(beat.windows)) {
-    const s = resolve(anchor) + offset;
-    const e = typeof dur === 'string' ? resolve(dur) : s + dur;
+    let s = resolve(anchor) + offset;
+    if (wipeEnd !== null && k !== 'wipe' && s < wipeEnd) {
+      console.log(`${beat.id}.${k}: moved to the end of the wipe`);
+      s = wipeEnd;
+    }
+    const e = typeof dur === 'string' ? Math.max(resolve(dur), s + 0.1) : s + dur;
     const r = (x) => Math.round(x * 1000) / 1000;
     windows[k] = ease === 'out' ? [r(s), r(e)] : [r(s), r(e), ease];
     lastEnd = Math.max(lastEnd, e);

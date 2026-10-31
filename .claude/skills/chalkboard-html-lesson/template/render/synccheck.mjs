@@ -1,5 +1,6 @@
 // Sync check (verification loop 3): every word-anchored window in timing/<scene>.json must
-// start within 1 frame of its anchor word in audio/<lesson>/cues.json.
+// start within 1 frame of its anchor word in audio/<lesson>/cues.json. It also checks that no window
+// of a wiped beat starts before the wipe ends (new content must not show over the old board).
 //
 //   node render/synccheck.mjs <lesson>
 import fs from 'node:fs';
@@ -30,4 +31,16 @@ for (const beat of spec.beats) {
   }
 }
 console.log(`sync: ${n} word-anchored windows, ${bad} off by more than 1 frame`);
-process.exitCode = bad ? 1 : 0;
+
+let early = 0;
+for (const b of timing.beats) {
+  if (!b.prev || !b.windows.wipe) continue;
+  const wipeEnd = b.windows.wipe[1];
+  for (const [k, [s]] of Object.entries(b.windows)) {
+    if (k === 'wipe' || s >= wipeEnd - frame) continue;
+    early++;
+    console.log(`EARLY ${b.id}.${k}: starts ${s.toFixed(3)}s, before the wipe ends at ${wipeEnd.toFixed(3)}s`);
+  }
+}
+console.log(`wipe order: ${early} windows start before their wipe ends`);
+process.exitCode = bad || early ? 1 : 0;
