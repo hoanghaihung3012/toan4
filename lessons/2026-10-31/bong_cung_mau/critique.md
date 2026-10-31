@@ -15,3 +15,7 @@
 ## Checks
 - Sync: 22 word-anchored windows, 0 more than 1 frame off.
 - Facts: every number on screen is in the problem (10, 8, 4, 5) or follows from it (4+4+4=12, 12+1=13). The challenge answer (7) is not shown. scene.js asserts 12, 13 and 7 by brute force.
+
+## Pass 3 (second fresh sound-off reader: "mostly", story retold correctly)
+- The "?" ball waited still for about 4 s (34–38 s). Fixed: it hops on "13" and again on "quả này" (new `hop` window at L11.nên).
+- The reader also found the tube labels small, but that came from the 2 fps thumbnails; the full frames (kp4) read clearly at size 50–60.
