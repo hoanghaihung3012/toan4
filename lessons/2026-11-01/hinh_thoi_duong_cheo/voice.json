@@ -1,0 +1,100 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs hinh_thoi_duong_cheo. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "./scene.js",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.3, "tail": 2.6,
+   "lines": [
+    { "id": "L1", "text": "Một hình thoi có diện tích là 120 xăng-ti-mét vuông." },
+    { "id": "L2", "text": "Nếu giữ nguyên một đường chéo và tăng đường chéo còn lại thêm 5 xăng-ti-mét thì diện tích hình thoi mới là 150 xăng-ti-mét vuông." },
+    { "id": "L3", "text": "Tìm độ dài hai đường chéo ban đầu của hình thoi đó." }
+   ],
+   "windows": {
+    "q1": ["L1^", "L1$", "raw"],
+    "q2": ["L2^", "L2$", "raw"],
+    "q3": ["L3^", "L3$", "raw"],
+    "shape": ["L1.hình", 1.0, "raw"],
+    "a120": ["L1.120", 0.8, "raw"],
+    "keep": ["L2.giữ", 1.0, "raw"],
+    "grow": ["L2.tăng", 1.4, "raw"],
+    "a150": ["L2.150", 0.8, "raw"],
+    "ask": ["L3.hai", 1.0, "raw"],
+    "dots": ["L3$", 2.4, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.1, "tail": 0.6,
+   "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L4^", "offset": -0.5 }],
+   "lines": [
+    { "id": "L4", "text": "Sau đây là cách giải." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "phrase": ["L4^", "L4$", "raw"]
+   }
+  },
+  {
+   "id": "beat3", "prev": "beat2", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L5", "text": "Hình thoi bằng một nửa hình chữ nhật bao quanh nó." },
+    { "id": "L6", "text": "Hình chữ nhật cũ có diện tích 120 nhân 2 bằng 240 xăng-ti-mét vuông." },
+    { "id": "L7", "text": "Hình chữ nhật mới có diện tích 150 nhân 2 bằng 300 xăng-ti-mét vuông." },
+    { "id": "L8", "text": "Hình chữ nhật dài thêm 5 xăng-ti-mét, nên diện tích tăng thêm 300 trừ 240 bằng 60 xăng-ti-mét vuông." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "fig": ["beat^", 1.2, "raw", 1.0],
+    "title": ["L5^", "L5.nửa>"],
+    "rect": ["L5.hình#2", 1.0, "raw"],
+    "fold": ["L5.bao", 1.6, "raw"],
+    "unfold": ["L6^", 1.0, "raw"],
+    "r1": ["L6.120", "L6$"],
+    "grow": ["L7^", 1.3, "raw"],
+    "r2": ["L7.150", "L7$"],
+    "five": ["L8.5", 0.9, "raw"],
+    "r3": ["L8.300", "L8$"],
+    "s60": ["L8.60", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.4, "tail": 0.9,
+   "lines": [
+    { "id": "L9", "text": "Phần thêm vào rộng 5 xăng-ti-mét, dài bằng đường chéo giữ nguyên." },
+    { "id": "L10", "text": "Vậy đường chéo giữ nguyên dài 60 chia 5 bằng 12 xăng-ti-mét." },
+    { "id": "L11", "text": "Đường chéo còn lại dài 240 chia 12 bằng 20 xăng-ti-mét." },
+    { "id": "L12", "text": "Vậy hai đường chéo ban đầu dài 12 xăng-ti-mét và 20 xăng-ti-mét." }
+   ],
+   "windows": {
+    "strip": ["L9^", 1.0, "raw"],
+    "side": ["L9.dài", 1.0, "raw"],
+    "diag": ["L9.đường", 1.0, "raw"],
+    "r4": ["L10.60", "L10$"],
+    "l12": ["L10.12", 0.9, "raw"],
+    "r5": ["L11.240", "L11$"],
+    "l20": ["L11.20", 0.9, "raw"],
+    "ans": ["L12.dài", "L12$"],
+    "loop": ["L12.12", 1.6, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "prev": "beat4", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L13", "text": "Đến lượt bạn: nếu tăng đường chéo 12 xăng-ti-mét thêm 4 xăng-ti-mét và giữ nguyên đường chéo kia, thì diện tích mới là bao nhiêu?" },
+    { "id": "L14", "text": "Bình luận đáp án nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L13^", 0.8],
+    "shape": ["L13.tăng", 1.0, "raw"],
+    "grow": ["L13.thêm", 1.2, "raw"],
+    "ask": ["L13.diện", "L13$"],
+    "cmt": ["L14.Bình", 0.9],
+    "count": ["L14$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}
