@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <title>Chắc chắn có 5 quả bóng cùng màu (lớp 4)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="shared/web/css/board.css">
+</head>
+<body>
+  <!-- chalk/grain filters, fonts and CSS variables are generated from web/theme.js -->
+  <div id="view"><div id="stage"></div></div>
+
+  <div id="controls">
+    <button id="play" type="button" aria-label="Play">▶</button>
+    <input id="scrub" type="range" aria-label="Seek" min="0" max="1000" value="0">
+    <span id="time">0.00 s</span>
+    <span id="beat"></span>
+  </div>
+
+  <script type="module" src="shared/web/js/player.js"></script>
+</body>
+</html>
