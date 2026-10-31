@@ -14,3 +14,10 @@
 ## Checks
 - Sync: 25 word-anchored windows, 0 more than 1 frame off.
 - Facts: the problem text was transcribed from the Sheet picture. Every number on screen is in the problem (120, 150, 5) or is derived in story.md (240, 300, 60, 12, 20). scene.js asserts the results and the check 12 × 20 : 2 = 120, 12 × 25 : 2 = 150. The challenge answer (160) is not shown.
+
+## Pass 3 (final MP4 technical check)
+- freezedetect found holds of 4.3–6.1 s between 33 and 50 s. Writing the rows changes too few pixels to count as motion. Fixed in two steps:
+  - The gold strip pulses on "300", "5" and "60", and the rhombus glows on "150".
+  - The rhombus gives a springy scale bump on "5", "60", "Phần thêm vào", "dài", "12" and "20".
+- The fold now holds folded until "120" in the next line (unfold window moved to L6.120). Before, it started to unfold before it had landed.
+- Re-render: no freeze ≥ 4 s, true peak −3.7 dBFS, 66.033 s, stereo, full decode OK. The only silences are the thinking pause, the transition, the board wipe and the countdown.
