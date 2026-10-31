@@ -1,0 +1,87 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 50." },
+        { "id": "L1", "text": "Lan bắn ba mũi tên và tất cả đều trúng bia dưới đây." },
+        { "id": "L2", "text": "Hỏi tổng điểm của bạn ấy có thể có bao nhiêu giá trị khác nhau?" },
+        { "id": "L3", "text": "A, 5. B, 6. C, 7. D, 8." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "target": ["L1^", "L1$", "raw"],
+        "opts": ["L3^", "L3$", "raw"],
+        "think": ["L3$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L4^", "offset": -0.5 }],
+      "lines": [{ "id": "L4", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L4^", "L4$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [
+        { "id": "dups", "preset": "scratch", "at": "L7^" },
+        { "id": "tiles", "preset": "pop", "at": "L8^", "offset": 0.4 },
+        { "id": "answer", "preset": "ding", "at": "L9^", "offset": 0.3 }
+      ],
+      "lines": [
+        { "id": "L5", "text": "Mỗi mũi tên được 1, 3 hoặc 5 điểm, nên ba mũi tên có 10 cách ghi điểm." },
+        { "id": "L6", "text": "Tổng điểm của các cách là 3, 5, 7, 7, 9, 9, 11, 11, 13 và 15." },
+        { "id": "L7", "text": "Các tổng 7, 9 và 11 bị lặp lại, nên chỉ tính một lần." },
+        { "id": "L8", "text": "Các tổng khác nhau là 3, 5, 7, 9, 11, 13 và 15: có 7 giá trị." },
+        { "id": "L9", "text": "Vậy đáp án là C, 7." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "head": ["L5^", "L5$", "raw"],
+        "rows": ["L6^", "L6$", "raw"],
+        "dups": ["L7^", "L7$", "raw"],
+        "tiles": ["L8^", "L8.có", "raw"],
+        "count": ["L8.có", "L8$", "raw"],
+        "answer": ["L9^", "L9$", "raw"],
+        "circle": ["L9$", 0.7, "raw", -0.6],
+        "burst": ["L9$", 1.0, "raw", -0.5]
+      }
+    },
+    {
+      "id": "outro",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L10", "text": "Cảm ơn các bạn đã xem video." },
+        { "id": "L11", "text": "Hãy đăng ký kênh Học cùng Phượng để đón xem những video tiếp theo." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "thanks": ["L10^", "L10$", "raw"],
+        "subscribe": ["L11^", "L11$", "raw"]
+      }
+    }
+  ]
+}

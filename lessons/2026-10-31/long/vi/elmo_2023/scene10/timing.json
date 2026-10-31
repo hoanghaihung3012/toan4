@@ -1,0 +1,148 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-31/long/vi/elmo_2023/scene10/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 60.2,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 20.667,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.127,
+     "raw"
+    ],
+    "q1": [
+     2.6,
+     5.484,
+     "raw"
+    ],
+    "q2": [
+     5.956,
+     9.105,
+     "raw"
+    ],
+    "target": [
+     2.6,
+     5.484,
+     "raw"
+    ],
+    "opts": [
+     9.577,
+     15.561,
+     "raw"
+    ],
+    "think": [
+     15.561,
+     20.361,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 20.667,
+   "end": 23.9,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     20.667,
+     21.867,
+     "raw"
+    ],
+    "phrase": [
+     22.001,
+     23.311,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 23.9,
+   "end": 52.233,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     23.9,
+     25.1,
+     "raw"
+    ],
+    "head": [
+     25.222,
+     29.549,
+     "raw"
+    ],
+    "rows": [
+     30.033,
+     37.004,
+     "raw"
+    ],
+    "dups": [
+     37.488,
+     41.274,
+     "raw"
+    ],
+    "tiles": [
+     41.759,
+     46.927,
+     "raw"
+    ],
+    "count": [
+     46.927,
+     47.852,
+     "raw"
+    ],
+    "answer": [
+     48.337,
+     50.224,
+     "raw"
+    ],
+    "circle": [
+     49.624,
+     50.324,
+     "raw"
+    ],
+    "burst": [
+     49.724,
+     50.724,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "outro",
+   "start": 52.233,
+   "end": 60.2,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     52.233,
+     53.433,
+     "raw"
+    ],
+    "thanks": [
+     53.567,
+     55.406,
+     "raw"
+    ],
+    "subscribe": [
+     55.879,
+     59.184,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

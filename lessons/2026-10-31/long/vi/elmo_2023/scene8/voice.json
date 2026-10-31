@@ -1,0 +1,125 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 48." },
+        { "id": "L1", "text": "Hãy nhìn quy luật của các hình dưới đây." },
+        { "id": "L2", "text": "Hình nào thuộc ô thứ năm?" },
+        { "id": "L3", "text": "A, B, C hoặc D?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "boxes": ["L1^", "L2$", "raw"],
+        "opts": ["L3^", "L3$", "raw"],
+        "think": ["L3$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L4^", "offset": -0.5 }],
+      "lines": [{ "id": "L4", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L4^", "L4$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "sounds": [{ "id": "fifth", "preset": "pop", "at": "L6$", "offset": -0.75 }],
+      "lines": [
+        { "id": "L5", "text": "Nhìn vòng trắng ở hàng trên cùng: nó lần lượt ở cột 1, 2, 3, rồi lại cột 1." },
+        { "id": "L6", "text": "Mỗi lần nó dịch sang phải một ô, nên ở hình thứ năm nó ở cột 2." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "boxes": ["beat^", 1.0, "raw", 1.2],
+        "nums": ["L5.lần", "L5$", "raw"],
+        "hint": ["L6^", "L6.nên", "raw"],
+        "fifth": ["L6$", 0.7, "raw", -0.8],
+        "burst": ["L6$", 1.0, "raw", -0.8]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.2,
+      "sounds": [{ "id": "fifth", "preset": "pop", "at": "L8$", "offset": -0.75 }],
+      "lines": [
+        { "id": "L7", "text": "Nhìn hai chấm đen ở hàng giữa: ô trống lần lượt ở cột 3, 2, 1, rồi lại cột 3." },
+        { "id": "L8", "text": "Ô trống dịch sang trái một ô mỗi lần, nên ở hình thứ năm ô trống ở cột 2, và hai chấm đen ở cột 1 và cột 3." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "boxes": ["beat^", 1.0, "raw", 1.2],
+        "nums": ["L7.lần", "L7$", "raw"],
+        "hint": ["L8^", "L8.nên", "raw"],
+        "fifth": ["L8$", 0.7, "raw", -0.8],
+        "burst": ["L8$", 1.0, "raw", -0.8]
+      }
+    },
+    {
+      "id": "beat4",
+      "prev": "beat3",
+      "lead": 1.2,
+      "tail": 1.2,
+      "sounds": [{ "id": "fifth", "preset": "pop", "at": "L10$", "offset": -0.75 }],
+      "lines": [
+        { "id": "L9", "text": "Mũi tên ở hàng dưới cùng cũng ở cột 3, 2, 1, rồi lại cột 3, nên ở hình thứ năm nó ở cột 2." },
+        { "id": "L10", "text": "Hướng mũi tên quay theo chiều kim đồng hồ: lên, phải, xuống, trái, nên hình thứ năm hướng lên." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "boxes": ["beat^", 1.0, "raw", 1.2],
+        "nums": ["L9^", "L9$", "raw"],
+        "dirs": ["L10^", "L10$", "raw"],
+        "hint": ["L9^", "L9$", "raw"],
+        "fifth": ["L10$", 0.7, "raw", -0.8],
+        "burst": ["L10$", 1.0, "raw", -0.8]
+      }
+    },
+    {
+      "id": "beat5",
+      "prev": "beat4",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [{ "id": "answer", "preset": "ding", "at": "L13^", "offset": 0.2 }],
+      "lines": [
+        { "id": "L11", "text": "Hình thứ năm có vòng trắng ở cột 2, hai chấm đen ở cột 1 và cột 3, mũi tên ở cột 2 hướng lên." },
+        { "id": "L12", "text": "Hình A có mũi tên sai hướng, hình C có chấm đen sai, hình D có vòng trắng sai." },
+        { "id": "L13", "text": "Vậy đáp án là hình B." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "fifth": ["L11^", "L11$", "raw"],
+        "opts": ["L12^", 1.5, "raw"],
+        "mB": ["L13^", 0.8, "raw"],
+        "mA": ["L12.a", "L12.hình#2", "raw"],
+        "mC": ["L12.hình#2", "L12.hình#3", "raw"],
+        "mD": ["L12.hình#3", "L12$", "raw"],
+        "answer": ["L13^", "L13$", "raw"],
+        "circle": ["L13$", 0.7, "raw", -0.6],
+        "burst": ["L13$", 1.0, "raw", -0.5]
+      }
+    }
+  ]
+}

@@ -1,0 +1,249 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-31/long/vi/elmo_2023/scene8/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 76.1,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 14,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.332,
+     "raw"
+    ],
+    "q1": [
+     2.804,
+     4.715,
+     "raw"
+    ],
+    "q2": [
+     5.187,
+     6.641,
+     "raw"
+    ],
+    "boxes": [
+     2.804,
+     6.641,
+     "raw"
+    ],
+    "opts": [
+     7.113,
+     8.916,
+     "raw"
+    ],
+    "think": [
+     8.916,
+     13.716,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 14,
+   "end": 17.233,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     14,
+     15.2,
+     "raw"
+    ],
+    "phrase": [
+     15.334,
+     16.644,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 17.233,
+   "end": 29.433,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     17.233,
+     18.433,
+     "raw"
+    ],
+    "boxes": [
+     18.433,
+     19.433,
+     "raw"
+    ],
+    "nums": [
+     20.503,
+     23.784,
+     "raw"
+    ],
+    "hint": [
+     24.256,
+     26.239,
+     "raw"
+    ],
+    "fifth": [
+     27.434,
+     28.134,
+     "raw"
+    ],
+    "burst": [
+     27.434,
+     28.434,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "start": 29.433,
+   "end": 44.5,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     29.433,
+     30.633,
+     "raw"
+    ],
+    "boxes": [
+     30.633,
+     31.633,
+     "raw"
+    ],
+    "nums": [
+     32.931,
+     36.284,
+     "raw"
+    ],
+    "hint": [
+     36.756,
+     38.836,
+     "raw"
+    ],
+    "fifth": [
+     42.495,
+     43.195,
+     "raw"
+    ],
+    "burst": [
+     42.495,
+     43.495,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat4",
+   "start": 44.5,
+   "end": 59.8,
+   "prev": "beat3",
+   "windows": {
+    "wipe": [
+     44.5,
+     45.7,
+     "raw"
+    ],
+    "boxes": [
+     45.7,
+     46.7,
+     "raw"
+    ],
+    "nums": [
+     45.822,
+     52.288,
+     "raw"
+    ],
+    "dirs": [
+     52.761,
+     58.602,
+     "raw"
+    ],
+    "hint": [
+     45.822,
+     52.288,
+     "raw"
+    ],
+    "fifth": [
+     57.802,
+     58.502,
+     "raw"
+    ],
+    "burst": [
+     57.802,
+     58.802,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat5",
+   "start": 59.8,
+   "end": 76.1,
+   "prev": "beat4",
+   "windows": {
+    "wipe": [
+     59.8,
+     61,
+     "raw"
+    ],
+    "fifth": [
+     61.122,
+     66.915,
+     "raw"
+    ],
+    "opts": [
+     67.387,
+     68.887,
+     "raw"
+    ],
+    "mB": [
+     72.607,
+     73.407,
+     "raw"
+    ],
+    "mA": [
+     67.604,
+     69.106,
+     "raw"
+    ],
+    "mC": [
+     69.106,
+     70.669,
+     "raw"
+    ],
+    "mD": [
+     70.669,
+     72.123,
+     "raw"
+    ],
+    "answer": [
+     72.607,
+     74.11,
+     "raw"
+    ],
+    "circle": [
+     73.51,
+     74.21,
+     "raw"
+    ],
+    "burst": [
+     73.61,
+     74.61,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

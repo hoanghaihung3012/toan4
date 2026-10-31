@@ -1,0 +1,73 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 47." },
+        { "id": "L1", "text": "Tổng số hình tam giác có thể tìm thấy" },
+        { "id": "L2", "text": "trong hình dưới đây là bao nhiêu?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "figure": ["L1^", "L2$", "raw"],
+        "think": ["L2$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [
+        { "id": "r1", "preset": "pop", "at": "L5^", "offset": 0.4 },
+        { "id": "r2", "preset": "pop", "at": "L6^", "offset": 0.4 },
+        { "id": "r3", "preset": "pop", "at": "L7^", "offset": 0.4 },
+        { "id": "r4", "preset": "pop", "at": "L8^", "offset": 0.4 },
+        { "id": "answer", "preset": "ding", "at": "L9^", "offset": 0.6 }
+      ],
+      "lines": [
+        { "id": "L4", "text": "Mỗi tam giác có đỉnh ở trên cùng, và đáy là một đoạn trên cạnh dưới." },
+        { "id": "L5", "text": "Tam giác có đáy là 1 đoạn nhỏ: có 4 tam giác." },
+        { "id": "L6", "text": "Đáy là 2 đoạn nhỏ: có 3 tam giác." },
+        { "id": "L7", "text": "Đáy là 3 đoạn nhỏ: có 2 tam giác." },
+        { "id": "L8", "text": "Đáy là 4 đoạn nhỏ: có 1 tam giác." },
+        { "id": "L9", "text": "Vậy có 4 cộng 3 cộng 2 cộng 1, bằng 10 hình tam giác." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "head": ["L4^", "L4$", "raw"],
+        "r1": ["L5^", "L5$", "raw"],
+        "r2": ["L6^", "L6$", "raw"],
+        "r3": ["L7^", "L7$", "raw"],
+        "r4": ["L8^", "L8$", "raw"],
+        "sum": ["L9^", "L9$", "raw"],
+        "circle": ["L9$", 0.7, "raw", -0.6],
+        "burst": ["L9$", 1.0, "raw", -0.5]
+      }
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 46." },
+        { "id": "L1", "text": "Các bóng đèn được đặt xung quanh" },
+        { "id": "L2", "text": "một vật trang trí hình ngôi sao, mỗi cạnh dài 15 cm." },
+        { "id": "L3", "text": "Các bóng đèn được đặt cách nhau 3 cm." },
+        { "id": "L4", "text": "Bắt đầu từ A, cần bao nhiêu bóng đèn?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "q3": ["L3^", "L3$", "raw"],
+        "q4": ["L4^", "L4$", "raw"],
+        "star": ["L1^", "L2$", "raw"],
+        "side": ["L2.mỗi", "L2$", "raw"],
+        "bulbA": ["L4^", 0.7, "raw"],
+        "think": ["L4$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L5^", "offset": -0.5 }],
+      "lines": [{ "id": "L5", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L5^", "L5$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [
+        { "id": "side", "preset": "pop", "at": "L6^", "offset": 0.8 },
+        { "id": "bulbs", "preset": "pop", "at": "L7^", "offset": 0.4 },
+        { "id": "answer", "preset": "ding", "at": "L9^", "offset": 0.3 }
+      ],
+      "lines": [
+        { "id": "L6", "text": "Mỗi cạnh dài 15 cm, các bóng cách nhau 3 cm, nên mỗi cạnh có 15 chia 3, bằng 5 khoảng." },
+        { "id": "L7", "text": "Ngôi sao có 10 cạnh, nên có 10 nhân 5, bằng 50 khoảng." },
+        { "id": "L8", "text": "Các bóng xếp thành một vòng kín, đi từ A rồi quay về A, nên số bóng bằng số khoảng." },
+        { "id": "L9", "text": "Vậy cần 50 bóng đèn." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "star": ["beat^", 0.9, "raw", 1.2],
+        "side": ["L6^", "L6$", "raw"],
+        "eq1": ["L6.nên", "L6$", "raw"],
+        "bulbs": ["L7^", "L7$", "raw"],
+        "eq2": ["L7.nên", "L7$", "raw"],
+        "closed": ["L8^", "L8$", "raw"],
+        "answer": ["L9^", "L9$", "raw"],
+        "circle": ["L9$", 0.7, "raw", -0.6],
+        "burst": ["L9$", 1.0, "raw", -0.5]
+      }
+    }
+  ]
+}

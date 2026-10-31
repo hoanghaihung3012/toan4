@@ -1,0 +1,78 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 49." },
+        { "id": "L1", "text": "Bạn nên đặt gương ở đâu để có kết quả tính" },
+        { "id": "L2", "text": "lớn nhất mà không vượt quá 1000?" },
+        { "id": "L3", "text": "Gương có thể đặt ở A, B, C hoặc D." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "expr": ["L1^", "L2$", "raw"],
+        "mirrors": ["L3^", "L3$", "raw"],
+        "think": ["L3$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L4^", "offset": -0.5 }],
+      "lines": [{ "id": "L4", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L4^", "L4$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [
+        { "id": "sA", "preset": "pop", "at": "L6^", "offset": 0.6 },
+        { "id": "sB", "preset": "pop", "at": "L7^", "offset": 0.6 },
+        { "id": "sC", "preset": "pop", "at": "L8^", "offset": 0.6 },
+        { "id": "sD", "preset": "pop", "at": "L9^", "offset": 0.6 },
+        { "id": "answer", "preset": "ding", "at": "L11^", "offset": 0.3 }
+      ],
+      "lines": [
+        { "id": "L5", "text": "Gương che phần bên phải và phản chiếu phần bên trái." },
+        { "id": "L6", "text": "Đặt gương ở A, ta thấy 181." },
+        { "id": "L7", "text": "Đặt gương ở B, ta thấy 1881, lớn hơn 1000, nên không được." },
+        { "id": "L8", "text": "Đặt gương ở C, ta thấy 18 cộng 81, bằng 99." },
+        { "id": "L9", "text": "Đặt gương ở D, ta thấy 18 cộng 181 cộng 81, bằng 280." },
+        { "id": "L10", "text": "Các kết quả không quá 1000 là 181, 99 và 280, lớn nhất là 280." },
+        { "id": "L11", "text": "Vậy đặt gương ở D." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "rule": ["L5^", "L5$", "raw"],
+        "sA": ["L6^", "L6$", "raw"],
+        "sB": ["L7^", "L7$", "raw"],
+        "xB": ["L7.nên", 0.7, "raw"],
+        "sC": ["L8^", "L8$", "raw"],
+        "sD": ["L9^", "L9$", "raw"],
+        "best": ["L10.lớn", "L10$", "raw"],
+        "answer": ["L11^", "L11$", "raw"],
+        "circle": ["L11$", 0.7, "raw", -0.6],
+        "burst": ["L11$", 1.0, "raw", -0.5]
+      }
+    }
+  ]
+}
