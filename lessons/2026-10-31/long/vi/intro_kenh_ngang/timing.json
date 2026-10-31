@@ -1,0 +1,79 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-31/long/vi/intro_kenh_ngang/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 9.767,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "main",
+   "start": 0,
+   "end": 8.267,
+   "windows": {
+    "idle": [
+     0,
+     7.652,
+     "raw"
+    ],
+    "hello": [
+     0.25,
+     1.883,
+     "raw"
+    ],
+    "hu": [
+     2.283,
+     3.083
+    ],
+    "signs": [
+     0.65,
+     3.994,
+     "raw"
+    ],
+    "w1": [
+     3.444,
+     4.444,
+     "raw"
+    ],
+    "w2": [
+     3.97,
+     4.97,
+     "raw"
+    ],
+    "w3": [
+     4.199,
+     5.449,
+     "raw"
+    ],
+    "wave": [
+     5.58,
+     6.78,
+     "raw"
+    ],
+    "under": [
+     5.58,
+     6.48
+    ],
+    "slogan": [
+     5.88,
+     7.652,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "clear",
+   "start": 8.267,
+   "end": 9.767,
+   "prev": "main",
+   "windows": {
+    "wipe": [
+     8.267,
+     9.467,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

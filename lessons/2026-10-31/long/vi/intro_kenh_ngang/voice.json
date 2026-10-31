@@ -1,0 +1,48 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "provider": "elevenlabs",
+  "voice": "x4KAhuXs2G8TfK9Zr7Q4",
+  "model": "eleven_multilingual_v2",
+  "stability": 0.5,
+  "similarity": 0.8,
+  "speed": 0.92,
+  "fps": 30,
+  "gap": 0.3,
+  "final": "intro_hoc_cung_phuong_ngang",
+  "beats": [
+    {
+      "id": "main",
+      "lead": 0.35,
+      "tail": 0.6,
+      "sounds": [{ "id": "name", "preset": "chalk_chime", "at": "L3.Phượng", "offset": 0.15 }],
+      "lines": [
+        { "id": "L1", "text": "Xin chào các bạn!" },
+        { "id": "L2", "text": "Chào mừng đến với kênh" },
+        { "id": "L3", "gap": 0.2, "text": "Học cùng Phượng!" },
+        { "id": "L4", "gap": 0.3, "text": "Cùng học toán thật vui nhé!" }
+      ],
+      "windows": {
+        "idle": ["beat^", "L4$", "raw"],
+        "hello": ["L1^", "L1$", "raw", -0.1],
+        "hu": ["L2^", 0.8, "out", 0.1],
+        "signs": ["L1^", "L2$", "raw", 0.3],
+        "w1": ["L3^", 1.0, "raw", -0.75],
+        "w2": ["L3.cùng", 1.0, "raw", -0.7],
+        "w3": ["L3.Phượng", 1.25, "raw", -0.75],
+        "wave": ["L3$", 1.2, "raw", -0.1],
+        "under": ["L3$", 0.9, "out", -0.1],
+        "slogan": ["L4^", "L4$", "raw", -0.1]
+      }
+    },
+    {
+      "id": "clear",
+      "prev": "main",
+      "lead": 1.2,
+      "tail": 0,
+      "sounds": [{ "id": "swipe", "preset": "chalk_chime", "at": "beat^", "offset": 0.2 }],
+      "lines": [],
+      "windows": { "wipe": ["beat^", 1.2, "raw"] }
+    }
+  ]
+}
