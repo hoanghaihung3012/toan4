@@ -1,0 +1,123 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs thich_toan_tieng_anh. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "./scene.js",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.3, "tail": 2.6,
+   "lines": [
+    { "id": "L1", "text": "Một lớp học có 42 học sinh," },
+    { "id": "L2", "text": "trong đó có 25 học sinh thích môn Toán," },
+    { "id": "L3", "text": "22 học sinh thích môn Tiếng Anh" },
+    { "id": "L4", "text": "và 6 học sinh không thích cả hai môn này." },
+    { "id": "L5", "text": "Hỏi có bao nhiêu học sinh thích cả hai môn Toán và Tiếng Anh?" }
+   ],
+   "windows": {
+    "q1": ["L1^", "L1$", "raw"],
+    "q2": ["L2^", "L2$", "raw"],
+    "q3": ["L3^", "L3$", "raw"],
+    "q4": ["L4^", "L4$", "raw"],
+    "q5": ["L5^", "L5$", "raw"],
+    "ask": ["L5.cả", 1.0, "raw"],
+    "dots": ["L5$", 2.4, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.1, "tail": 0.6,
+   "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L6^", "offset": -0.5 }],
+   "lines": [
+    { "id": "L6", "text": "Sau đây là cách giải." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "phrase": ["L6^", "L6$", "raw"]
+   }
+  },
+  {
+   "id": "beat3", "prev": "beat2", "lead": 1.0, "tail": 0.5,
+   "lines": [
+    { "id": "L7", "text": "Cả lớp có 42 học sinh." },
+    { "id": "L8", "text": "Trước hết, bỏ ra 6 học sinh không thích môn nào." },
+    { "id": "L9", "text": "42 trừ 6 bằng 36." },
+    { "id": "L10", "text": "Vậy 36 học sinh thích ít nhất một môn." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L7^", "L7.42>"],
+    "cls": ["L7.42", 1.2, "raw"],
+    "six": ["L8.6", 1.1, "raw"],
+    "sixL": ["L8.không", "L8$"],
+    "eq": ["L9^", "L9$"],
+    "brace": ["L10^", 1.0, "raw"],
+    "atl": ["L10.36", "L10$"]
+   }
+  },
+  {
+   "id": "beat4", "lead": 0.5, "tail": 0.8,
+   "lines": [
+    { "id": "L11", "text": "Có 25 học sinh thích Toán, và 22 học sinh thích Tiếng Anh." },
+    { "id": "L12", "text": "Cộng lại: 25 cộng 22 bằng 47, nhiều hơn 36." },
+    { "id": "L13", "text": "Vì những bạn thích cả hai môn đã bị đếm 2 lần." },
+    { "id": "L14", "text": "Vậy số học sinh thích cả hai môn là 47 trừ 36 bằng 11." },
+    { "id": "L15", "text": "Có 11 học sinh thích cả hai môn Toán và Tiếng Anh." }
+   ],
+   "windows": {
+    "toan": ["L11.25", 1.1, "raw"],
+    "anh": ["L11.22", 1.1, "raw"],
+    "e1": ["L12.25", "L12.47>"],
+    "more": ["L12.nhiều", 0.9, "raw"],
+    "hT": ["L12.25", 0.8, "raw"],
+    "hA": ["L12.22", 0.8, "raw"],
+    "h36b": ["L12.36", 0.8, "raw"],
+    "h36": ["L14.36", 0.8, "raw"],
+    "ovl": ["L13.cả", 1.2, "raw"],
+    "twice": ["L13.đếm", 1.0, "raw"],
+    "e2": ["L14.47", "L14.11>"],
+    "q11": ["L14.11", 0.9, "raw"],
+    "ans": ["L15^", "L15$"],
+    "loop": ["L15.11", 1.0, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "lead": 0.3, "tail": 0.9,
+   "lines": [
+    { "id": "L16", "text": "Thử lại nhé:" },
+    { "id": "L17", "text": "25 cộng 22, trừ 11 học sinh bị đếm 2 lần, cộng 6 học sinh không thích môn nào, bằng 42." },
+    { "id": "L18", "text": "Đúng bằng cả lớp!" }
+   ],
+   "windows": {
+    "wipe": ["L16^", 1.2, "raw"],
+    "head": ["L16^", 0.6, "out", 1.2],
+    "c1": ["L17^", "L17.22>"],
+    "c2": ["L17.trừ", "L17.11>"],
+    "p11": ["L17.11", 1.0, "raw"],
+    "c3": ["L17.cộng#2", "L17.6>"],
+    "p6": ["L17.6", 1.0, "raw"],
+    "c4": ["L17.bằng", "L17.42>"],
+    "hT": ["L17.25", 0.8, "raw"],
+    "hA": ["L17.22", 0.8, "raw"],
+    "h42": ["L17.42", 0.8, "raw"],
+    "ok": ["L18^", 0.9, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "prev": "beat5", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L19", "text": "Đến lượt bạn: có bao nhiêu học sinh chỉ thích môn Toán?" },
+    { "id": "L20", "text": "Bình luận đáp án nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L19^", 0.8],
+    "bar": ["L19.bao", 1.2, "raw"],
+    "only": ["L19.chỉ", "L19.Toán>"],
+    "box": ["L19.chỉ", 1.0, "raw"],
+    "cmt": ["L20.Bình", 0.9],
+    "count": ["L20$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}
