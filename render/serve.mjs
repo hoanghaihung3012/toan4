@@ -17,7 +17,7 @@ const TYPES = {
 export function startServer(port = 0, root = ROOT) {
   const server = http.createServer((req, res) => {
     const url = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-    // short form /lessons/<name>/... -> the lesson's dated folder lessons/<date>/<format>/<lang>/<name>/...
+    // short form /lessons/<name>/... -> the lesson's dated folder lessons/<date>/<name>/...
     const short = /^\/lessons\/([a-z0-9_]+)\/(.*)$/.exec(url);
     if (short && !/^\d{4}-\d{2}-\d{2}$/.test(short[1])) {
       let dir = null;

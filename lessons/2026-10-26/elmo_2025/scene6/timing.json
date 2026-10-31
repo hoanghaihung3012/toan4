@@ -1,0 +1,170 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-26/elmo_2025/scene6/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 46.067,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 14.633,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.32,
+     "raw"
+    ],
+    "question1": [
+     2.804,
+     5.989,
+     "raw"
+    ],
+    "question2": [
+     5.989,
+     9.511,
+     "raw"
+    ],
+    "question3": [
+     9.511,
+     9.715,
+     "raw"
+    ],
+    "question4": [
+     10.187,
+     12.435,
+     "raw"
+    ],
+    "t7": [
+     3.297,
+     3.897,
+     "raw"
+    ],
+    "t12": [
+     3.862,
+     4.462,
+     "raw"
+    ],
+    "t14": [
+     4.667,
+     5.267,
+     "raw"
+    ],
+    "t19": [
+     5.22,
+     5.82,
+     "raw"
+    ],
+    "cross": [
+     5.989,
+     6.518,
+     "raw"
+    ],
+    "center": [
+     5.989,
+     6.518,
+     "raw"
+    ],
+    "hlH": [
+     7.924,
+     8.724,
+     "raw"
+    ],
+    "hlV": [
+     9.511,
+     10.311,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 14.633,
+   "end": 17.867,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     14.633,
+     15.833,
+     "raw"
+    ],
+    "phrase": [
+     15.967,
+     17.278,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 17.867,
+   "end": 46.067,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     17.867,
+     19.067,
+     "raw"
+    ],
+    "same": [
+     19.201,
+     22.182,
+     "raw"
+    ],
+    "hlH": [
+     19.381,
+     20.181,
+     "raw"
+    ],
+    "hlV": [
+     20.042,
+     20.842,
+     "raw"
+    ],
+    "equal": [
+     22.654,
+     25.767,
+     "raw"
+    ],
+    "tiles": [
+     26.251,
+     29.424,
+     "raw"
+    ],
+    "total": [
+     26.251,
+     30.289,
+     "raw"
+    ],
+    "half": [
+     30.761,
+     33.237,
+     "raw"
+    ],
+    "pairs": [
+     33.709,
+     38.337,
+     "raw"
+    ],
+    "fly": [
+     33.709,
+     38.337,
+     "raw"
+    ],
+    "answer": [
+     41.97,
+     44.879,
+     "raw"
+    ]
+   }
+  }
+ ]
+}
