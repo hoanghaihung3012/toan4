@@ -104,12 +104,4 @@ export const scenes = {
     L.loop(xs[1] + 4, 1010 - 28, 52, 60, { color: YELLOW, width: 7, t: g(p, 'circle'), seed: 12 });
     burst(L, xs[1] + 4, 1010 - 28, 80, g(p, 'burst'), { n: 10, seed: 70 });
   },
-
-  outro(ctx, p) {
-    const L = ctx.chalk(60);
-    L.text('Cảm ơn các bạn đã xem video!', 960, 340, { size: 76, align: 'center', color: YELLOW, t: g(p, 'thanks') });
-    L.text('Học cùng Phượng', 960, 500, { size: 94, align: 'center', t: g(p, 'subscribe') });
-    L.text('Hãy đăng ký kênh Học cùng Phượng', 960, 650, { size: 64, align: 'center', t: g(p, 'subscribe') });
-    L.text('để đón xem những video tiếp theo.', 960, 750, { size: 60, align: 'center', t: g(p, 'subscribe') });
-  },
 };

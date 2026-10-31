@@ -3,7 +3,7 @@
  "draft": false,
  "scene": "./scene.js",
  "fps": 30,
- "duration": 60.2,
+ "duration": 52.233,
  "profile": "landscape",
  "audio": "./audio/voice.mp3",
  "beats": [
@@ -117,29 +117,6 @@
     "burst": [
      49.724,
      50.724,
-     "raw"
-    ]
-   }
-  },
-  {
-   "id": "outro",
-   "start": 52.233,
-   "end": 60.2,
-   "prev": "beat2",
-   "windows": {
-    "wipe": [
-     52.233,
-     53.433,
-     "raw"
-    ],
-    "thanks": [
-     53.567,
-     55.406,
-     "raw"
-    ],
-    "subscribe": [
-     55.879,
-     59.184,
      "raw"
     ]
    }

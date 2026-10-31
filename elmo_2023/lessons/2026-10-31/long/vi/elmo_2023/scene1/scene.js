@@ -87,9 +87,7 @@ const EQ_X = 1330;
 export const scenes = {
   opening(ctx, p) {
     const L = ctx.chalk(60);
-    L.text('Chào mừng các bạn!', 960, 330, { size: 78, align: 'center', t: g(p, 'welcome') });
-    L.text('Học cùng Phượng', 960, 500, { size: 96, align: 'center', color: YELLOW, t: g(p, 'channel') });
-    L.text('Giải đề thi ELMO 2023', 960, 660, { size: 76, align: 'center', t: g(p, 'title') });
+    L.text('Giải đề thi ELMO 2023', 960, 560, { size: 88, align: 'center', t: g(p, 'title') });
   },
 
   beat1(ctx, p) {
