@@ -1,0 +1,10 @@
+Title:
+Thích cả Toán và Tiếng Anh #Shorts
+
+Description:
+Một lớp học có 42 học sinh, trong đó có 25 học sinh thích môn Toán, 22 học sinh thích môn Tiếng Anh và 6 học sinh không thích cả hai môn này. Hỏi có bao nhiêu học sinh thích cả hai môn Toán và Tiếng Anh? Sau đây là cách giải. Cả lớp có 42 học sinh. Trước hết, bỏ ra 6 học sinh không thích môn nào. 42 trừ 6 bằng 36. Vậy 36 học sinh thích ít nhất một môn. Có 25 học sinh thích Toán, và 22 học sinh thích Tiếng Anh. Cộng lại: 25 cộng 22 bằng 47, nhiều hơn 36. Vì những bạn thích cả hai môn đã bị đếm 2 lần. Vậy số học sinh thích cả hai môn là 47 trừ 36 bằng 11. Có 11 học sinh thích cả hai môn Toán và Tiếng Anh. Thử lại nhé: 25 cộng 22, trừ 11 học sinh bị đếm 2 lần, cộng 6 học sinh không thích môn nào, bằng 42. Đúng bằng cả lớp! Đến lượt bạn: có bao nhiêu học sinh chỉ thích môn Toán? Bình luận đáp án nhé!
+
+#Shorts #math #mathtricks
+
+Tags:
+math, grade 4 math, math tricks, Shorts
