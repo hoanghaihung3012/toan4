@@ -60,6 +60,10 @@
       "prev": "intro",
       "lead": 1.2,
       "tail": 1.2,
+      "sounds": [
+        { "id": "frame", "preset": "scratch", "at": "L9^" },
+        { "id": "b11", "preset": "pop", "at": "L10$", "offset": -0.75 }
+      ],
       "lines": [
         { "id": "L9", "text": "Đường nằm ngang gồm ba số 12, B và 9, cộng lại bằng 32." },
         { "id": "L10", "text": "Vậy B bằng 32 trừ 12 trừ 9, bằng 11." }
@@ -78,6 +82,10 @@
       "prev": "beat2",
       "lead": 1.2,
       "tail": 1.2,
+      "sounds": [
+        { "id": "frame", "preset": "scratch", "at": "L11^" },
+        { "id": "a16", "preset": "pop", "at": "L12$", "offset": -0.75 }
+      ],
       "lines": [
         { "id": "L11", "text": "Đường thẳng đứng gồm A, B và 5, cộng lại bằng 32." },
         { "id": "L12", "text": "Vì B bằng 11 nên A bằng 32 trừ 11 trừ 5, bằng 16." }
@@ -96,6 +104,7 @@
       "prev": "beat3",
       "lead": 1.2,
       "tail": 2.0,
+      "sounds": [{ "id": "answer", "preset": "ding", "at": "L14$" }],
       "lines": [
         { "id": "L13", "text": "Vậy A bằng 16 và B bằng 11." },
         { "id": "L14", "text": "A trừ B bằng 16 trừ 11, bằng 5." }
@@ -104,7 +113,8 @@
         "wipe": ["beat^", 1.2, "raw"],
         "figure": ["beat^", 1.4, "raw"],
         "answer": ["L14^", "L14$", "raw"],
-        "circle": ["L14$", 0.7, "raw"]
+        "circle": ["L14$", 0.7, "raw"],
+        "burst": ["L14$", 1.0, "raw", 0.1]
       }
     }
   ]
