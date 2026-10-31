@@ -1,0 +1,183 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-31/long/vi/elmo_2023/scene4/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 70.433,
+ "profile": "landscape",
+ "audio": "./audio/voice.mp3",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 21.8,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.344,
+     "raw"
+    ],
+    "q1": [
+     2.828,
+     4.919,
+     "raw"
+    ],
+    "q2": [
+     5.391,
+     8.54,
+     "raw"
+    ],
+    "q3": [
+     5.391,
+     8.54,
+     "raw"
+    ],
+    "q4": [
+     9.013,
+     10.924,
+     "raw"
+    ],
+    "q5": [
+     11.396,
+     13.319,
+     "raw"
+    ],
+    "q6": [
+     13.779,
+     15.437,
+     "raw"
+    ],
+    "q7": [
+     15.91,
+     16.691,
+     "raw"
+    ],
+    "table": [
+     2.828,
+     8.54,
+     "raw"
+    ],
+    "think": [
+     16.691,
+     21.491,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 21.8,
+   "end": 25.033,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     21.8,
+     23,
+     "raw"
+    ],
+    "phrase": [
+     23.134,
+     24.444,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 25.033,
+   "end": 55.467,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     25.033,
+     26.233,
+     "raw"
+    ],
+    "table": [
+     26.233,
+     27.233,
+     "raw"
+    ],
+    "head": [
+     26.367,
+     29.829,
+     "raw"
+    ],
+    "row1": [
+     30.289,
+     34.424,
+     "raw"
+    ],
+    "row2": [
+     34.884,
+     38.982,
+     "raw"
+    ],
+    "row3": [
+     39.442,
+     44.623,
+     "raw"
+    ],
+    "row4": [
+     45.083,
+     49.157,
+     "raw"
+    ],
+    "rule": [
+     49.642,
+     53.464,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "start": 55.467,
+   "end": 70.433,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     55.467,
+     56.667,
+     "raw"
+    ],
+    "nums": [
+     56.777,
+     60.503,
+     "raw"
+    ],
+    "a1": [
+     60.987,
+     63.09,
+     "raw"
+    ],
+    "a2": [
+     63.562,
+     63.995,
+     "raw"
+    ],
+    "fill": [
+     65.118,
+     65.818,
+     "raw"
+    ],
+    "burst": [
+     65.118,
+     66.118,
+     "raw"
+    ],
+    "circle": [
+     66.39,
+     67.19,
+     "raw"
+    ]
+   }
+  }
+ ]
+}
