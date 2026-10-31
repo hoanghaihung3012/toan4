@@ -1,0 +1,31 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "-4%",
+  "fps": 30,
+  "gap": 0.3,
+  "final": "outro_hoc_cung_phuong",
+  "beats": [
+    {
+      "id": "outro",
+      "lead": 0.35,
+      "tail": 1.8,
+      "sounds": [{ "id": "chime", "preset": "chalk_chime", "at": "L2.Học", "offset": -0.15 }],
+      "lines": [
+        { "id": "L1", "text": "Cảm ơn các bạn!" },
+        { "id": "L2", "gap": 0.45, "text": "Đăng ký kênh Học cùng Phượng nhé!" }
+      ],
+      "windows": {
+        "idle": ["beat^", "L2$", "raw"],
+        "bell": ["beat^", 1.2, "raw", 0.15],
+        "thanks": ["L1^", "L1$", "raw", -0.1],
+        "subscribe": ["L2.Đăng", "L2.kênh>", "raw"],
+        "name1": ["L2.Học", 1.0, "raw", -0.2],
+        "name2": ["L2.cùng", 1.0, "raw", -0.2],
+        "name3": ["L2.Phượng", 1.25, "raw", -0.25],
+        "underline": ["L2.Phượng>", 0.9, "out", 0.1]
+      }
+    }
+  ]
+}
