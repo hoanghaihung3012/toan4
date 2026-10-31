@@ -8,7 +8,7 @@ Not a lesson: nothing to solve, so there are no sourced numbers. The only facts 
 |---|---|---|
 | F1 | Channel name "Học cùng Phượng" (spelling as in the existing lessons and YouTube metadata) | User request + `elmo_2023` lesson |
 | F2 | Length about 10 s | User request |
-| F3 | Voice: ElevenLabs voice id `x4KAhuXs2G8TfK9Zr7Q4`, model `eleven_multilingual_v2`, speed 0.92 | User request |
+| F3 | Voice: Edge TTS vi-VN-HoaiMyNeural, rate -4% (switched from ElevenLabs on request) | User request |
 
 The voice makes no claim about who the host is and no promise beyond "let's learn maths happily".
 
@@ -27,4 +27,4 @@ Portrait stacks the name on three rows inside the platform-safe box; landscape p
 ## Files
 - `lessons/2026-10-31/shorts/vi/intro_kenh/`: scene (shared by both formats), voice, timing, 9:16.
 - `lessons/2026-10-31/long/vi/intro_kenh_ngang/`: 16:9 wrapper that imports the same scene; same script and the same audio lines.
-- Voice engine: `render/elevenlabs.mjs` (`"provider": "elevenlabs"` in voice.json). The key is read from `ELEVENLABS_API_KEY` (environment or the git-ignored `.env`).
+- Voice engine: Edge TTS (`render/tts_words.py`). `render/voice.mjs` can also use ElevenLabs (`"provider": "elevenlabs"`, key in `ELEVENLABS_API_KEY`).

@@ -1,12 +1,8 @@
 {
   "lang": "vi",
   "profile": "landscape",
-  "provider": "elevenlabs",
-  "voice": "x4KAhuXs2G8TfK9Zr7Q4",
-  "model": "eleven_multilingual_v2",
-  "stability": 0.5,
-  "similarity": 0.8,
-  "speed": 0.92,
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "-4%",
   "fps": 30,
   "gap": 0.3,
   "final": "intro_hoc_cung_phuong_ngang",
@@ -14,13 +10,13 @@
     {
       "id": "main",
       "lead": 0.35,
-      "tail": 0.6,
+      "tail": 1.0,
       "sounds": [{ "id": "name", "preset": "chalk_chime", "at": "L3.Phượng", "offset": 0.15 }],
       "lines": [
         { "id": "L1", "text": "Xin chào các bạn!" },
-        { "id": "L2", "text": "Chào mừng đến với kênh" },
-        { "id": "L3", "gap": 0.2, "text": "Học cùng Phượng!" },
-        { "id": "L4", "gap": 0.3, "text": "Cùng học toán thật vui nhé!" }
+        { "id": "L2", "gap": 0.5, "text": "Chào mừng đến với kênh" },
+        { "id": "L3", "gap": 0.35, "text": "Học cùng Phượng!" },
+        { "id": "L4", "gap": 0.5, "text": "Cùng học toán thật vui nhé!" }
       ],
       "windows": {
         "idle": ["beat^", "L4$", "raw"],
