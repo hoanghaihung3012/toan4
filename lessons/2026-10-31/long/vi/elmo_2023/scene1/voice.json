@@ -9,15 +9,10 @@
     {
       "id": "opening",
       "lead": 0.5,
-      "tail": 1.0,
-      "lines": [
-        { "id": "L1", "text": "Xin chào các bạn. Chào mừng các bạn đến với kênh Học cùng Phượng." },
-        { "id": "L2", "text": "Hôm nay chúng ta cùng giải đề thi ELMO năm 2023." }
-      ],
+      "tail": 0.8,
+      "lines": [{ "id": "L1", "text": "Giải đề thi ELMO năm 2023." }],
       "windows": {
-        "welcome": ["L1^", "L1$", "raw"],
-        "channel": ["L1.Học", "L1$", "raw"],
-        "title": ["L2^", "L2$", "raw"]
+        "title": ["L1^", "L1$", "raw"]
       }
     },
     {

@@ -67,21 +67,6 @@
         "circle": ["L9$", 0.7, "raw", -0.6],
         "burst": ["L9$", 1.0, "raw", -0.5]
       }
-    },
-    {
-      "id": "outro",
-      "prev": "beat2",
-      "lead": 1.2,
-      "tail": 1.0,
-      "lines": [
-        { "id": "L10", "text": "Cảm ơn các bạn đã xem video." },
-        { "id": "L11", "text": "Hãy đăng ký kênh Học cùng Phượng để đón xem những video tiếp theo." }
-      ],
-      "windows": {
-        "wipe": ["beat^", 1.2, "raw"],
-        "thanks": ["L10^", "L10$", "raw"],
-        "subscribe": ["L11^", "L11$", "raw"]
-      }
     }
   ]
 }
