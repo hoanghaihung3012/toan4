@@ -1,0 +1,191 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-31/long/vi/elmo_2023/scene2/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 54.267,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 15.367,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.356,
+     "raw"
+    ],
+    "q1": [
+     2.84,
+     4.763,
+     "raw"
+    ],
+    "q2": [
+     5.247,
+     7.338,
+     "raw"
+    ],
+    "q3": [
+     7.799,
+     10.262,
+     "raw"
+    ],
+    "scale1": [
+     2.84,
+     4.763,
+     "raw"
+    ],
+    "scale2": [
+     5.247,
+     7.338,
+     "raw"
+    ],
+    "think": [
+     10.262,
+     15.062,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 15.367,
+   "end": 18.6,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     15.367,
+     16.567,
+     "raw"
+    ],
+    "phrase": [
+     16.701,
+     18.011,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 18.6,
+   "end": 31.433,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     18.6,
+     19.8,
+     "raw"
+    ],
+    "head": [
+     19.922,
+     20.722,
+     "raw"
+    ],
+    "apples": [
+     19.922,
+     23.167,
+     "raw"
+    ],
+    "loops": [
+     21.929,
+     23.167,
+     "raw"
+    ],
+    "fact": [
+     23.639,
+     25.139,
+     "raw"
+    ],
+    "pears": [
+     23.639,
+     25.995,
+     "raw"
+    ],
+    "eq": [
+     26.479,
+     30.217,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "start": 31.433,
+   "end": 44.767,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     31.433,
+     32.633,
+     "raw"
+    ],
+    "fact": [
+     32.767,
+     35.255,
+     "raw"
+    ],
+    "head": [
+     35.728,
+     36.528,
+     "raw"
+    ],
+    "pears": [
+     35.728,
+     38.913,
+     "raw"
+    ],
+    "loops": [
+     37.699,
+     38.913,
+     "raw"
+    ],
+    "tangs": [
+     39.385,
+     41.091,
+     "raw"
+    ],
+    "eq": [
+     41.091,
+     43.567,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat4",
+   "start": 44.767,
+   "end": 54.267,
+   "prev": "beat3",
+   "windows": {
+    "wipe": [
+     44.767,
+     45.967,
+     "raw"
+    ],
+    "row": [
+     46.101,
+     50.175,
+     "raw"
+    ],
+    "circle": [
+     50.659,
+     51.359,
+     "raw"
+    ],
+    "burst": [
+     50.759,
+     51.759,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

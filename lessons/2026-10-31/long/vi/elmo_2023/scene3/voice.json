@@ -1,0 +1,72 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 43." },
+        { "id": "L1", "text": "Một phần của lịch bị mực che phủ." },
+        { "id": "L2", "text": "Hỏi thứ Tư cuối cùng của tháng là ngày nào?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "cal": ["L1^", "L1.bị", "raw"],
+        "ink": ["L1.bị", "L1$", "raw"],
+        "think": ["L2$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [
+        { "id": "first", "preset": "pop", "at": "L4$", "offset": -0.7 },
+        { "id": "weds", "preset": "pop", "at": "L5.các", "offset": 0.1 },
+        { "id": "limit", "preset": "scratch", "at": "L6^" },
+        { "id": "answer", "preset": "ding", "at": "L7^", "offset": 0.4 }
+      ],
+      "lines": [
+        { "id": "L4", "text": "Ngày 4 là Chủ nhật, nên thứ Tư của tuần đó là ngày 7." },
+        { "id": "L5", "text": "Mỗi tuần có 7 ngày, nên các ngày thứ Tư tiếp theo là 14, 21 và 28." },
+        { "id": "L6", "text": "Ngày thứ Tư kế tiếp là 35, nhưng một tháng có nhiều nhất 31 ngày." },
+        { "id": "L7", "text": "Vậy thứ Tư cuối cùng của tháng là ngày 28." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "cal": ["beat^", 1.0, "raw", 1.2],
+        "sun": ["L4^", 0.7, "raw"],
+        "wed": ["L4.thứ", 0.7, "raw"],
+        "first": ["L4$", 0.7, "raw", -0.8],
+        "weds": ["L5.các", "L5$", "raw"],
+        "next": ["L6^", "L6.nhưng", "raw"],
+        "limit": ["L6.nhưng", "L6$", "raw"],
+        "pick": ["L7^", 0.8, "raw", 0.4],
+        "burst": ["L7^", 1.0, "raw", 0.5]
+      }
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 45." },
+        { "id": "L1", "text": "Các chữ cái a, b và c dưới đây" },
+        { "id": "L2", "text": "biểu thị các số chưa biết." },
+        { "id": "L3", "text": "Mỗi hàng cộng lại sẽ bằng số ở bên phải" },
+        { "id": "L4", "text": "và mỗi cột cộng lại sẽ bằng số ở bên dưới." },
+        { "id": "L5", "text": "Hỏi giá trị của ngôi sao" },
+        { "id": "L6", "text": "là bao nhiêu?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "grid": ["L1^", "L2$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "q3": ["L3^", "L3$", "raw"],
+        "q4": ["L4^", "L4$", "raw"],
+        "rows": ["L3^", "L3$", "raw"],
+        "cols": ["L4^", "L4$", "raw"],
+        "q5": ["L5^", "L5$", "raw"],
+        "q6": ["L6^", "L6$", "raw"],
+        "think": ["L6$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L7^", "offset": -0.5 }],
+      "lines": [{ "id": "L7", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L7^", "L7$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "sounds": [
+        { "id": "f1", "preset": "scratch", "at": "L8^" },
+        { "id": "f2", "preset": "scratch", "at": "L10^" },
+        { "id": "a3", "preset": "pop", "at": "L12^", "offset": 0.9 },
+        { "id": "b2", "preset": "pop", "at": "L12$", "offset": -0.75 }
+      ],
+      "lines": [
+        { "id": "L8", "text": "Cột thứ nhất gồm hai chữ a và hai chữ b, cộng lại bằng 10." },
+        { "id": "L9", "text": "Chia đôi, a cộng b bằng 5." },
+        { "id": "L10", "text": "Cột thứ hai gồm ba chữ a và một chữ b, cộng lại bằng 11." },
+        { "id": "L11", "text": "Ba chữ a và một chữ b hơn a cộng b là hai chữ a, nên hai chữ a bằng 11 trừ 5, bằng 6." },
+        { "id": "L12", "text": "Vậy a bằng 3, và b bằng 5 trừ 3, bằng 2." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "grid": ["beat^", 1.0, "raw", 1.2],
+        "f1": ["L8^", 0.8, "raw"],
+        "eq1": ["L8^", "L8$", "raw"],
+        "eq2": ["L9^", "L9$", "raw"],
+        "f2": ["L10^", 0.8, "raw"],
+        "eq3": ["L10^", "L10$", "raw"],
+        "eq4": ["L11^", "L11$", "raw"],
+        "eq5": ["L12^", "L12.và", "raw"],
+        "a3": ["L12^", 0.7, "raw", 0.9],
+        "eq6": ["L12.và", "L12$", "raw"],
+        "b2": ["L12$", 0.7, "raw", -0.8]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.2,
+      "sounds": [
+        { "id": "frame", "preset": "scratch", "at": "L13^", "offset": 0.7 },
+        { "id": "c5", "preset": "pop", "at": "L14$", "offset": -0.75 }
+      ],
+      "lines": [
+        { "id": "L13", "text": "Hàng thứ hai gồm ba chữ a và một chữ c, cộng lại bằng 14." },
+        { "id": "L14", "text": "Vì a bằng 3 nên ba chữ a bằng 9, vậy c bằng 14 trừ 9, bằng 5." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "grid": ["beat^", 1.0, "raw", 1.2],
+        "frame": ["L13^", 0.8, "raw", 0.7],
+        "eq1": ["L13^", "L13$", "raw"],
+        "eq2": ["L14^", "L14$", "raw"],
+        "c5": ["L14$", 0.7, "raw", -0.8]
+      }
+    },
+    {
+      "id": "beat4",
+      "prev": "beat3",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [
+        { "id": "frame", "preset": "scratch", "at": "L15^", "offset": 0.7 },
+        { "id": "answer", "preset": "ding", "at": "L17^" }
+      ],
+      "lines": [
+        { "id": "L15", "text": "Ngôi sao nằm ở cột cuối, gồm ba chữ c và một chữ b." },
+        { "id": "L16", "text": "Vậy ngôi sao bằng 5 cộng 5 cộng 5 cộng 2, bằng 17." },
+        { "id": "L17", "text": "Đáp án là 17." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "grid": ["beat^", 1.0, "raw", 1.2],
+        "frame": ["L15^", 0.8, "raw", 0.7],
+        "eq1": ["L15^", "L15$", "raw"],
+        "eq2": ["L16^", "L16$", "raw"],
+        "ans": ["L16$", 0.7, "raw", -0.8],
+        "circle": ["L17^", 0.8, "raw"],
+        "burst": ["L17^", 1.0, "raw", 0.1]
+      }
+    }
+  ]
+}

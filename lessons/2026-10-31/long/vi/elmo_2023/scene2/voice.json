@@ -1,0 +1,109 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 42." },
+        { "id": "L1", "text": "Ba quả táo nặng bằng 2 quả lê," },
+        { "id": "L2", "text": "và 10 quả quýt nặng bằng 3 quả lê." },
+        { "id": "L3", "text": "Hỏi bao nhiêu quả quýt nặng bằng 18 quả táo?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "q3": ["L3^", "L3$", "raw"],
+        "scale1": ["L1^", "L1$", "raw"],
+        "scale2": ["L2^", "L2$", "raw"],
+        "think": ["L3$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L4^", "offset": -0.5 }],
+      "lines": [{ "id": "L4", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L4^", "L4$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "sounds": [
+        { "id": "pears", "preset": "pop", "at": "L6^", "offset": 0.4 },
+        { "id": "eq", "preset": "pop", "at": "L7^", "offset": 0.3 }
+      ],
+      "lines": [
+        { "id": "L5", "text": "18 quả táo chia thành 6 nhóm, mỗi nhóm 3 quả táo." },
+        { "id": "L6", "text": "Mỗi nhóm 3 quả táo nặng bằng 2 quả lê." },
+        { "id": "L7", "text": "Vậy 18 quả táo nặng bằng 6 nhân 2, bằng 12 quả lê." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "head": ["L5^", 0.8, "raw"],
+        "apples": ["L5^", "L5$", "raw"],
+        "loops": ["L5.mỗi", "L5$", "raw"],
+        "fact": ["L6^", 1.5, "raw"],
+        "pears": ["L6^", "L6$", "raw"],
+        "eq": ["L7^", "L7$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.2,
+      "sounds": [
+        { "id": "tangs", "preset": "pop", "at": "L10^", "offset": 0.4 },
+        { "id": "eq", "preset": "pop", "at": "L10.nên", "offset": 0.4 }
+      ],
+      "lines": [
+        { "id": "L8", "text": "Bây giờ, 3 quả lê nặng bằng 10 quả quýt." },
+        { "id": "L9", "text": "12 quả lê chia thành 4 nhóm, mỗi nhóm 3 quả lê." },
+        { "id": "L10", "text": "Mỗi nhóm nặng bằng 10 quả quýt, nên có 4 nhân 10, bằng 40 quả quýt." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "fact": ["L8^", "L8$", "raw"],
+        "head": ["L9^", 0.8, "raw"],
+        "pears": ["L9^", "L9$", "raw"],
+        "loops": ["L9.mỗi", "L9$", "raw"],
+        "tangs": ["L10^", "L10.nên", "raw"],
+        "eq": ["L10.nên", "L10$", "raw"]
+      }
+    },
+    {
+      "id": "beat4",
+      "prev": "beat3",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [{ "id": "answer", "preset": "ding", "at": "L12^" }],
+      "lines": [
+        { "id": "L11", "text": "Vậy 18 quả táo nặng bằng 12 quả lê, và nặng bằng 40 quả quýt." },
+        { "id": "L12", "text": "Đáp án là 40 quả quýt." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "row": ["L11^", "L11$", "raw"],
+        "circle": ["L12^", 0.7, "raw"],
+        "burst": ["L12^", 1.0, "raw", 0.1]
+      }
+    }
+  ]
+}

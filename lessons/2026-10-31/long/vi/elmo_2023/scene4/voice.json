@@ -1,0 +1,100 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 44." },
+        { "id": "L1", "text": "Nếu các số trong mỗi hàng có quan hệ" },
+        { "id": "L2", "text": "với nhau theo một cách nào đó, thì ghi Có ở cột Quyết định." },
+        { "id": "L3", "text": "Nếu các số trong mỗi hàng không có" },
+        { "id": "L4", "text": "quan hệ như vậy, thì ghi Không." },
+        { "id": "L5", "text": "Hỏi số còn thiếu trong ô trống" },
+        { "id": "L6", "text": "là bao nhiêu?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "q3": ["L2^", "L2$", "raw"],
+        "q4": ["L3^", "L3$", "raw"],
+        "q5": ["L4^", "L4$", "raw"],
+        "q6": ["L5^", "L5$", "raw"],
+        "q7": ["L6^", "L6$", "raw"],
+        "table": ["L1^", "L2$", "raw"],
+        "think": ["L6$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L7^", "offset": -0.5 }],
+      "lines": [{ "id": "L7", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L7^", "L7$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [{ "id": "rule", "preset": "pop", "at": "L13^", "offset": 0.2 }],
+      "lines": [
+        { "id": "L8", "text": "Ta xếp các số của mỗi hàng theo thứ tự B, A, C." },
+        { "id": "L9", "text": "Hàng đầu: 1, 3, 5. Mỗi số hơn số trước 2 đơn vị." },
+        { "id": "L10", "text": "Hàng hai: 3, 4, 5. Mỗi số hơn số trước 1 đơn vị." },
+        { "id": "L11", "text": "Hàng ba: 2, 5, 5. Hơn 3 rồi hơn 0, không đều, nên ghi Không." },
+        { "id": "L12", "text": "Hàng bốn: 8, 8, 8. Ba số bằng nhau, hơn nhau 0." },
+        { "id": "L13", "text": "Vậy ở các hàng Có, ba số B, A, C cách đều nhau." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "table": ["beat^", 1.0, "raw", 1.2],
+        "head": ["L8^", "L8$", "raw"],
+        "row1": ["L9^", "L9$", "raw"],
+        "row2": ["L10^", "L10$", "raw"],
+        "row3": ["L11^", "L11$", "raw"],
+        "row4": ["L12^", "L12$", "raw"],
+        "rule": ["L13^", "L13$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 2.0,
+      "sounds": [
+        { "id": "fill", "preset": "pop", "at": "L16$", "offset": -0.75 },
+        { "id": "answer", "preset": "ding", "at": "L17^" }
+      ],
+      "lines": [
+        { "id": "L14", "text": "Hàng cuối: B bằng 6, A bằng 10, còn C chưa biết." },
+        { "id": "L15", "text": "Từ 6 lên 10 là hơn 4 đơn vị." },
+        { "id": "L16", "text": "Nên C bằng 10 cộng 4, bằng 14." },
+        { "id": "L17", "text": "Số cần điền vào ô trống là 14." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "nums": ["L14^", "L14$", "raw"],
+        "a1": ["L15^", "L15$", "raw"],
+        "a2": ["L16^", "L16.bằng", "raw"],
+        "fill": ["L16$", 0.7, "raw", -0.8],
+        "burst": ["L16$", 1.0, "raw", -0.8],
+        "circle": ["L17^", 0.8, "raw"]
+      }
+    }
+  ]
+}
