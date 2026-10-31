@@ -191,7 +191,7 @@ function columns(ctx, S, k) {
   popLabel(L, TEXT.out, 230, LABEL_Y, S('beat3', 'hw'), { size: 54, color: CHALK.red, pulse: k('pw') });
   popLabel(L, TEXT.out, 540, LABEL_Y, S('beat3', 'hg'), { size: 54, color: CHALK.red, pulse: k('pg') });
 }
-function worstSocks(ctx, S) {
+function worstSocks(ctx, S, k) {
   const svg = svgLayer(ctx.objects());
   const keys = { white: 'w', grey: 'g', black: 'b' };
   COLS.forEach((cl) => {
@@ -200,7 +200,9 @@ function worstSocks(ctx, S) {
     for (let i = 0; i < n; i++) {
       const u = stagger(prog, i, n, 0.4);
       const pose = dropPose(u, lvl(i), 420);
-      const hb = cl.c === 'black' ? S('beat3', 'hb') : 0;
+      // beat 3: the lone black sock hops on "mới có 1 chiếc"; beat 4: white, then grey, hop in a wave on "đã hết"
+      const wave = { white: k('pw'), grey: k('pg'), black: 0 }[cl.c];
+      const hb = cl.c === 'black' ? S('beat3', 'hb') : stagger(wave, i, n, 0.5);
       const hu = hb < 1 ? hb : 0;
       if (pose) sock(svg, cl.x, pose.y + hopY(hu, 50), S1, SOCK[cl.c], { sq: pose.squash * hopSquash(hu) });
     }
@@ -245,7 +247,7 @@ function board(ctx, beat, p) {
   const S = stateOf(ORDER, beat, p);
   const k = (key) => (beat === 'beat4' ? g(p, key) : 0);
   columns(ctx, S, k);
-  worstSocks(ctx, S);
+  worstSocks(ctx, S, k);
   const L = ctx.chalk(60);
   row(L, [{ s: '6', color: INK.white }, '+', { s: '7', color: INK.grey }, '+', { s: '1', color: INK.black }, '=', String(WORST_SUM)],
     540, EQ_Y, { size: 84, t: S('beat3', 'eq'), seed: 80, gap: 0.3 });
