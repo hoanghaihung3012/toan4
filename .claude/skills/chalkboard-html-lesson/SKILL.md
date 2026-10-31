@@ -24,6 +24,7 @@ This skill holds the **style, the engine and the process**: the board background
 - **Language:** Vietnamese by default (user's rule, 2026-10-25). Make an English version only when the user asks for it, and always **reuse the Vietnamese lesson** (see **Language versions**). Never write a new story or new scenes for it.
 - **Question wording + solution transition:** preserve the supplied problem statement verbatim in the question beat; do not paraphrase, shorten, or silently omit any condition. Before the first solution beat, add a separate spoken transition beat. For Vietnamese lessons, its exact line is **"Sau đây là cách giải."** Show the same words in chalk so the transition also reads with the sound off. Do not change the question to insert this phrase.
 - **Names match the language** (user's rule, 2026-10-25): a Vietnamese lesson uses only Vietnamese names (An, Bảo, Chi, Dũng, …), an English lesson only English names (Alex, Ben, Cindy, Dan, …). When the source problem uses names from the other language, rename the people (keep the initials when the puzzle refers to them, keep the logic unchanged) and record the mapping in story.md. In Vietnamese avoid "Bình" (it clashes with the closing "Bình luận"). An English version (`_en`) renames them back to English names in its `TEXT` and voice lines.
+- **Wipe first, then new content** (user's rule, 2026-10-31): in a beat with `"prev"` and a `wipe` window, nothing of the new board may show until the eraser has fully cleared the old one. Every other window (text, figure, tiles, frame, sound) must start at or after the wipe's end. A beat's `lead` is at least the wipe length (1.2 s), and a window anchored to `beat^` gets `offset` = wipe length (e.g. `"figure": ["beat^", 0.9, "raw", 1.2]`). `render/synccheck.mjs` prints `EARLY` for any window that breaks this and exits 1.
 - **No approval wait** (user's rule, 2026-10-26, Vietnamese and English alike): once the verification loops pass, publish the HTML preview to Pages, export the MP4 and open the PR straight away. Only when the PR is open, send the preview link (Zalo + thread) and say the lesson is done. Changes the user asks for afterwards go to the same PR.
 
 ## The one place to edit the look: `web/theme.js`
@@ -117,7 +118,7 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
   - The part that moves to level the bars is `dec` (mint), split off the tall bar, flown with `flight()` and traced with `arcArrow()`.
   - Mark the level with a yellow dashed line plus a 70 px tag at its end, circled when the voice says the average.
 - **Unknown value:** a `blank` dashed slot with a yellow "?". The answer grows into it with a spring, and the "?" shrinks away first.
-- **Thinking pause:** 3 yellow chalk dots (radius ≥ 13) popping in one by one in a 2–3 s silent tail after the question (5 s in long videos).
+- **Thinking pause:** 3 yellow chalk dots (radius ≥ 13) popping in one by one in a 2–3 s silent tail after the question.
 - **Never let the board hold still for more than ~3 s while the voice talks.** Cue a circle, a colour change or a tag on a word in that line.
 
 ## Timing (`timing/<scene>.json`)
@@ -147,11 +148,11 @@ Edit `theme.js`, then reload the preview. After a style change, re-check the pro
 - **Matching:** Edge TTS keeps numbers as one token ("25") and drops punctuation, so anchors match lower-cased words without punctuation.
 - **Lines:**
   - each line starts `gap` s after the previous one ends;
-  - the first line of a beat starts `lead` s after the beat start (≈1.0 s for a wiped beat: the eraser takes 1.2 s);
+  - the first line of a beat starts `lead` s after the beat start (at least 1.2 s for a wiped beat: the eraser takes 1.2 s and no new content may show before it ends);
   - the beat ends `tail` s after its last word, or 0.3 s after its last window, whichever is later.
 - **Spoken vs written:** write numbers as digits in the text; the voice reads them correctly. Say "chia" and "nhân" in words, while the board shows ":" and a drawn ×.
 - **Reusable transition sound:** a beat may define `"sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L12^", "offset": -0.5 }]` (`at` is any anchor, `offset` in seconds; anchor it to the intro line so the chime lands just before the text is written). `render/voice.mjs` generates this local chalk-swipe + two-note chime and mixes it into `audio/voice.wav`, so it works in previews and exports without a separate playback path. Use the `solutionIntro(L, text, t)` helper for the matching animated chalk intertitle; the text is a caller-supplied value, not fixed engine copy.
-- **Pauses:** a thinking pause is a long `tail` (≈2.4 s) on the question beat. In a **long video** (user's rule, 2026-10-30) the pause is **≈5 s**: `"tail": 5.0` on the question beat and the thinking-dots window `["<last question line>$", 4.8, "raw"]`, before the "Sau đây là cách giải." transition beat.
+- **Pauses:** a thinking pause is a long `tail` (≈2.4 s) on the question beat.
 
 ## Language versions (English, user's rule 2026-10-25)
 **Default is Vietnamese.** When the user does not name a language, the lesson is Vietnamese (`vi-VN-HoaiMyNeural`, Vietnamese board text). An English version ("bản tiếng Anh") **reuses** the Vietnamese lesson: same story, facts, scenes, motion and layout. Only the voiceover and the board text change. Example: `lessons/2026-10-25/shorts/en/day_so_tiep_theo_en/` (reuses `lessons/2026-10-25/shorts/vi/day_so_tiep_theo/`).
@@ -207,7 +208,7 @@ final/<YYYY-MM-DD>/long/<en|vi>/<name>/youtube.txt                 manual upload
 ```
 
 1. **Create:** `npm run new -- <lesson> --scenes <N>` (format `long` is implied) writes `scenes.json`, `scene1..N/` with a starter `voice.json` (`"profile": "landscape"`, 1920×1080) and `scene.js`, and the HTML pages. Then edit `scenes.json`: one entry per problem in play order, titles as on the exam ("Bài 1. Số nhà và chữ số"); the opening can share scene 1 with problem 1, a closing summary gets its own last scene ("Tổng kết"). After adding, removing or renaming a scene, run `npm run scenes -- <lesson>`: it creates the missing scene folders and rewrites every `index.html` (never edit those by hand).
-2. **A scene is written exactly like a Short** (beats, windows, anchors, `TEXT`, facts asserted in code), only on the 1920×1080 stage. Beat and line ids are local to the scene (each scene can start at `beat1` / `L1`). Preserve the supplied problem statement verbatim: show the complete statement first (written in chalk as the voice reads it, e.g. letter by letter on the line's window), then give the viewer a **≈5 s silent thinking pause** (user's rule, 2026-10-30: question beat `tail` 5.0, thinking dots over ≈4.8 s), then use a separate transition beat saying **"Sau đây là cách giải."** before wiping to the solution beats. Never show the answer on the statement or transition board.
+2. **A scene is written exactly like a Short** (beats, windows, anchors, `TEXT`, facts asserted in code), only on the 1920×1080 stage. Beat and line ids are local to the scene (each scene can start at `beat1` / `L1`). Preserve the supplied problem statement verbatim: show the complete statement first (written in chalk as the voice reads it, e.g. letter by letter on the line's window), hold it ≈3 s, then use a separate transition beat saying **"Sau đây là cách giải."** before wiping to the solution beats. Never show the answer on the statement or transition board.
 3. **Cuts between scenes are eraser wipes**: scene k > 1 opens on scene k−1's last board. Its `scene.js` imports the previous scene and registers that board, its first beat sets `"prev": "from_prev"` and a `wipe` window (the starter files already do this; point `from_prev` at the previous scene's **last** beat):
    ```js
    import { scenes as previous } from '../scene1/scene.js';
@@ -248,7 +249,7 @@ Do **not** stop for approval anywhere (facts, story, storyboard, key poses, audi
 4. **Verification loops** (all of them, before publishing anything):
    1. **Key-pose match:** run `capture.mjs --keyposes` on the audio timing, then `inspect.mjs diff` against the step-2 key poses. The mean must be 0, except where a later fix changed a pose on purpose (list those).
    2. **Sound-off read:** run `inspect.mjs sheet --every 0.5`, then send a **fresh general-purpose subagent** that reads only the sheet PNGs and retells scenes, the math and confusing moments, and gives a yes/no verdict. Fix what it flags if it is cheap.
-   3. **Sync:** `node render/synccheck.mjs <lesson>` must report 0 windows off.
+   3. **Sync:** `node render/synccheck.mjs <lesson>` must report 0 windows off and 0 windows starting before their wipe ends.
    4. **Fact check:** every on-screen word and voice line goes into a table with its source. Cut anything unmatched.
    5. **Director's review:** watch every sheet, write a brutal critique (dead holds while the voice talks are the usual top issue), fix the top 3, then rebuild timing and sheets and review again.
    - Write it all to `<lesson dir>/critique.md`, including what is still weak, as the user's call.
