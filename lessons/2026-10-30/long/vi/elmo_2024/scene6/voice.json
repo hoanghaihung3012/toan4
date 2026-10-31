@@ -1,0 +1,64 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 46." },
+        { "id": "L1", "text": "Cho hai số có tổng là 14 và tích là 48." },
+        { "id": "L2", "text": "Hỏi hiệu số giữa hai số này là bao nhiêu?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "sum": ["L1.tổng", "L1.và", "raw"],
+        "prod": ["L1.và", "L1$", "raw"],
+        "think": ["L2$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L4", "text": "Hai số nhân với nhau bằng 48, nên ta liệt kê các cặp số có tích bằng 48." },
+        { "id": "L5", "text": "Đó là 1 và 48, 2 và 24, 3 và 16, 4 và 12, 6 và 8." },
+        { "id": "L6", "text": "Cộng từng cặp, ta được 49, 26, 19, 16 và 14." },
+        { "id": "L7", "text": "Chỉ có cặp 6 và 8 có tổng bằng 14." },
+        { "id": "L8", "text": "Vậy hiệu của hai số là 8 trừ 6, bằng 2." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L4^", 1.0, "raw"],
+        "pairs": ["L5^", "L5$", "raw"],
+        "sums": ["L6^", "L6$", "raw"],
+        "pick": ["L7^", 0.9, "raw"],
+        "answer": ["L8^", "L8$", "raw"],
+        "circle": ["L8$", 0.7, "raw"]
+      }
+    }
+  ]
+}

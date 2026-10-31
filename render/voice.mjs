@@ -6,6 +6,8 @@
 //   <lesson folder>/timing.json       what the player reads
 //
 //   node render/voice.mjs trung_binh_cong [--force]
+//   node render/voice.mjs giai_de/scene2              one scene of a long lesson; the lesson name alone
+//                                                     builds every scene (each its own audio + timing)
 //   node render/voice.mjs trung_binh_cong --estimate   (no TTS: guessed word times, draft timing,
 //                                                       no audio; for building scenes offline only)
 import { execFileSync } from 'node:child_process';
@@ -14,10 +16,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from './browser.mjs';
 import { lessonDir } from './paths.mjs';
+import { perScene } from './long.mjs';
+import { generateSfx } from './sfx.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
 if (!lesson) throw new Error('usage: node render/voice.mjs <lesson> [--force]');
+if (perScene(lesson, process.argv[1], process.argv.slice(3))) process.exit();
 const dir = lessonDir(lesson);
 const spec = JSON.parse(fs.readFileSync(`${dir}/voice.json`, 'utf8'));
 const outDir = `${dir}/audio`;
@@ -67,6 +72,7 @@ function synth(line) {
 const norm = (s) => s.normalize('NFC').toLowerCase().replace(/[.,!?:;]/g, '');
 let cursor = 0;
 const lines = {};
+const effects = [];
 const timing = {
   _note: `Built from the voiceover by render/voice.mjs (${dir}/voice.json). Do not edit by hand.`,
   draft: !!args.estimate, scene: './scene.js', fps: spec.fps, duration: 0,
@@ -109,6 +115,12 @@ for (const beat of spec.beats) {
     windows[k] = ease === 'out' ? [r(s), r(e)] : [r(s), r(e), ease];
     lastEnd = Math.max(lastEnd, e);
   }
+  for (const sound of beat.sounds || []) {
+    const file = path.join(outDir, 'sfx', `${beat.id}_${sound.id}.wav`);
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    generateSfx(file, sound.preset);
+    effects.push({ id: `${beat.id}_${sound.id}`, file, at: Math.max(0, resolve(sound.at || 'beat^') + (sound.offset || 0)) });
+  }
   const end = Math.round(Math.max(t + (beat.tail ?? 0.6), lastEnd + 0.3) * spec.fps) / spec.fps;
   const b = { id: beat.id, start: Math.round(start * 1000) / 1000, end: Math.round(end * 1000) / 1000 };
   if (beat.prev) b.prev = beat.prev;
@@ -128,9 +140,13 @@ if (args.estimate) {
 
 // --- 3. mix: every line at its time, stereo 48 kHz, loudness -16 LUFS, true peak -1.5 dB --
 const order = Object.values(lines);
-const inputs = order.flatMap((L) => ['-i', L.mp3]);
-const delays = order.map((L, i) => `[${i}]adelay=${Math.round(L.at * 1000)}:all=1[a${i}]`).join(';');
-const mix = `${delays};${order.map((_, i) => `[a${i}]`).join('')}amix=inputs=${order.length}:normalize=0,`
+const tracks = [
+  ...order.map((line) => ({ file: line.mp3, at: line.at })),
+  ...effects.map((effect) => ({ file: effect.file, at: effect.at })),
+];
+const inputs = tracks.flatMap((track) => ['-i', track.file]);
+const delays = tracks.map((track, i) => `[${i}]adelay=${Math.round(track.at * 1000)}:all=1[a${i}]`).join(';');
+const mix = `${delays};${tracks.map((_, i) => `[a${i}]`).join('')}amix=inputs=${tracks.length}:normalize=0,`
   + `aresample=48000,aformat=channel_layouts=stereo,apad,atrim=0:${timing.duration},`
   + 'loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000[out]';
 execFileSync('ffmpeg', ['-y', '-loglevel', 'error', ...inputs, '-filter_complex', mix, '-map', '[out]',

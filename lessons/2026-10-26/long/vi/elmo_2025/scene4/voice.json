@@ -1,0 +1,91 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 34." },
+        { "id": "L1", "text": "Chữ cái “a” dưới đây đại diện cho một số chưa biết." },
+        { "id": "L2", "text": "Biết rằng mỗi hàng có tổng bằng số được ghi ở bên phải, và mỗi cột có tổng bằng số được ghi ở phía dưới." },
+        { "id": "L3", "text": "Hãy tìm giá trị của “a” khi mỗi số từ 1 đến 9 được sử dụng đúng một lần trong chín ô." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "question1": ["L1^", "L1$", "raw"],
+        "question2": ["L2^", "L2$", "raw"],
+        "question3": ["L3^", "L3$", "raw"],
+        "grid": ["L1^", "L1$", "raw"],
+        "sums": ["L2^", "L2$", "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L4^", "offset": -0.5 }],
+      "lines": [{ "id": "L4", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L4^", "L4$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L5", "text": "Chín ô dùng các số từ 1 đến 9, mỗi số đúng một lần, nên tổng cả bảng là 45." },
+        { "id": "L6", "text": "Ba tổng hàng là hai a, a cộng 1 và a. Cộng lại được bốn a cộng 1." },
+        { "id": "L7", "text": "Vậy bốn a cộng 1 bằng 45. Suy ra bốn a bằng 44, và a bằng 11." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L5^", 1.2, "raw"],
+        "tiles": ["L5^", "L5.nên", "raw"],
+        "sumLine": ["L5.nên", "L5$", "raw"],
+        "rowsSum": ["L6^", "L6$", "raw"],
+        "eq1": ["L7^", "L7.suy", "raw"],
+        "eq2": ["L7.suy", "L7.và", "raw"],
+        "answer": ["L7.và", "L7$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.4,
+      "lines": [
+        { "id": "L8", "text": "Với a bằng 11, các tổng hàng là 22, 12 và 11. Các tổng cột là 12, 22 và 11." },
+        { "id": "L9", "text": "Hàng trên có 7 và 6, tổng 22, nên ô còn lại là 9." },
+        { "id": "L10", "text": "Cột bên trái có 7 và 4, tổng 12, nên ô còn lại là 1." },
+        { "id": "L11", "text": "Cột giữa có 9 và 8, tổng 22, nên ô còn lại là 5." },
+        { "id": "L12", "text": "Hàng dưới có 4 và 5, tổng 11, nên ô còn lại là 2." },
+        { "id": "L13", "text": "Hàng giữa có 1 và 8, tổng 12, nên ô còn lại là 3." },
+        { "id": "L14", "text": "Cột bên phải: 6 cộng 3 cộng 2 bằng 11. Đúng rồi! Vậy a bằng 11." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L8^", 1.2, "raw"],
+        "sums": ["L8^", "L8$", "raw"],
+        "s1": ["L9^", "L9$", "raw"],
+        "s2": ["L10^", "L10$", "raw"],
+        "s3": ["L11^", "L11$", "raw"],
+        "s4": ["L12^", "L12$", "raw"],
+        "s5": ["L13^", "L13$", "raw"],
+        "check": ["L14^", "L14.vậy", "raw"],
+        "answer": ["L14.vậy", "L14$", "raw"]
+      }
+    }
+  ]
+}

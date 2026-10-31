@@ -1,7 +1,9 @@
 // Player: reads timing.json, turns time into per-key progress, renders one frame.
 // window.renderFrame(t) is deterministic, so the capture script can step it frame by frame.
-// URL params: ?capture=1 (1:1 stage, no controls), ?lesson=name, ?timing=path, ?scene=module path.
-// Scene and audio paths are relative to the lesson's timing.json.
+// URL params: ?capture=1 (1:1 stage, no controls), ?embed=1 (fitted to the window, no controls, no
+// audio: the stitched preview of a long lesson drives renderFrame), ?lesson=name (or <lesson>/<scene>),
+// ?timing=path, ?scene=module path. A page of its own (a scene's index.html) names its timing with
+// <body data-timing="./timing.json">. Scene and audio paths are relative to the lesson's timing.json.
 import { ChalkLayer, resetIds, refreshCanvasSize } from './chalk.js';
 import { clamp01, easeOutCubic, easeInOut, spring } from './ease.js';
 import { buildBoard } from './board.js';
@@ -12,13 +14,17 @@ import { fitStage } from './fit.js';
 
 const params = new URLSearchParams(location.search);
 const capture = params.has('capture');
+const embed = params.has('embed');
 const lesson = params.get('lesson') || 'decimal';
+const own = document.body.dataset.timing;
 // /lessons/<name>/ is redirected by the server to lessons/<date>/<format>/<lang>/<name>/
-const timingUrl = params.get('timing') || `/lessons/${encodeURIComponent(lesson)}/timing.json`;
+const timingUrl = params.get('timing') || (own ? new URL(own, location.href).href : null)
+  || `/lessons/${encodeURIComponent(lesson)}/timing.json`;
 let timingBase; // where timing.json really is, after any redirect
 
 const stage = document.getElementById('stage');
 if (capture) document.body.classList.add('capture');
+if (embed) document.body.classList.add('embed');
 const root = document.createElement('div');
 root.className = 'scene';
 stage.appendChild(root);
@@ -111,8 +117,14 @@ async function init() {
   await document.fonts.ready;
   window.timing = timing;
   window.renderFrame = renderFrame;
-  renderFrame(capture ? 0 : timing.duration);
-  if (!capture) setupPreview();
+  renderFrame(capture || embed ? 0 : timing.duration);
+  if (embed) fitWindow();
+  else if (!capture) setupPreview();
+}
+
+// embedded (stitched preview): the whole stage, centred in the window
+function fitWindow() {
+  fitStage(stage, document.getElementById('view'), THEME.canvas.width, THEME.canvas.height);
 }
 
 function setupPreview() {

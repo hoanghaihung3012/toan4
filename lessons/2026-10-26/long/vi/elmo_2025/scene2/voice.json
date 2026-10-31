@@ -1,0 +1,163 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 32." },
+        { "id": "L1", "text": "Trong bốn nhóm hình dưới đây, hãy xác định nhóm sử dụng nhiều khối lập phương nhất và nhóm sử dụng ít khối lập phương nhất." },
+        { "id": "L2", "text": "Hỏi tổng số khối lập phương trong hai nhóm vừa rồi là bao nhiêu?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "question1": ["L1^", "L1$", "raw"],
+        "question2": ["L2^", "L2$", "raw"],
+        "figs": ["L1.hãy", "L2$", "raw"],
+        "think": ["L2$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L4", "text": "Nhóm A: nhìn từ trên xuống có 7 ô, tức là 7 cột khối. Ta ghi số khối của mỗi cột, kể cả khối bị che khuất." },
+        { "id": "L5", "text": "Từ hàng trước ra hàng sau: 2, 1, 1, rồi 3, 3, 1, 1." },
+        { "id": "L6", "text": "Cộng lại: 2 cộng 1 cộng 1 cộng 3 cộng 3 cộng 1 cộng 1 bằng 12 khối." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L4^", 1.0, "raw"],
+        "fig": ["L4^", "L4.có", "raw"],
+        "grid": ["L4.có", "L4.tức", "raw"],
+        "ghost": ["L4.kể", "L4$", "raw"],
+        "n0": ["L5.2", 0.5, "raw"],
+        "n1": ["L5.1", 0.5, "raw"],
+        "n2": ["L5.1#2", 0.5, "raw"],
+        "n3": ["L5.3", 0.5, "raw"],
+        "n4": ["L5.3#2", 0.5, "raw"],
+        "n5": ["L5.1#3", 0.5, "raw"],
+        "n6": ["L5.1#4", 0.5, "raw"],
+        "sum": ["L6^", "L6$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L7", "text": "Nhóm B: nhìn từ trên xuống có 5 ô." },
+        { "id": "L8", "text": "Số khối của mỗi cột, từ trước ra sau: 1, 1, 1, 2, 3." },
+        { "id": "L9", "text": "Cộng lại: 1 cộng 1 cộng 1 cộng 2 cộng 3 bằng 8 khối." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L7^", 1.0, "raw"],
+        "fig": ["L7^", "L7.có", "raw"],
+        "grid": ["L7.có", "L7$", "raw"],
+        "n0": ["L8.1", 0.5, "raw"],
+        "n1": ["L8.1#2", 0.5, "raw"],
+        "n2": ["L8.1#3", 0.5, "raw"],
+        "n3": ["L8.2", 0.5, "raw"],
+        "n4": ["L8.3", 0.5, "raw"],
+        "sum": ["L9^", "L9$", "raw"]
+      }
+    },
+    {
+      "id": "beat4",
+      "prev": "beat3",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L10", "text": "Nhóm C: nhìn từ trên xuống có 6 ô. Hai khối ở dưới hai cột cao bị che khuất, nhưng vẫn phải đếm." },
+        { "id": "L11", "text": "Số khối của mỗi cột, từ trước ra sau: 1, 1, 3, 1, 3, 1." },
+        { "id": "L12", "text": "Cộng lại: 1 cộng 1 cộng 3 cộng 1 cộng 3 cộng 1 bằng 10 khối." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L10^", 1.0, "raw"],
+        "fig": ["L10^", "L10.có", "raw"],
+        "grid": ["L10.có", "L10.hai", "raw"],
+        "ghost": ["L10.bị", "L10$", "raw"],
+        "n0": ["L11.1", 0.5, "raw"],
+        "n1": ["L11.1#2", 0.5, "raw"],
+        "n2": ["L11.3", 0.5, "raw"],
+        "n3": ["L11.1#3", 0.5, "raw"],
+        "n4": ["L11.3#2", 0.5, "raw"],
+        "n5": ["L11.1#4", 0.5, "raw"],
+        "sum": ["L12^", "L12$", "raw"]
+      }
+    },
+    {
+      "id": "beat5",
+      "prev": "beat4",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L13", "text": "Nhóm D: nhìn từ trên xuống có 6 ô, và có 3 khối bị che khuất." },
+        { "id": "L14", "text": "Số khối của mỗi cột, từ trước ra sau: 1, 1, 2, 2, 3, 2." },
+        { "id": "L15", "text": "Cộng lại: 1 cộng 1 cộng 2 cộng 2 cộng 3 cộng 2 bằng 11 khối." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L13^", 1.0, "raw"],
+        "fig": ["L13^", "L13.có", "raw"],
+        "grid": ["L13.có", "L13.và", "raw"],
+        "ghost": ["L13.bị", "L13$", "raw"],
+        "n0": ["L14.1", 0.5, "raw"],
+        "n1": ["L14.1#2", 0.5, "raw"],
+        "n2": ["L14.2", 0.5, "raw"],
+        "n3": ["L14.2#2", 0.5, "raw"],
+        "n4": ["L14.3", 0.5, "raw"],
+        "n5": ["L14.2#3", 0.5, "raw"],
+        "sum": ["L15^", "L15$", "raw"]
+      }
+    },
+    {
+      "id": "beat6",
+      "prev": "beat5",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L16", "text": "Bốn nhóm A, B, C, D có lần lượt 12, 8, 10 và 11 khối." },
+        { "id": "L17", "text": "Nhiều nhất là nhóm A, ít nhất là nhóm B." },
+        { "id": "L18", "text": "Tổng của hai nhóm này là 12 cộng 8 bằng 20 khối." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L16^", 1.0, "raw"],
+        "barA": ["L16.12", 1.0, "raw"],
+        "barB": ["L16.8", 1.0, "raw"],
+        "barC": ["L16.10", 1.0, "raw"],
+        "barD": ["L16.11", 1.0, "raw"],
+        "loopMax": ["L17.nhiều", "L17.ít", "raw"],
+        "loopMin": ["L17.ít", "L17$", "raw"],
+        "sum": ["L18.12", "L18.bằng", "raw"],
+        "answer": ["L18.bằng", "L18$", "raw"]
+      }
+    }
+  ]
+}

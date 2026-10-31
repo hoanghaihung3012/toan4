@@ -1,0 +1,73 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 5.0,
+      "lines": [
+        { "id": "L0", "text": "Câu 47." },
+        { "id": "L1", "text": "Các hình sau đây minh họa cho tất cả các trường hợp mà trong đó hai vòng tròn" },
+        { "id": "L2", "text": "được sắp xếp không nằm kề nhau trong một ô bốn ngăn." },
+        { "id": "L3", "text": "Tìm số lượng tất cả các trường hợp mà trong đó hai vòng tròn được sắp xếp" },
+        { "id": "L4", "text": "không nằm kề nhau trong một ô sáu ngăn." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "q1": ["L1^", "L1$", "raw"],
+        "q2": ["L2^", "L2$", "raw"],
+        "q3": ["L3^", "L3$", "raw"],
+        "q4": ["L4^", "L4$", "raw"],
+        "examples": ["L1.hình", "L2$", "raw"],
+        "think": ["L4$", 4.8, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L5^", "offset": -0.5 }],
+      "lines": [{ "id": "L5", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L5^", "L5$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 2.0,
+      "lines": [
+        { "id": "L6", "text": "Ta chọn ngăn cho vòng tròn thứ nhất, rồi tìm chỗ cho vòng tròn thứ hai ở bên phải." },
+        { "id": "L7", "text": "Vòng tròn thứ nhất ở ngăn 1 thì vòng thứ hai ở ngăn 3, 4, 5 hoặc 6, có 4 cách." },
+        { "id": "L8", "text": "Ở ngăn 2 thì vòng thứ hai ở ngăn 4, 5 hoặc 6, có 3 cách." },
+        { "id": "L9", "text": "Ở ngăn 3 có 2 cách, ở ngăn 4 có 1 cách, còn ngăn 5 và ngăn 6 thì không còn chỗ." },
+        { "id": "L10", "text": "Vậy có 4 cộng 3 cộng 2 cộng 1, bằng 10 trường hợp." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L6^", "L6$", "raw"],
+        "r1": ["L7^", "L7.có", "raw"],
+        "c1": ["L7.có", 0.7, "raw"],
+        "r2": ["L8^", "L8.có", "raw"],
+        "c2": ["L8.có", 0.7, "raw"],
+        "r3": ["L9^", "L9.cách", "raw"],
+        "c3": ["L9.có", 0.7, "raw"],
+        "r4": ["L9.ở#2", "L9.cách#2", "raw"],
+        "c4": ["L9.có#2", 0.7, "raw"],
+        "none": ["L9.còn", "L9$", "raw"],
+        "answer": ["L10^", "L10$", "raw"],
+        "circle": ["L10$", 0.7, "raw"]
+      }
+    }
+  ]
+}

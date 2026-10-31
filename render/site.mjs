@@ -16,3 +16,12 @@ export function pagesSite(lesson) {
   const m = remote.match(/([^/:]+)\/([^/]+?)(\.git)?\/?$/);
   return m ? { repo: `${m[1]}/${m[2]}`, url: `https://${m[1].toLowerCase()}.github.io/${m[2]}/${lesson}/` } : null;
 }
+
+// The page around a published lesson's player: shared/web/index.html with the lesson's language and
+// title, and paths into the lesson's own copy of shared/web.
+export function pageShell(lang, title) {
+  return fs.readFileSync('shared/web/index.html', 'utf8')
+    .replace(/<html lang="[^"]*">/, `<html lang="${lang}">`)
+    .replace(/<title>.*<\/title>/, `<title>${title}</title>`)
+    .replace(/(href|src)="(css|js)\//g, '$1="shared/web/$2/');
+}

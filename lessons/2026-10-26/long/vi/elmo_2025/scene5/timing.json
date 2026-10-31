@@ -1,0 +1,160 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-26/long/vi/elmo_2025/scene5/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 53.9,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 14.6,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.296,
+     "raw"
+    ],
+    "question1": [
+     2.768,
+     6.758,
+     "raw"
+    ],
+    "question2": [
+     7.23,
+     12.314,
+     "raw"
+    ],
+    "target": [
+     5.316,
+     6.758,
+     "raw"
+    ],
+    "slots": [
+     3.2,
+     4.2,
+     "raw"
+    ],
+    "limit": [
+     8.408,
+     9.408,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 14.6,
+   "end": 17.833,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     14.6,
+     15.8,
+     "raw"
+    ],
+    "phrase": [
+     15.934,
+     17.244,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 17.833,
+   "end": 53.9,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     17.833,
+     19.033,
+     "raw"
+    ],
+    "heading": [
+     19.155,
+     20.355,
+     "raw"
+    ],
+    "slots": [
+     25.884,
+     27.952,
+     "raw"
+    ],
+    "leg1": [
+     28.424,
+     29.224,
+     "raw"
+    ],
+    "t9": [
+     32.126,
+     32.726,
+     "raw"
+    ],
+    "t11": [
+     32.618,
+     33.218,
+     "raw"
+    ],
+    "t13": [
+     33.316,
+     33.916,
+     "raw"
+    ],
+    "t15": [
+     34.109,
+     34.709,
+     "raw"
+    ],
+    "t17": [
+     34.854,
+     35.454,
+     "raw"
+    ],
+    "t19": [
+     35.551,
+     36.151,
+     "raw"
+    ],
+    "leg2": [
+     36.552,
+     37.352,
+     "raw"
+    ],
+    "t16": [
+     40.843,
+     41.443,
+     "raw"
+    ],
+    "t18": [
+     41.516,
+     42.116,
+     "raw"
+    ],
+    "leg3": [
+     42.517,
+     43.317,
+     "raw"
+    ],
+    "none": [
+     47.136,
+     50.513,
+     "raw"
+    ],
+    "answer": [
+     50.997,
+     52.716,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 // Chalk drawing in SVG. A ChalkLayer is one <svg> whose group carries the chalk-grain
 // filter (#chalk50 / #chalk60 / #chalk100 in index.html). Every write-on takes t in 0..1;
 // t = 1 is the key pose.
-import { clamp01, rng } from './ease.js';
+import { clamp01, rng, spring } from './ease.js';
 import { THEME } from '../theme.js';
 
 export let W = THEME.canvas.width;
@@ -107,6 +107,13 @@ export class ChalkLayer {
 
   rect(l, top, r, b, { color, width = 4, t = 1, seed = 0 } = {}) {
     this.poly([[l, top], [r, top], [r, b], [l, b], [l, top]], { color, width, t, seed, amp: 1.2 });
+  }
+
+  // a filled dot (vertex marker, counting point) that pops in with a spring
+  dot(cx, cy, r, { color = CHALK.white, t = 1 } = {}) {
+    t = clamp01(t);
+    if (t <= 0) return;
+    el('circle', { cx, cy, r: r * spring(t, 3.2, 6), fill: color }, this.g);
   }
 
   // teacher's circle: overshoots its start a little

@@ -6,7 +6,8 @@
 
 ```text
 lessons/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<lesson>/
-final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>.mp4
+final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>/<name>.mp4
+final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>/youtube.txt
 ```
 
 - `<YYYY-MM-DD>`: the day the clip was made (Vietnam time).
@@ -36,8 +37,9 @@ lessons/
 final/
   2026-10-25/
     shorts/
-      vi/ban_3_mui_ten.mp4
-      en/divisibility_rules.mp4
+      vi/ban_3_mui_ten/ban_3_mui_ten.mp4
+      en/divisibility_rules/divisibility_rules.mp4
+      en/divisibility_rules/youtube.txt
 shared/
   web/                   # shared player, theme, CSS, and drawing engine
   fonts/                 # shared fonts
@@ -55,6 +57,41 @@ Scene imports are relative: the shared engine is `../../../../../shared/web/js/`
 `../../vi/<lesson>/scene.js` (with the date folder in the path when the two days differ). A
 lesson's timing uses `"scene": "./scene.js"` and, when voiced, `"audio": "./audio/voice.wav"`,
 both relative to that timing file. No central scene registry is needed for new lessons.
+
+## Long videos: one scene per problem
+
+A long video (16:9, 1920×1080, for YouTube) is split into scenes, one per problem. Each scene is
+a lesson of its own with its own page and its own MP4; the lesson's page plays them in order.
+
+```text
+lessons/<date>/long/<lang>/<lesson>/
+  scenes.json      { "title", "final"?, "scenes": [{ "id": "scene1", "title": "Bài 1. …" }, …] }
+  index.html       stitched preview: plays scene1, scene2, … on one timeline (generated)
+  story.md, critique.md, helpers shared by the scenes (problems.js, …)
+  scene1/          voice.json, scene.js, timing.json, audio/, index.html (this scene alone, generated)
+final/<date>/long/<lang>/<name>/<scene>.mp4       temporary per-scene renders
+final/<date>/long/<lang>/<name>/<name>.mp4        joined final, only with --join
+final/<date>/long/<lang>/<name>/youtube.txt       manual upload metadata
+```
+
+```sh
+npm run new -- giai_de --scenes 3        # long lesson with scene1..scene3 (format long implied)
+npm run scenes -- giai_de                # after editing scenes.json: add missing scenes, rewrite pages
+npm run scenes -- giai_de --seams        # last frame of each scene vs first frame of the next
+npm run voice -- giai_de                 # every scene; giai_de/scene2 for one
+npm run sync -- giai_de
+npm run keyposes -- --lesson giai_de     # each scene's out/keyposes
+npm run sheet -- --lesson giai_de/scene2 --every 0.5
+npm run final -- giai_de --jobs 2        # scene1.mp4, scene2.mp4, … ; --scene scene2 re-exports one
+npm run final -- giai_de --scene none --join   # join the exported scenes in the grouped final folder
+npm run pages -- giai_de                 # https://hoanghaihung3012.github.io/toan4/giai_de/
+```
+
+Preview: `http://localhost:8123/lessons/giai_de/` (all scenes) and
+`http://localhost:8123/lessons/giai_de/scene2/` (one scene). Scene k > 1 opens by wiping scene
+k−1's last board (`"prev": "from_prev"`), so the cut between scenes is an eraser wipe. The stitched
+page (`shared/web/js/playlist.js`) loads every scene page with `?embed=1`, owns the clock and the
+voiceover, and calls each scene's `renderFrame`.
 
 ## Reusable Chapters
 
@@ -83,6 +120,8 @@ const production = composeChapters([
   returned offsets, export `production.scenes` from the production scene module, and write
   `production.timing` as its timing file. Existing voice/sync tools still operate on individual
   chapters; combined narration and cue generation need a separate orchestration step.
+
+Long videos use scenes (above), not this composer: each scene keeps its own audio, timing and MP4.
 
 Use chapter-local verification plus a whole-production continuity and audio check. The
 composer introduces no automatic board wipe between chapters: author transitions explicitly.
@@ -118,12 +157,11 @@ lesson's `audio/voice.wav` after preview approval.
 
 The existing root `out/` folder is retained for previous exports and comparisons.
 Both root and lesson-local `out/` folders are ignored by Git. After approval,
-`npm run final -- <lesson>` captures, muxes the voiceover and writes the one committed
-file, `final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<lesson>.mp4`, in the same day/format/language
-folders as the lesson (or `<name>.mp4` when `voice.json` sets `"final"`; English versions use an
-English name with no `_en`, e.g. `final/2026-10-25/shorts/en/divisibility_rules.mp4`). Every
-finished MP4 lives in the repo-root `final/` folder; a re-export lands in the same folder, and
-`--date` overrides the day. TTS line caches
+`npm run final -- <lesson>` captures, muxes the voiceover and writes the grouped deliverable
+`final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>/<name>.mp4` plus `youtube.txt` containing
+title, description and tags, in the same day/format/language folders as the lesson. The folder
+name is `voice.json`'s `final` value when set (English versions use an English name without `_en`,
+e.g. `divisibility_rules`), otherwise the lesson name. `--date` overrides the day. TTS line caches
 move with their lesson, so moving a lesson does not require synthesizing it again.
 
 ## YouTube Shorts (English channel)
@@ -137,7 +175,7 @@ overrides it), and sends **one** Zalo message with the Pages preview link and th
 (`YT_PRIVACY` or `--privacy` overrides it; a re-run switches an earlier upload to it), audience not made for kids, category Education.
 Title, description and tags come from the lesson's `story.md` heading and voiceover lines, or
 from an optional `voice.json` `"youtube": { "title", "description", "tags" }`. The upload writes
-`final/<date>/<format>/<lang>/<name>.youtube.json` (video id, link, playlist, Zalo time); each step is done once,
+`final/<date>/<format>/<lang>/<name>/<name>.youtube.json` (video id, link, playlist, Zalo time); each step is done once,
 and a re-run only finishes the missing ones. Commit it with the MP4. Vietnamese clips keep the old
 flow (Zalo preview link from `npm run pages`, no upload). `--no-upload` skips it, and
 `npm run youtube -- <lesson> [--dry-run] [--force] [--no-zalo]` runs it by hand for an earlier export.

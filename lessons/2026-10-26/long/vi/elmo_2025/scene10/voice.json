@@ -1,0 +1,101 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 2.3,
+      "lines": [
+        { "id": "L0", "text": "Câu 40." },
+        { "id": "L1", "text": "Bắt đầu từ số đầu tiên, hãy đi theo đường có ô vuông chứa một số mà khi chia cho 9 thì dư 2." },
+        { "id": "L2", "text": "Hỏi với các lối ra từ A đến D, bạn nên chọn lối ra nào?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "question1": ["L1^", "L1.mà", "raw"],
+        "question2": ["L1.mà", "L1$", "raw"],
+        "question3": ["L2^", "L2$", "raw"],
+        "grid": ["L1^", "L1$", "raw"],
+        "start": ["L1.bắt", 0.8, "raw"],
+        "exits": ["L2.các", "L2$", "raw"],
+        "think": ["L2$", 2.3, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+      "lines": [{ "id": "L3", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L3^", "L3$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L4", "text": "Số chia 9 dư 2 thì có dạng 9 nhân một số, rồi cộng 2." },
+        { "id": "L5", "text": "Đó là các số 2, 11, 20, 29, 38, 47, 56, 65, 74, 83 và 92, mỗi số hơn số trước 9 đơn vị." },
+        { "id": "L6", "text": "Ta tô màu các ô chứa những số này." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L4^", 1.2, "raw"],
+        "form": ["L4^", "L4$", "raw"],
+        "list": ["L5^", "L5.mỗi", "raw"],
+        "step": ["L5.mỗi", "L5$", "raw"],
+        "light": ["L6^", "L6$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L7", "text": "Bắt đầu từ ô số 2. Đi xuống ô 83, rồi xuống ô 38." },
+        { "id": "L8", "text": "Sang phải qua các ô 56, 47 và 92." },
+        { "id": "L9", "text": "Đi lên ô 29, rồi sang phải ô 65." },
+        { "id": "L10", "text": "Lên ô 74, sang ô 20 và ra lối A." },
+        { "id": "L11", "text": "Số 11 cũng chia 9 dư 2, nhưng các ô quanh nó đều không, nên không đi tới được. Vậy chọn lối ra A." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L7^", 1.2, "raw"],
+        "seg1": ["L7^", "L7$", "raw"],
+        "seg2": ["L8^", "L8$", "raw"],
+        "seg3": ["L9^", "L9$", "raw"],
+        "seg4": ["L10^", "L10$", "raw"],
+        "trap": ["L11^", "L11.nhưng", "raw"],
+        "answer": ["L11.vậy", "L11$", "raw"]
+      }
+    },
+    {
+      "id": "outro",
+      "prev": "beat3",
+      "lead": 1.2,
+      "tail": 1.0,
+      "lines": [
+        { "id": "L12", "text": "Cảm ơn các bạn đã theo dõi." },
+        { "id": "L13", "text": "Hãy theo dõi kênh Học cùng Phượng để đón xem những video tiếp theo." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "thanks": ["L12^", "L12$", "raw"],
+        "follow": ["L13^", "L13$", "raw"]
+      }
+    }
+  ]
+}

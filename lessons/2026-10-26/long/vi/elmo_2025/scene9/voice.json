@@ -1,0 +1,81 @@
+{
+  "lang": "vi",
+  "profile": "landscape",
+  "voice": "vi-VN-HoaiMyNeural",
+  "rate": "+4%",
+  "fps": 30,
+  "gap": 0.35,
+  "beats": [
+    {
+      "id": "beat1",
+      "prev": "from_prev",
+      "lead": 1.2,
+      "tail": 2.3,
+      "lines": [
+        { "id": "L0", "text": "Câu 39." },
+        { "id": "L1", "text": "Nhóm hình nào dưới đây tuân theo quy luật biến đổi giống như hình ví dụ?" }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "title": ["L0^", "L0$", "raw"],
+        "question1": ["L1^", "L1.giống", "raw"],
+        "question2": ["L1.giống", "L1$", "raw"],
+        "example": ["L1.ví", "L1$", "raw"],
+        "options": ["L1$", 2.0, "raw"],
+        "think": ["L1$", 2.3, "raw"]
+      }
+    },
+    {
+      "id": "intro",
+      "prev": "beat1",
+      "lead": 1.2,
+      "tail": 0.6,
+      "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L2^", "offset": -0.5 }],
+      "lines": [{ "id": "L2", "text": "Sau đây là cách giải." }],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "phrase": ["L2^", "L2$", "raw"]
+      }
+    },
+    {
+      "id": "beat2",
+      "prev": "intro",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L3", "text": "Hình ví dụ biến đổi qua hai bước. Bước một: xoay hình." },
+        { "id": "L4", "text": "Bước hai: lật hình, tức là lấy đối xứng qua một đường thẳng." },
+        { "id": "L5", "text": "Vậy quy luật là: xoay rồi lật." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L3^", 1.2, "raw"],
+        "first": ["L3^", 1.0, "raw"],
+        "rot": ["L3.xoay", "L3$", "raw"],
+        "refl": ["L4.lật", "L4$", "raw"],
+        "rule": ["L5^", "L5$", "raw"]
+      }
+    },
+    {
+      "id": "beat3",
+      "prev": "beat2",
+      "lead": 1.2,
+      "tail": 1.2,
+      "lines": [
+        { "id": "L6", "text": "Áp dụng cho nhóm C: hình bên trái là mũi tên hướng lên." },
+        { "id": "L7", "text": "Xoay rồi lật, ta được mũi tên hướng sang phải, đúng bằng hình bên phải." },
+        { "id": "L8", "text": "Vậy đáp án là C, trùng với đáp án chính thức." }
+      ],
+      "windows": {
+        "wipe": ["beat^", 1.2, "raw"],
+        "heading": ["L6^", 1.2, "raw"],
+        "left": ["L6.hình", 1.0, "raw"],
+        "rot": ["L7.xoay", "L7.lật", "raw"],
+        "refl": ["L7.lật", "L7.ta", "raw"],
+        "same": ["L7.đúng", "L7$", "raw"],
+        "tick": ["L7$", 0.8, "raw"],
+        "answer": ["L8.vậy", "L8$", "raw"]
+      }
+    }
+  ]
+}
