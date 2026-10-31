@@ -4,6 +4,9 @@
 //
 //   node render/pages.mjs <lesson> [--no-push] [--no-zalo]
 //   -> https://<owner>.github.io/<repo>/<lesson>/
+//   node render/pages_shell.mjs [--no-push]
+//   -> re-applies the current page shell (index.html, board.css, fit.js, the player's fit) to every
+//      lesson already on gh-pages, leaving their scenes, timing and audio as published
 // A long lesson (scenes.json) publishes every scene page and the stitched preview: <lesson>/ plays
 // all scenes in order, each scene also opens on its own from the chapter list.
 //
@@ -21,7 +24,7 @@ import path from 'node:path';
 import { parseArgs } from './browser.mjs';
 import { lessonDir, lessonInfo, listScenes, SCENES } from './paths.mjs';
 import { playlistHtml } from './long.mjs';
-import { lessonTitle, pagesSite } from './site.mjs';
+import { lessonTitle, pagesSite, pageShell } from './site.mjs';
 import { sendZalo } from './zalo.mjs';
 
 const args = parseArgs(process.argv.slice(2));
@@ -103,12 +106,7 @@ try {
     : JSON.parse(fs.readFileSync(path.join(src, 'voice.json'), 'utf8')).lang || 'vi';
   const page = scenes.length
     ? playlistHtml({ root: '', scenes: `${rel.split(path.sep).join('/')}/${SCENES}`, title, lang })
-    : fs.readFileSync('shared/web/index.html', 'utf8')
-    .replace(/<html lang="[^"]*">/, `<html lang="${lang}">`)
-    .replace(/<title>.*<\/title>/, `<title>${title}</title>`)
-    .replace(/(href|src)="(css|js)\//g, '$1="shared/web/$2/')
-    .replace('</head>', '  <style>#controls{display:flex;gap:10px;align-items:center;padding:8px 16px}'
-      + '#controls button{font-size:18px;min-width:44px;min-height:36px}#controls input{flex:1;min-width:0}</style>\n</head>');
+    : pageShell(lang, title);
   fs.writeFileSync(path.join(out, 'index.html'), page);
   fs.writeFileSync(path.join(out, 'title.txt'), `${title}\n`);
 

@@ -4,12 +4,13 @@
 // audio: the stitched preview of a long lesson drives renderFrame), ?lesson=name (or <lesson>/<scene>),
 // ?timing=path, ?scene=module path. A page of its own (a scene's index.html) names its timing with
 // <body data-timing="./timing.json">. Scene and audio paths are relative to the lesson's timing.json.
-import { ChalkLayer, resetIds, refreshCanvasSize, W } from './chalk.js';
+import { ChalkLayer, resetIds, refreshCanvasSize } from './chalk.js';
 import { clamp01, easeOutCubic, easeInOut, spring } from './ease.js';
 import { buildBoard } from './board.js';
 import { applyTheme } from './theme_apply.js';
 import { THEME, configureProfile } from '../theme.js';
 import { drawEraser, wipePose, sweptMask, sweepOff } from './eraser.js';
+import { fitStage } from './fit.js';
 
 const params = new URLSearchParams(location.search);
 const capture = params.has('capture');
@@ -123,23 +124,11 @@ async function init() {
 
 // embedded (stitched preview): the whole stage, centred in the window
 function fitWindow() {
-  const fit = () => {
-    const { width, height } = THEME.canvas;
-    const s = Math.min(innerWidth / width, innerHeight / height);
-    stage.style.transform = `translate(${(innerWidth - width * s) / 2}px, ${(innerHeight - height * s) / 2}px) scale(${s})`;
-  };
-  fit();
-  addEventListener('resize', fit);
+  fitStage(stage, document.getElementById('view'), THEME.canvas.width, THEME.canvas.height);
 }
 
 function setupPreview() {
-  const fit = () => {
-    const s = Math.min((innerHeight - 60) / THEME.canvas.height, innerWidth / W);
-    stage.style.transform = `scale(${s})`;
-    document.body.style.height = `${THEME.canvas.height * s + 60}px`;
-  };
-  fit();
-  addEventListener('resize', fit);
+  fitStage(stage, document.getElementById('view'), THEME.canvas.width, THEME.canvas.height);
   const scrub = document.getElementById('scrub');
   const label = document.getElementById('time');
   const beatLabel = document.getElementById('beat');
