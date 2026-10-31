@@ -1,0 +1,271 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-30/elmo_2024/scene1/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 104.167,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "opening",
+   "start": 0,
+   "end": 10.233,
+   "windows": {
+    "welcome": [
+     0.622,
+     4.743,
+     "raw"
+    ],
+    "channel": [
+     3.986,
+     4.743,
+     "raw"
+    ],
+    "title": [
+     5.215,
+     9.229,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat1",
+   "start": 10.233,
+   "end": 26.833,
+   "prev": "opening",
+   "windows": {
+    "wipe": [
+     10.233,
+     11.433,
+     "raw"
+    ],
+    "title": [
+     10.867,
+     11.805,
+     "raw"
+    ],
+    "range": [
+     13.299,
+     14.32,
+     "raw"
+    ],
+    "question1": [
+     12.277,
+     16.65,
+     "raw"
+    ],
+    "question2": [
+     17.122,
+     19.154,
+     "raw"
+    ],
+    "question3": [
+     19.626,
+     21.717,
+     "raw"
+    ],
+    "exRight": [
+     17.122,
+     19.154,
+     "raw"
+    ],
+    "exLeft": [
+     19.626,
+     21.717,
+     "raw"
+    ],
+    "think": [
+     21.717,
+     26.517,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 26.833,
+   "end": 30.067,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     26.833,
+     28.033,
+     "raw"
+    ],
+    "phrase": [
+     28.167,
+     29.478,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 30.067,
+   "end": 54.733,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     30.067,
+     31.267,
+     "raw"
+    ],
+    "heading": [
+     31.389,
+     34.538,
+     "raw"
+    ],
+    "kind": [
+     35.01,
+     36.01,
+     "raw"
+    ],
+    "tiles": [
+     37.606,
+     42.378,
+     "raw"
+    ],
+    "evens": [
+     44.064,
+     47.814,
+     "raw"
+    ],
+    "odds": [
+     48.298,
+     52.745,
+     "raw"
+    ],
+    "count": [
+     52.745,
+     53.445,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "start": 54.733,
+   "end": 77.767,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     54.733,
+     55.933,
+     "raw"
+    ],
+    "heading": [
+     56.055,
+     57.055,
+     "raw"
+    ],
+    "form": [
+     57.257,
+     58.736,
+     "raw"
+    ],
+    "same": [
+     59.541,
+     60.503,
+     "raw"
+    ],
+    "oddText": [
+     60.975,
+     61.975,
+     "raw"
+    ],
+    "firsts": [
+     63.859,
+     67.657,
+     "raw"
+    ],
+    "drop": [
+     68.129,
+     70.089,
+     "raw"
+    ],
+    "why": [
+     70.882,
+     73.598,
+     "raw"
+    ],
+    "keep": [
+     74.984,
+     76.558,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat4",
+   "start": 77.767,
+   "end": 88.033,
+   "prev": "beat3",
+   "windows": {
+    "wipe": [
+     77.767,
+     78.967,
+     "raw"
+    ],
+    "heading": [
+     79.089,
+     80.089,
+     "raw"
+    ],
+    "forms": [
+     79.089,
+     82.31,
+     "raw"
+    ],
+    "strip": [
+     83.287,
+     85.27,
+     "raw"
+    ],
+    "cycle": [
+     82.794,
+     86.845,
+     "raw"
+    ],
+    "ten": [
+     85.691,
+     86.491,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat5",
+   "start": 88.033,
+   "end": 104.167,
+   "prev": "beat4",
+   "windows": {
+    "wipe": [
+     88.033,
+     89.233,
+     "raw"
+    ],
+    "two": [
+     89.367,
+     91.567,
+     "raw"
+    ],
+    "three": [
+     92.039,
+     98.698,
+     "raw"
+    ],
+    "answer": [
+     99.182,
+     102.175,
+     "raw"
+    ],
+    "circle": [
+     102.175,
+     102.875,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

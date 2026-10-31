@@ -1,0 +1,178 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-30/elmo_2024/scene10/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 70.9,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 30.5,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.127,
+     "raw"
+    ],
+    "q1": [
+     2.6,
+     6.698,
+     "raw"
+    ],
+    "q2": [
+     7.17,
+     9.983,
+     "raw"
+    ],
+    "q3": [
+     10.455,
+     13.604,
+     "raw"
+    ],
+    "q4": [
+     14.064,
+     17.369,
+     "raw"
+    ],
+    "q5": [
+     17.841,
+     20.69,
+     "raw"
+    ],
+    "q6": [
+     21.15,
+     25.405,
+     "raw"
+    ],
+    "opts": [
+     22.989,
+     25.405,
+     "raw"
+    ],
+    "think": [
+     25.405,
+     30.205,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 30.5,
+   "end": 33.733,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     30.5,
+     31.7,
+     "raw"
+    ],
+    "phrase": [
+     31.834,
+     33.144,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 33.733,
+   "end": 62.933,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     33.733,
+     34.933,
+     "raw"
+    ],
+    "d": [
+     35.067,
+     37.003,
+     "raw"
+    ],
+    "c": [
+     37.475,
+     40.588,
+     "raw"
+    ],
+    "ceq": [
+     40.588,
+     43.16,
+     "raw"
+    ],
+    "b": [
+     43.632,
+     46.06,
+     "raw"
+    ],
+    "beq": [
+     46.06,
+     47.298,
+     "raw"
+    ],
+    "a": [
+     47.77,
+     52.734,
+     "raw"
+    ],
+    "aeq": [
+     52.734,
+     53.912,
+     "raw"
+    ],
+    "rank": [
+     54.384,
+     58.206,
+     "raw"
+    ],
+    "pick": [
+     58.69,
+     59.49,
+     "raw"
+    ],
+    "answer": [
+     58.69,
+     60.938,
+     "raw"
+    ],
+    "circle": [
+     60.938,
+     61.638,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "outro",
+   "start": 62.933,
+   "end": 70.9,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     62.933,
+     64.133,
+     "raw"
+    ],
+    "thanks": [
+     64.267,
+     66.106,
+     "raw"
+    ],
+    "subscribe": [
+     66.579,
+     69.884,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

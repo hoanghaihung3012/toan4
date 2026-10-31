@@ -1,29 +1,11 @@
-// Where lessons and finished clips live. lessons/ and final/ share one layout (user's rule, 2026-10-26):
+// Lesson sources live in lessons/<date>/<lesson>/; final files live in final/<date>/<name>/.
+// Dates use Vietnam time. Lesson names stay unique across the tree, so every script takes a name.
+// Scene paths are addressed as "<lesson>/<scene>" where a lesson name is accepted.
 //
-//   lessons/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<lesson>/   story, voice, timing, audio, scene code
-//   final/<YYYY-MM-DD>/<long|shorts>/<en|vi>/<name>/<name>.mp4   finished clip + upload metadata
-//
-// <YYYY-MM-DD> is the day the clip was made (Vietnam time), <long|shorts> the requested format
-// (9:16 Shorts unless a long video was asked for), <en|vi> the voiceover language. Lesson names
-// stay unique across the tree, so every script still takes just the lesson name.
-//
-// A long video (16:9 YouTube) is split into scenes, one per problem (user's rule, 2026-10-26):
-//
-//   lessons/<date>/long/<lang>/<lesson>/scenes.json         order + titles of the scenes
-//   lessons/<date>/long/<lang>/<lesson>/index.html          stitched preview (plays every scene)
-//   lessons/<date>/long/<lang>/<lesson>/<scene>/            voice.json, timing.json, scene.js, audio/,
-//                                                           index.html (that scene on its own)
-//   final/<date>/long/<lang>/<name>/<scene>.mp4             one MP4 per scene (temporary)
-//   final/<date>/long/<lang>/<name>/<name>.mp4              the scenes joined (npm run final -- --join)
-//
-// A scene is addressed as "<lesson>/<scene>" (e.g. giai_de/scene2) wherever a lesson name is taken.
-//
-//   node render/paths.mjs new <lesson> [--lang vi|en] [--format shorts|long] [--date YYYY-MM-DD]
-//                                      [--scenes N]
-//       -> creates and prints lessons/<date>/<format>/<lang>/<lesson>/ (--scenes N: a long lesson
-//          with scene1..sceneN, see render/long.mjs)
+//   node render/paths.mjs new <lesson> [--date YYYY-MM-DD] [--scenes N]
+//       -> creates lessons/<date>/<lesson>/ (--scenes N creates scene folders)
 //   node render/paths.mjs dir <lesson>     -> prints the lesson's folder
-//   node render/paths.mjs list             -> one line per lesson: date format lang name
+//   node render/paths.mjs list             -> one line per lesson: date name
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -31,24 +13,18 @@ import { fileURLToPath } from 'node:url';
 
 export const LESSONS = 'lessons';
 export const FINAL = 'final';
-export const FORMATS = ['shorts', 'long'];
-export const LANGS = ['vi', 'en'];
 export const SCENES = 'scenes.json';
 const SCENE_REF = /^([a-z0-9_]+)\/([a-z0-9_]+)$/;
 const DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 const dirs = (p) => (fs.existsSync(p) ? fs.readdirSync(p, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort() : []);
 
-// every <root>/<date>/<format>/<lang>/<entry> -> { date, format, lang, name, dir }
+// every <root>/<date>/<entry> -> { date, name, dir }
 function walk(root, entries) {
   const out = [];
   for (const date of dirs(root).filter((d) => DATE.test(d))) {
-    for (const format of dirs(path.join(root, date)).filter((f) => FORMATS.includes(f))) {
-      for (const lang of dirs(path.join(root, date, format)).filter((l) => LANGS.includes(l))) {
-        const at = path.join(root, date, format, lang);
-        for (const name of entries(at)) out.push({ date, format, lang, name, dir: path.join(at, name) });
-      }
-    }
+    const at = path.join(root, date);
+    for (const name of entries(at)) out.push({ date, name, dir: path.join(at, name) });
   }
   return out;
 }
@@ -70,7 +46,7 @@ export function lessonDir(lesson) {
   }
   const hits = listLessons().filter((l) => l.name === lesson);
   if (hits.length === 1) return hits[0].dir;
-  if (!hits.length) throw new Error(`lesson "${lesson}" not found under ${LESSONS}/<date>/<format>/<lang>/ (create it with: node render/paths.mjs new ${lesson})`);
+  if (!hits.length) throw new Error(`lesson "${lesson}" not found under ${LESSONS}/<date>/ (create it with: node render/paths.mjs new ${lesson})`);
   throw new Error(`lesson "${lesson}" is ambiguous: ${hits.map((h) => h.dir).join(', ')}`);
 }
 
@@ -87,31 +63,27 @@ export function listScenes(lesson) {
   });
 }
 
-// { date, format, lang, name, dir, scene } of a lesson (scene: the scene id for "<lesson>/<scene>")
+// { date, name, dir, scene } of a lesson (scene: the scene id for "<lesson>/<scene>")
 export function lessonInfo(lesson) {
   const dir = lessonDir(lesson);
-  const [, date, format, lang, name, scene] = dir.split(path.sep);
-  return { date, format, lang, name, dir, ...(scene ? { scene } : {}) };
+  const [, date, name, scene] = dir.split(path.sep);
+  return { date, name, dir, ...(scene ? { scene } : {}) };
 }
 
-// final/<date>/<format>/<lang>/<name>/<name>.mp4 for a clip, or
-// final/<date>/long/<lang>/<name>/<scene>.mp4 for one scene; date defaults to the lesson's own day
+// final/<date>/<name>/<name>.mp4 for a clip, or <scene>.mp4 for one scene.
 export function finalPath(lesson, { name, date } = {}) {
   const info = lessonInfo(lesson);
-  const at = path.join(FINAL, date || info.date, info.format, info.lang);
   const clip = name || info.name;
-  return path.join(at, clip, `${info.scene || clip}.mp4`);
+  return path.join(FINAL, date || info.date, clip, `${info.scene || clip}.mp4`);
 }
 
-// newest grouped final clip, with support for older flat paths
+// newest grouped final clip
 export function latestFinal(name) {
-  const hits = walk(FINAL, (at) => (
-    fs.existsSync(path.join(at, name, `${name}.mp4`)) || fs.existsSync(path.join(at, `${name}.mp4`)) ? [name] : []
-  ));
+  const hits = dirs(FINAL).filter((date) => DATE.test(date))
+    .map((date) => path.join(FINAL, date, name, `${name}.mp4`))
+    .filter((file) => fs.existsSync(file));
   if (!hits.length) return null;
-  const dir = hits[hits.length - 1].dir;
-  const grouped = path.join(dir, `${name}.mp4`);
-  return fs.existsSync(grouped) ? grouped : `${dir}.mp4`;
+  return hits[hits.length - 1];
 }
 
 // today in Vietnam time (en-CA formats as YYYY-MM-DD)
@@ -119,14 +91,12 @@ export function today() {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Ho_Chi_Minh' }).format(new Date());
 }
 
-export function newLessonDir(lesson, { lang = 'vi', format = 'shorts', date = today() } = {}) {
+export function newLessonDir(lesson, { date = today() } = {}) {
   if (!/^[a-z0-9_]+$/.test(lesson)) throw new Error(`lesson name must be snake_case, got "${lesson}"`);
-  if (!LANGS.includes(lang)) throw new Error(`--lang must be ${LANGS.join('|')}, got "${lang}"`);
-  if (!FORMATS.includes(format)) throw new Error(`--format must be ${FORMATS.join('|')}, got "${format}"`);
   if (!DATE.test(date)) throw new Error(`--date must be YYYY-MM-DD, got "${date}"`);
   const existing = listLessons().find((l) => l.name === lesson);
   if (existing) throw new Error(`lesson "${lesson}" already exists: ${existing.dir}`);
-  const dir = path.join(LESSONS, date, format, lang, lesson);
+  const dir = path.join(LESSONS, date, lesson);
   fs.mkdirSync(dir, { recursive: true });
   return dir;
 }
@@ -141,12 +111,13 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   }
   const [cmd, lesson] = args._;
   if (cmd === 'new') {
-    const dir = newLessonDir(lesson, { lang: args.lang, format: args.format || (args.scenes ? 'long' : undefined), date: args.date });
+    if (args.lang || args.format) throw new Error('--lang and --format are no longer directory options');
+    const dir = newLessonDir(lesson, { date: args.date });
     // long.mjs imports this module, so it runs as its own process (an import back would deadlock)
     if (args.scenes) execFileSync(process.execPath, [fileURLToPath(new URL('./long.mjs', import.meta.url)), lesson, '--create', String(args.scenes)], { stdio: ['ignore', 'ignore', 'inherit'] });
     console.log(dir);
   }
   else if (cmd === 'dir') console.log(lessonDir(lesson));
-  else if (cmd === 'list') for (const l of listLessons()) console.log(`${l.date} ${l.format} ${l.lang} ${l.name}`);
+  else if (cmd === 'list') for (const l of listLessons()) console.log(`${l.date} ${l.name}`);
   else console.log('usage: node render/paths.mjs new|dir|list ... (see header)');
 }

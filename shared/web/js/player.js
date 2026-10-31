@@ -17,7 +17,7 @@ const capture = params.has('capture');
 const embed = params.has('embed');
 const lesson = params.get('lesson') || 'decimal';
 const own = document.body.dataset.timing;
-// /lessons/<name>/ is redirected by the server to lessons/<date>/<format>/<lang>/<name>/
+// /lessons/<name>/ is redirected by the server to lessons/<date>/<name>/
 const timingUrl = params.get('timing') || (own ? new URL(own, location.href).href : null)
   || `/lessons/${encodeURIComponent(lesson)}/timing.json`;
 let timingBase; // where timing.json really is, after any redirect

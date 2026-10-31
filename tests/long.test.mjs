@@ -17,7 +17,7 @@ const { finalPath, latestFinal, lessonDir, lessonInfo, listScenes } = await impo
 const { createScenes, perScene } = await import('../render/long.mjs');
 const { newLessonDir } = await import('../render/paths.mjs');
 
-const dir = newLessonDir('demo_long', { format: 'long', date: '2026-01-02' });
+const dir = newLessonDir('demo_long', { date: '2026-01-02' });
 createScenes('demo_long', 2);
 // draft timings (no TTS needed)
 for (const s of listScenes('demo_long')) {
@@ -29,13 +29,13 @@ test.after(() => {
 });
 
 test('a long lesson has one folder, one page and one MP4 path per scene', () => {
-  assert.equal(dir, path.join('lessons', '2026-01-02', 'long', 'vi', 'demo_long'));
+  assert.equal(dir, path.join('lessons', '2026-01-02', 'demo_long'));
   assert.deepEqual(listScenes('demo_long').map((s) => [s.id, s.ref]),
     [['scene1', 'demo_long/scene1'], ['scene2', 'demo_long/scene2']]);
   assert.equal(lessonDir('demo_long/scene2'), path.join(dir, 'scene2'));
   assert.equal(lessonInfo('demo_long/scene2').scene, 'scene2');
-  assert.equal(finalPath('demo_long/scene2'), path.join('final', '2026-01-02', 'long', 'vi', 'demo_long', 'scene2.mp4'));
-  assert.equal(finalPath('demo_long'), path.join('final', '2026-01-02', 'long', 'vi', 'demo_long', 'demo_long.mp4'));
+  assert.equal(finalPath('demo_long/scene2'), path.join('final', '2026-01-02', 'demo_long', 'scene2.mp4'));
+  assert.equal(finalPath('demo_long'), path.join('final', '2026-01-02', 'demo_long', 'demo_long.mp4'));
   fs.mkdirSync(path.dirname(finalPath('demo_long')), { recursive: true });
   fs.writeFileSync(finalPath('demo_long'), 'joined');
   assert.equal(latestFinal('demo_long'), finalPath('demo_long'));

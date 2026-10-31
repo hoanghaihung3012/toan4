@@ -8,7 +8,7 @@ import { buildMetadata, publishShort } from '../render/youtube.mjs';
 
 const all = listLessons().filter((l) => fs.existsSync(`${l.dir}/voice.json`) && fs.existsSync(`${l.dir}/story.md`));
 const lessons = all.map((l) => l.name);
-const english = all.filter((l) => l.format === 'shorts' && JSON.parse(fs.readFileSync(`${l.dir}/voice.json`, 'utf8')).lang === 'en').map((l) => l.name);
+const english = all.filter((l) => JSON.parse(fs.readFileSync(`${l.dir}/voice.json`, 'utf8')).lang === 'en').map((l) => l.name);
 
 for (const lesson of english) {
   test(`${lesson}: YouTube Short metadata fits the API limits`, () => {
@@ -47,8 +47,9 @@ test('long videos never enter Shorts publishing, including direct calls', () => 
   const cwd = process.cwd();
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'yt-long-'));
   try {
-    const dir = path.join(root, 'lessons/2026-10-26/long/en/long_example');
+    const dir = path.join(root, 'lessons/2026-10-26/long_example');
     fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, 'scenes.json'), JSON.stringify({ scenes: [{ id: 'scene1' }] }));
     process.chdir(root);
     const result = publishShort('long_example', { dryRun: true });
     assert.equal(result.ok, false);

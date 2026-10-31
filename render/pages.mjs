@@ -22,7 +22,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { parseArgs } from './browser.mjs';
-import { lessonDir, lessonInfo, listScenes, SCENES } from './paths.mjs';
+import { lessonDir, listScenes, SCENES } from './paths.mjs';
 import { playlistHtml } from './long.mjs';
 import { lessonTitle, pagesSite, pageShell } from './site.mjs';
 import { sendZalo } from './zalo.mjs';
@@ -30,7 +30,7 @@ import { sendZalo } from './zalo.mjs';
 const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
 if (!lesson) throw new Error('usage: node render/pages.mjs <lesson> [--no-push]');
-const rel = lessonDir(lesson); // lessons/<date>/<format>/<lang>/<lesson>
+const rel = lessonDir(lesson); // lessons/<date>/<lesson>
 const src = path.resolve(rel);
 // what gets a voiced timing: the lesson itself, or each scene of a long lesson
 const scenes = listScenes(lesson);
@@ -57,7 +57,7 @@ try {
   // --- 2. the lesson: shared player, fonts, lesson code, timing, voice as MP3 -------------------
   const out = path.join(work, lesson);
   fs.rmSync(out, { recursive: true, force: true });
-  // the lesson keeps its lessons/<date>/<format>/<lang>/<lesson>/ path inside the page, so its
+  // the lesson keeps its lessons/<date>/<lesson>/ path inside the page, so its
   // relative imports of shared/web and of other lessons resolve as they do in the repo
   fs.mkdirSync(path.join(out, rel), { recursive: true });
   fs.cpSync('shared/web', path.join(out, 'shared/web'), { recursive: true });
@@ -102,8 +102,8 @@ try {
   fs.writeFileSync(player, code.replace(def, `'${rel.split(path.sep).join('/')}/timing.json'`));
 
   const title = lessonTitle(lesson);
-  const lang = scenes.length ? lessonInfo(lesson).lang
-    : JSON.parse(fs.readFileSync(path.join(src, 'voice.json'), 'utf8')).lang || 'vi';
+  const voiceFile = scenes.length ? path.join(scenes[0].dir, 'voice.json') : path.join(src, 'voice.json');
+  const lang = JSON.parse(fs.readFileSync(voiceFile, 'utf8')).lang || 'vi';
   const page = scenes.length
     ? playlistHtml({ root: '', scenes: `${rel.split(path.sep).join('/')}/${SCENES}`, title, lang })
     : pageShell(lang, title);

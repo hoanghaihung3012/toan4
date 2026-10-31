@@ -2,7 +2,7 @@
 // lesson of its own (voice.json, timing.json, scene.js, audio/, its own index.html and its own MP4);
 // the lesson's index.html is the stitched preview that plays the scenes one after another.
 //
-//   lessons/<date>/long/<lang>/<lesson>/
+//   lessons/<date>/<lesson>/
 //     scenes.json          { "title", "final"?, "scenes": [{ "id": "scene1", "title": "Bài 1" }, ...] }
 //     index.html           stitched preview (shared/web/js/playlist.js), generated
 //     story.md critique.md and helpers shared by the scenes (problems.js, ...)
@@ -20,7 +20,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { lessonDir, lessonInfo, listScenes, SCENES } from './paths.mjs';
+import { lessonDir, listScenes, SCENES } from './paths.mjs';
 
 const VOICES = { vi: 'vi-VN-HoaiMyNeural', en: 'en-US-AvaNeural' };
 const WORD = { vi: 'Bài', en: 'Problem' };
@@ -115,7 +115,7 @@ ${prev ? `  from_prev: previous.beat1, // set to the previous scene's LAST beat
 // create the folders of missing scenes, then (re)write every index.html of the lesson
 export function syncScenes(lesson) {
   const dir = lessonDir(lesson);
-  const { lang } = lessonInfo(lesson);
+  const lang = 'vi';
   const manifest = JSON.parse(fs.readFileSync(path.join(dir, SCENES), 'utf8'));
   const scenes = listScenes(lesson);
   scenes.forEach((s, i) => {
@@ -136,7 +136,7 @@ export function syncScenes(lesson) {
 export function createScenes(lesson, count) {
   if (!(count >= 1)) throw new Error(`--scenes must be a number >= 1, got "${count}"`);
   const dir = lessonDir(lesson);
-  const { lang } = lessonInfo(lesson);
+  const lang = 'vi';
   const scenes = Array.from({ length: count }, (_, i) => ({ id: `scene${i + 1}`, title: `${WORD[lang]} ${i + 1}` }));
   fs.writeFileSync(path.join(dir, SCENES), `${JSON.stringify({ title: lesson, scenes }, null, 2)}\n`);
   return syncScenes(lesson);

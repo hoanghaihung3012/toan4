@@ -1,6 +1,5 @@
 // Final export after the preview is approved: capture the video, mux the lesson's voiceover,
-// and write the grouped deliverable to final/<date>/<format>/<lang>/<name>/<name>.mp4, the same
-// <date>/<format>/<lang> as the lesson's own folder lessons/<date>/<format>/<lang>/<lesson>/
+// and write the grouped deliverable to final/<date>/<name>/<name>.mp4 for lessons/<date>/<lesson>/
 // (user's rule, 2026-10-26; the video-only capture stays in the lesson's ignored out/). <date> is
 // the day the lesson was made, so a re-export lands in the same folder; --date overrides it.
 // <name> is voice.json "final" when set (an English variant uses its English title, e.g.
@@ -11,12 +10,12 @@
 //
 //   node render/final.mjs <lesson> [--crf 18] [--date YYYY-MM-DD] [--image jpeg|png] [--image-quality 96] [--no-upload]
 //
-// A long lesson (scenes.json) gets temporary MP4s per scene in final/<date>/long/<lang>/<name>/<scene>.mp4
+// A scene-based lesson (scenes.json) gets temporary MP4s per scene in final/<date>/<name>/<scene>.mp4
 // (scene1.mp4, scene2.mp4, ...), where <name> is scenes.json "final" or the lesson name:
 //   node render/final.mjs <lesson> [--scene scene2,scene3] [--jobs 2] [--join]
 //   node render/final.mjs <lesson>/<scene>          the same for one scene
 // --scene re-exports only those scenes, --jobs captures that many scenes at once, --join also
-// writes the scenes joined end to end as final/<date>/long/<lang>/<name>/<name>.mp4 (for upload);
+// writes the scenes joined end to end as final/<date>/<name>/<name>.mp4 (for upload);
 // --scene none --join only joins the scene MP4s already exported.
 import { execFileSync, spawn } from 'node:child_process';
 import fs from 'node:fs';
@@ -109,7 +108,7 @@ execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', video, '-i', `${dir}/a
   '-shortest', '-movflags', '+faststart', out], { stdio: 'inherit' });
 if (!info.scene) writeYoutubeText(path.dirname(out), buildMetadata(lesson));
 console.log(`wrote ${out}`);
-if (!args['no-upload'] && voice.lang === 'en' && info.format === 'shorts') {
+if (!args['no-upload'] && voice.lang === 'en') {
   const r = publishShort(lesson, { file: out });
   if (r.ok) for (const n of r.notes) console.log(`youtube: ${n}`);
   else console.log(`youtube: not uploaded (${r.reason})`);

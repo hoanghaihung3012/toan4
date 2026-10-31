@@ -1,0 +1,191 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-26/elmo_2025/scene10/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 71.8,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 14.433,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.127,
+     "raw"
+    ],
+    "question1": [
+     2.611,
+     6.001,
+     "raw"
+    ],
+    "question2": [
+     6.001,
+     7.732,
+     "raw"
+    ],
+    "question3": [
+     8.192,
+     11.834,
+     "raw"
+    ],
+    "grid": [
+     2.611,
+     7.732,
+     "raw"
+    ],
+    "start": [
+     2.611,
+     3.411,
+     "raw"
+    ],
+    "exits": [
+     8.673,
+     11.834,
+     "raw"
+    ],
+    "think": [
+     11.834,
+     14.134,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 14.433,
+   "end": 17.667,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     14.433,
+     15.633,
+     "raw"
+    ],
+    "phrase": [
+     15.767,
+     17.078,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 17.667,
+   "end": 37.867,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     17.667,
+     18.867,
+     "raw"
+    ],
+    "heading": [
+     18.989,
+     20.189,
+     "raw"
+    ],
+    "form": [
+     18.989,
+     22.558,
+     "raw"
+    ],
+    "list": [
+     23.043,
+     32.598,
+     "raw"
+    ],
+    "step": [
+     32.598,
+     34.329,
+     "raw"
+    ],
+    "light": [
+     34.813,
+     36.856,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat3",
+   "start": 37.867,
+   "end": 64,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     37.867,
+     39.067,
+     "raw"
+    ],
+    "heading": [
+     39.201,
+     40.401,
+     "raw"
+    ],
+    "seg1": [
+     39.201,
+     44.283,
+     "raw"
+    ],
+    "seg2": [
+     44.755,
+     48.229,
+     "raw"
+    ],
+    "seg3": [
+     48.701,
+     51.706,
+     "raw"
+    ],
+    "seg4": [
+     52.178,
+     55.447,
+     "raw"
+    ],
+    "trap": [
+     55.919,
+     57.794,
+     "raw"
+    ],
+    "answer": [
+     61.422,
+     62.804,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "outro",
+   "start": 64,
+   "end": 71.8,
+   "prev": "beat3",
+   "windows": {
+    "wipe": [
+     64,
+     65.2,
+     "raw"
+    ],
+    "thanks": [
+     65.334,
+     66.993,
+     "raw"
+    ],
+    "follow": [
+     67.465,
+     70.794,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

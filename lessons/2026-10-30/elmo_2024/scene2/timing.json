@@ -1,0 +1,115 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2026-10-30/elmo_2024/scene2/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 37.067,
+ "profile": "landscape",
+ "audio": "./audio/voice.wav",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 15,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "title": [
+     1.334,
+     2.356,
+     "raw"
+    ],
+    "cards": [
+     4.475,
+     6.41,
+     "raw"
+    ],
+    "question1": [
+     2.828,
+     6.41,
+     "raw"
+    ],
+    "question2": [
+     6.882,
+     9.911,
+     "raw"
+    ],
+    "think": [
+     9.911,
+     14.711,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 15,
+   "end": 18.233,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     15,
+     16.2,
+     "raw"
+    ],
+    "phrase": [
+     16.334,
+     17.644,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 18.233,
+   "end": 37.067,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     18.233,
+     19.433,
+     "raw"
+    ],
+    "tens": [
+     19.567,
+     21.503,
+     "raw"
+    ],
+    "tensCount": [
+     21.503,
+     22.203,
+     "raw"
+    ],
+    "units": [
+     22.612,
+     26.891,
+     "raw"
+    ],
+    "unitsCount": [
+     26.891,
+     27.591,
+     "raw"
+    ],
+    "example": [
+     29.117,
+     31.69,
+     "raw"
+    ],
+    "answer": [
+     32.174,
+     35.082,
+     "raw"
+    ],
+    "circle": [
+     35.082,
+     35.782,
+     "raw"
+    ]
+   }
+  }
+ ]
+}
