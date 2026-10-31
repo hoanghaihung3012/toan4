@@ -167,7 +167,9 @@ function board(ctx, beat, p) {
   const right = FIG.l + w;
   // the strip that the rectangle gains (gold), pulses on beat 4
   if (gr > 0.02) {
-    const pulse = 1 + 0.06 * Math.sin(Math.PI * clamp01(k('strip')));
+    // the strip pulses on "300", "5", "60" and again on beat 4 ("Phần thêm vào")
+    const pu = Math.max(...['p300', 'five', 's60'].map((key) => { const v = S('beat3', key); return v < 1 ? v : 0; }), k('strip') < 1 ? k('strip') : 0);
+    const pulse = 1 + 0.16 * Math.sin(Math.PI * clamp01(pu));
     const sw = (right - FIG.mid) * pulse, sh = FIG.h * pulse;
     const sx = (FIG.mid + right) / 2 - sw / 2, sy = FIG.cy - sh / 2;
     svgEl('rect', { x: sx, y: sy, width: sw, height: sh, fill: GOLD, 'fill-opacity': clamp01(S('beat3', 'five') * 1.5) }, svg);
@@ -184,7 +186,14 @@ function board(ctx, beat, p) {
     if (gr > 0.02) Lf.dashed([FIG.mid, FIG.top], [FIG.mid, FIG.bot], { color: CHALK.yellow, width: 4 });
   }
   const dg = k('diag');
-  rhombus(Lf, svg, cx, FIG.cy, w, FIG.h, { t: S('beat3', 'fig'), seed: 30, diagV: dg > 0 ? CHALK.yellow : CHALK.white });
+  // the rhombus glows on "150" and when the kept diagonal is named
+  const fu = Math.max(S('beat3', 'f150') < 1 ? S('beat3', 'f150') : 0, dg < 1 ? dg : 0);
+  const fill = `rgba(150, 205, 240, ${(0.22 + 0.4 * Math.sin(Math.PI * clamp01(fu))).toFixed(3)})`;
+  // the rhombus breathes (springy scale bump) on each key number, so the board never stands still
+  const live = (v) => (v > 0 && v < 1 ? v : 0);
+  const bu = Math.max(live(S('beat3', 'five')), live(S('beat3', 's60')), live(k('strip')), live(k('side')), live(k('l12')), live(k('l20')));
+  const bump = 1 + 0.08 * Math.sin(Math.PI * bu) * Math.exp(-1.5 * bu);
+  rhombus(Lf, svg, cx, FIG.cy, w * bump, FIG.h * bump, { t: S('beat3', 'fig'), seed: 30, fill, diagV: dg > 0 ? CHALK.yellow : CHALK.white });
   // fold the four corners in (the rhombus is exactly half), then back out
   const fold = S('beat3', 'fold') * (1 - S('beat3', 'unfold'));
   const svg2 = svgLayer(ctx.objects());
