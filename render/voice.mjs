@@ -1,5 +1,7 @@
 // Voiceover -> audio + timing. Reads <lesson folder>/voice.json, synthesises every line
-// with Edge TTS (render/tts_words.py, cached per line), lays the lines out on one timeline,
+// with Edge TTS (render/tts_words.py) or, with "provider": "elevenlabs" in voice.json, ElevenLabs
+// (render/elevenlabs.mjs, key in ELEVENLABS_API_KEY; "voice" is the voice id, optional "model", "speed",
+// "stability", "similarity", "style"), cached per line, lays the lines out on one timeline,
 // resolves each animation window from its word anchor and writes:
 //   <lesson folder>/audio/voice.wav   48 kHz stereo mix, loudness-normalised, peaks < -1 dBFS
 //   <lesson folder>/audio/cues.json   every word with its absolute time (for the sync check)
@@ -18,6 +20,7 @@ import { parseArgs } from './browser.mjs';
 import { lessonDir } from './paths.mjs';
 import { perScene } from './long.mjs';
 import { generateSfx } from './sfx.mjs';
+import { synthEleven } from './elevenlabs.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
@@ -43,14 +46,21 @@ function estimate(line) {
   return { mp3: null, words };
 }
 
-function synth(line) {
+const eleven = spec.provider === 'elevenlabs';
+async function synth(line) {
   if (args.estimate) return estimate(line);
-  const key = crypto.createHash('sha1').update(`${spec.voice}|${spec.rate}|${line.text}`).digest('hex').slice(0, 10);
+  const settings = eleven ? [spec.model, spec.speed, spec.stability, spec.similarity, spec.style].join('|') : spec.rate;
+  const key = crypto.createHash('sha1').update(`${eleven ? 'el|' : ''}${spec.voice}|${settings}|${line.text}`).digest('hex').slice(0, 10);
   const mp3 = path.join(lineDir, `${line.id}.mp3`);
   const words = path.join(lineDir, `${line.id}.json`);
   const stamp = path.join(lineDir, `${line.id}.key`);
   const cached = fs.existsSync(stamp) && fs.readFileSync(stamp, 'utf8') === key;
-  if (!cached || args.force) {
+  if ((!cached || args.force) && eleven) {
+    await synthEleven({ voiceId: spec.voice, text: line.text, model: spec.model, speed: spec.speed,
+      stability: spec.stability, similarity: spec.similarity, style: spec.style, mp3, words });
+    fs.writeFileSync(stamp, key);
+    console.log('tts', line.id, line.text);
+  } else if (!cached || args.force) {
     // the free endpoint sometimes returns no audio: retry a few times
     for (let k = 1; ; k++) {
       try {
@@ -83,14 +93,14 @@ const timing = {
 for (const beat of spec.beats) {
   const start = cursor;
   let t = start + (beat.lead ?? 0.5);
-  beat.lines.forEach((line, i) => {
+  for (const [i, line] of beat.lines.entries()) {
     if (i > 0) t += line.gap ?? spec.gap;
-    const { mp3, words } = synth(line);
+    const { mp3, words } = await synth(line);
     if (!words.length) throw new Error(`no word timings for ${line.id}`);
     const abs = words.map((w) => ({ ...w, start: t + w.start, end: t + w.end }));
     lines[line.id] = { id: line.id, at: t, mp3, words: abs, start: abs[0].start, end: abs[abs.length - 1].end };
     t = lines[line.id].end;
-  });
+  }
 
   const resolve = (a) => {
     if (a === 'beat^') return start;
