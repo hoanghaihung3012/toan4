@@ -7,7 +7,7 @@ import { clamp01, stagger, spring, easeOutCubic, rng } from '../../../shared/web
 import { row, bar, flight, solutionIntro } from '../../../shared/web/js/parts.js';
 import { svgLayer, shade } from '../../../shared/web/js/cubes.js';
 import {
-  g, dropPose, burst, mark, thinkingDots, countdown, popLabel, bandWipe, outScale,
+  g, dropPose, burst, mark, hopY, hopSquash, thinkingDots, countdown, popLabel, bandWipe, outScale,
 } from '../../../shared/web/js/fx.js';
 
 // --- facts (story.md F1–F2, D1–D6) ---------------------------------------------------------------
@@ -203,9 +203,12 @@ function thirteenth(ctx, k) {
   const s = spring(q, 3, 6);
   const tR = k('toR'), tB = k('toB');
   const home = BALL13;
+  // the waiting ball hops on "13" and again on "quả này"
+  const hu = Math.max(k('t13') < 1 ? k('t13') : 0, k('hop'));
+  const hy = hopY(hu, 40);
   if (tR < 0.15 && s > 0) {
-    ball(svg, home[0], home[1], R * 1.4, BALL.white, { k: s });
-    L.text('?', home[0], home[1] + 22, { size: 66, color: THEME.tiles.ink, align: 'center', scale: s });
+    ball(svg, home[0], home[1] + hy, R * 1.4, BALL.white, { k: s, sq: hopSquash(hu) });
+    L.text('?', home[0], home[1] + hy + 22, { size: 66, color: THEME.tiles.ink, align: 'center', scale: s });
   }
   popLabel(L, `${TEXT.unit} thứ ${ANSWER}`, home[0] + 170, home[1] + 18, k('t13'), { size: 52, color: CHALK.yellow });
   // green is out: red cross over its tube
