@@ -194,8 +194,8 @@ function board(ctx, beat, p) {
   const aLv = lerp(A1, A0, easeOutCubic(clamp01((bk - 0.85) / 0.15))) * k;
   const bLv = lerp(B1, B0, easeOutCubic(clamp01(bk * 4))) * k;
   const sum = live(S('beat5', 'sum'));
-  const sA = bump(Math.max(live(S('beat4', 'up')), live(S('beat4', 'd2000')), live(S('beat5', 'a73')), sum), 0.1);
-  const sB = bump(Math.max(live(S('beat4', 'down')), live(S('beat5', 'b53')), sum), 0.1);
+  const sA = bump(Math.max(live(S('beat4', 'up')), live(S('beat4', 'd2000')), live(S('beat4', 'gap')), live(S('beat5', 'a73')), sum), 0.1);
+  const sB = bump(Math.max(live(S('beat4', 'down')), live(S('beat4', 'gap')), live(S('beat5', 'b53')), sum), 0.1);
   const d4 = S('beat4', 'd400');
   silo(svg, L2, xa, w, bottom, cap, aLv, { k: sk, s: sA, seed: 40, pinkLo: d4 > 0 ? bLv : null, label: TEXT.A });
   silo(svg, L2, xb, w, bottom, cap, bLv, { k: sk, s: sB, seed: 50, label: TEXT.B });
