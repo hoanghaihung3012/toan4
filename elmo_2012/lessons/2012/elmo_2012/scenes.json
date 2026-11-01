@@ -1,0 +1,69 @@
+{
+  "title": "ELMO 2012: Giải câu 41–50",
+  "youtube": {
+    "title": "ELMO 2012 | Giải đề Toán câu 41–50 | Học cùng Phượng",
+    "description": "Cùng Học cùng Phượng giải các câu 41–50 trong đề thi ELMO 2012. Bài học trình bày từng đề bài, phân tích quy luật và kiểm tra đáp án.",
+    "tags": [
+      "ELMO 2012",
+      "Toán lớp 4",
+      "Giải đề thi toán",
+      "Toán tư duy",
+      "Học cùng Phượng",
+      "HocCungPhuong",
+      "toán Olympiad"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "intro",
+      "title": "Học cùng Phượng"
+    },
+    {
+      "id": "scene1",
+      "title": "Câu 41 - Quy luật domino"
+    },
+    {
+      "id": "scene2",
+      "title": "Câu 42 - Đếm tam giác"
+    },
+    {
+      "id": "scene3",
+      "title": "Câu 43 - Hoàn thành bảng hình"
+    },
+    {
+      "id": "scene4",
+      "title": "Câu 44 - Tìm A, B và C"
+    },
+    {
+      "id": "scene5",
+      "title": "Câu 45 - Quy luật tô màu"
+    },
+    {
+      "id": "scene6",
+      "title": "Câu 46 - Ghép tam giác"
+    },
+    {
+      "id": "scene7",
+      "title": "Câu 47 - Hình xoay"
+    },
+    {
+      "id": "scene8",
+      "title": "Câu 48 - Đếm chữ số 0"
+    },
+    {
+      "id": "scene9",
+      "title": "Câu 49 - Mặt khối hộp"
+    },
+    {
+      "id": "scene10",
+      "title": "Câu 50 - Ảnh phản chiếu"
+    },
+    {
+      "id": "outro",
+      "title": "Cám ơn bạn đã xem"
+    }
+  ],
+  "bookends": {
+    "version": 1
+  }
+}

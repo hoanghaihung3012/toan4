@@ -1,0 +1,117 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2012/elmo_2012/scene1/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 31.633,
+ "profile": "landscape",
+ "audio": "./audio/voice.mp3",
+ "beats": [
+  {
+   "id": "beat1",
+   "start": 0,
+   "end": 9.067,
+   "windows": {
+    "title": [
+     0.938,
+     1.638,
+     "raw"
+    ],
+    "statement": [
+     2.4,
+     5.763,
+     "raw"
+    ],
+    "diagram": [
+     2.4,
+     5.763,
+     "raw"
+    ],
+    "think": [
+     5.763,
+     8.763,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "intro",
+   "start": 9.067,
+   "end": 12.367,
+   "prev": "beat1",
+   "windows": {
+    "wipe": [
+     9.067,
+     10.267,
+     "raw"
+    ],
+    "phrase": [
+     10.404,
+     11.767,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "beat2",
+   "start": 12.367,
+   "end": 25.2,
+   "prev": "intro",
+   "windows": {
+    "wipe": [
+     12.367,
+     13.567,
+     "raw"
+    ],
+    "heading": [
+     13.692,
+     14.492,
+     "raw"
+    ],
+    "steps": [
+     13.692,
+     24.404,
+     "raw"
+    ],
+    "diagram": [
+     13.692,
+     24.404,
+     "raw"
+    ]
+   }
+  },
+  {
+   "id": "answer",
+   "start": 25.2,
+   "end": 31.633,
+   "prev": "beat2",
+   "windows": {
+    "wipe": [
+     25.2,
+     26.4,
+     "raw"
+    ],
+    "heading": [
+     26.537,
+     27.338,
+     "raw"
+    ],
+    "result": [
+     26.537,
+     29.438,
+     "raw"
+    ],
+    "circle": [
+     26.537,
+     29.438,
+     "raw"
+    ],
+    "diagram": [
+     26.537,
+     29.438,
+     "raw"
+    ]
+   }
+  }
+ ]
+}

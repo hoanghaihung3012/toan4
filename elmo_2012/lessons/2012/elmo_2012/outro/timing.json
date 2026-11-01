@@ -1,0 +1,72 @@
+{
+ "_note": "Built from the voiceover by render/voice.mjs (lessons/2012/elmo_2012/outro/voice.json). Do not edit by hand.",
+ "draft": false,
+ "scene": "./scene.js",
+ "fps": 30,
+ "duration": 11.967,
+ "profile": "landscape",
+ "audio": "./audio/voice.mp3",
+ "beats": [
+  {
+   "id": "outro",
+   "start": 0,
+   "end": 11.967,
+   "prev": "from_prev",
+   "windows": {
+    "wipe": [
+     0,
+     1.2,
+     "raw"
+    ],
+    "bell": [
+     6.301,
+     7.501,
+     "raw"
+    ],
+    "portrait": [
+     1.2,
+     1.8
+    ],
+    "thanks": [
+     1.241,
+     3.49,
+     "raw"
+    ],
+    "subscribe": [
+     3.968,
+     4.918,
+     "raw"
+    ],
+    "name1": [
+     4.718,
+     5.718,
+     "raw"
+    ],
+    "name2": [
+     4.94,
+     5.94,
+     "raw"
+    ],
+    "name3": [
+     5.124,
+     6.374,
+     "raw"
+    ],
+    "underline": [
+     5.865,
+     6.765
+    ],
+    "notification": [
+     6.301,
+     7.603,
+     "raw"
+    ],
+    "reminder": [
+     8.166,
+     10.171,
+     "raw"
+    ]
+   }
+  }
+ ]
+}
