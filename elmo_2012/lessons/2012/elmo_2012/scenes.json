@@ -11,7 +11,34 @@
       "Học cùng Phượng",
       "HocCungPhuong",
       "toán Olympiad"
-    ]
+    ],
+    "thumbnail": {
+      "title": "ELMO 2012",
+      "subtitle": "Giải 10 câu khó: 41 – 50",
+      "highlight": "10 câu",
+      "art": [
+        {
+          "scene": "scene6",
+          "crop": [
+            640,
+            512,
+            640,
+            365
+          ],
+          "scale": 0.78
+        },
+        {
+          "scene": "scene5",
+          "crop": [
+            490,
+            585,
+            935,
+            235
+          ],
+          "scale": 0.66
+        }
+      ]
+    }
   },
   "scenes": [
     {
