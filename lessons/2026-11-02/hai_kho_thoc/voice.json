@@ -1,0 +1,114 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs hai_kho_thoc. Window = [anchor, duration | end-anchor, ease?, offset_s?]. Anchors: 'L3.word' (word start), 'L3.word>' (word end), 'L3.word#2' (2nd occurrence), 'L3^' / 'L3$' (line start / end), 'beat^' (beat start).",
+ "scene": "./scene.js",
+ "voice": "vi-VN-HoaiMyNeural",
+ "rate": "+8%",
+ "fps": 30,
+ "gap": 0.3,
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.3, "tail": 2.6,
+   "lines": [
+    { "id": "L1", "text": "Hai kho thóc chứa tất cả 12 tấn 6 tạ thóc." },
+    { "id": "L2", "text": "Nếu chuyển từ kho A sang kho B 80 yến thóc thì lúc này số thóc ở kho A vẫn nhiều hơn kho B là 4 tạ." },
+    { "id": "L3", "text": "Tính số ki-lô-gam thóc ở mỗi kho lúc đầu." }
+   ],
+   "windows": {
+    "q1": ["L1^", "L1$", "raw"],
+    "q2": ["L2^", "L2$", "raw"],
+    "q3": ["L3^", "L3$", "raw"],
+    "silo": ["L1.kho", 1.0, "raw"],
+    "tot": ["L1.12", 1.0, "raw"],
+    "move": ["L2.chuyển", 1.6, "raw"],
+    "diff": ["L2.4", 1.0, "raw"],
+    "ask": ["L3.mỗi", 1.0, "raw"],
+    "dots": ["L3$", 2.4, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.1, "tail": 0.6,
+   "sounds": [{ "id": "chalk_chime", "preset": "chalk_chime", "at": "L4^", "offset": -0.5 }],
+   "lines": [
+    { "id": "L4", "text": "Sau đây là cách giải." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "phrase": ["L4^", "L4$", "raw"]
+   }
+  },
+  {
+   "id": "beat3", "prev": "beat2", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L5", "text": "Đầu tiên, ta đổi ra ki-lô-gam." },
+    { "id": "L6", "text": "12 tấn 6 tạ bằng 12600 ki-lô-gam." },
+    { "id": "L7", "text": "80 yến bằng 800 ki-lô-gam, 4 tạ bằng 400 ki-lô-gam." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L5^", "L5$"],
+    "hint": ["L5.đổi", 1.2],
+    "r1": ["L6^", "L6$"],
+    "h1": ["L6.12600", 1.0, "raw"],
+    "r2": ["L7^", 1.6],
+    "h2": ["L7.800", 1.0, "raw"],
+    "r3": ["L7.4", "L7$"],
+    "h3": ["L7.400", 1.0, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "prev": "beat3", "lead": 1.0, "tail": 0.6,
+   "lines": [
+    { "id": "L8", "text": "Sau khi chuyển, kho A hơn kho B 400 ki-lô-gam." },
+    { "id": "L9", "text": "Trả 800 ki-lô-gam về lại kho A: kho A thêm 800, kho B bớt 800." },
+    { "id": "L10", "text": "Vậy lúc đầu kho A hơn kho B: 400 cộng 800 cộng 800 bằng 2000 ki-lô-gam." }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "silos": ["beat^", 1.2, "raw", 1.0],
+    "title": ["L8^", 1.0],
+    "d400": ["L8.400", 1.0, "raw"],
+    "back": ["L9^", 1.8, "raw"],
+    "up": ["L9.thêm", 0.9, "raw"],
+    "down": ["L9.bớt", 0.9, "raw"],
+    "gap": ["L10^", 1.2, "raw"],
+    "rd": ["L10.400", "L10$"],
+    "d2000": ["L10.2000", 1.0, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "lead": 0.4, "tail": 0.9,
+   "lines": [
+    { "id": "L11", "text": "Tổng hai kho vẫn là 12600 ki-lô-gam." },
+    { "id": "L12", "text": "Kho A có: 12600 cộng 2000, rồi chia 2, bằng 7300 ki-lô-gam." },
+    { "id": "L13", "text": "Kho B có: 12600 trừ 7300 bằng 5300 ki-lô-gam." }
+   ],
+   "windows": {
+    "sum": ["L11.12600", 1.2, "raw"],
+    "rA": ["L12^", "L12$"],
+    "a73": ["L12.7300", 1.0, "raw"],
+    "rB": ["L13^", "L13$"],
+    "b53": ["L13.5300", 1.0, "raw"],
+    "loop": ["L13$", 1.0, "raw", 0.1]
+   }
+  },
+  {
+   "id": "beat6", "prev": "beat5", "lead": 1.05, "tail": 0.3,
+   "lines": [
+    { "id": "L14", "text": "Đến lượt bạn: hai kho có tất cả 1000 ki-lô-gam." },
+    { "id": "L15", "text": "Chuyển 100 ki-lô-gam từ kho A sang kho B thì kho A vẫn hơn kho B 200 ki-lô-gam. Lúc đầu mỗi kho có bao nhiêu?" },
+    { "id": "L16", "text": "Bình luận đáp án nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L14^", 0.8],
+    "silo": ["L14.hai", 1.0, "raw"],
+    "t1": ["L14.1000", 1.0],
+    "mv": ["L15^", 1.4, "raw"],
+    "t2": ["L15.200", 1.0],
+    "ask": ["L15.Lúc", "L15$"],
+    "cmt": ["L16.Bình", 0.9],
+    "count": ["L16$", 2.6, "raw", 0.2]
+   }
+  }
+ ]
+}
