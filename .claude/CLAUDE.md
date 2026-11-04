@@ -1,5 +1,6 @@
 Rules:
 - The video must read with the sound off.
+- Shorts style v2 (2026-11-04): a hook in the first 3 s (the main expression or question big on the board, with a promise such as "mất 2 giây"); a one-line problem; short spoken lines; the ending is a question with no answer shown or spoken (3-2-1 and "Bình luận đáp án nhé!"). Voice for v2 Shorts: Vbee (`"provider": "vbee"` in voice.json, keys in `.env`).
 - Only use facts I give you or that you can source. No made-up numbers or claims.
 - Use text sparingly and integrate it into the world (painted, stamped, written) rather than overlaying it.
 - Generated images are references only. They never appear on screen; draw the video in code.

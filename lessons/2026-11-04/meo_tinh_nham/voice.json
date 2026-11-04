@@ -1,0 +1,122 @@
+{
+ "_note": "Voiceover script + where each animation window starts. Built by: node render/voice.mjs meo_tinh_nham. Window = [anchor, duration | end-anchor, ease?, offset_s?].",
+ "scene": "./scene.js",
+ "provider": "vbee",
+ "voice": "hn_female_ngochuyen_full_48k-fhg",
+ "speed": 1.1,
+ "fps": 30,
+ "gap": 0.25,
+ "youtube": {
+  "title": "4 mẹo tính nhẩm siêu tốc: nhân 11, nhân 9, chia 5",
+  "description": "43 × 11 trong 2 giây? 4 mẹo tính nhẩm: nhân với 11, số tận cùng là 5, nhân với 9, chia cho 5. Thử sức: 52 × 11 bằng bao nhiêu? Bình luận đáp án nhé!",
+  "tags": ["toán lớp 4", "mẹo tính nhẩm", "tính nhẩm nhanh", "nhân với 11", "toán tiểu học", "Shorts"]
+ },
+ "beats": [
+  {
+   "id": "beat1", "lead": 0.15, "tail": 0.5,
+   "lines": [
+    { "id": "L1", "text": "43 nhân 11. Bạn tính mất bao lâu?" },
+    { "id": "L2", "gap": 0.2, "text": "Mình chỉ cần 2 giây!" }
+   ],
+   "windows": {
+    "title": ["beat^", 1.0, "raw", 0.1],
+    "expr": ["beat^", 0.9, "raw"],
+    "watch": ["L1.mất", 0.9, "raw"],
+    "hand": ["L2.mình", "L2$", "raw"],
+    "lab": ["L2.2", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat2", "prev": "beat1", "lead": 1.0, "tail": 0.5,
+   "sounds": [{ "id": "chime", "preset": "chalk_chime", "at": "L3^", "offset": -0.5 }],
+   "lines": [
+    { "id": "L3", "text": "Mẹo một: nhân với 11." },
+    { "id": "L4", "text": "Tách 43 thành 4 và 3." },
+    { "id": "L5", "text": "Cộng hai số: 4 cộng 3 bằng 7." },
+    { "id": "L6", "text": "Viết 7 vào giữa: 473!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L3^", "L3$"],
+    "expr": ["L3.nhân", "L3$"],
+    "split": ["L4.thành", 0.9, "raw"],
+    "sum": ["L5.cộng", "L5$", "raw"],
+    "put": ["L6.viết", 1.3, "raw"],
+    "res": ["L6.giữa", "L6$"],
+    "loop": ["L6$", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat3", "prev": "beat2", "lead": 1.0, "tail": 0.5,
+   "sounds": [{ "id": "chime", "preset": "chalk_chime", "at": "L7^", "offset": -0.5 }],
+   "lines": [
+    { "id": "L7", "text": "Mẹo hai: số tận cùng là 5." },
+    { "id": "L8", "text": "35 nhân 35. Lấy 3 nhân với số liền sau là 4: được 12." },
+    { "id": "L9", "text": "Viết thêm 25 vào sau: 1225!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L7^", "L7.số>"],
+    "expr": ["L7.tận", 1.1, "raw"],
+    "pick": ["L8^", 0.8, "raw"],
+    "mul": ["L8.liền", "L8$"],
+    "put": ["L9.viết", 1.4, "raw"],
+    "res": ["L9.sau", "L9$"],
+    "loop": ["L9$", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat4", "prev": "beat3", "lead": 1.0, "tail": 0.5,
+   "sounds": [{ "id": "chime", "preset": "chalk_chime", "at": "L10^", "offset": -0.5 }],
+   "lines": [
+    { "id": "L10", "text": "Mẹo ba: nhân với 9." },
+    { "id": "L11", "text": "9 là 10 trừ 1." },
+    { "id": "L12", "text": "24 nhân 10 bằng 240." },
+    { "id": "L13", "text": "240 trừ 24 bằng 216!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L10^", "L10$"],
+    "expr": ["L10.nhân", 1.0, "raw"],
+    "r1": ["L11^", "L11$"],
+    "r2": ["L12^", "L12$"],
+    "r3": ["L13^", "L13$"],
+    "loop": ["L13$", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat5", "prev": "beat4", "lead": 1.0, "tail": 0.5,
+   "sounds": [{ "id": "chime", "preset": "chalk_chime", "at": "L14^", "offset": -0.5 }],
+   "lines": [
+    { "id": "L14", "text": "Mẹo bốn: chia cho 5." },
+    { "id": "L15", "text": "Nhân đôi: 85 nhân 2 bằng 170." },
+    { "id": "L16", "text": "Rồi chia 10: được 17!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L14^", "L14$"],
+    "expr": ["L14.chia", 1.0, "raw"],
+    "r1": ["L15^", "L15$"],
+    "r2": ["L16^", "L16$"],
+    "loop": ["L16$", 0.8, "raw"]
+   }
+  },
+  {
+   "id": "beat6", "prev": "beat5", "lead": 1.0, "tail": 1.0,
+   "sounds": [{ "id": "chime", "preset": "chalk_chime", "at": "L17^", "offset": -0.5 }],
+   "lines": [
+    { "id": "L17", "text": "Còn 52 nhân 11 thì sao?" },
+    { "id": "L18", "text": "Bạn tính mất mấy giây?" },
+    { "id": "L19", "gap": 3.2, "text": "Bình luận đáp án nhé!" }
+   ],
+   "windows": {
+    "wipe": ["beat^", 1.2, "raw"],
+    "title": ["L17^", 0.9, "raw"],
+    "expr": ["L17.52", "L17$", "raw"],
+    "q": ["L18^", 1.0, "raw"],
+    "count": ["L18$", 3.0, "raw", 0.15],
+    "cmt": ["L19^", "L19$"]
+   }
+  }
+ ]
+}

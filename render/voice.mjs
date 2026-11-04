@@ -2,6 +2,8 @@
 // with Edge TTS (render/tts_words.py) or, with "provider": "elevenlabs" in voice.json, ElevenLabs
 // (render/elevenlabs.mjs, key in ELEVENLABS_API_KEY; "voice" is the voice id, optional "model", "speed",
 // "stability", "similarity", "style"), cached per line, lays the lines out on one timeline,
+// or, with "provider": "vbee", Vbee (render/vbee.mjs, VBEE_API_ID + VBEE_TOKEN in .env; "voice" is the voice_code,
+// optional "speed"; word times are estimated), cached per line, lays the lines out on one timeline,
 // resolves each animation window from its word anchor and writes:
 //   <lesson folder>/audio/voice.wav   48 kHz stereo mix, loudness-normalised, peaks < -1 dBFS
 //   <lesson folder>/audio/cues.json   every word with its absolute time (for the sync check)
@@ -21,6 +23,7 @@ import { lessonDir } from './paths.mjs';
 import { perScene } from './long.mjs';
 import { generateSfx } from './sfx.mjs';
 import { synthEleven } from './elevenlabs.mjs';
+import { synthVbee } from './vbee.mjs';
 
 const args = parseArgs(process.argv.slice(2));
 const lesson = args._[0];
@@ -47,10 +50,11 @@ function estimate(line) {
 }
 
 const eleven = spec.provider === 'elevenlabs';
+const vbee = spec.provider === 'vbee';
 async function synth(line) {
   if (args.estimate) return estimate(line);
-  const settings = eleven ? [spec.model, spec.speed, spec.stability, spec.similarity, spec.style].join('|') : spec.rate;
-  const key = crypto.createHash('sha1').update(`${eleven ? 'el|' : ''}${spec.voice}|${settings}|${line.text}`).digest('hex').slice(0, 10);
+  const settings = eleven ? [spec.model, spec.speed, spec.stability, spec.similarity, spec.style].join('|') : vbee ? spec.speed : spec.rate;
+  const key = crypto.createHash('sha1').update(`${eleven ? 'el|' : vbee ? 'vb|' : ''}${spec.voice}|${settings}|${line.text}`).digest('hex').slice(0, 10);
   const mp3 = path.join(lineDir, `${line.id}.mp3`);
   const words = path.join(lineDir, `${line.id}.json`);
   const stamp = path.join(lineDir, `${line.id}.key`);
@@ -58,6 +62,10 @@ async function synth(line) {
   if ((!cached || args.force) && eleven) {
     await synthEleven({ voiceId: spec.voice, text: line.text, model: spec.model, speed: spec.speed,
       stability: spec.stability, similarity: spec.similarity, style: spec.style, mp3, words });
+    fs.writeFileSync(stamp, key);
+    console.log('tts', line.id, line.text);
+  } else if ((!cached || args.force) && vbee) {
+    await synthVbee({ voiceCode: spec.voice, text: line.text, speed: spec.speed, mp3, words });
     fs.writeFileSync(stamp, key);
     console.log('tts', line.id, line.text);
   } else if (!cached || args.force) {
